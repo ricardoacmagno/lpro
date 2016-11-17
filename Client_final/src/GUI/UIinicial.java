@@ -964,8 +964,13 @@ public class UIinicial extends javax.swing.JFrame {
             //System.out.println(password);
             //welcome1.setText("Welcome "+username+"!");
             backvalue = Inicial;
+<<<<<<< HEAD
         }/*
         setContentPane(Inicial);
+=======
+        }
+        /*setContentPane(Inicial);
+>>>>>>> origin/master
         invalidate();
         validate();
         backvalue=Inicial;*/
