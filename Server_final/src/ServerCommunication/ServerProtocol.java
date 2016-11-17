@@ -14,7 +14,9 @@ public class ServerProtocol extends Thread{
        stringUis = server.split("&");
        switch (stringUis[0]){
            case "Login": return handlerLogin(stringUis);
-           case "Signup": return handlerSignup(stringUis);
+           case "Signup": 
+               System.out.println(stringUis);
+               return handlerSignup(stringUis);
            default: return null;
        }
     }

@@ -31,7 +31,12 @@ public class User extends Thread {
     
     }
 
-     
+   /**
+    * 
+    * @param ack
+    * @throws IOException
+    * @throws InterruptedException 
+    */  
     public void sendData(String ack) throws IOException, InterruptedException{
         new Thread(){     
             @Override
@@ -86,11 +91,11 @@ public class User extends Thread {
         
         sleep(100);
         if(ack.equals("Login")) client.sendLogin(Username, Password);
-        else if (ack.equals("Signup"))  client.sendSignUp(Username, Password, Mail, Name);
+        else if (ack.equals("Signup"))  client.sendSignUp(Name, Mail, Username, Password);
 
         while(resultadoLogin==-1){
         
-           System.out.println("À ESPERA DA RESPOSTA DO SERVIDOR"); 
+           //System.out.println("À ESPERA DA RESPOSTA DO SERVIDOR"); 
            sleep(400);
         }
         interrupt();

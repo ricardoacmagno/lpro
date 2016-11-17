@@ -17,6 +17,8 @@ public final class UserDB extends PostgreSQLink{
     private Integer question;
     private String answer;
     
+    Statement statement = null;
+    
     public UserDB(String username) throws Exception  {
         this.username = username;
         this.getLine();
@@ -24,7 +26,7 @@ public final class UserDB extends PostgreSQLink{
     public void getLine(){
         PostgreSQLink.connect();
         try {
-            Statement statement = getConnection().createStatement();
+           statement = getConnection().createStatement();
 
             ResultSet results = statement.executeQuery("SELECT password FROM signuplpro WHERE username = '"+this.username+"';");
             if (results.next()){
@@ -45,7 +47,7 @@ public final class UserDB extends PostgreSQLink{
     
     public Boolean getEmail(String email){
         try {
-            Statement statement = getConnection().createStatement();
+           // Statement statement = getConnection().createStatement();
 
             ResultSet results = statement.executeQuery("SELECT username FROM signuplpro WHERE email = '"+email+"';");
             if (results.next()){
@@ -58,11 +60,17 @@ public final class UserDB extends PostgreSQLink{
     }
     
     public void newLine(String Username, String Password, String Name, String Mail){
-        Statement statement;
+        //Statement statement2;
+        System.out.println(Username);
+        System.out.println(Password);
+        System.out.println(Name);
+        System.out.println(Mail);
+        
         
         try {
             statement = getConnection().createStatement();
-            statement.executeQuery("INSERT INTO signuplpro (name, email, username, password) VALUES ('"+Name+"','"+Mail+"', '"+Username+"', '"+Password+"', DEFAULT)");
+            System.out.println("statemente ="  + statement);
+            statement.executeQuery("INSERT INTO 'signuplpro'  (name, email, username, password) VALUE ('"+Name+"','"+Mail+"','"+Username+"','"+Password+"')");  //"' DEFAULT");
         }
         catch (Exception ex) {
             if(!ex.getMessage().equals("No results were returned by the query."))

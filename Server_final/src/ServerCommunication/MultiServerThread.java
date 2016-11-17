@@ -31,11 +31,15 @@ public class MultiServerThread extends Thread{
 
         if ((inputLine = in.readLine()) != null){
             uno = kappakappakappa.getData(inputLine);
+            System.out.println("inputline"  +  inputLine);
         }    
           System.out.println(Arrays.toString(uno));
           switch (state){
               case 0:
-                  if(uno[0].equals("Login"))    state=1;
+                  if(uno[0].equals("Login")) {
+                      System.out.println("HEEEEEEEEEEEEEEEEELP");
+                      state=1;
+                  }
                   else if (uno[0].equals("Signup")) state=2;
               case 1:
                   if(uno[1].equals("FailedConnection")){

@@ -11,11 +11,6 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/ricar/Documents/NetBeansProjects/Server_final/src/LogicServer/User.java</file>
-            <file>file:/C:/Users/ricar/Documents/NetBeansProjects/Server_final/src/ServerCommunication/MultiServerThread.java</file>
-            <file>file:/C:/Users/ricar/Documents/NetBeansProjects/Server_final/src/ServerCommunication/ServerProtocol.java</file>
-            <file>file:/C:/Users/ricar/Documents/NetBeansProjects/Server_final/src/DataBase/UserDB.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

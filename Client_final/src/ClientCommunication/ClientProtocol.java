@@ -51,7 +51,7 @@ public class ClientProtocol  {
     
     public  void sendSignUp(String name, String mail, String username, String password){
         if(connect==false) connection();
-        String message = "Signup&"+username+"&"+password+"&"+name+"&"+mail;
+        String message = "Signup&"+username+"&"+mail+"&"+password+"&"+name;
                     try {
                         clientSocket.toSend(message);
                     } catch (IOException ex) {

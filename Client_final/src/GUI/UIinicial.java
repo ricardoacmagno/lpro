@@ -920,7 +920,7 @@ public class UIinicial extends javax.swing.JFrame {
 
     private void login2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login2ActionPerformed
         // TODO add your handling code here:
-        /*if(jPasswordSignup.getText().isEmpty()||emailTextSignup.getText().isEmpty()||usernameTextSignup.getText().isEmpty()||usernameTextSignup1.getText().isEmpty())
+        if(jPasswordSignup.getText().isEmpty()||emailTextSignup.getText().isEmpty()||usernameTextSignup.getText().isEmpty()||usernameTextSignup1.getText().isEmpty())
         jOptionPane1.showMessageDialog(null,"Empty parameters");
         else{
             username=usernameTextSignup.getText();
@@ -964,11 +964,11 @@ public class UIinicial extends javax.swing.JFrame {
             //System.out.println(password);
             //welcome1.setText("Welcome "+username+"!");
             backvalue = Inicial;
-        }*/
+        }/*
         setContentPane(Inicial);
         invalidate();
         validate();
-        backvalue=Inicial;
+        backvalue=Inicial;*/
     }//GEN-LAST:event_login2ActionPerformed
 
     private void JoinGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JoinGameActionPerformed
