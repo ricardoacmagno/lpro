@@ -11,6 +11,13 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/ilia-/Documents/NetBeansProjects/LPRO1633/lpro/Server_final/src/DataBase/UserDB.java</file>
+            <file>file:/C:/Users/ilia-/Documents/NetBeansProjects/LPRO1633/lpro/Server_final/src/ServerCommunication/MultiServerThread.java</file>
+            <file>file:/C:/Users/ilia-/Documents/NetBeansProjects/LPRO1633/lpro/Server_final/src/ServerCommunication/ServerProtocol.java</file>
+            <file>file:/C:/Users/ilia-/Documents/NetBeansProjects/LPRO1633/lpro/Server_final/src/LogicServer/User.java</file>
+            <file>file:/C:/Users/ilia-/Documents/NetBeansProjects/LPRO1633/lpro/Server_final/src/DataBase/PostgreSQLink.java</file>
+            <file>file:/C:/Users/ilia-/Documents/NetBeansProjects/LPRO1633/lpro/Server_final/src/ServerCommunication/MultiServer.java</file>
+        </group>
     </open-files>
 </project-private>

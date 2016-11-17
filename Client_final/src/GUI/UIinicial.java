@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import LogicClient.MD5_hash;
 import LogicClient.User;
 import ClientCommunication.SocketClient;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -917,7 +919,13 @@ public class UIinicial extends javax.swing.JFrame {
     private void AnswerQuestionSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnswerQuestionSignupActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_AnswerQuestionSignupActionPerformed
+public static final Pattern VALID_EMAIL_ADDRESS_REGEX = 
+    Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
+public static boolean validate(String emailStr) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(emailStr);
+        return matcher.find();
+}
     private void login2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login2ActionPerformed
         // TODO add your handling code here:
         if(jPasswordSignup.getText().isEmpty()||emailTextSignup.getText().isEmpty()||usernameTextSignup.getText().isEmpty()||usernameTextSignup1.getText().isEmpty())
@@ -929,10 +937,13 @@ public class UIinicial extends javax.swing.JFrame {
                 jOptionPane1.showMessageDialog(null, "Invalid caracter '&'");
                 return;
             }
-            String regex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
-            //if(emailTextSignup.getText().matches(regex))    mail=emailTextSignup.getText();
-            mail=emailTextSignup.getText();
-            //else    jOptionPane1.showMessageDialog(null, "Invalid mail");
+            if(validate(emailTextSignup.getText())) {   
+                mail=emailTextSignup.getText();
+            }
+            else { 
+                jOptionPane1.showMessageDialog(null, "Invalid mail");
+                 }
+            
             jOptionPane1.setVisible(false);
             password=MD5_hash.MD5_hash(jPasswordInicial.getText());
             System.out.println("Username: " + username);
@@ -964,7 +975,7 @@ public class UIinicial extends javax.swing.JFrame {
             //System.out.println(password);
             //welcome1.setText("Welcome "+username+"!");
             backvalue = Inicial;
-<<<<<<< HEAD
+
         }/*
         setContentPane(Inicial);
 =======

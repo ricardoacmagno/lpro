@@ -76,10 +76,6 @@ public class User {
     }
     
     public static void sendSignup(String[] data){
-        System.out.println("DATA1" + data[1]);
-        System.out.println("DATA3" +data[3]);
-        System.out.println("DATA4" +data[4]);
-        System.out.println("DATA2" +data[2]);
         userData.newLine(data[1], data[3], data[4], data[2]);   //Manda primeiro o Username, Password, Nome e Email
     }
 }
