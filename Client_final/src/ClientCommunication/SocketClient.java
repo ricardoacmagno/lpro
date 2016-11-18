@@ -12,14 +12,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author ilia-
+ * SocketClient represents the client side of the Client-Server connection
+ * Responsible for starting this connection
+ * 
+ * @author ilia
  */
 public class SocketClient extends Socket {
     private  Socket kkSocket = null;
     private  PrintWriter out = null;
     private  BufferedReader in = null;
 
+    /**
+     * Initializes the connection.
+     * @throws IOException 
+     */
      public  void openSocket() throws IOException {
      try {
          kkSocket = new Socket("localhost", 1633);
@@ -34,7 +40,12 @@ public class SocketClient extends Socket {
       }
    }
      
-    //METHOD TO RECEIVE RESPONSES FROM SERVER   
+     /**
+      * Method responsible for receiving responses from the server
+      * @return String with what was read from the server
+      * @throws IOException 
+      */
+    
      public String received () throws IOException{
             String fromServer=null;
         try {
@@ -48,14 +59,19 @@ public class SocketClient extends Socket {
         return fromServer;
      }
      
-     
-     
-    //METHOD TO SEND RESPONSES TO SERVER
+     /**
+      * Method responsible for sending response strings to the server
+      * @param fromUser String with information to send
+      * @throws IOException 
+      */
     public void toSend(String fromUser) throws IOException{
             out = new PrintWriter(kkSocket.getOutputStream(), true);
             if (fromUser != null)   out.println(fromUser);
     }
     
+    /**
+     * Method responsible for closing the connection and all its communication ports    
+     */
     @Override
     public void close(){
        try{
