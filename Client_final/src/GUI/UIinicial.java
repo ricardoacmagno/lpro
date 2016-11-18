@@ -46,6 +46,7 @@ public class UIinicial extends javax.swing.JFrame {
         usernameTextSignup.setText("Enter username...");
         jPasswordSignup.setText("Password");
         AnswerQuestionSignup.setText("Answer Here...");
+        usernameTextSignup1.setText("Enter name...");
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select your question here...", "Item1", "Item2", "ItemN" }));
     }
     private void ForgotPasswordSetDefault(){
@@ -1212,6 +1213,7 @@ public static boolean validate(String emailStr) {
 
     private void usernameTextSignup1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameTextSignup1FocusGained
         // TODO add your handling code here:
+        usernameTextSignup1.setText("");
     }//GEN-LAST:event_usernameTextSignup1FocusGained
 
     private void usernameTextSignup1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameTextSignup1ActionPerformed
