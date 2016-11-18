@@ -1,10 +1,15 @@
 package LogicClient;
 
 /**
- *
+ * <code>MD5_has</code> is the hash creator to encode the password
  * @author ricar
  */
 public class MD5_hash {
+    /**
+     * Responsible for the hash creation
+     * @param md5   Receives the password
+     * @return String containing the hash created
+     */
     public static String MD5_hash(String md5){
     try {
         java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
