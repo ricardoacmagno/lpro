@@ -951,13 +951,13 @@ public static boolean validate(String emailStr) {
             System.out.println("Hash: " + password);
             System.out.println("Name: " + name);
             System.out.println("Email: " + email);
-            if (user!=null){
+            /*if (user!=null){
                 try {
                     user.join();
                 } catch (InterruptedException ex) {
                     Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
+            }*/
             user=new User(username, password, mail, name);
             System.out.println(user);
             try {
@@ -1168,13 +1168,13 @@ public static boolean validate(String emailStr) {
             password=MD5_hash.MD5_hash(jPasswordInicial.getText());
             System.out.println("Username: " + username);
             System.out.println("Hash: " + password);
-            if (user!=null){
+            /*if (user!=null){
                 try {
                     user.join();
                 } catch (InterruptedException ex) {
                     Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
+            }*/
             user=new User(username, password, null, null);
             System.out.println(user);
             try {
