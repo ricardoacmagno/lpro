@@ -12,7 +12,7 @@ import ClientCommunication.ClientProtocol;
  */
 public class User{
     
-    //FAZER AS VERIFICAÇOES DO QUE ENVIA E DO QUE RECEBER
+    //FAZER AS VERIFICAÇOES DO QUE ENVIA E DO QUE RECEBE
     private String Username = null;
     private String Password = null;
     private String Mail = null;
@@ -20,8 +20,13 @@ public class User{
     private int resultadoLogin=-1;
     ClientProtocol client;
 
-   
-
+   /**
+    * Constructor
+    * @param Username
+    * @param Password
+    * @param Mail
+    * @param Name 
+    */
     public User(String Username, String Password, String Mail, String Name){
         this.Username = Username;
         this.Password = Password;
@@ -32,8 +37,9 @@ public class User{
     }
 
    /**
-    * 
-    * @param ack
+    * <code>sendData()</code> is responsible for invoking the protocol, sending the necessary data
+    * Also responsible for identifying if the information was correctly acknowledged by the database or if an error occurred 
+    * @param ack    Flag to identify what type of information is being sent
     * @throws IOException
     * @throws InterruptedException 
     */  
@@ -104,6 +110,11 @@ public class User{
     
     }*/
     
+    /**
+     * <code>getResultadoLogin()</code> serves to send the result of the verification made in <code>sendData()</code>
+     * @return  identifier from what was received
+     * @throws InterruptedException 
+     */
     public int getResultadoLogin() throws InterruptedException{
         return resultadoLogin;
     }
