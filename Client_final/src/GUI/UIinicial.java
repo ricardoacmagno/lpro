@@ -160,6 +160,11 @@ public class UIinicial extends javax.swing.JFrame {
                 jPasswordSignupFocusGained(evt);
             }
         });
+        jPasswordSignup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordSignupActionPerformed(evt);
+            }
+        });
 
         usernameTextSignup.setText("Enter username...");
         usernameTextSignup.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -946,7 +951,7 @@ public static boolean validate(String emailStr) {
                  }
             
             jOptionPane1.setVisible(false);
-            password=MD5_hash.MD5_hash(jPasswordInicial.getText());
+            password=MD5_hash.MD5_hash(jPasswordSignup.getText());
             System.out.println("Username: " + username);
             System.out.println("Hash: " + password);
             System.out.println("Name: " + name);
@@ -1212,6 +1217,10 @@ public static boolean validate(String emailStr) {
     private void usernameTextSignup1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameTextSignup1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_usernameTextSignup1ActionPerformed
+
+    private void jPasswordSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordSignupActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordSignupActionPerformed
 
     /**
      * @param args the command line arguments
