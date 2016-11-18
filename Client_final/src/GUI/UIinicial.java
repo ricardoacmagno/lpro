@@ -942,6 +942,7 @@ public static boolean validate(String emailStr) {
             }
             else { 
                 jOptionPane1.showMessageDialog(null, "Invalid mail");
+                return;
                  }
             
             jOptionPane1.setVisible(false);
