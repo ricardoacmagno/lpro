@@ -13,7 +13,9 @@ public class Board {
     char letters[] = new char[10];
     int numbers[] = new int[10];
     public Board(){
-        initBoard(); 
+        initBoard();
+        
+        
     }
     private void initBoard(){
         System.out.print(" ");
@@ -26,6 +28,11 @@ public class Board {
             System.out.println(letters[c]);
             
         }
+        boat carrier=new boat(5);
+        boat battleship=new boat(4);
+        boat cruiser=new boat(3);
+        boat submarine=new boat(3);
+        boat destroyer=new boat(2);
     }
     
 }

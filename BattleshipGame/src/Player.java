@@ -10,11 +10,12 @@
  */
 public class Player {
     String name = new String();
+    int id;
+    boolean firsttoplay;
     Player(String name){
         this.name=name;
+        firsttoplay=false;
     }
-    
-    
-    
+       
     
 }
