@@ -13,7 +13,7 @@ public class BattleshipGame {
     private static int result;
     private static final int heads = 0;
     private static final int tails = 1;
-
+//teste
     /**
      * @param args the command line arguments
      */
