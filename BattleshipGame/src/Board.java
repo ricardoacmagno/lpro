@@ -9,30 +9,40 @@
  * @author francisco
  */
 public class Board {
-    char boardtable[][] = new char[10][10];
+    public char boardtable[][] = new char[10][10];
     char letters[] = new char[10];
     int numbers[] = new int[10];
+    Player player;
     public Board(){
-        initBoard();
-        
-        
+        initBoard();    
     }
     private void initBoard(){
-        System.out.print(" ");
         for(int c = 0 ; c < 10 ; c++){
-            System.out.print(c);
             letters[c] = (char) ('A' + c);
+        }
+        for(int c = 0 ; c < 10 ; c++){
+            for(int i = 0 ; i < 10 ; i++)
+                boardtable[c][i]='~';
+            
+        }
+    }
+    public void printBoard(){
+        System.out.println();
+        for(int c = 1 ; c <= 10 ; c++){
+            System.out.print(" "+c);
         }
         System.out.println();
         for(int c = 0 ; c < 10 ; c++){
-            System.out.println(letters[c]);
-            
+            System.out.print(letters[c]);
+            for(int i = 0 ; i < 10 ; i++){
+                if(i==0)
+                    System.out.print(boardtable[c][i]);
+                else
+                    System.out.print(" "+boardtable[c][i]);
+            }
+            System.out.println();
         }
-        boat carrier=new boat(5);
-        boat battleship=new boat(4);
-        boat cruiser=new boat(3);
-        boat submarine=new boat(3);
-        boat destroyer=new boat(2);
+        System.out.println();
     }
     
 }

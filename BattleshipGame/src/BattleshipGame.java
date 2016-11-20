@@ -13,13 +13,23 @@ public class BattleshipGame {
     private static int result;
     private static final int heads = 0;
     private static final int tails = 1;
-//teste
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Board board = new Board();
+        game();
+            
+    }
+    public static int flip() {
+        result = randomNum.nextInt(2);
+        if (result == heads) {
+            return heads;
+        } else {
+            return tails;
+        }
+    }
+    public static void game(){
         String name1 = "player1";
         String name2 = "player2";
         Player player1 = new Player(name1);
@@ -29,22 +39,22 @@ public class BattleshipGame {
         if(flip()==heads){
             player1.firsttoplay=true;
             System.out.println("Player 1 first to play!");
-          
+            System.out.println("Place your ships in this board...");
+            player1.printShipBoard();
+            player1.placeBoats();
+            System.out.println("Player 2 second to play!");
+            System.out.println("Place your ships in this board...");
+            player2.printShipBoard();
+            player2.placeBoats();
         }
         else{
             player2.firsttoplay=true;
             System.out.println("Player 2 first to play!");
+            System.out.println("Place your ships in this board...");
+            player2.printShipBoard();
+            player2.placeBoats();
         }
         
-    }
-    public static int flip() {
-        result = randomNum.nextInt(2);
-        System.out.println(result);
-        if (result == heads) {
-            return heads;
-        } else {
-            return tails;
-        }
     }
     
 }
