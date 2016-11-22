@@ -18,18 +18,18 @@ public class BattleshipGame {
     private static int tails;
     public static Player player1;
     public static Player player2;
+    public static Player errorplayer;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        TurnNr=0;
-        heads=0;
-        tails=1;
+        TurnNr = 0;
+        heads = 0;
+        tails = 1;
+        errorplayer = new Player("Error");
         game();
-        startgame();
-
     }
 
     public static int flip() {
@@ -58,6 +58,8 @@ public class BattleshipGame {
             System.out.println("Place your ships in this board...");
             player2.printShipBoard();
             player2.placeBoats();
+            Player winner = startgame(player1, player2);
+            System.out.println("And the winner is " + winner.name + "!");
         } else {
             player2.firsttoplay = true;
             System.out.println("Player 2 first to play!");
@@ -68,70 +70,57 @@ public class BattleshipGame {
             System.out.println("Place your ships in this board...");
             player1.printShipBoard();
             player1.placeBoats();
+            Player winner = startgame(player2, player1);
+            System.out.println("And the winner is " + winner.name + "!");
         }
     }
-    public static Player startgame(){
-        if(player1.firsttoplay){
-            while(player2.getWinner()==false && player1.getWinner()==false){
+
+    public static Player startgame(Player play1st, Player play2nd) {
+        if (play1st.firsttoplay) {
+            while (play2nd.getWinner() == false && play2nd.getWinner() == false) {
                 TurnNr++;
-                player1.turn();
-                if(player2.ShipBoard.boardtable[player1.realr][player1.realc]=='S'){
-                    player1.HitBoard.boardtable[player1.realr][player1.realc]='H';
-                    player2.ShipBoard.boardtable[player1.realr][player1.realc]='H';
+                play1st.turn();
+                if (play2nd.checkShipBoard(play1st.getY(), play1st.getX(), 'S')) {
+                    play1st.setHitBoard(play1st.getY(), play1st.getX(), 'H');
+                    play2nd.setShipBoard(play1st.getY(), play1st.getX(), 'H');
+                    play1st.hit();
+                } else if (play2nd.checkShipBoard(play1st.getY(), play1st.getX(), '~')) {
+                    play1st.setHitBoard(play1st.getY(), play1st.getX(), 'M');
+                    play2nd.setShipBoard(play1st.getY(), play1st.getX(), 'M');
+                    play1st.miss();
                 }
-                else{
-                    player1.HitBoard.boardtable[player1.realr][player1.realc]='M';
-                }    
-                player1.ShipBoard.printBoard();
-                player1.HitBoard.printBoard();  
-                if(!(player2.getWinner()==false && player1.getWinner()==false))
+                play1st.printShipBoard();
+                play1st.printHitBoard();
+                if (play1st.checkWinner()) {
+                    play1st.setWinner();
                     break;
-                player2.turn();
-                if(player1.ShipBoard.boardtable[player2.realr][player2.realc]=='S'){
-                    player2.HitBoard.boardtable[player2.realr][player2.realc]='H';
-                    player1.ShipBoard.boardtable[player2.realr][player2.realc]='H';
                 }
-                else{
-                    player2.HitBoard.boardtable[player2.realr][player2.realc]='M';
-                    player1.ShipBoard.boardtable[player2.realr][player2.realc]='M';
-                }    
-                player2.ShipBoard.printBoard();
-                player2.HitBoard.printBoard();
-            }
-                
-        }
-        else{
-            while(player2.getWinner()==false && player1.getWinner()==false){
-                TurnNr++;
-                player2.turn();
-                if(player1.ShipBoard.boardtable[player2.realr][player2.realc]=='S'){
-                    player2.HitBoard.boardtable[player2.realr][player2.realc]='H';
-                    player1.ShipBoard.boardtable[player2.realr][player2.realc]='H';
+                play2nd.turn();
+                if (play1st.checkShipBoard(play2nd.getY(), play2nd.getX(), 'S')) {
+                    play2nd.setHitBoard(play2nd.getY(), play2nd.getX(), 'H');
+                    play1st.setShipBoard(play2nd.getY(), play2nd.getX(), 'H');
+                    play2nd.hit();
+                } else if (play1st.checkShipBoard(play2nd.getY(), play2nd.getX(), '~')) {
+                    play2nd.setHitBoard(play2nd.getY(), play2nd.getX(), 'M');
+                    play1st.setShipBoard(play2nd.getY(), play2nd.getX(), 'M');
+                    play2nd.miss();
                 }
-                else{
-                    player2.HitBoard.boardtable[player2.realr][player2.realc]='M';
-                    player1.ShipBoard.boardtable[player2.realr][player2.realc]='M';
-                }    
-                player2.ShipBoard.printBoard();
-                player2.HitBoard.printBoard();
-                if(!(player2.getWinner()==false && player1.getWinner()==false))
+                play2nd.printShipBoard();
+                play2nd.printHitBoard();
+                if (play2nd.checkWinner()) {
+                    play2nd.setWinner();
                     break;
-                player1.turn();
-                if(player2.ShipBoard.boardtable[player1.realr][player1.realc]=='S'){
-                    player1.HitBoard.boardtable[player1.realr][player1.realc]='H';
-                    player2.ShipBoard.boardtable[player1.realr][player1.realc]='H';
                 }
-                else{
-                    player1.HitBoard.boardtable[player1.realr][player1.realc]='M';
-                }    
-                player1.ShipBoard.printBoard();
-                player1.HitBoard.printBoard(); 
             }
-            
+
+        } else {
+            System.out.println("Error getting 1st to play player!");
         }
-        if(player1.getWinner())
-            return player1;
-        else
-            return player2;
+        if (play1st.getWinner()) {
+            return play1st;
+        } else if (play2nd.getWinner()) {
+            return play2nd;
+        }
+        return errorplayer;
     }
 }

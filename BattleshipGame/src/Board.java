@@ -31,6 +31,15 @@ public class Board {
         }
     }
 
+    public void setBoard(int y, int x, char c) {
+        boardtable[y][x] = c;
+    }
+
+    public boolean checkBoard(int y, int x, char c) {
+        return c == boardtable[y][x];
+
+    }
+
     public void printBoard() {
         System.out.println();
         for (int c = 1; c <= 10; c++) {

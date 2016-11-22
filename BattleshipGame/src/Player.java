@@ -17,6 +17,8 @@ public class Player {
     boolean firsttoplay;
     boolean winner;
     int playNr;
+    int hitcount;
+    int misscount;
     public int realc;
     public int realr;
     public Ship carrier;
@@ -28,9 +30,12 @@ public class Player {
     public Board HitBoard;
     Scanner textscanner = new Scanner(System.in);
     Scanner intscanner = new Scanner(System.in);
+
     Player(String name) {
         this.name = name;
-        playNr=0;
+        playNr = 0;
+        hitcount = 0;
+        misscount = 0;
         firsttoplay = false;
         winner = false;
         carrier = new Ship(5, 5, "Carrier");
@@ -42,8 +47,40 @@ public class Player {
         HitBoard = new Board();
     }
 
+    public void hit() {
+        hitcount++;
+    }
+
+    public void miss() {
+        misscount++;
+    }
+
+    public boolean checkWinner() {
+        return hitcount >= 17;
+    }
+
     public void printShipBoard() {
         ShipBoard.printBoard();
+    }
+
+    public void printHitBoard() {
+        HitBoard.printBoard();
+    }
+
+    public boolean checkHitBoard(int y, int x, char c) {
+        return HitBoard.checkBoard(y, x, c);
+    }
+
+    public boolean checkShipBoard(int y, int x, char c) {
+        return ShipBoard.checkBoard(y, x, c);
+    }
+
+    public void setHitBoard(int y, int x, char c) {
+        HitBoard.setBoard(y, x, c);
+    }
+
+    public void setShipBoard(int y, int x, char c) {
+        ShipBoard.setBoard(y, x, c);
     }
 
     public void placeBoats() {
@@ -59,20 +96,44 @@ public class Player {
         printShipBoard();
 
     }
-    boolean getWinner(){
+
+    public void setWinner() {
+        winner = true;
+    }
+
+    boolean getWinner() {
         return winner;
     }
-    public void turn(){
+
+    public void turn() {
         ShipBoard.printBoard();
         HitBoard.printBoard();
-        System.out.println(name+" turn to play, choose letter and number:");
+        System.out.println(name + " turn to play, choose letter and number:");
         String row = textscanner.nextLine();
+        while (!(row.charAt(0) >= 'A' && row.charAt(0) <= 'J')) {
+            System.out.println("Bad letter");
+            row = textscanner.nextLine();
+        }
         int collumn = intscanner.nextInt();
-        realc=collumn-1;
-        realr=(int) row.charAt(0) - 'A';
-        System.out.println("Hiting "+realr+realc );
-        
+        while (!(collumn >= 1 && collumn <= 10)) {
+            System.out.println("Bad number");
+            collumn = intscanner.nextInt();
+        }
+        realc = collumn - 1;
+        realr = (int) row.charAt(0) - 'A';
+
+        System.out.println("Hiting " + row.charAt(0) + collumn);
+
     }
+
+    public int getX() {
+        return realc;
+    }
+
+    public int getY() {
+        return realr;
+    }
+
     private void place(Ship ship) {
         System.out.print("Placing your " + ship.getName() + ": ");
         ship.print();
@@ -82,7 +143,6 @@ public class Player {
             int collumn = intscanner.nextInt();
             String mode = textscanner.nextLine();
             System.out.println(row + collumn + " " + mode);
-            int counter = 0;
             boolean allowed = true;
             if (row.charAt(0) >= 'A' && row.charAt(0) <= 'J' && collumn >= 1 && collumn <= 10 && (mode.charAt(0) == 'V' || mode.charAt(0) == 'H')) {
                 int size = ship.getSize();
@@ -92,13 +152,13 @@ public class Player {
                     System.out.println(end);
                     if (end <= 'K') {
                         for (int c = rownr; c < rownr + size; c++) {
-                            if (ShipBoard.boardtable[c][collumn - 1] == 'S') {
+                            if (ShipBoard.checkBoard(c, collumn - 1, 'S')) {
                                 allowed = false;
                             }
                         }
                         if (allowed == true) {
                             for (int c = rownr; c < rownr + size; c++) {
-                                ShipBoard.boardtable[c][collumn - 1] = 'S';
+                                ShipBoard.setBoard(c, collumn - 1, 'S');
                             }
                             ship.place();
                         }
@@ -108,13 +168,13 @@ public class Player {
                     int endc = collumn + size;
                     if (endc <= 11) {
                         for (int c = collumn - 1; c < collumn - 1 + size; c++) {
-                            if (ShipBoard.boardtable[rownr][c] == 'S') {
+                            if (ShipBoard.checkBoard(rownr, c, 'S')) {
                                 allowed = false;
                             }
                         }
                         if (allowed == true) {
                             for (int c = collumn - 1; c < collumn - 1 + size; c++) {
-                                ShipBoard.boardtable[rownr][c] = 'S';
+                                ShipBoard.setBoard(rownr, c, 'S');
                             }
                             ship.place();
                         }
