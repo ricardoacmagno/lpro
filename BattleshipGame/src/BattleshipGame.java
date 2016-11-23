@@ -5,10 +5,7 @@
  */
 import java.util.Random;
 
-/**
- *
- * @author francisco
- */
+
 public class BattleshipGame {
 
     static Random randomNum = new Random();

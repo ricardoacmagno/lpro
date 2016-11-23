@@ -4,10 +4,7 @@
  * and open the template in the editor.
  */
 
-/**
- *
- * @author francisco
- */
+
 public class Ship {
 
     private final int size;

@@ -4,10 +4,6 @@
  * and open the template in the editor.
  */
 
-/**
- *
- * @author francisco
- */
 public class Board {
 
     public char boardtable[][] = new char[10][10];
