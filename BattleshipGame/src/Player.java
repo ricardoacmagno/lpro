@@ -80,18 +80,12 @@ public class Player {
         ShipBoard.setBoard(y, x, c);
     }
 
-    public void placeBoats() {
-        place(destroyer);
+    public void placeShip(Ship boat, int y, int x){
+        for(int c=x;c<(x+boat.getSize());c++){
+           setShipBoard(y,c,'S');
+        }
+        boat.place();
         printShipBoard();
-        place(submarine);
-        printShipBoard();
-        place(cruiser);
-        printShipBoard();
-        place(battleship);
-        printShipBoard();
-        place(carrier);
-        printShipBoard();
-
     }
 
     public void setWinner() {
@@ -130,60 +124,5 @@ public class Player {
     public int getY() {
         return realr;
     }
-
-    private void place(Ship ship) {
-        System.out.print("Placing your " + ship.getName() + ": ");
-        ship.print();
-        System.out.println("Choose the begginning grid position and if you want to place in horizontal or vertical!");
-        while (ship.getPlaced() == false) {
-            String row = textscanner.nextLine();
-            int collumn = intscanner.nextInt();
-            String mode = textscanner.nextLine();
-            System.out.println(row + collumn + " " + mode);
-            boolean allowed = true;
-            if (row.charAt(0) >= 'A' && row.charAt(0) <= 'J' && collumn >= 1 && collumn <= 10 && (mode.charAt(0) == 'V' || mode.charAt(0) == 'H')) {
-                int size = ship.getSize();
-                int rownr = row.charAt(0) - 'A';
-                if (mode.charAt(0) == 'V') {
-                    char end = (char) (row.charAt(0) + size);
-                    System.out.println(end);
-                    if (end <= 'K') {
-                        for (int c = rownr; c < rownr + size; c++) {
-                            if (ShipBoard.checkBoard(c, collumn - 1, 'S')) {
-                                allowed = false;
-                            }
-                        }
-                        if (allowed == true) {
-                            for (int c = rownr; c < rownr + size; c++) {
-                                ShipBoard.setBoard(c, collumn - 1, 'S');
-                            }
-                            ship.place();
-                        }
-
-                    }
-                } else if (mode.charAt(0) == 'H') {
-                    int endc = collumn + size;
-                    if (endc <= 11) {
-                        for (int c = collumn - 1; c < collumn - 1 + size; c++) {
-                            if (ShipBoard.checkBoard(rownr, c, 'S')) {
-                                allowed = false;
-                            }
-                        }
-                        if (allowed == true) {
-                            for (int c = collumn - 1; c < collumn - 1 + size; c++) {
-                                ShipBoard.setBoard(rownr, c, 'S');
-                            }
-                            ship.place();
-                        }
-                    }
-                }
-
-            }
-            if (ship.getPlaced() == false) {
-                System.out.println("Couldn't place your ship, try again:");
-            }
-
-        }
-
-    }
+    
 }

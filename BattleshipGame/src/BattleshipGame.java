@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import java.util.Random;
+/*import java.util.Random;
 
 
 public class BattleshipGame {
@@ -16,11 +16,13 @@ public class BattleshipGame {
     public static Player player1;
     public static Player player2;
     public static Player errorplayer;
+    public static GameUI gameui;
 
-    /**
+    /*
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+/*
+    public BattleshipGame() {
         // TODO code application logic here
         TurnNr = 0;
         heads = 0;
@@ -121,3 +123,4 @@ public class BattleshipGame {
         return errorplayer;
     }
 }
+*/
