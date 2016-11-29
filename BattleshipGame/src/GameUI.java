@@ -26,6 +26,8 @@ public class GameUI extends javax.swing.JFrame {
     Label[] letterhit = new Label[10];
     Label[] numberhit = new Label[10];
     MouseListener[][] teste = new MouseListener[10][10];
+    MouseListener[][] teste1 = new MouseListener[10][10];
+    
     Ship[] shipnr = new Ship[5];
     public static GameUI gameui;
     public static Player player1;
@@ -40,6 +42,7 @@ public class GameUI extends javax.swing.JFrame {
      */
     public GameUI() {
         initComponents();
+        jOptionPane1.setVisible(false);
         player1 = new Player(name1);
         initGrid();
     }
@@ -69,6 +72,8 @@ public class GameUI extends javax.swing.JFrame {
     }
 
     private void initGrid2() {
+        jButton1.setEnabled(false);
+        jButton1.setFocusable(false);
         jPanel2.remove(jProgressBar);
         label1.setForeground(Color.green);
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -89,7 +94,7 @@ public class GameUI extends javax.swing.JFrame {
             }
         }
         pack();
-
+        turn(player1);
     }
 
     public void startBoardGui(JPanel jpanel, GroupLayout Layout, JPanel currentpanel) {
@@ -107,7 +112,49 @@ public class GameUI extends javax.swing.JFrame {
         );
         currentpanel.add(jpanel);
     }
+    public void turn(Player player){
+        for (int y = 0; y < 10; y++) {
+            for (int x = 0; x < 10; x++) {
+                JPanel current;
+                current=hitpanel[y][x];
+                int y1=y;
+                int x1=x;
+                teste1[y][x] = new MouseAdapter() {
+                        @Override
+                        public void mouseEntered(java.awt.event.MouseEvent evt) {
+                            current.setBorder(javax.swing.BorderFactory.createLineBorder(Color.gray, 3));
+                        }
 
+                        @Override
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                            if(player.checkShipBoard(y1,x1,'S')==true){
+                                current.setBackground(Color.green);
+                                player.hit();
+                                if(player.checkWinner()){
+                                    for (int y = 0; y < 10; y++) {
+                                    for (int x = 0; x < 10; x++) {
+                                        hitpanel[y][x].removeMouseListener(teste1[y][x]);
+                                    }
+                                    jOptionPane1.showMessageDialog(null, player.name+" won!");
+                                }
+                                }
+                            }
+                            else{
+                                player.miss();
+                                current.setBackground(Color.red);
+                            }
+                        }
+
+                        @Override
+                        public void mouseExited(java.awt.event.MouseEvent evt) {
+                            current.setBorder(javax.swing.BorderFactory.createLineBorder(Color.gray, 1));
+                            
+                        }
+                    };
+                hitpanel[y][x].addMouseListener(teste1[y][x]);
+            }
+        }
+    }
     public void placeShipUi(Ship ship) {
         d = ship;
         int size;
@@ -289,6 +336,7 @@ public class GameUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jOptionPane1 = new javax.swing.JOptionPane();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -296,12 +344,18 @@ public class GameUI extends javax.swing.JFrame {
         label1 = new java.awt.Label();
         label2 = new java.awt.Label();
 
+        jOptionPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jOptionPane1MouseClicked(evt);
+            }
+        });
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setPreferredSize(new java.awt.Dimension(330, 330));
-        jPanel1.setLayout(new java.awt.GridLayout());
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         jButton1.setText("Change to Vertical");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -406,6 +460,10 @@ public class GameUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jOptionPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jOptionPane1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jOptionPane1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -454,6 +512,7 @@ public class GameUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JProgressBar jProgressBar;
