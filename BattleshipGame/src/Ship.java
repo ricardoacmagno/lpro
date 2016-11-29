@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-
 public class Ship {
 
     private final int size;

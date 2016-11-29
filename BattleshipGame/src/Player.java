@@ -6,7 +6,6 @@ import java.util.Scanner;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 public class Player {
 
     String name = new String();
@@ -80,20 +79,19 @@ public class Player {
         ShipBoard.setBoard(y, x, c);
     }
 
-    public void placeShip(Ship boat, int y, int x, boolean hor){
-        if(hor==true){
-        for(int c=x;c<(x+boat.getSize());c++){
-           setShipBoard(y,c,'S');
-        }
-        }
-        else{
-           for(int c=y;c<(y+boat.getSize());c++){
-           setShipBoard(c,x,'S');
-        } 
+    public void placeShip(Ship boat, int y, int x, boolean hor) {
+        if (hor == true) {
+            for (int c = x; c < (x + boat.getSize()); c++) {
+                setShipBoard(y, c, 'S');
+            }
+        } else {
+            for (int c = y; c < (y + boat.getSize()); c++) {
+                setShipBoard(c, x, 'S');
+            }
         }
         boat.place();
         printShipBoard();
-        System.out.println("Placed "+boat.getName());
+        System.out.println("Placed " + boat.getName());
     }
 
     public void setWinner() {
@@ -132,5 +130,5 @@ public class Player {
     public int getY() {
         return realr;
     }
-    
+
 }
