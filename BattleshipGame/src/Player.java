@@ -12,7 +12,6 @@ public class Player {
     int id;
     boolean firsttoplay;
     boolean winner;
-    boolean loser;
     int playNr;
     int hitcount;
     int misscount;
@@ -35,7 +34,6 @@ public class Player {
         misscount = 0;
         firsttoplay = false;
         winner = false;
-        loser=false;
         carrier = new Ship(5, 5, "Carrier");
         battleship = new Ship(4, 4, "Battleship");
         cruiser = new Ship(3, 3, "Cruiser");

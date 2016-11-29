@@ -65,9 +65,7 @@ public class GameUI extends javax.swing.JFrame {
         }
         placeShipUi(player1.destroyer);
         pack();
-        while(player1.winner==false && player1.loser==false){
-            
-        }
+
     }
 
     private void initGrid2() {
@@ -91,6 +89,7 @@ public class GameUI extends javax.swing.JFrame {
             }
         }
         pack();
+
     }
 
     public void startBoardGui(JPanel jpanel, GroupLayout Layout, JPanel currentpanel) {
@@ -128,13 +127,13 @@ public class GameUI extends javax.swing.JFrame {
                     }
                     if (horizontal == true) {
                         if (x < 11 - size) {
-                            if (player1.checkShipBoard(y, x,'S')) {
+                            if (player1.checkShipBoard(y, x, 'S')) {
                                 ShipInWay = true;
                             }
                             for (int c = x + 1; c < x + size; c++) {
                                 if (c < 10) {
                                     next[c - (x + 1)] = mypanel[y][c];
-                                    if (player1.checkShipBoard(y, c,'S')) {
+                                    if (player1.checkShipBoard(y, c, 'S')) {
                                         ShipInWay = true;
                                     }
                                 } else {
