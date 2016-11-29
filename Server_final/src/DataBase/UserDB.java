@@ -7,11 +7,11 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author ricar
+ * @author ilia&magno
  */
 public final class UserDB extends PostgreSQLink{
 
-    private final String username;
+    private  String username;
     private String password;
     private String email;
     private Integer question;
@@ -19,9 +19,15 @@ public final class UserDB extends PostgreSQLink{
     
     Statement statement = null;
     
-    public UserDB(String username) throws Exception  {
-        this.username = username;
-        this.getLine();
+    public UserDB() throws Exception  {
+       
+      
+    }
+    public void setUsername(String username){
+        this.username=username;
+    }
+       public void setEmail(String email){
+        this.email=email;
     }
     public void getLine(){
         PostgreSQLink.connect();
@@ -46,10 +52,12 @@ public final class UserDB extends PostgreSQLink{
     }
     
     public Boolean getEmail(String email){
+        
         try {
+            PostgreSQLink.connect();
            // Statement statement = getConnection().createStatement();
-
-            ResultSet results = statement.executeQuery("SELECT username FROM signuplpro WHERE email = '"+email+"';");
+            statement = getConnection().createStatement();
+            ResultSet results = statement.executeQuery("SELECT email FROM signuplpro WHERE email = '"+email+"';");
             if (results.next()){
                     return true;
             }
@@ -63,12 +71,32 @@ public final class UserDB extends PostgreSQLink{
       
         try {
             statement = getConnection().createStatement();
-            System.out.println("statemente ="  + statement);
+            //System.out.println("statemente ="  + statement);
             statement.executeQuery("INSERT INTO signuplpro(name, email, username, password) VALUES ('"+Name+"','"+Mail+"','"+Username+"','"+Password+"');");  //"' DEFAULT");
         }
-        catch (Exception ex) {
-            if(!ex.getMessage().equals("No results were returned by the query."))
-                Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
+        catch (Exception e) {
+            if(!e.getMessage().equals("No results were returned by the query."))
+                Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, e);
         }
-    } 
+    }
+    
+    public int  newPass(String mail, String Username, String OldPassword ,String Password){
+        System.out.println("ESTOU AQUI");
+        try{
+             PostgreSQLink.connect();
+            statement = getConnection().createStatement();
+            
+            
+            return statement.executeUpdate("UPDATE signuplpro SET password='"+Password+"' WHERE  email='"+mail+"' and username = '"+Username+"' and password='"+OldPassword+"';");  
+            
+        }catch (Exception e) {
+            
+            System.err.println("Error!" + e.getMessage());
+            if(!e.getMessage().equals("No results were returned by the query."))
+                Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, e);
+            
+        }
+        return -1;
+        
+    }
 }

@@ -37,9 +37,12 @@ public class MultiServerThread extends Thread{
           if(uno[0].equals("Login")) {
                       state=1;
                   }
-           else if (uno[0].equals("Signup")) {       
+          else if (uno[0].equals("Signup")) {       
                   state=2;
            }
+          else if(uno[0].equals("ForgotPassword")){
+              state=3;
+          }
           switch (state){
               case 1:
                   if(uno[1].equals("FailedConnection")){
@@ -67,6 +70,33 @@ public class MultiServerThread extends Thread{
                   }else{
                       outputLine="Signup&OK&"+uno[1];
                       break;
+                  }
+              case 3:
+                  if(uno[1].equals("FailedConnection")){
+                      if(uno[2].equals("EMAIL_FAILED")){
+                          outputLine = "ForgotPassword&Erro&Email";
+                          break;
+                      }
+                  
+                     else if(uno[2].equals("USERNAME_FAILED")){
+                          outputLine = "ForgotPassword&Erro&Username";
+                       break;
+                       }
+                     
+                     else if(uno[2].equals("PASSWORD_FAILED")){
+                        outputLine = "ForgotPassword&Erro&Password";
+                       break;
+                     }
+                      
+                     else if(uno[2].equals("FORGOTPASSWORD_FAILED")){
+                         outputLine = "ForgotPassword&Erro&NotCompatible";
+                         break;
+                     }
+                      
+                  }
+                  else{
+                    outputLine="ForgotPassword&OK&" + uno[1];
+                    break;
                   }
           }
             System.out.println(outputLine);

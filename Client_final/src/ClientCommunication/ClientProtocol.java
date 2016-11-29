@@ -86,6 +86,21 @@ public class ClientProtocol  {
                     }
     }
     
+    
+    public void sendChangePassword(String mail, String username, String OldPassword, String NewPassword){
+        if(connect==false) connection();
+       
+        
+        String ChangePassword= "ForgotPassword&"+mail+"&"+username+"&"+OldPassword+"&"+NewPassword;
+        
+        System.out.println("CHANGEPASSWORD USER " + ChangePassword);
+            try{
+                clientSocket.toSend(ChangePassword);
+            }catch (IOException ex) {
+                        Logger.getLogger(ClientProtocol.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
+    
     /**
      * Method responsible for checking the server's response
      * Calls the <code>received()</code> to receive the server's message
@@ -106,6 +121,7 @@ public class ClientProtocol  {
             switch (tokens[0]){
                 case "Login" : return handlerLogin(tokens);
                 case "Signup"   :return handlerSignup(tokens);
+                case "ForgotPassword" :return handlerForgotPassword(tokens);
                 default : return null;
             } 
         }
@@ -148,5 +164,18 @@ public class ClientProtocol  {
         System.out.println(Arrays.toString(tokens));
 
         return signup;
+    }
+
+    private ArrayList<String> handlerForgotPassword(String[] tokens) {
+       ArrayList<String> forgotpassword;
+       
+       forgotpassword=new ArrayList<>();
+       int j=0;
+        forgotpassword.add(tokens[j++]);
+        forgotpassword.add(tokens[j++]);
+        forgotpassword.add(tokens[j]);
+        System.out.println(Arrays.toString(tokens));
+       
+       return forgotpassword;
     }
 }

@@ -2,6 +2,11 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/ilia-/Documents/NetBeansProjects/LPRO1633/lpro/Client_final/src/ClientCommunication/SocketClient.java</file>
+            <file>file:/C:/Users/ilia-/Documents/NetBeansProjects/LPRO1633/lpro/Client_final/src/LogicClient/User.java</file>
+            <file>file:/C:/Users/ilia-/Documents/NetBeansProjects/LPRO1633/lpro/Client_final/src/ClientCommunication/ClientProtocol.java</file>
+            <file>file:/C:/Users/ilia-/Documents/NetBeansProjects/LPRO1633/lpro/Client_final/src/GUI/UIinicial.java</file>
+        </group>
     </open-files>
 </project-private>

@@ -58,9 +58,13 @@ public class User {
     
     public static boolean confirmUsername(String received) throws Exception{
         System.out.println("USER.RECEIVED: "+received);
-        userData=new UserDB(received);
+        userData=new UserDB();
+        userData.setUsername(received);
+        userData.getLine();
         //Chamar a parte do DB >> verificar se encontrou uma lista através daquele username
+        
         return received.equals(userData.getUsername());                //SAME AS WHAT FOLLOWS
+        
     }
     
     public static boolean confirmPassword(String received){
@@ -69,13 +73,27 @@ public class User {
         return received.equals(userData.getPassword());              //CRIAR O GETPASSWORD NO USERDB PARA RETORNAR A PALAVRA PASSE
     }
     
-    public static boolean confirmEmail(String received) throws Exception{
-        System.out.println("EMAIL.RECEIVED: "+received);
-        //Chamar a parte do DB >> verificar se encontrou uma lista através daquele email
+    
+   public static boolean confirmEmailForPassword(String received) throws Exception{
+       
+       userData=new UserDB();
+       userData.setEmail(received);
+      
+       return userData.getEmail(received);
+   }
+    
+    public static boolean confirmEmail(String received) {           //verifica se existe um email na base
+        System.out.println("EMAIL.RECEIVED: "+ received);
+     
         return userData.getEmail(received);                //SAME AS WHAT FOLLOWS
     }
     
     public static void sendSignup(String[] data){
         userData.newLine(data[1], data[3], data[4], data[2]);   //Manda primeiro o Username, Password, Nome e Email
+    }
+    
+    public static int sendForgotPassword(String[] ChangePassword){
+        System.out.println("ESTOU AQUI !!!! ");
+       return userData.newPass(ChangePassword[1], ChangePassword[2], ChangePassword[3], ChangePassword[4]);
     }
 }

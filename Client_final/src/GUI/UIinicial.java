@@ -9,6 +9,7 @@ import LogicClient.User;
 import ClientCommunication.SocketClient;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,6 +23,7 @@ public class UIinicial extends javax.swing.JFrame {
     String username = new String();
     JPanel backvalue = new JPanel();
     String password = new String();
+    String oldpassword = new String();
     String mail = new String();
     String name = new String();
     User user=null;
@@ -67,6 +69,7 @@ public class UIinicial extends javax.swing.JFrame {
     private void initComponents() {
 
         jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
+        jOptionPane1 = new javax.swing.JOptionPane();
         Signup = new javax.swing.JPanel();
         title3 = new javax.swing.JLabel();
         username2 = new javax.swing.JLabel();
@@ -117,6 +120,8 @@ public class UIinicial extends javax.swing.JFrame {
         login3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         goback1 = new javax.swing.JButton();
+        password5 = new javax.swing.JLabel();
+        jPasswordField6 = new javax.swing.JPasswordField();
         Intro = new javax.swing.JPanel();
         goback = new javax.swing.JButton();
         newAcc2 = new javax.swing.JButton();
@@ -132,7 +137,6 @@ public class UIinicial extends javax.swing.JFrame {
         title6 = new javax.swing.JLabel();
         Ads1 = new javax.swing.JScrollPane();
         jTextPane6 = new javax.swing.JTextPane();
-        jOptionPane1 = new javax.swing.JOptionPane();
 
         jRadioButtonMenuItem1.setSelected(true);
         jRadioButtonMenuItem1.setText("jRadioButtonMenuItem1");
@@ -290,35 +294,35 @@ public class UIinicial extends javax.swing.JFrame {
         SignupLayout.setVerticalGroup(
             SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SignupLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(20, Short.MAX_VALUE)
                 .addComponent(title3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 25, Short.MAX_VALUE)
                 .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(SignupLayout.createSequentialGroup()
                         .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(email)
                             .addComponent(emailTextSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                         .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(username2)
                             .addComponent(usernameTextSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 12, Short.MAX_VALUE)
                         .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPasswordSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(password3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                         .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(usernameTextSignup1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addGap(18, 19, Short.MAX_VALUE)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 12, Short.MAX_VALUE)
                         .addComponent(AnswerQuestionSignup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addGap(18, 19, Short.MAX_VALUE)
                         .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(login2)
                             .addComponent(goback3))
-                        .addContainerGap(58, Short.MAX_VALUE))
+                        .addContainerGap(47, Short.MAX_VALUE))
                     .addGroup(SignupLayout.createSequentialGroup()
                         .addComponent(Ads)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -459,9 +463,9 @@ public class UIinicial extends javax.swing.JFrame {
                         .addGroup(InicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(newAcc1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(forgotPw, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 19, Short.MAX_VALUE))
+                .addGap(0, 18, Short.MAX_VALUE))
         );
 
         GuestIntro.setPreferredSize(new java.awt.Dimension(450, 350));
@@ -538,7 +542,7 @@ public class UIinicial extends javax.swing.JFrame {
                 .addComponent(title4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addComponent(welcome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(GuestIntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(GuestIntroLayout.createSequentialGroup()
@@ -547,7 +551,7 @@ public class UIinicial extends javax.swing.JFrame {
                         .addComponent(goback2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         ForgotPassword.setPreferredSize(new java.awt.Dimension(450, 350));
@@ -561,7 +565,7 @@ public class UIinicial extends javax.swing.JFrame {
 
         username3.setText("username");
 
-        password4.setText("new password");
+        password4.setText("old password");
 
         email1.setText("E-mail");
 
@@ -636,6 +640,20 @@ public class UIinicial extends javax.swing.JFrame {
             }
         });
 
+        password5.setText("new password");
+
+        jPasswordField6.setText("Password");
+        jPasswordField6.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jPasswordField6FocusGained(evt);
+            }
+        });
+        jPasswordField6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ForgotPasswordLayout = new javax.swing.GroupLayout(ForgotPassword);
         ForgotPassword.setLayout(ForgotPasswordLayout);
         ForgotPasswordLayout.setHorizontalGroup(
@@ -645,17 +663,17 @@ public class UIinicial extends javax.swing.JFrame {
                 .addGroup(ForgotPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ForgotPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(ForgotPasswordLayout.createSequentialGroup()
-                            .addGroup(ForgotPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(ForgotPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(email1)
-                                    .addComponent(username3)
-                                    .addComponent(password4, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addComponent(jLabel1))
+                            .addGroup(ForgotPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(email1)
+                                .addComponent(username3)
+                                .addComponent(password4, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(password5, javax.swing.GroupLayout.Alignment.TRAILING))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(ForgotPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(usernameText4, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jPasswordField5, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(emailText1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(emailText1, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                                .addComponent(jPasswordField6)))
                         .addComponent(usernameText5)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ForgotPasswordLayout.createSequentialGroup()
                             .addComponent(login3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -664,15 +682,19 @@ public class UIinicial extends javax.swing.JFrame {
                         .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(title5, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(91, Short.MAX_VALUE))
+            .addGroup(ForgotPasswordLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ForgotPasswordLayout.setVerticalGroup(
             ForgotPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ForgotPasswordLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(14, Short.MAX_VALUE)
                 .addComponent(title5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(12, 12, 12)
                 .addGroup(ForgotPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(email1)
                     .addComponent(emailText1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -684,15 +706,19 @@ public class UIinicial extends javax.swing.JFrame {
                 .addGroup(ForgotPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPasswordField5, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(password4))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(ForgotPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPasswordField6, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(password5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 14, Short.MAX_VALUE)
                 .addComponent(usernameText5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 21, Short.MAX_VALUE)
                 .addGroup(ForgotPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(login3)
                     .addComponent(goback1))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
         );
 
         Intro.setPreferredSize(new java.awt.Dimension(450, 350));
@@ -815,7 +841,7 @@ public class UIinicial extends javax.swing.JFrame {
             .addGroup(IntroLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(title6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(welcome1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(IntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -835,9 +861,9 @@ public class UIinicial extends javax.swing.JFrame {
                         .addComponent(Ads1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(IntroLayout.createSequentialGroup()
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -870,11 +896,6 @@ public class UIinicial extends javax.swing.JFrame {
                     .addContainerGap()
                     .addComponent(Intro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(106, 106, 106)
-                    .addComponent(jOptionPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(106, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -904,11 +925,6 @@ public class UIinicial extends javax.swing.JFrame {
                     .addContainerGap()
                     .addComponent(Intro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(142, 142, 142)
-                    .addComponent(jOptionPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(142, Short.MAX_VALUE)))
         );
 
         pack();
@@ -953,10 +969,7 @@ public static boolean validate(String emailStr) {
             
             jOptionPane1.setVisible(false);
             password=MD5_hash.MD5_hash(jPasswordSignup.getText());
-            System.out.println("Username: " + username);
-            System.out.println("Hash: " + password);
-            System.out.println("Name: " + name);
-            System.out.println("Email: " + email);
+           
             /*if (user!=null){
                 try {
                     user.join();
@@ -964,7 +977,7 @@ public static boolean validate(String emailStr) {
                     Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }*/
-            user=new User(username, password, mail, name);
+            user=new User(username, password, mail, name, null);
             System.out.println(user);
             try {
                 user.sendData("Signup");
@@ -979,19 +992,13 @@ public static boolean validate(String emailStr) {
                 Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
             }
             jOptionPane1.setVisible(false);
-            //System.out.println(password);
+            
+           
             //welcome1.setText("Welcome "+username+"!");
             backvalue = Inicial;
 
-        }/*
-        setContentPane(Inicial);
-=======
         }
-        /*setContentPane(Inicial);
->>>>>>> origin/master
-        invalidate();
-        validate();
-        backvalue=Inicial;*/
+
     }//GEN-LAST:event_login2ActionPerformed
 
     private void JoinGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JoinGameActionPerformed
@@ -1016,10 +1023,38 @@ public static boolean validate(String emailStr) {
 
     private void login3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login3ActionPerformed
         // TODO add your handling code here:
-        username=jTextFieldInicial.getText();
-        setContentPane(Inicial);
-        invalidate();
-        validate();
+ 
+        if(emailText1.getText().isEmpty()||usernameText4.getText().isEmpty()||jPasswordField5.getText().isEmpty())
+        jOptionPane1.showMessageDialog(null,"Empty parameters");
+        else{   
+            mail =  emailText1.getText();
+            username = usernameText4.getText();
+            oldpassword = MD5_hash.MD5_hash(jPasswordField5.getText());
+           
+             if (jPasswordField5.getText().contains("&") ){
+                jOptionPane1.showMessageDialog(null, "Invalid caracter '&'");
+                return;
+            }
+            
+            jOptionPane1.setVisible(false);
+            password=MD5_hash.MD5_hash(jPasswordField6.getText());
+            
+            user=new User(mail, username, oldpassword, null, password); 
+            
+            try{
+               user.sendData("ForgotPassword");
+           }catch (IOException | InterruptedException ex) {
+                Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+           if(user.getResultadoRecoverPassword()==2) jOptionPane1.showMessageDialog(null, "Email doesn't exist!");
+           else if(user.getResultadoRecoverPassword()==3) jOptionPane1.showMessageDialog(null, "Username doesn't exist!");
+            else if(user.getResultadoRecoverPassword()==4) jOptionPane1.showMessageDialog(null, "Wrong Password!");
+           else if(user.getResultadoRecoverPassword()==5)  jOptionPane1.showMessageDialog(null, "Email and Username aren't compatible!");
+           else setContentPane(Inicial);
+           
+            jOptionPane1.setVisible(false);
+          }
         backvalue=Inicial;
     }//GEN-LAST:event_login3ActionPerformed
 
@@ -1181,7 +1216,7 @@ public static boolean validate(String emailStr) {
                     Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }*/
-            user=new User(username, password, null, null);
+            user=new User(username, password, null, null, null);
             System.out.println(user);
             try {
                 user.sendData("Login");
@@ -1196,7 +1231,11 @@ public static boolean validate(String emailStr) {
                 Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
             }
             jOptionPane1.setVisible(false);
-            //System.out.println(password);
+            System.out.println(password);
+            
+            
+            
+            
             welcome1.setText("Welcome "+username+"!");
             backvalue = Inicial;
         }
@@ -1204,6 +1243,9 @@ public static boolean validate(String emailStr) {
 
     private void forgotPwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forgotPwActionPerformed
         // TODO add your handling code here:
+        
+        
+        
         ForgotPasswordSetDefault();
         setContentPane(ForgotPassword);
         invalidate();
@@ -1223,6 +1265,14 @@ public static boolean validate(String emailStr) {
     private void jPasswordSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordSignupActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jPasswordSignupActionPerformed
+
+    private void jPasswordField6FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField6FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField6FocusGained
+
+    private void jPasswordField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1284,6 +1334,7 @@ public static boolean validate(String emailStr) {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JPasswordField jPasswordField5;
+    private javax.swing.JPasswordField jPasswordField6;
     private javax.swing.JPasswordField jPasswordInicial;
     private javax.swing.JPasswordField jPasswordSignup;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
@@ -1306,6 +1357,7 @@ public static boolean validate(String emailStr) {
     private javax.swing.JLabel password2;
     private javax.swing.JLabel password3;
     private javax.swing.JLabel password4;
+    private javax.swing.JLabel password5;
     private javax.swing.JButton playGuest;
     private javax.swing.JLabel title2;
     private javax.swing.JLabel title3;
