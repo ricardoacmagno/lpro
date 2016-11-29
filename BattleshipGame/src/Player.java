@@ -80,12 +80,20 @@ public class Player {
         ShipBoard.setBoard(y, x, c);
     }
 
-    public void placeShip(Ship boat, int y, int x){
+    public void placeShip(Ship boat, int y, int x, boolean hor){
+        if(hor==true){
         for(int c=x;c<(x+boat.getSize());c++){
            setShipBoard(y,c,'S');
         }
+        }
+        else{
+           for(int c=y;c<(y+boat.getSize());c++){
+           setShipBoard(c,x,'S');
+        } 
+        }
         boat.place();
         printShipBoard();
+        System.out.println("Placed "+boat.getName());
     }
 
     public void setWinner() {
