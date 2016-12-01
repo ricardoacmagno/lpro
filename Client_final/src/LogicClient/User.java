@@ -74,33 +74,33 @@ public class User{
                     if("Erro".equals(dataReceived.get(1))){
                         if ("Username".equals(dataReceived.get(2))){
                             resultadoLogin=2;
-                            client.Disconnect();
+                            client.disconnect();
                         }
                         else if ("Password".equals(dataReceived.get(2))){
                             resultadoLogin= 3;
-                            client.Disconnect();
+                            client.disconnect();
                         }
                     }
                     else if ("OK".equals(dataReceived.get(1)))
                         if(Username.equals(dataReceived.get(2))){
                             resultadoLogin= 1;
-                            client.Disconnect();
+                            client.disconnect();
                         }
                 }else if ("Signup".equals(dataReceived.get(0))){
                     if("Erro".equals(dataReceived.get(1))){
                         if ("Username".equals(dataReceived.get(2))){
                             resultadoLogin=4;
-                            client.Disconnect();
+                            client.disconnect();
                         }
                         else if ("Email".equals(dataReceived.get(2))){
                             resultadoLogin= 5;
-                            client.Disconnect();
+                            client.disconnect();
                         }
                     }
                     else if ("OK".equals(dataReceived.get(1)))
                         if(Username.equals(dataReceived.get(2))){
                             resultadoLogin= 1;
-                            client.Disconnect();
+                            client.disconnect();
                         }
                     }
                 else if("ForgotPassword".equals(dataReceived.get(0))){
@@ -109,25 +109,25 @@ public class User{
                         if("Email".equals(dataReceived.get(2))){
                             System.out.println("data received = " + dataReceived.get(2));
                             resultadoPassword=2;
-                            client.Disconnect();
+                            client.disconnect();
                         }
                         else if("Username".equals(dataReceived.get(2))){
                             resultadoPassword=3;
-                            client.Disconnect();
+                            client.disconnect();
                         }
                          else if("Password".equals(dataReceived.get(2))){
                             resultadoPassword=4;
-                            client.Disconnect();
+                            client.disconnect();
                         }
                         else if("NotCompatible".equals(dataReceived.get(2))){
                             resultadoPassword=5;
-                            client.Disconnect();
+                            client.disconnect();
                         }
                     }
                     else if("OK".equals(dataReceived.get(1))){
                         if(Username.equals(dataReceived.get(2))){
                             resultadoPassword=1;
-                            client.Disconnect();
+                            client.disconnect();
                         }
                     }          
                 }
@@ -155,7 +155,7 @@ public class User{
                 
             catch(IOException | InterruptedException e){
                 try {
-                    client.Disconnect();
+                    client.disconnect();
                 } catch (IOException ex) {
                     Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
                 }
