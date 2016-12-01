@@ -45,7 +45,7 @@ public class ClientProtocol  {
      * Method responsible for calling the socket communication closure process
      * @throws IOException 
      */
-    public  void Disconnect() throws IOException{
+    public  void disconnect() throws IOException{
         if(connect){
             clientSocket.close();
             connect=false;
