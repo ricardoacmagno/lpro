@@ -155,6 +155,9 @@ public class User{
      * @return  identifier from what was received
      * @throws InterruptedException 
      */
+    public void getCheckGame(){
+        client.checkJoinedGame();
+    }
     public int getResultadoLogin() throws InterruptedException{
         return resultadoLogin;
     }

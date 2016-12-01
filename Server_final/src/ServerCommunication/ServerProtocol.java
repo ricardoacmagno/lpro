@@ -13,13 +13,17 @@ public class ServerProtocol extends Thread{
        String[] stringUis;
        stringUis = server.split("&");
        switch (stringUis[0]){
-           case "Login": return handlerLogin(stringUis);
-           case "Signup": 
-              
+           case "Login": 
+               return handlerLogin(stringUis);
+           case "Signup":              
                return handlerSignup(stringUis);
-           default: return null;
+           default: 
+               return null;
            case "ForgotPassword": 
                return handlerForgotPassword(stringUis);
+           case "CheckGame":
+               String[] oi={"ok","player"};
+               return oi;
        }
     }
     

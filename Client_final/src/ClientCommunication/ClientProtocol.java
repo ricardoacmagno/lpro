@@ -100,6 +100,16 @@ public class ClientProtocol  {
                         Logger.getLogger(ClientProtocol.class.getName()).log(Level.SEVERE, null, ex);
             }
     }
+    public void checkJoinedGame(){
+        if(connect==false) connection();
+        String checkGame="CheckGame";
+        try{
+                clientSocket.toSend(checkGame);
+            }catch (IOException ex) {
+                        Logger.getLogger(ClientProtocol.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
+
     
     /**
      * Method responsible for checking the server's response
@@ -122,6 +132,7 @@ public class ClientProtocol  {
                 case "Login" : return handlerLogin(tokens);
                 case "Signup"   :return handlerSignup(tokens);
                 case "ForgotPassword" :return handlerForgotPassword(tokens);
+                case "ok": System.out.println("Comunicating");
                 default : return null;
             } 
         }

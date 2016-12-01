@@ -13,6 +13,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="resizable" type="boolean" value="false"/>
     <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[450, 350]"/>
     </Property>
@@ -72,6 +73,13 @@
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
+          <Group type="103" rootIndex="6" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="GameJoined" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="14" max="32767" attributes="0"/>
+              </Group>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -112,6 +120,13 @@
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
+          <Group type="103" rootIndex="6" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="GameJoined" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="14" max="32767" attributes="0"/>
+              </Group>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -129,9 +144,9 @@
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="146" max="32767" attributes="0"/>
                           <Component id="title3" min="-2" pref="115" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="135" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace pref="24" max="32767" attributes="0"/>
@@ -141,7 +156,7 @@
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="email" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="username2" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -150,18 +165,18 @@
                                           <Component id="password3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="16" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="usernameTextSignup" alignment="0" max="32767" attributes="0"/>
                                       <Component id="jPasswordSignup" alignment="0" max="32767" attributes="0"/>
                                       <Component id="emailTextSignup" alignment="1" min="-2" pref="163" max="-2" attributes="0"/>
                                       <Component id="usernameTextSignup1" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jComboBox1" min="-2" pref="243" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="14" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
@@ -170,7 +185,7 @@
                                   <Component id="goback3" min="-2" pref="80" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace type="separate" max="32767" attributes="0"/>
+                          <EmptySpace pref="18" max="32767" attributes="0"/>
                           <Component id="Ads" min="-2" pref="97" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -181,44 +196,44 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace pref="20" max="32767" attributes="0"/>
+                  <EmptySpace pref="14" max="32767" attributes="0"/>
                   <Component id="title3" min="-2" pref="35" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" pref="25" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" pref="19" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="email" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="emailTextSignup" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="7" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="username2" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="usernameTextSignup" alignment="0" min="-2" pref="21" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" pref="12" max="32767" attributes="0"/>
+                          <EmptySpace pref="12" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jPasswordSignup" alignment="0" min="-2" pref="21" max="-2" attributes="0"/>
                               <Component id="password3" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="7" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="usernameTextSignup1" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" pref="19" max="32767" attributes="0"/>
+                          <EmptySpace pref="18" max="32767" attributes="0"/>
                           <Component id="jComboBox1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" pref="12" max="32767" attributes="0"/>
+                          <EmptySpace pref="12" max="32767" attributes="0"/>
                           <Component id="AnswerQuestionSignup" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" pref="19" max="32767" attributes="0"/>
+                          <EmptySpace pref="18" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="login2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="goback3" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="47" max="32767" attributes="0"/>
+                          <EmptySpace pref="43" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Component id="Ads" max="32767" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="Ads" pref="148" max="32767" attributes="0"/>
+                          <EmptySpace pref="134" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -390,7 +405,7 @@
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="newAcc1" min="-2" pref="124" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="32767" attributes="0"/>
+                                  <EmptySpace pref="18" max="32767" attributes="0"/>
                                   <Component id="forgotPw" min="-2" pref="136" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
@@ -406,24 +421,24 @@
                                   </Group>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="107" max="32767" attributes="0"/>
                                   <Component id="title2" min="-2" pref="115" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace type="separate" max="32767" attributes="0"/>
+                          <EmptySpace pref="18" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="78" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="playGuest" min="-2" pref="140" max="-2" attributes="0"/>
                               <Component id="login1" min="-2" pref="140" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="90" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="39" max="32767" attributes="0"/>
+                  <EmptySpace pref="37" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -438,7 +453,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="title2" min="-2" pref="35" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jTextFieldInicial" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="username1" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -450,7 +465,7 @@
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="login1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="playGuest" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -461,7 +476,7 @@
                   </Group>
                   <EmptySpace pref="14" max="32767" attributes="0"/>
                   <Component id="filler1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="18" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="17" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -602,12 +617,12 @@
                   </Group>
               </Group>
               <Group type="102" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="167" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="title4" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
                       <Component id="welcome" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="168" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -618,12 +633,12 @@
                   <Component id="title4" min="-2" pref="35" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                   <Component id="welcome" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="16" max="32767" attributes="0"/>
+                  <EmptySpace pref="18" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Component id="jScrollPane1" min="-2" pref="219" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="JoinGame" min="-2" pref="52" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="goback2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="jScrollPane2" min="-2" pref="106" max="-2" attributes="0"/>
@@ -731,7 +746,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace pref="88" max="32767" attributes="0"/>
+                  <EmptySpace pref="85" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
@@ -741,7 +756,7 @@
                                   <Component id="password4" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="password5" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="usernameText4" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jPasswordField5" alignment="0" max="32767" attributes="0"/>
@@ -752,54 +767,54 @@
                           <Component id="usernameText5" alignment="1" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="login3" min="-2" pref="166" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="31" max="32767" attributes="0"/>
                               <Component id="goback1" min="-2" pref="80" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jComboBox2" alignment="1" min="-2" pref="271" max="-2" attributes="0"/>
                       </Group>
                       <Component id="title5" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="91" max="32767" attributes="0"/>
+                  <EmptySpace pref="88" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="298" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace pref="14" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="title5" min="-2" pref="35" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="email1" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="emailText1" alignment="0" min="-2" pref="21" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="username3" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="usernameText4" alignment="0" min="-2" pref="21" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jPasswordField5" alignment="0" min="-2" pref="21" max="-2" attributes="0"/>
                       <Component id="password4" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jPasswordField6" alignment="0" min="-2" pref="21" max="-2" attributes="0"/>
                       <Component id="password5" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="33" max="32767" attributes="0"/>
+                  <EmptySpace pref="14" max="32767" attributes="0"/>
                   <Component id="jComboBox2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" pref="14" max="32767" attributes="0"/>
+                  <EmptySpace pref="12" max="32767" attributes="0"/>
                   <Component id="usernameText5" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" pref="21" max="32767" attributes="0"/>
+                  <EmptySpace pref="18" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="login3" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="goback1" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -963,7 +978,7 @@
                                   <Component id="CreateGame1" alignment="0" min="-2" pref="151" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="52" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace type="separate" max="32767" attributes="0"/>
@@ -974,9 +989,9 @@
                   <EmptySpace pref="19" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="167" max="32767" attributes="0"/>
                   <Component id="title6" min="-2" pref="115" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="168" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -987,7 +1002,7 @@
                   <Component id="title6" min="-2" pref="35" max="-2" attributes="0"/>
                   <EmptySpace pref="10" max="32767" attributes="0"/>
                   <Component id="welcome1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="32767" attributes="0"/>
+                  <EmptySpace pref="12" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="CreateGame1" min="-2" pref="23" max="-2" attributes="0"/>
@@ -997,7 +1012,7 @@
                           <Component id="Rankings1" min="-2" pref="23" max="-2" attributes="0"/>
                           <EmptySpace pref="18" max="32767" attributes="0"/>
                           <Component id="PlayersOnline1" min="-2" pref="23" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="32767" attributes="0"/>
+                          <EmptySpace pref="12" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="newAcc2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="goback" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1101,7 +1116,6 @@
         <Component class="javax.swing.JButton" name="JoinGame1">
           <Properties>
             <Property name="text" type="java.lang.String" value="Join Game"/>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JoinGame1ActionPerformed"/>
@@ -1164,6 +1178,129 @@
             </Component>
           </SubComponents>
         </Container>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="GameJoined">
+      <Properties>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[450, 350]"/>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="welcome2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="168" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                          <Component id="jToggleButton1" min="-2" pref="130" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+                          <Component id="goback4" min="-2" pref="107" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                          <Component id="jScrollPane6" min="-2" pref="406" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="156" max="-2" attributes="0"/>
+                          <Component id="title7" min="-2" pref="115" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace pref="23" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="title7" min="-2" pref="35" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                  <Component id="welcome2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="100" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="goback4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jToggleButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jScrollPane6" min="-2" pref="106" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="welcome2">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Ubuntu" size="18" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="You vs. Other"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="title7">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Ubuntu" size="24" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Battleship"/>
+            <Property name="alignmentX" type="float" value="0.5"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                <EmptyBorder/>
+              </Border>
+            </Property>
+            <Property name="iconTextGap" type="int" value="7"/>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[100, 19]"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane6">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTextPane" name="jTextPane8">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Publicidade"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Text Cursor"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="focusable" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JButton" name="goback4">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Go Back"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="goback4ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JToggleButton" name="jToggleButton1">
+          <Properties>
+            <Property name="selected" type="boolean" value="true"/>
+            <Property name="text" type="java.lang.String" value="Press to ready"/>
+          </Properties>
+          <AccessibilityProperties>
+            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="AreYouReady"/>
+          </AccessibilityProperties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton1ActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>
