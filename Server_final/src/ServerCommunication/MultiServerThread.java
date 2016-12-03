@@ -46,6 +46,9 @@ public class MultiServerThread extends Thread{
           else if(uno[0].equals("CheckGame")){
               state=4;
           }
+          else if(uno[0].equals("CheckOpponent")){
+              state=5;
+          }
           switch (state){
               case 1:
                   if(uno[1].equals("FailedConnection")){
@@ -101,6 +104,13 @@ public class MultiServerThread extends Thread{
                     outputLine="ForgotPassword&OK&" + uno[1];
                     break;
                   }
+               case 4:
+                  outputLine="CheckGame&"+uno[1]+"&"+uno[2];
+                  break;
+               case 5:
+                  outputLine="CheckOpponent&"+uno[1];
+                  break;
+                   
           }
             System.out.println(outputLine);
             out.println(outputLine);

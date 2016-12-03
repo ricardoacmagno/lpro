@@ -22,8 +22,9 @@ public class ServerProtocol extends Thread{
            case "ForgotPassword": 
                return handlerForgotPassword(stringUis);
            case "CheckGame":
-               String[] oi={"ok","player"};
-               return oi;
+               return handlerCheckGame(stringUis[1]);
+           case "CheckOpponent":
+               return handlerCheckOpponent(stringUis[1]);
        }
     }
     
@@ -178,5 +179,16 @@ public class ServerProtocol extends Thread{
            
             }
         return new String[]{"FailedConnection","forgotPassword"};
+    }
+    public String[] handlerCheckGame(String user) throws Exception{
+        System.out.println("CheckGameHandler received "+user);
+        String[] player = User.UserCheckGame(user);
+        String[] teste= {"CheckGame",player[0],player[1]};
+        return teste;
+    }
+    public String[] handlerCheckOpponent(String id){
+        String opponent=User.CheckOpponent(id);
+        String[] teste= {"CheckOpponent",opponent};
+        return teste;
     }
 }

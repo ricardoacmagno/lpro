@@ -1,5 +1,6 @@
 package DataBase;
 
+import static java.lang.Thread.sleep;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -11,7 +12,7 @@ import java.util.logging.Logger;
  */
 public final class UserDB extends PostgreSQLink{
 
-    private  String username;
+    private String username;
     private String password;
     private String email;
     private Integer question;
@@ -50,7 +51,46 @@ public final class UserDB extends PostgreSQLink{
     public String getPassword(){
         return password;
     }
-    
+    public String[] getGame(String user){
+        String opponent=null;
+        int id=0;
+        try {
+            System.out.println("Checking game...");
+            PostgreSQLink.connect();
+           // Statement statement = getConnection().createStatement();
+            statement = getConnection().createStatement();
+            ResultSet results1 = statement.executeQuery("SELECT player1name, id FROM gamesrunning WHERE player1joined = '"+true+"' AND player2joined = '"+false+"';");
+            if (results1.next()){
+                opponent=results1.getString("player1name");
+                id=results1.getInt("id");
+                System.out.println(user+" don't need to create a game");
+                statement.executeUpdate("UPDATE gamesrunning SET player2joined = '"+true+"', player2name = '"+user+"' WHERE player1joined = '"+true+"';");
+                results1.close();
+                statement.close();
+            }
+            else{
+                System.out.println(user+" need to create a game");
+                statement.executeUpdate("INSERT INTO "
+                        + "gamesrunning(player1name, player2name, player1joined, player2joined, shipsplayer1, shipsplayer2, player1ready, player2ready, winner) "
+                        + "VALUES ('"+user+"','"+"default"+"','"+true+"','"+false+"','"+null+"','"+null+"','"+false+"','"+false+"','"+null+"');");
+                try (ResultSet results5 = statement.executeQuery("SELECT player1name, id FROM gamesrunning WHERE player1joined = '"+true+"' AND player2joined = '"+false+"';")) {
+                    if (results5.next())
+                        id=results5.getInt("id");
+                    System.out.println(id);
+                    results5.close();
+                }
+                opponent="default";
+                
+                statement.close();
+            }
+        } catch (Exception ex) {
+            if(!ex.getMessage().equals("No results were returned by the query."))
+                System.err.println("Error!" + ex.getMessage());
+        }
+        String oops = id+"";
+        String[] toReturn={opponent,oops};
+        return toReturn; 
+    }
     public Boolean getEmail(String email){
         
         try {
@@ -66,7 +106,27 @@ public final class UserDB extends PostgreSQLink{
         }
         return false;
     }
-    
+    public String CheckOpponent(int id){
+        PostgreSQLink.connect();
+        String opponent="default";
+        System.out.println("Finding opponent");
+        try {
+            //mudar
+            while(opponent.equals("default")){
+            statement = getConnection().createStatement();
+            ResultSet results = statement.executeQuery("SELECT player2name FROM gamesrunning WHERE id = '"+id+"';");
+            if (results.next()){
+                    opponent=results.getString("player2name");
+            }
+            statement.close();
+            results.close();
+            sleep(500);
+           }
+        } catch (Exception ex) {
+            System.err.println("Error!" + ex.getMessage());
+        }
+        return opponent;
+    }
     public void newLine(String Username, String Password, String Name, String Mail){
       
         try {

@@ -100,9 +100,19 @@ public class ClientProtocol  {
                         Logger.getLogger(ClientProtocol.class.getName()).log(Level.SEVERE, null, ex);
             }
     }
-    public void checkJoinedGame(){
+    public void checkJoinedGame(String user){
         if(connect==false) connection();
-        String checkGame="CheckGame";
+        String checkGame="CheckGame&"+user;
+        try{
+                clientSocket.toSend(checkGame);
+            }catch (IOException ex) {
+                        Logger.getLogger(ClientProtocol.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
+    public void checkOpponent(int id){
+        if(connect==false) connection();
+        String checkGame="CheckOpponent&"+id;
+        System.out.println("Sending id "+id+" to get opponent");
         try{
                 clientSocket.toSend(checkGame);
             }catch (IOException ex) {
@@ -132,7 +142,8 @@ public class ClientProtocol  {
                 case "Login" : return handlerLogin(tokens);
                 case "Signup"   :return handlerSignup(tokens);
                 case "ForgotPassword" :return handlerForgotPassword(tokens);
-                case "ok": System.out.println("Comunicating");
+                case "CheckGame": return handlerCheck(tokens);
+                case "CheckOpponent": return handlerOpponent(tokens);
                 default : return null;
             } 
         }
@@ -156,6 +167,32 @@ public class ClientProtocol  {
         System.out.println(Arrays.toString(tokens));
         
         return login;
+    }
+    private  ArrayList<String> handlerOpponent(String[] tokens) {          //ATENCAO: Quando enviar confirmação do server, ter cuidado para enviar um vetor de strings com 3 elementos ou modificar o código
+        
+        ArrayList<String> login;
+        login = new ArrayList<>();
+        int j=0;
+        
+        login.add(tokens[j++]);
+        login.add(tokens[j]);
+        System.out.println(Arrays.toString(tokens));
+        
+        return login;
+    }
+    
+    private  ArrayList<String> handlerCheck(String[] tokens) {          //ATENCAO: Quando enviar confirmação do server, ter cuidado para enviar um vetor de strings com 3 elementos ou modificar o código
+        
+        ArrayList<String> check;
+        check = new ArrayList<>();
+        int j=0;
+        
+        check.add(tokens[j++]);
+        check.add(tokens[j++]);
+        check.add(tokens[j]);
+        System.out.println(Arrays.toString(tokens));
+        
+        return check;
     }
     
     /**

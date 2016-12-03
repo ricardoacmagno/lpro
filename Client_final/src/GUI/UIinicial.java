@@ -7,10 +7,19 @@ import javax.swing.JPanel;
 import LogicClient.MD5_hash;
 import LogicClient.User;
 import ClientCommunication.SocketClient;
+import Game.GameUI;
+import static Game.GameUI.gameui;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Frame;
+import java.awt.Window;
+import static java.lang.Thread.sleep;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -21,6 +30,7 @@ public class UIinicial extends javax.swing.JFrame {
     /**
      * Creates new form UIinicial
      */
+    public static UIinicial main=new UIinicial();
     String username = new String();
     JPanel backvalue = new JPanel();
     String password = new String();
@@ -60,6 +70,10 @@ public class UIinicial extends javax.swing.JFrame {
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select your question here...", "Item1", "Item2", "ItemN" }));
         usernameText5.setText("Answer Here...");
     }
+    public void findOpponent() throws InterruptedException, IOException{
+        user.CheckOpponent();
+        welcome2.setText(username+ " vs " + user.getGameOpponent());
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -72,6 +86,7 @@ public class UIinicial extends javax.swing.JFrame {
 
         jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
         jOptionPane1 = new javax.swing.JOptionPane();
+        jOptionPane2 = new javax.swing.JOptionPane();
         Signup = new javax.swing.JPanel();
         title3 = new javax.swing.JLabel();
         username2 = new javax.swing.JLabel();
@@ -151,6 +166,7 @@ public class UIinicial extends javax.swing.JFrame {
         jRadioButtonMenuItem1.setText("jRadioButtonMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("mainFrame");
         setResizable(false);
         setSize(new java.awt.Dimension(450, 350));
 
@@ -272,9 +288,6 @@ public class UIinicial extends javax.swing.JFrame {
                         .addContainerGap(24, Short.MAX_VALUE)
                         .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(SignupLayout.createSequentialGroup()
-                                .addComponent(AnswerQuestionSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(SignupLayout.createSequentialGroup()
                                 .addGap(0, 4, Short.MAX_VALUE)
                                 .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(email)
@@ -290,13 +303,15 @@ public class UIinicial extends javax.swing.JFrame {
                                     .addComponent(usernameTextSignup1, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addGap(0, 4, Short.MAX_VALUE))
                             .addGroup(SignupLayout.createSequentialGroup()
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 14, Short.MAX_VALUE))
-                            .addGroup(SignupLayout.createSequentialGroup()
                                 .addGap(2, 2, 2)
                                 .addComponent(login2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 23, Short.MAX_VALUE)
-                                .addComponent(goback3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(goback3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(SignupLayout.createSequentialGroup()
+                                .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(AnswerQuestionSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addComponent(Ads, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(54, Short.MAX_VALUE))
@@ -886,7 +901,7 @@ public class UIinicial extends javax.swing.JFrame {
         GameJoined.setPreferredSize(new java.awt.Dimension(450, 350));
 
         welcome2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        welcome2.setText("You vs. Other");
+        welcome2.setText("Waiting...");
 
         title7.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         title7.setText("Battleship");
@@ -920,10 +935,6 @@ public class UIinicial extends javax.swing.JFrame {
         GameJoined.setLayout(GameJoinedLayout);
         GameJoinedLayout.setHorizontalGroup(
             GameJoinedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GameJoinedLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(welcome2)
-                .addGap(168, 168, 168))
             .addGroup(GameJoinedLayout.createSequentialGroup()
                 .addGroup(GameJoinedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(GameJoinedLayout.createSequentialGroup()
@@ -938,15 +949,19 @@ public class UIinicial extends javax.swing.JFrame {
                         .addGap(156, 156, 156)
                         .addComponent(title7, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(23, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GameJoinedLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(welcome2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         GameJoinedLayout.setVerticalGroup(
             GameJoinedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(GameJoinedLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(title7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(welcome2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
                 .addGroup(GameJoinedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(goback4)
                     .addComponent(jToggleButton1))
@@ -961,7 +976,7 @@ public class UIinicial extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 474, Short.MAX_VALUE)
+            .addGap(0, 476, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -974,9 +989,9 @@ public class UIinicial extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 12, Short.MAX_VALUE)
+                    .addGap(0, 13, Short.MAX_VALUE)
                     .addComponent(Signup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 12, Short.MAX_VALUE)))
+                    .addGap(0, 13, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -995,7 +1010,7 @@ public class UIinicial extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 374, Short.MAX_VALUE)
+            .addGap(0, 376, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -1027,6 +1042,8 @@ public class UIinicial extends javax.swing.JFrame {
                     .addComponent(GameJoined, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(14, Short.MAX_VALUE)))
         );
+
+        getAccessibleContext().setAccessibleName("mainFrame");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1171,10 +1188,34 @@ public static boolean validate(String emailStr) {
     }//GEN-LAST:event_Rankings1ActionPerformed
 
     private void JoinGame1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JoinGame1ActionPerformed
-        // TODO add your handling code here:
-        user.getCheckGame();
-        setContentPane(GameJoined);
-        backvalue=Intro;
+        try {
+            // TODO add your handling code here:
+            
+            setContentPane(GameJoined);
+            backvalue=Intro;
+            user.getGameCheck();
+            if(!user.getGameOpponent().equals("default")){
+                
+                welcome2.setText(username+ " vs " + user.getGameOpponent());
+            }
+            else{
+                welcome2.setText("Waiting for opponent...");
+                System.out.println("I don't have an opponent");
+                jOptionPane1.showMessageDialog(null,"Waiting for opponents...");
+                
+                findOpponent();
+                jOptionPane1.setVisible(false);
+                
+            }
+            gameui = new GameUI(username,user.getGameOpponent());
+            gameui.setVisible(true);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_JoinGame1ActionPerformed
 
     private void CreateGame1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateGame1ActionPerformed
@@ -1423,7 +1464,7 @@ public static boolean validate(String emailStr) {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new UIinicial().setVisible(true);
+            main.setVisible(true);
         });
     }
 
@@ -1459,6 +1500,7 @@ public static boolean validate(String emailStr) {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JOptionPane jOptionPane1;
+    private javax.swing.JOptionPane jOptionPane2;
     private javax.swing.JPasswordField jPasswordField5;
     private javax.swing.JPasswordField jPasswordField6;
     private javax.swing.JPasswordField jPasswordInicial;

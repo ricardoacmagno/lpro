@@ -34,6 +34,7 @@ public class GameUI extends javax.swing.JFrame {
     Ship[] shipnr = new Ship[5];
     public static GameUI gameui;
     public static Player player1;
+    public static Player player2;
     boolean horizontal = true;
     boolean entered = false;
     int progress;
@@ -43,10 +44,12 @@ public class GameUI extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
-    public GameUI() {
+    public GameUI(String myPlayer,String opponent) {
         initComponents();
         jOptionPane1.setVisible(false);
-        player1 = new Player(name1);
+        player1 = new Player(myPlayer);
+        player2 = new Player(opponent);
+        label2.setText(myPlayer+" vs "+opponent);
         initGrid();
     }
 
@@ -566,8 +569,7 @@ public class GameUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                gameui = new GameUI();
-                gameui.setVisible(true);
+                
             }
         });
     }
