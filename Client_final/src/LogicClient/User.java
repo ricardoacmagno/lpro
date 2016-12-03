@@ -137,7 +137,7 @@ public class User{
                     game=new Game(gameid,Username,dataReceived.get(1));
                     game.printthis();
                     
-                    client.Disconnect();
+                    client.disconnect();
                 }
                 else if("CheckOpponent".equals(dataReceived.get(0))){
                     System.out.println(game.getOpponent());
@@ -146,7 +146,7 @@ public class User{
                         
                     System.out.println("New opponent "+dataReceived.get(1));
                     }
-                    client.Disconnect();
+                    client.disconnect();
                 }
 
             }
