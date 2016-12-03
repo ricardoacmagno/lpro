@@ -7,7 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Class responsible for making the database changes
  * @author ilia&magno
  */
 public final class UserDB extends PostgreSQLink{
@@ -24,12 +24,26 @@ public final class UserDB extends PostgreSQLink{
        
       
     }
+    
+    /**
+     * Constructor
+     * @param username 
+     */
     public void setUsername(String username){
         this.username=username;
     }
-       public void setEmail(String email){
+    
+    /**
+     * Constructor
+     * @param email 
+     */
+    public void setEmail(String email){
         this.email=email;
     }
+    
+    /**
+     * Method that gets the password from the database based in a username
+     */
     public void getLine(){
         PostgreSQLink.connect();
         try {
@@ -42,15 +56,24 @@ public final class UserDB extends PostgreSQLink{
         } catch (Exception ex) {
             System.err.println("Error!" + ex.getMessage());
         }
-    }  
+    }
+    
+    /**
+     * @return <code>String</code> with username or error if the username has no password attached
+     */
     public String getUsername(){
         if(this.password==null) return "Error&";
         return username;
     }
     
+    /**
+     * @return <code>String</code> with password
+     */
     public String getPassword(){
         return password;
     }
+    
+    
     public String[] getGame(String user){
         String opponent=null;
         int id=0;
@@ -91,6 +114,12 @@ public final class UserDB extends PostgreSQLink{
         String[] toReturn={opponent,oops};
         return toReturn; 
     }
+    
+    /**
+     * Method that verifies if an email exists in the database
+     * @param email
+     * @return <code>Boolean</code> true if it exists or false if it doesn't
+     */
     public Boolean getEmail(String email){
         
         try {
@@ -127,6 +156,14 @@ public final class UserDB extends PostgreSQLink{
         }
         return opponent;
     }
+    
+    /**
+     * Method that inserts into the database the signup information of a new user
+     * @param Username
+     * @param Password
+     * @param Name
+     * @param Mail 
+     */
     public void newLine(String Username, String Password, String Name, String Mail){
       
         try {
@@ -140,6 +177,14 @@ public final class UserDB extends PostgreSQLink{
         }
     }
     
+    /**
+     * Method responsible for changing a user's password based on his username, email and old password
+     * @param mail
+     * @param Username
+     * @param OldPassword
+     * @param Password
+     * @return ???????
+     */
     public int  newPass(String mail, String Username, String OldPassword ,String Password){
         System.out.println("ESTOU AQUI");
         try{

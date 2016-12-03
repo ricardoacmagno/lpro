@@ -4,11 +4,19 @@ import LogicServer.User;
 import java.io.IOException;
 
 /**
- *
+ * Class responsible for handling the string passed as argument from <code>MultiServerThread</code>
+ * This class invokes the <code>User</code> class to verify the arguments written by the application user
  * @author ilia&magno
  */
 public class ServerProtocol extends Thread{
     
+    /**
+     * Method responsible for calling the proper method to handle the server call based on the first argument of the <code>String</code> server
+     * @param server
+     * @return result of the specific method call or null in case of error
+     * @throws IOException
+     * @throws Exception 
+     */
     public String[] getData(String server) throws IOException, Exception {                  // DONE FOR NOW // CREATE PLAYER CLASS
        String[] stringUis;
        stringUis = server.split("&");
@@ -28,6 +36,12 @@ public class ServerProtocol extends Thread{
        }
     }
     
+    /**
+     * Method that verifies the parameters inserted by the user in the login using the <code>User</code> class
+     * @param receive
+     * @return Vector of <code>String</code> with the parameters inserted by the user if these are verified or error message in case of failure
+     * @throws Exception 
+     */
     public String[] handlerLogin(String[] receive) throws Exception{
         int state = 0;
         String[] UsernameEPass = new String[3];
@@ -65,7 +79,13 @@ public class ServerProtocol extends Thread{
     return new String[] {"FailedConnection", "login"};
     }
        
-    
+    /**
+     * Method that verifies if the parameters inserted by the user in the signup are already beeing used, invoking the <code>User</code> class
+     * @param receive
+     * @return Vector of <code>String</code> with the parameters inserted by the user if these are verified or error message in case of failure
+     * @throws IOException
+     * @throws Exception 
+     */
     public String[] handlerSignup(String[] receive) throws IOException, Exception {                  // DONE FOR NOW // CREATE PLAYER CLASS
        String[] Data = new String[3];
        int state = 0;
@@ -109,7 +129,13 @@ public class ServerProtocol extends Thread{
        }
     return new String[] {"FailedConnection", "signup"};
    }
-
+    
+    /**
+     * Method that verifies the parameters inserted by the user in the change password call using the <code>User</code> class
+     * @param receive
+     * @return Vector of <code>String</code> with the parameters inserted by the user if these are verified or error message in case of failure
+     * @throws Exception 
+     */
     private String[] handlerForgotPassword(String[] receive) throws Exception {
         String[] ChangePass = new String[4];
         int state = 0;
@@ -180,12 +206,25 @@ public class ServerProtocol extends Thread{
             }
         return new String[]{"FailedConnection","forgotPassword"};
     }
+    
+    /**
+     * 
+     * @param user
+     * @return
+     * @throws Exception 
+     */
     public String[] handlerCheckGame(String user) throws Exception{
         System.out.println("CheckGameHandler received "+user);
         String[] player = User.UserCheckGame(user);
         String[] teste= {"CheckGame",player[0],player[1]};
         return teste;
     }
+    
+    /**
+     * 
+     * @param id
+     * @return 
+     */
     public String[] handlerCheckOpponent(String id){
         String opponent=User.CheckOpponent(id);
         String[] teste= {"CheckOpponent",opponent};

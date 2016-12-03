@@ -7,12 +7,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * <code>MultiServerThread</code> represents the thread used by all user requests
+ * Responsible for handling the different calls made to the server by multiple users
  * @author ricar
  */
 public class MultiServerThread extends Thread{
    private Socket socket = null;
  
+   /**
+    * Method responsible for handling the multiple calls to the server
+    * @param socket 
+    */
    public MultiServerThread(Socket socket){
       super("MultiServerThread");
       this.socket = socket;
@@ -20,6 +25,11 @@ public class MultiServerThread extends Thread{
    String[] uno = new String[3];
    int state = 0;
    @Override
+   
+   /**
+    * Thread runnable responsible for invoking the methods in the class <code>ServerProtocol</code>
+    * Also prints in the output the string returned from it
+    */
    public void run() {
       try {
           

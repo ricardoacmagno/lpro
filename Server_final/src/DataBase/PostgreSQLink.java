@@ -9,15 +9,26 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
- *
+ * Class responsible for initiating the database communications
  * @author ricar
  */
 public class PostgreSQLink {
+    
+    /**
+     * Constructor
+     */
     private static Connection connection = null;
-
+    
+    /**
+     * @return <code>Conection</code>
+     */
     public static Connection getConnection() {
         return connection;
     }
+    
+    /**
+     * Method that connects to the database
+     */
     static void connect(){
         try {
             Class.forName("org.postgresql.Driver");
@@ -31,7 +42,10 @@ public class PostgreSQLink {
         }catch (SQLException e){
             System.err.println(e.getMessage());}
         }
-
+    
+    /**
+     * Method that closes the connection with the database
+     */
     static void close(){
         try {
             connection.close();
