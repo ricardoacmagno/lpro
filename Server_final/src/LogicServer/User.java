@@ -14,6 +14,7 @@ public class User {
     private String password;
     private Integer question;
     private String anwser;
+    public int c;
     public static UserDB userData;
     
     public User (String name, String email, String username, String password, Integer question, String anwser) throws Exception{
@@ -73,7 +74,15 @@ public class User {
         return received.equals(userData.getPassword());              //CRIAR O GETPASSWORD NO USERDB PARA RETORNAR A PALAVRA PASSE
     }
     
-    
+    public static String[] UserCheckGame(String user){
+        String[] opponent=userData.getGame(user);
+        return opponent;
+    }
+    public static String CheckOpponent(String id){
+        int gameid=Integer.parseInt(id);
+        String opponent=userData.CheckOpponent(gameid);
+        return opponent;
+    }
    public static boolean confirmEmailForPassword(String received) throws Exception{
        
        userData=new UserDB();
