@@ -88,7 +88,7 @@ public class ClientProtocol  {
     }
     
     /**
-     * 
+     * Method responsible for creating a specific change password encoded string
      * @param mail
      * @param username
      * @param OldPassword
@@ -243,7 +243,7 @@ public class ClientProtocol  {
     }
 
     /**
-     * 
+     * Creates a specific <code>ArrayList</code> with the server's response split
      * @param tokens
      * @return a simplified confirmation code
      */

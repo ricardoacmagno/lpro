@@ -168,7 +168,7 @@ public class User {
     }*/
     
     /**
-     * <code>getResultadoLogin()</code> serves to send the result of the
+     * Method that serves to send the result of the
      * verification made in <code>sendData()</code>
      *
      * @return identifier from what was received
@@ -182,7 +182,7 @@ public class User {
      * Method that serves to send the result of
      * the verification made in <code>sendData()</code>
      *
-     * @return
+     * @return  identifier from what was received
      */
     public int getResultadoRecoverPassword() {
         return resultadoPassword;
