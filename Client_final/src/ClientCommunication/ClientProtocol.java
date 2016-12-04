@@ -20,7 +20,7 @@ public class ClientProtocol  {
     
     /**
     * Method responsible for calling the socket communication initialization process
-    * @return always true
+    * @return always <code>true</code>
     */
     public  boolean connection(){
         if (connect==false){
@@ -36,7 +36,7 @@ public class ClientProtocol  {
     
     /**
      * Serves only to check if the Client-Server connection has been established 
-     * @return boolean variable that represents if the communication is established 
+     * @return <code>true</code> if the communication has been established or <code>false</code> otherwise 
      */
     public  boolean okConnection(){
         return connect;

@@ -8,7 +8,7 @@ public class MD5_hash {
     /**
      * Responsible for the hash creation
      * @param md5   Receives the password
-     * @return String containing the hash created
+     * @return  hash created
      */
     public static String MD5_hash(String md5){
     try {

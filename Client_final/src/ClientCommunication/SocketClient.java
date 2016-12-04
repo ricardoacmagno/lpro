@@ -42,10 +42,9 @@ public class SocketClient extends Socket {
      
      /**
       * Method responsible for receiving responses from the server
-      * @return String with what was read from the server
+      * @return <code>String</code> with what was read from the server
       * @throws IOException 
       */
-    
      public String received () throws IOException{
             String fromServer=null;
         try {
