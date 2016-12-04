@@ -5,7 +5,6 @@ package Game;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 public class Board {
 
     public char boardtable[][] = new char[10][10];
@@ -13,10 +12,16 @@ public class Board {
     int numbers[] = new int[10];
     Player player;
 
+    /**
+     * Constructor
+     */
     public Board() {
         initBoard();
     }
 
+    /**
+     * <code>initBoard()</code> creates a grid that represents a player board
+     */
     private void initBoard() {
         for (int c = 0; c < 10; c++) {
             letters[c] = (char) ('A' + c);
@@ -29,15 +34,33 @@ public class Board {
         }
     }
 
+    /**
+     * <code>setBoard()</code> insert a char in the board
+     *
+     * @param y
+     * @param x
+     * @param c
+     */
     public void setBoard(int y, int x, char c) {
         boardtable[y][x] = c;
     }
 
+    /**
+     * <code>checkBoard()</code> checks if the param c is in the position x,y
+     *
+     * @param y
+     * @param x
+     * @param c
+     * @return true or false if param c is in the position x,y
+     */
     public boolean checkBoard(int y, int x, char c) {
         return c == boardtable[y][x];
 
     }
 
+    /**
+     * <code>printBoard()</code> print in the terminal the state of the board
+     */
     public void printBoard() {
         System.out.println();
         for (int c = 1; c <= 10; c++) {
