@@ -182,11 +182,7 @@ public class User {
      * Method that serves to send the result of
      * the verification made in <code>sendData()</code>
      *
-<<<<<<< HEAD
-     * @return  identifier from what was received
-=======
-     * @return 1 if eveything is ok or 2 to 5 if is a error
->>>>>>> origin/master
+     * @return 1 if everything is ok or 2 to 5 if is an error
      */
     public int getResultadoRecoverPassword() {
         return resultadoPassword;
