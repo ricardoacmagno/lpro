@@ -31,7 +31,7 @@ public class Player {
     /**
      * Constructor
      *
-     * @param name
+     * @param name string with the name of the player
      */
     Player(String name) {
         this.name = name;
