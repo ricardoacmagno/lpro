@@ -88,11 +88,19 @@ public class ClientProtocol  {
     }
     
     /**
+<<<<<<< HEAD
      * Method responsible for creating a specific change password encoded string
      * @param mail
      * @param username
      * @param OldPassword
      * @param NewPassword 
+=======
+     * 
+     * @param mail user's email address
+     * @param username user's username  
+     * @param OldPassword user's old password
+     * @param NewPassword  user's new password
+>>>>>>> origin/master
      */
     public void sendChangePassword(String mail, String username, String OldPassword, String NewPassword){
         if(connect==false) connection();
@@ -110,7 +118,7 @@ public class ClientProtocol  {
     
     /**
      * 
-     * @param user 
+     * @param user string with the name of the user
      */
     public void checkJoinedGame(String user){
         if(connect==false) connection();
@@ -188,7 +196,7 @@ public class ClientProtocol  {
     
     /**
      * 
-     * @param tokens
+     * @param tokens strings received from server
      * @return a simplified confirmation code
      */
     private  ArrayList<String> handlerOpponent(String[] tokens) {          //ATENCAO: Quando enviar confirmação do server, ter cuidado para enviar um vetor de strings com 3 elementos ou modificar o código
@@ -206,7 +214,7 @@ public class ClientProtocol  {
     
     /**
      * 
-     * @param tokens
+     * @param tokens strings received from server
      * @return a simplified confirmation code
      */
     private  ArrayList<String> handlerCheck(String[] tokens) {          //ATENCAO: Quando enviar confirmação do server, ter cuidado para enviar um vetor de strings com 3 elementos ou modificar o código
@@ -225,7 +233,7 @@ public class ClientProtocol  {
     
     /**
      * Creates a specific <code>ArrayList</code> with the server's response split
-     * @param tokens
+     * @param tokens strings received from server
      * @return a simplified confirmation code
      */
     private  ArrayList<String> handlerSignup(String[] tokens) {
@@ -243,8 +251,13 @@ public class ClientProtocol  {
     }
 
     /**
+<<<<<<< HEAD
      * Creates a specific <code>ArrayList</code> with the server's response split
      * @param tokens
+=======
+     * 
+     * @param tokens strings received from server
+>>>>>>> origin/master
      * @return a simplified confirmation code
      */
     private ArrayList<String> handlerForgotPassword(String[] tokens) {

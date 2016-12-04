@@ -17,7 +17,7 @@ public class Ship {
      *
      * @param size
      * @param id
-     * @param name
+     * @param name string with the name of the ship
      */
     public Ship(int size, int id, String name) {
         this.size = size;

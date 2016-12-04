@@ -19,8 +19,8 @@ public class Game {
      * Constructor
      *
      * @param id
-     * @param player1
-     * @param player2
+     * @param player1 string with the name of the player 1
+     * @param player2 string with the name of the player 2
      */
     Game(int id, String player1, String player2) {
         this.me = player1;
@@ -49,7 +49,7 @@ public class Game {
     /**
      * <code>setOpponent()</code> sets a new opponent to the game
      *
-     * @param name
+     * @param name string with the name of the opponent
      */
     public void setOpponent(String name) {
         this.opponent = name;

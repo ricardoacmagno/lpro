@@ -28,11 +28,11 @@ public class User {
     /**
      * Constructor
      *
-     * @param Username
-     * @param Password
-     * @param Mail
-     * @param Name
-     * @param OldPassword
+     * @param Username string with the user username
+     * @param Password string wiith the user password
+     * @param Mail string with the user mail
+     * @param Name string with the user name
+     * @param OldPassword string with the old password
      */
     public User(String Username, String Password, String Mail, String Name, String OldPassword) {
         this.Username = Username;
@@ -182,7 +182,11 @@ public class User {
      * Method that serves to send the result of
      * the verification made in <code>sendData()</code>
      *
+<<<<<<< HEAD
      * @return  identifier from what was received
+=======
+     * @return 1 if eveything is ok or 2 to 5 if is a error
+>>>>>>> origin/master
      */
     public int getResultadoRecoverPassword() {
         return resultadoPassword;
