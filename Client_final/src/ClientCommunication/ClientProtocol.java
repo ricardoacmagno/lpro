@@ -20,7 +20,7 @@ public class ClientProtocol  {
     
     /**
     * Method responsible for calling the socket communication initialization process
-    * @return 
+    * @return always true
     */
     public  boolean connection(){
         if (connect==false){
@@ -87,7 +87,13 @@ public class ClientProtocol  {
                     }
     }
     
-    
+    /**
+     * 
+     * @param mail
+     * @param username
+     * @param OldPassword
+     * @param NewPassword 
+     */
     public void sendChangePassword(String mail, String username, String OldPassword, String NewPassword){
         if(connect==false) connection();
        
@@ -101,6 +107,11 @@ public class ClientProtocol  {
                         Logger.getLogger(ClientProtocol.class.getName()).log(Level.SEVERE, null, ex);
             }
     }
+    
+    /**
+     * 
+     * @param user 
+     */
     public void checkJoinedGame(String user){
         if(connect==false) connection();
         String checkGame="CheckGame&"+user;
@@ -110,6 +121,11 @@ public class ClientProtocol  {
                         Logger.getLogger(ClientProtocol.class.getName()).log(Level.SEVERE, null, ex);
             }
     }
+    
+    /**
+     * 
+     * @param id 
+     */
     public void checkOpponent(int id){
         if(connect==false) connection();
         String checkGame="CheckOpponent&"+id;
@@ -153,8 +169,8 @@ public class ClientProtocol  {
    
     /**
      * Creates a specific <code>ArrayList</code> with the server's response split
-     * @param tokens
-     * @return  <code>ArrayList</code> with a simplified confirmation code
+     * @param tokens    Server's confirmation with a <code>String</code> array 
+     * @return  a simplified confirmation code
      */
     private  ArrayList<String> handlerLogin(String[] tokens) {          //ATENCAO: Quando enviar confirmação do server, ter cuidado para enviar um vetor de strings com 3 elementos ou modificar o código
         
@@ -169,6 +185,12 @@ public class ClientProtocol  {
         
         return login;
     }
+    
+    /**
+     * 
+     * @param tokens
+     * @return a simplified confirmation code
+     */
     private  ArrayList<String> handlerOpponent(String[] tokens) {          //ATENCAO: Quando enviar confirmação do server, ter cuidado para enviar um vetor de strings com 3 elementos ou modificar o código
         
         ArrayList<String> login;
@@ -182,6 +204,11 @@ public class ClientProtocol  {
         return login;
     }
     
+    /**
+     * 
+     * @param tokens
+     * @return a simplified confirmation code
+     */
     private  ArrayList<String> handlerCheck(String[] tokens) {          //ATENCAO: Quando enviar confirmação do server, ter cuidado para enviar um vetor de strings com 3 elementos ou modificar o código
         
         ArrayList<String> check;
@@ -199,7 +226,7 @@ public class ClientProtocol  {
     /**
      * Creates a specific <code>ArrayList</code> with the server's response split
      * @param tokens
-     * @return  <code>ArrayList</code> with a simplified confirmation code
+     * @return a simplified confirmation code
      */
     private  ArrayList<String> handlerSignup(String[] tokens) {
         
@@ -215,6 +242,11 @@ public class ClientProtocol  {
         return signup;
     }
 
+    /**
+     * 
+     * @param tokens
+     * @return a simplified confirmation code
+     */
     private ArrayList<String> handlerForgotPassword(String[] tokens) {
        ArrayList<String> forgotpassword;
        

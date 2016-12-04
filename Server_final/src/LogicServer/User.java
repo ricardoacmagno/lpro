@@ -92,7 +92,7 @@ public class User {
     /**
      * Method that creates a new class <code>UserDB</code> in order to verify the existence of the user's username in the database
      * @param received  User's username
-     * @return true if the user's username is in the database or false if it is not
+     * @return <code>true</code> if the user's username is in the database or <code>false</code> if it is not
      * @throws Exception 
      */
     public static boolean confirmUsername(String received) throws Exception{
@@ -109,7 +109,7 @@ public class User {
     /**
      * Method that verifies if the password's hash is correct
      * @param received  password's hash
-     * @return  true if the password's hash is correct or false in case of error
+     * @return  <code>true</code> if the password's hash is correct or <code>false</code> in case of error
      */
     public static boolean confirmPassword(String received){
         System.out.println("HASH: " + received);
@@ -140,7 +140,7 @@ public class User {
     /**
      * Method that verifies that the email received exists on the database
      * @param received  user's email
-     * @return  true if the email is in the database or false if it is not
+     * @return  <code>true</code> if the email is in the database or <code>false</code> if it is not
      * @throws Exception 
      */
    public static boolean confirmEmailForPassword(String received) throws Exception{
@@ -154,7 +154,7 @@ public class User {
    /**
     * Method that verifies if the email picked by the user is already in use
     * @param received   user's received email
-    * @return   true if the email is in the database and corresponds to the right user or false if it doesn't
+    * @return   <code>true</code> if the email is in the database and corresponds to the right user or <code>false</code> if it doesn't
     */
     public static boolean confirmEmail(String received) {           //verifica se existe um email na base
         System.out.println("EMAIL.RECEIVED: "+ received);

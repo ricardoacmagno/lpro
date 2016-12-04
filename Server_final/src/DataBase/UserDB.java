@@ -126,7 +126,7 @@ public final class UserDB extends PostgreSQLink{
     /**
      * Method that verifies if the email received as a parameter exists in the database
      * @param email
-     * @return  true if there is such email or false if it doesn't
+     * @return  <code>true</code> if there is such email or <code>false</code> if it doesn't
      */
     public Boolean getEmail(String email){
         
