@@ -1,6 +1,5 @@
 package Game;
 
-
 import java.util.Scanner;
 
 /*
@@ -29,6 +28,11 @@ public class Player {
     Scanner textscanner = new Scanner(System.in);
     Scanner intscanner = new Scanner(System.in);
 
+    /**
+     * Constructor
+     *
+     * @param name
+     */
     Player(String name) {
         this.name = name;
         playNr = 0;
@@ -45,42 +49,103 @@ public class Player {
         HitBoard = new Board();
     }
 
+    /**
+     * <code>hit()</code> increments a hit on the player
+     */
     public void hit() {
         hitcount++;
     }
 
+    /**
+     * <code>miss()</code> increments a miss on the player
+     */
     public void miss() {
         misscount++;
     }
 
+    /**
+     * <code>checkWinner()</code> checks if the player is a winner
+     *
+     * @return true if the hit count is higher than 17
+     */
     public boolean checkWinner() {
         return hitcount >= 17;
     }
 
+    /**
+     * <code>printShipBoard()</code> prints in terminal the ship board of the
+     * player
+     */
     public void printShipBoard() {
         ShipBoard.printBoard();
     }
 
+    /**
+     * <code>printHiBoard()</code> prints in terminal the hits in the ship
+     * board of the oponent player
+     */
     public void printHitBoard() {
         HitBoard.printBoard();
     }
 
+    /**
+     * <code>checkHitBoard()</code> checks if the param c is in the position
+     * x,y of the hit board
+     *
+     * @param y
+     * @param x
+     * @param c
+     * @return true if param c is in the position x,y
+     */
     public boolean checkHitBoard(int y, int x, char c) {
         return HitBoard.checkBoard(y, x, c);
     }
 
+    /**
+     * <code>checkShipBoard</code> checks if the param c is the position x,y of
+     * the ship board
+     *
+     * @param y
+     * @param x
+     * @param c
+     * @return true if param c is in the position x,y
+     */
     public boolean checkShipBoard(int y, int x, char c) {
         return ShipBoard.checkBoard(y, x, c);
     }
 
+    /**
+     * <code>setHitBoard()</code> inserts the param c in the position x,y of
+     * the hit board
+     *
+     * @param y
+     * @param x
+     * @param c
+     */
     public void setHitBoard(int y, int x, char c) {
         HitBoard.setBoard(y, x, c);
     }
 
+    /**
+     * <code>setShipBoard()</code> inserts the param c in the position x,y of
+     * the hit board
+     *
+     * @param y
+     * @param x
+     * @param c
+     */
     public void setShipBoard(int y, int x, char c) {
         ShipBoard.setBoard(y, x, c);
     }
 
+    /**
+     * <code>placeShip()</code> inserts the ships in the ship board
+     *
+     * @param boat
+     * @param y
+     * @param x
+     * @param hor
+     */
     public void placeShip(Ship boat, int y, int x, boolean hor) {
         if (hor == true) {
             for (int c = x; c < (x + boat.getSize()); c++) {
@@ -96,41 +161,20 @@ public class Player {
         System.out.println("Placed " + boat.getName());
     }
 
+    /**
+     * <code>setWinner()</code> declares the winner
+     */
     public void setWinner() {
         winner = true;
     }
 
+    /**
+     * <code>getWinner()</code> checks if this player is a winner
+     *
+     * @return true if is a winner
+     */
     boolean getWinner() {
         return winner;
-    }
-
-    public void turn() {
-        ShipBoard.printBoard();
-        HitBoard.printBoard();
-        System.out.println(name + " turn to play, choose letter and number:");
-        String row = textscanner.nextLine();
-        while (!(row.charAt(0) >= 'A' && row.charAt(0) <= 'J')) {
-            System.out.println("Bad letter");
-            row = textscanner.nextLine();
-        }
-        int collumn = intscanner.nextInt();
-        while (!(collumn >= 1 && collumn <= 10)) {
-            System.out.println("Bad number");
-            collumn = intscanner.nextInt();
-        }
-        realc = collumn - 1;
-        realr = (int) row.charAt(0) - 'A';
-
-        System.out.println("Hiting " + row.charAt(0) + collumn);
-
-    }
-
-    public int getX() {
-        return realc;
-    }
-
-    public int getY() {
-        return realr;
     }
 
 }
