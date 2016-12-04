@@ -5,6 +5,7 @@ package Game;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 import java.awt.Color;
 import java.awt.Label;
 import java.awt.event.MouseAdapter;
@@ -41,23 +42,17 @@ public class GameUI extends javax.swing.JFrame {
     String name1 = "player1";
 
     /**
-     * Constructor
-     *
-     * @param myPlayer
-     * @param opponent
+     * Creates new form NewJFrame
      */
-    public GameUI(String myPlayer, String opponent) {
+    public GameUI(String myPlayer,String opponent) {
         initComponents();
         jOptionPane1.setVisible(false);
         player1 = new Player(myPlayer);
         player2 = new Player(opponent);
-        label2.setText(myPlayer + " vs " + opponent);
+        label2.setText(myPlayer+" vs "+opponent);
         initGrid();
     }
 
-    /**
-     * <code>initGrid()</code> initialize the ship board UI
-     */
     @SuppressWarnings("unchecked")
     private void initGrid() {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -82,9 +77,6 @@ public class GameUI extends javax.swing.JFrame {
 
     }
 
-    /**
-     * <code>initGrid2()</code> initialize the hit board UI
-     */
     private void initGrid2() {
 
         jPanel2.remove(jProgressBar);
@@ -110,13 +102,6 @@ public class GameUI extends javax.swing.JFrame {
         turn(player1);
     }
 
-    /**
-     * <code>startBoardGui()</code> define the settings of each param jpanel
-     *
-     * @param jpanel
-     * @param Layout
-     * @param currentpanel
-     */
     public void startBoardGui(JPanel jpanel, GroupLayout Layout, JPanel currentpanel) {
         jpanel.setBorder(javax.swing.BorderFactory.createLineBorder(Color.gray));
         jpanel.setPreferredSize(new java.awt.Dimension(30, 30));
@@ -124,19 +109,15 @@ public class GameUI extends javax.swing.JFrame {
         jpanel.setLayout(Layout);
         Layout.setHorizontalGroup(
                 Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
         );
         Layout.setVerticalGroup(
                 Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
         );
         currentpanel.add(jpanel);
     }
 
-    /**
-     * <code>turn()</code> represents the turn of each player
-     * @param player
-     */
     public void turn(Player player) {
         for (int y = 0; y < 10; y++) {
             for (int x = 0; x < 10; x++) {
@@ -145,23 +126,11 @@ public class GameUI extends javax.swing.JFrame {
                 int y1 = y;
                 int x1 = x;
                 teste1[y][x] = new MouseAdapter() {
-                    /**
-                     * <code>mouseEntered()</code> change settings when the
-                     * mouse enters
-                     *
-                     * @param evt
-                     */
                     @Override
                     public void mouseEntered(java.awt.event.MouseEvent evt) {
                         current.setBorder(javax.swing.BorderFactory.createLineBorder(Color.gray, 3));
                     }
 
-                    /**
-                     * <code>mousePressed()</code> change settings when the
-                     * mousse is pressed
-                     *
-                     * @param evt
-                     */
                     @Override
                     public void mousePressed(java.awt.event.MouseEvent evt) {
                         if (evt.getButton() == MouseEvent.BUTTON1) {
@@ -185,12 +154,6 @@ public class GameUI extends javax.swing.JFrame {
                         }
                     }
 
-                    /**
-                     * <code>mouseExited()</code> change settings when the mouse
-                     * exits
-                     *
-                     * @param evt
-                     */
                     @Override
                     public void mouseExited(java.awt.event.MouseEvent evt) {
                         current.setBorder(javax.swing.BorderFactory.createLineBorder(Color.gray, 1));
@@ -202,11 +165,6 @@ public class GameUI extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * <code>placeShipUi()</code> represents the UI of placing a ship
-     *
-     * @param ship
-     */
     public void placeShipUi(Ship ship) {
         d = ship;
         int size;
@@ -279,12 +237,6 @@ public class GameUI extends javax.swing.JFrame {
                     }
                     int x1 = x, y1 = y;
                     teste[y][x] = new MouseAdapter() {
-                        /**
-                         * <code>mouseEntered()</code> change settings when the
-                         * mouse enters
-                         *
-                         * @param evt
-                         */
                         @Override
                         public void mouseEntered(java.awt.event.MouseEvent evt) {
                             if (n) {
@@ -302,12 +254,6 @@ public class GameUI extends javax.swing.JFrame {
 
                         }
 
-                        /**
-                         * <code>mousePressed()</code> change settings when the
-                         * mousse is pressed
-                         *
-                         * @param evt
-                         */
                         @Override
                         public void mousePressed(java.awt.event.MouseEvent evt) {
                             if (evt.getButton() == MouseEvent.BUTTON1) {
@@ -358,12 +304,6 @@ public class GameUI extends javax.swing.JFrame {
                             }
                         }
 
-                        /**
-                         * <code>mouseExited()</code> change settings when the
-                         * mouse exits
-                         *
-                         * @param evt
-                         */
                         @Override
                         public void mouseExited(java.awt.event.MouseEvent evt) {
                             current.setBorder(javax.swing.BorderFactory.createLineBorder(Color.gray, 1));
@@ -378,18 +318,6 @@ public class GameUI extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * <code>refresh()</code> refreshes the mouse listeners when right click is
-     * pressed
-     *
-     * @param size
-     * @param y
-     * @param x
-     * @param next
-     * @param current
-     * @param ShipInWay
-     * @param n
-     */
     public void refresh(int size, int y, int x, JPanel[] next, JPanel current, boolean ShipInWay, boolean n) {
         if (horizontal == true) {
             if (x < 11 - size) {
@@ -456,10 +384,6 @@ public class GameUI extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * <code>rightClick()</code> removes all mouse listerners and set new ones
-     * when right click is pressed
-     */
     public void rightClick() {
         for (int y = 0; y < 10; y++) {
             for (int x = 0; x < 10; x++) {
@@ -479,13 +403,6 @@ public class GameUI extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * <code>createLetterLabel()</code> creates a label
-     *
-     * @param letter
-     * @param y
-     * @param panel
-     */
     public void createLetterLabel(Label letter, int y, JPanel panel) {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         char realletter = (char) ((char) 'A' + y);
@@ -498,13 +415,6 @@ public class GameUI extends javax.swing.JFrame {
 
     }
 
-    /**
-     * <code>createNumberLabel()</code> creates a label
-     *
-     * @param number
-     * @param x
-     * @param panel
-     */
     public void createNumberLabel(Label number, int x, JPanel panel) {
         String text = "" + (x + 1);
         number.setAlignment(java.awt.Label.CENTER);
@@ -659,11 +569,16 @@ public class GameUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-
+                
             }
         });
     }
 
+    private static class MouseAdapterImpl extends MouseAdapter {
+
+        public MouseAdapterImpl() {
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JOptionPane jOptionPane1;
