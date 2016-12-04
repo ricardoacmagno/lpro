@@ -7,7 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Class responsible for making the database changes
+ * Class responsible for accessing the database, adding values to it and verifying all the database data
  * @author ilia&magno
  */
 public final class UserDB extends PostgreSQLink{
@@ -20,29 +20,31 @@ public final class UserDB extends PostgreSQLink{
     
     Statement statement = null;
     
-    public UserDB() throws Exception  {
-       
-      
+    /**
+     * Constructor
+     * @throws Exception 
+     */
+    public UserDB() throws Exception  {  
     }
     
     /**
-     * Constructor
-     * @param username 
+     * Sets the <code>username</code> with the parameters received
+     * @param username  user's received username
      */
     public void setUsername(String username){
         this.username=username;
     }
     
     /**
-     * Constructor
-     * @param email 
+     * Sets the <code>email</code> with the parameters received
+     * @param email user's received email
      */
     public void setEmail(String email){
         this.email=email;
     }
     
     /**
-     * Method that gets the password from the database based in a username
+     * Method that sets the <code>password</code> from the database based on a username previously defined in <code>setUsername</code>
      */
     public void getLine(){
         PostgreSQLink.connect();
@@ -59,7 +61,8 @@ public final class UserDB extends PostgreSQLink{
     }
     
     /**
-     * @return <code>String</code> with username or error if the username has no password attached
+     * Gets the user's username of this class, <code>UserDB</code>
+     * @return  username or, if there's no password attached to the specific username, an error flag
      */
     public String getUsername(){
         if(this.password==null) return "Error&";
@@ -67,13 +70,18 @@ public final class UserDB extends PostgreSQLink{
     }
     
     /**
-     * @return <code>String</code> with password
+     * Gets the user's stored password
+     * @return the password previously set on <code>getLine</code>
      */
     public String getPassword(){
         return password;
     }
     
-    
+    /**
+     * 
+     * @param user
+     * @return 
+     */
     public String[] getGame(String user){
         String opponent=null;
         int id=0;
@@ -116,9 +124,9 @@ public final class UserDB extends PostgreSQLink{
     }
     
     /**
-     * Method that verifies if an email exists in the database
+     * Method that verifies if the email received as a parameter exists in the database
      * @param email
-     * @return <code>Boolean</code> true if it exists or false if it doesn't
+     * @return  true if there is such email or false if it doesn't
      */
     public Boolean getEmail(String email){
         
@@ -135,6 +143,12 @@ public final class UserDB extends PostgreSQLink{
         }
         return false;
     }
+    
+    /**
+     * 
+     * @param id
+     * @return 
+     */
     public String CheckOpponent(int id){
         PostgreSQLink.connect();
         String opponent="default";
@@ -158,11 +172,11 @@ public final class UserDB extends PostgreSQLink{
     }
     
     /**
-     * Method that inserts into the database the signup information of a new user
-     * @param Username
-     * @param Password
-     * @param Name
-     * @param Mail 
+     * Method that creates a new line of information, based on the signup of the user, into the database
+     * @param Username  User's received username
+     * @param Password  User's received password
+     * @param Name      User's received real name
+     * @param Mail      User's received email
      */
     public void newLine(String Username, String Password, String Name, String Mail){
       
@@ -178,12 +192,12 @@ public final class UserDB extends PostgreSQLink{
     }
     
     /**
-     * Method responsible for changing a user's password based on his username, email and old password
-     * @param mail
-     * @param Username
-     * @param OldPassword
-     * @param Password
-     * @return ???????
+     * Method responsible for changing a user's stored password based on the parameters received
+     * @param mail          User's received email
+     * @param Username      User's received username
+     * @param OldPassword   User's received previous password
+     * @param Password      User's received new password
+     * @return  an error flag in case of error or a positive <code>int</code> in case of success
      */
     public int  newPass(String mail, String Username, String OldPassword ,String Password){
         System.out.println("ESTOU AQUI");

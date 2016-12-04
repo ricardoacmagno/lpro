@@ -16,7 +16,8 @@ import java.util.logging.Logger;
 public class ClientProtocol  {
     private  boolean connect=false;
     private  SocketClient clientSocket; 
-    private  final ConcurrentHashMap<Integer,Object> sleepers = new ConcurrentHashMap<>();   
+    private  final ConcurrentHashMap<Integer,Object> sleepers = new ConcurrentHashMap<>();
+    
     /**
     * Method responsible for calling the socket communication initialization process
     * @return 
@@ -55,8 +56,8 @@ public class ClientProtocol  {
     /**
      * Method responsible for creating a specific login encoded string
      * Calls the <code>toSend</code> method to send the message
-     * @param username
-     * @param password 
+     * @param username  user's login username
+     * @param password  user's login password
      */
     public  void sendLogin(String username, String  password){
         if(connect==false) connection();

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 
 /**
- * <code>MultiServer</code>
+ * Class responsible for creating multiple server threads so that one server can handle multiple clients
  * @author ricar
  */
 public class MultiServer {

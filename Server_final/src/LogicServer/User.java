@@ -3,7 +3,7 @@ package LogicServer;
 import DataBase.UserDB;
 
 /**
- * Class responsible for handling the conection between the server and the database
+ * Class responsible for handling the connection between the server and the database
  * @author ilia&magno
  */
 public class User {
@@ -19,12 +19,12 @@ public class User {
     
     /**
      * Constructor
-     * @param name
-     * @param email
-     * @param username
-     * @param password
-     * @param question
-     * @param anwser
+     * @param name      User's real name
+     * @param email     User's email
+     * @param username  User's username
+     * @param password  User's password hash
+     * @param question  User's security question id
+     * @param anwser    User's answer for the security question
      * @throws Exception 
      */
     public User (String name, String email, String username, String password, Integer question, String anwser) throws Exception{
@@ -40,52 +40,59 @@ public class User {
     /*public User(String username) {
         this.username = username;
     }*/
+    
     /**
-     * @return <code>String</code> containing user's name
+     * Gets the name stored in the class <code>User</code>
+     * @return  user's name
      */
     public String getName(){
         return name;
     }
     
     /**
-     * @return <code>String</code> containing user's email
+     * Gets the email stored in the class <code>User</code>
+     * @return  user's email
      */
     public String getEmail(){
         return email;
     }
     
     /**
-     * @return <code>String</code> containing user's password hash
+     * Gets the password stored in the class <code>User</code>
+     * @return  user's password hash
      */
     public String getPassword(){
         return password;
     }
     
     /**
-     * @return <code>String</code> containing user's username
+     * Gets the username stored in the class <code>User</code>
+     * @return user's username
      */
     public String getUsername(){
         return username;
     }
     
     /**
-     * @return <code>Integer</code> containing user's safety question id
+     * Gets the security question id stored in the class <code>User</code>
+     * @return  user's security question id
      */
     public Integer getQuestion(){
         return question;
     }
     
     /**
-     * @return <code>String</code> containing user's safety question answer
+     * Gets the security question answer stored in the class <code>User</code>
+     * @return  user's safety question answer
      */
     public String getAnwser(){
         return anwser;
     }
     
     /**
-     * Method that creates a new class <code>UserDB</code> in order to make the necessary verifications in the database
-     * @param received
-     * @return <code>Boolean</code> with the value 1 if the username is in the database and has a password associated or 0 if it isn't
+     * Method that creates a new class <code>UserDB</code> in order to verify the existence of the user's username in the database
+     * @param received  User's username
+     * @return true if the user's username is in the database or false if it is not
      * @throws Exception 
      */
     public static boolean confirmUsername(String received) throws Exception{
@@ -100,20 +107,30 @@ public class User {
     }
     
     /**
-     * Method that verifies if the password written by the user is correct
-     * @param received
-     * @return <code>Boolean</code> with the value 1 if the password is correct or 0 in case of error
+     * Method that verifies if the password's hash is correct
+     * @param received  password's hash
+     * @return  true if the password's hash is correct or false in case of error
      */
     public static boolean confirmPassword(String received){
         System.out.println("HASH: " + received);
         //Chamar a parte do DB >> verificar a palavra passe retornada com aquela recebida  
         return received.equals(userData.getPassword());              //CRIAR O GETPASSWORD NO USERDB PARA RETORNAR A PALAVRA PASSE
     }
-    
+    /**
+     * 
+     * @param user
+     * @return 
+     */
     public static String[] UserCheckGame(String user){
         String[] opponent=userData.getGame(user);
         return opponent;
     }
+        
+    /**
+     * 
+     * @param id
+     * @return 
+     */
     public static String CheckOpponent(String id){
         int gameid=Integer.parseInt(id);
         String opponent=userData.CheckOpponent(gameid);
@@ -121,9 +138,9 @@ public class User {
     }
     
     /**
-     * Method WTF E QUE ISTO FAZ XDXDXD
-     * @param received
-     * @return <code>Boolean</code> true if the email is in the database or false if it isn't
+     * Method that verifies that the email received exists on the database
+     * @param received  user's email
+     * @return  true if the email is in the database or false if it is not
      * @throws Exception 
      */
    public static boolean confirmEmailForPassword(String received) throws Exception{
@@ -135,9 +152,9 @@ public class User {
    }
     
    /**
-    * Method that verifies is the email picked by the user is already in use
-    * @param received
-    * @return <code>Boolean</code> true if the email is in the database or false if it isn't
+    * Method that verifies if the email picked by the user is already in use
+    * @param received   user's received email
+    * @return   true if the email is in the database and corresponds to the right user or false if it doesn't
     */
     public static boolean confirmEmail(String received) {           //verifica se existe um email na base
         System.out.println("EMAIL.RECEIVED: "+ received);
@@ -147,7 +164,7 @@ public class User {
     
     /**
      * Method that uses the <code>UserDB</code> class to insert the signup parameters in the database
-     * @param data 
+     * @param data  <code>String</code> array with the user's data. Username, Email, Password and Name
      */
     public static void sendSignup(String[] data){
         userData.newLine(data[1], data[3], data[4], data[2]);   //Manda primeiro o Username, Password, Nome e Email
@@ -156,7 +173,7 @@ public class User {
     /**
      * Method that uses the <code>UserDB</code> class to change a user's password 
      * @param ChangePassword
-     * @return ?????? RETURN DO UPDATE DA DATABASE ?????
+     * @return a positive value in case of success or a negative error flag
      */
     public static int sendForgotPassword(String[] ChangePassword){
        return userData.newPass(ChangePassword[1], ChangePassword[2], ChangePassword[3], ChangePassword[4]);

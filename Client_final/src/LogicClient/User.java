@@ -45,8 +45,8 @@ public class User {
 
     /**
      * <code>sendData()</code> is responsible for invoking the protocol, sending
-     * the necessary data Also responsible for identifying if the information
-     * was correctly acknowledged by the database or if an error occurred
+     * the necessary data. 
+     * Also responsible for identifying if the information was correctly acknowledged by the database or if an error occurred
      *
      * @param ack Flag to identify what type of information is being sent
      * @throws IOException
@@ -166,6 +166,7 @@ public class User {
         interrupt();
     
     }*/
+    
     /**
      * <code>getResultadoLogin()</code> serves to send the result of the
      * verification made in <code>sendData()</code>
@@ -178,7 +179,7 @@ public class User {
     }
 
     /**
-     * <code>getResultadoRecoverPassword()</code> serves to send the result of
+     * Method that serves to send the result of
      * the verification made in <code>sendData()</code>
      *
      * @return
@@ -188,7 +189,7 @@ public class User {
     }
 
     /**
-     * <code>getGamecheck()</code> creates a game if there isn't any game or
+     * Method that creates a game if there isn't any game or
      * join one
      *
      * @throws IOException
@@ -200,7 +201,7 @@ public class User {
     }
 
     /**
-     * <code>CheckOpponent</code> checks if the game created by the user has an
+     * Method that checks if the game created by the user has an
      * opponent
      *
      * @throws IOException
@@ -211,7 +212,7 @@ public class User {
     }
 
     /**
-     * <code>getGameOpponent()</code> gets the name of the opponent player
+     * Method used to get the name of the opponent
      *
      * @return a string with the name of the opponent player
      */

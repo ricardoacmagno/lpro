@@ -12,7 +12,7 @@ public class ServerProtocol extends Thread{
     
     /**
      * Method responsible for calling the proper method to handle the server call based on the first argument of the <code>String</code> server
-     * @param server
+     * @param server    encoded <code>String</code> with all the information necessary
      * @return result of the specific method call or null in case of error
      * @throws IOException
      * @throws Exception 
@@ -38,7 +38,7 @@ public class ServerProtocol extends Thread{
     
     /**
      * Method that verifies the parameters inserted by the user in the login using the <code>User</code> class
-     * @param receive
+     * @param receive   <code>String</code> array with the encoded information necessary to start the server login protocol
      * @return Vector of <code>String</code> with the parameters inserted by the user if these are verified or error message in case of failure
      * @throws Exception 
      */
@@ -81,7 +81,7 @@ public class ServerProtocol extends Thread{
        
     /**
      * Method that verifies if the parameters inserted by the user in the signup are already beeing used, invoking the <code>User</code> class
-     * @param receive
+     * @param receive   <code>String</code> array with the encoded information necessary to start the server signup protocol
      * @return Vector of <code>String</code> with the parameters inserted by the user if these are verified or error message in case of failure
      * @throws IOException
      * @throws Exception 
@@ -132,7 +132,7 @@ public class ServerProtocol extends Thread{
     
     /**
      * Method that verifies the parameters inserted by the user in the change password call using the <code>User</code> class
-     * @param receive
+     * @param receive   <code>String</code> array with the encoded information necessary to start the server password change protocol
      * @return Vector of <code>String</code> with the parameters inserted by the user if these are verified or error message in case of failure
      * @throws Exception 
      */
