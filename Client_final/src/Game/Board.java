@@ -5,6 +5,10 @@ package Game;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+/**
+ * <code>Board</code> represents a player board
+ * @author Utilizador
+ */
 public class Board {
 
     public char boardtable[][] = new char[10][10];

@@ -6,7 +6,7 @@
 package LogicClient;
 
 /**
- *
+ *<code>Game</code> represents a game
  * @author francisco
  */
 public class Game {

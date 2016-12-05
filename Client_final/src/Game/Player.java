@@ -7,6 +7,10 @@ import java.util.Scanner;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+/**
+ * <code>Player</code> represents a player 
+ * @author Utilizador
+ */
 public class Player {
 
     String name = new String();

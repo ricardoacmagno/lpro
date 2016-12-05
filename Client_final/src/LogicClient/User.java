@@ -8,7 +8,7 @@ import ClientCommunication.ClientProtocol;
 import static java.lang.Thread.sleep;
 
 /**
- *
+ *<code>User</code> represents a user
  * @author ricar
  */
 public class User {

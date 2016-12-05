@@ -88,7 +88,7 @@ public class ClientProtocol  {
     }
     
     /**
-     * 
+     * Method responsible to send the new password of the user
      * @param mail user's email address
      * @param username user's username  
      * @param OldPassword user's old password
@@ -109,7 +109,7 @@ public class ClientProtocol  {
     }
     
     /**
-     * 
+     * Method to create or join a game
      * @param user string with the name of the user
      */
     public void checkJoinedGame(String user){
@@ -123,7 +123,7 @@ public class ClientProtocol  {
     }
     
     /**
-     * 
+     * Method to check if the opponent is avaiable
      * @param id 
      */
     public void checkOpponent(int id){
@@ -187,7 +187,7 @@ public class ClientProtocol  {
     }
     
     /**
-     * 
+     * Method to handle the opponent
      * @param tokens strings received from server
      * @return a simplified confirmation code
      */
@@ -205,7 +205,7 @@ public class ClientProtocol  {
     }
     
     /**
-     * 
+     * Method to handle the game checked
      * @param tokens strings received from server
      * @return a simplified confirmation code
      */

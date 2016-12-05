@@ -13,7 +13,7 @@ import java.awt.event.MouseListener;
 import javax.swing.*;
 
 /**
- *
+ *<code>GameUI</code> represents the UI of a game
  * @author francisco
  */
 public class GameUI extends javax.swing.JFrame {

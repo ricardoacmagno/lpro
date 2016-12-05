@@ -5,6 +5,10 @@ package Game;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+/**
+ * <code>Ship</code> represents a ship
+ * @author Utilizador
+ */
 public class Ship {
 
     private final int size;
