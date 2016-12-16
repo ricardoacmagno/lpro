@@ -28,7 +28,7 @@ public class SocketClient extends Socket {
      */
      public  void openSocket() throws IOException {
      try {
-         kkSocket = new Socket("localhost", 1633);
+         kkSocket = new Socket("gnomo.fe.up.pt", 1633);
          
          System.out.println("Connected to server!");
       } catch (UnknownHostException e) {

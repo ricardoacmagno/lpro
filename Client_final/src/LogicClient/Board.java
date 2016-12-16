@@ -1,4 +1,4 @@
-package Game;
+package LogicClient;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -11,9 +11,9 @@ package Game;
  */
 public class Board {
 
-    public char boardtable[][] = new char[10][10];
-    char letters[] = new char[10];
-    int numbers[] = new int[10];
+    private char boardtable[][] = new char[10][10];
+    private char letters[] = new char[10];
+    private int numbers[] = new int[10];
     Player player;
 
     /**

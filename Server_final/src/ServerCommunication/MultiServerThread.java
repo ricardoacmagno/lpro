@@ -120,6 +120,8 @@ public class MultiServerThread extends Thread{
                case 5:
                   outputLine="CheckOpponent&"+uno[1];
                   break;
+               case 6:
+                   outputLine="Opponent&"+uno[1];
                    
           }
             System.out.println(outputLine);

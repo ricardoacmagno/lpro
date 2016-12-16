@@ -1,7 +1,6 @@
-package Game;
+package LogicClient;
 
 import java.util.Scanner;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,15 +12,13 @@ import java.util.Scanner;
  */
 public class Player {
 
-    String name = new String();
-    int id;
-    boolean firsttoplay;
-    boolean winner;
-    int playNr;
-    int hitcount;
-    int misscount;
-    public int realc;
-    public int realr;
+    private String name = new String();
+    private int id;
+    private boolean firsttoplay;
+    private boolean winner;
+    private int playNr;
+    private int hitcount;
+    private int misscount;
     public Ship carrier;
     public Ship battleship;
     public Ship cruiser;
@@ -37,7 +34,7 @@ public class Player {
      *
      * @param name string with the name of the player
      */
-    Player(String name) {
+    public Player(String name) {
         this.name = name;
         playNr = 0;
         hitcount = 0;
@@ -179,6 +176,11 @@ public class Player {
      */
     boolean getWinner() {
         return winner;
+    }
+    
+    
+    public String getName(){
+        return name;
     }
 
 }

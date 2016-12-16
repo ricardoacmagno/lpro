@@ -1,10 +1,12 @@
-package Game;
+package GUI;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import LogicClient.Player;
+import LogicClient.Ship;
 import java.awt.Color;
 import java.awt.Label;
 import java.awt.event.MouseAdapter;
@@ -18,27 +20,27 @@ import javax.swing.*;
  */
 public class GameUI extends javax.swing.JFrame {
 
-    public static JPanel[][] mypanel = new JPanel[10][10];
-    public static JPanel[][] hitpanel = new JPanel[10][10];
-    JPanel jPanelbig = new JPanel();
-    public static GroupLayout[][] Layoutpanel = new GroupLayout[10][10];
-    public static GroupLayout[][] Layouthitpanel = new GroupLayout[10][10];
-    Label[] letters = new Label[10];
-    Label[] numbers = new Label[10];
-    Label[] letterhit = new Label[10];
-    Label[] numberhit = new Label[10];
-    MouseListener[][] teste = new MouseListener[10][10];
-    MouseListener[][] teste1 = new MouseListener[10][10];
+    private static JPanel[][] mypanel = new JPanel[10][10];
+    private static JPanel[][] hitpanel = new JPanel[10][10];
+    private JPanel jPanelbig = new JPanel();
+    private static GroupLayout[][] Layoutpanel = new GroupLayout[10][10];
+    private static GroupLayout[][] Layouthitpanel = new GroupLayout[10][10];
+    private Label[] letters = new Label[10];
+    private Label[] numbers = new Label[10];
+    private Label[] letterhit = new Label[10];
+    private Label[] numberhit = new Label[10];
+    private MouseListener[][] teste = new MouseListener[10][10];
+    private MouseListener[][] teste1 = new MouseListener[10][10];
 
-    Ship[] shipnr = new Ship[5];
+    private Ship[] shipnr = new Ship[5];
     public static GameUI gameui;
-    public static Player player1;
-    public static Player player2;
-    boolean horizontal = true;
-    boolean entered = false;
-    int progress;
-    Ship d = new Ship(0, 0, "error");
-    String name1 = "player1";
+    private static Player player1;
+    private static Player player2;
+    private boolean horizontal = true;
+    private boolean entered = false;
+    private int progress;
+    private Ship d = new Ship(0, 0, "error");
+    private String name1 = "player1";
 
     /**
      * Constructor
@@ -173,7 +175,7 @@ public class GameUI extends javax.swing.JFrame {
                                         for (int x = 0; x < 10; x++) {
                                             hitpanel[y][x].removeMouseListener(teste1[y][x]);
                                         }
-                                        JOptionPane.showMessageDialog(null, player.name + " won!");
+                                        JOptionPane.showMessageDialog(null, player.getName() + " won!");
                                     }
                                 }
                             } else {
@@ -585,19 +587,12 @@ public class GameUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                        .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
