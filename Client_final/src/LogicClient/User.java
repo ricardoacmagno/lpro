@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ClientCommunication.ClientProtocol;
+
 import static java.lang.Thread.sleep;
 
 /**
@@ -21,7 +22,7 @@ public class User {
     private String OldPassword = null;
     private int resultadoLogin = -1;
     private int resultadoPassword = -1;
-    private Game game;
+    public Game game;
 
     ClientProtocol client;
 
@@ -69,10 +70,10 @@ public class User {
             client.sendSignUp(Name, Mail, Username, Password);
         } else if (ack.equals("ForgotPassword")) {
             client.sendChangePassword(Username, Password, Mail, OldPassword);
-        } else if (ack.equals("check")) {
-            client.checkJoinedGame(Username);
-        } else if (ack.equals("checkopponent")) {
-            client.checkOpponent(game.getId());
+        } else if (ack.equals("create")) {
+            client.CreateGame(Username);
+        } else if (ack.equals("join")) {
+            client.JoinGame(Username);
         }
         try {
             ArrayList<String> dataReceived = null;
@@ -131,19 +132,18 @@ public class User {
                             client.disconnect();
                         }
                     }
-                } else if ("CheckGame".equals(dataReceived.get(0))) {
-                    System.out.println("Playing against " + dataReceived.get(1) + " in game id " + dataReceived.get(2));
+                } else if ("CreateGame".equals(dataReceived.get(0))) {
+                    System.out.println("I am " + dataReceived.get(1) + " playing in game id " + dataReceived.get(2));
                     int gameid = Integer.parseInt(dataReceived.get(2));
-                    game = new Game(gameid, Username, dataReceived.get(1));
-
+                    game = new Game(gameid, Username);
                     client.disconnect();
-                } else if ("CheckOpponent".equals(dataReceived.get(0))) {
-                    System.out.println(game.getOpponent());
-                    if ("default".equals(game.getOpponent())) {
-                        game.setOpponent(dataReceived.get(1));
-
-                        System.out.println("New opponent " + dataReceived.get(1));
+                } else if ("JoinGame".equals(dataReceived.get(0))) {
+                    if(dataReceived.get(3).equals("ok")){
+                        int gameid = Integer.parseInt(dataReceived.get(1));
+                        game = new Game(gameid, Username);
+                        game.setOpponent(dataReceived.get(2));
                     }
+                    System.out.println("New opponent " + dataReceived.get(1));
                     client.disconnect();
                 }
             }
@@ -195,8 +195,8 @@ public class User {
      * @throws IOException
      * @throws InterruptedException
      */
-    public void getGameCheck() throws IOException, InterruptedException {
-        sendData("check");
+    public void getGame() throws IOException, InterruptedException {
+        sendData("create");
 
     }
 
@@ -207,8 +207,8 @@ public class User {
      * @throws IOException
      * @throws InterruptedException
      */
-    public void CheckOpponent() throws IOException, InterruptedException {
-        sendData("checkopponent");
+    public void JoinGame() throws IOException, InterruptedException {
+        sendData("join");
     }
 
     /**
@@ -216,6 +216,10 @@ public class User {
      *
      * @return a string with the name of the opponent player
      */
+    public Game getGamepls(){
+        return game;
+    }
+    
     public String getGameOpponent() {
         return game.getOpponent();
     }

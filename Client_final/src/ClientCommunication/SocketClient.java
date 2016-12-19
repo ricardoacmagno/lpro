@@ -5,7 +5,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-
+import LogicClient.Game;
+import LogicClient.User;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
@@ -28,7 +29,7 @@ public class SocketClient extends Socket {
      */
      public  void openSocket() throws IOException {
      try {
-         kkSocket = new Socket("gnomo.fe.up.pt", 1633);
+         kkSocket = new Socket("localhost", 1633);
          
          System.out.println("Connected to server!");
       } catch (UnknownHostException e) {

@@ -2,9 +2,9 @@ package ServerCommunication;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static LogicServer.User.gameid;
 
 /**
  * class that represents the thread used by all user requests
@@ -53,10 +53,10 @@ public class MultiServerThread extends Thread{
           else if(uno[0].equals("ForgotPassword")){
               state=3;
           }
-          else if(uno[0].equals("CheckGame")){
+          else if(uno[0].equals("CreateGame")){
               state=4;
           }
-          else if(uno[0].equals("CheckOpponent")){
+          else if(uno[0].equals("JoinGame")){
               state=5;
           }
           switch (state){
@@ -115,10 +115,12 @@ public class MultiServerThread extends Thread{
                     break;
                   }
                case 4:
-                  outputLine="CheckGame&"+uno[1]+"&"+uno[2];
+                  outputLine="CreateGame&"+uno[1]+"&"+uno[2];
+                  int id = Integer.parseInt(uno[2]);
                   break;
                case 5:
-                  outputLine="CheckOpponent&"+uno[1];
+                  outputLine="JoinGame&"+uno[1]+"&"+uno[2]+"&"+uno[3];
+                  id = Integer.parseInt(uno[1]);
                   break;
                case 6:
                    outputLine="Opponent&"+uno[1];

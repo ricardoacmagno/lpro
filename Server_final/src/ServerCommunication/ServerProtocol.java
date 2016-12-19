@@ -2,6 +2,7 @@ package ServerCommunication;
 
 import LogicServer.User;
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * Class responsible for handling the string passed as argument from <code>MultiServerThread</code>
@@ -29,10 +30,10 @@ public class ServerProtocol extends Thread{
                return null;
            case "ForgotPassword": 
                return handlerForgotPassword(stringUis);
-           case "CheckGame":
-               return handlerCheckGame(stringUis[1]);
-           case "CheckOpponent":
-               return handlerCheckOpponent(stringUis[1]);
+           case "CreateGame":
+               return handlerCreateGame(stringUis[1]);
+           case "JoinGame":
+               return handlerJoinGame(stringUis[1]);
        }
     }
     
@@ -213,11 +214,13 @@ public class ServerProtocol extends Thread{
      * @return
      * @throws Exception 
      */
-    public String[] handlerCheckGame(String user) throws Exception{
-        System.out.println("CheckGameHandler received "+user);
-        String[] player = User.UserCheckGame(user);
-        String[] teste= {"CheckGame",player[0],player[1]};
-        return teste;
+    public String[] handlerCreateGame(String user) throws Exception{
+        System.out.println("CreateGameHandler received "+user);
+        String[] returned = User.UserCreateGame(user);
+        
+        String[] toReturn= {"CreateGame",returned[0],returned[1]};
+        System.out.println("Server created game");
+        return toReturn;
     }
     
     /**
@@ -225,9 +228,10 @@ public class ServerProtocol extends Thread{
      * @param id
      * @return 
      */
-    public String[] handlerCheckOpponent(String id){
-        String opponent=User.CheckOpponent(id);
-        String[] teste= {"CheckOpponent",opponent};
+    public String[] handlerJoinGame(String user) throws SQLException{
+        System.out.println("Sending info to logic server");
+        String[] opponent=User.JoinGame(user);
+        String[] teste= {"JoinGame",opponent[0],opponent[1],opponent[2]};
         return teste;
     }
 }

@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 /**
  * <code>ClientProtocol</code> represents the protocol part of the Client-Server connection
  * Responsible for commanding all the communication procedures
@@ -112,11 +111,11 @@ public class ClientProtocol  {
      * Method to create or join a game
      * @param user string with the name of the user
      */
-    public void checkJoinedGame(String user){
+    public void CreateGame(String user){
         if(connect==false) connection();
-        String checkGame="CheckGame&"+user;
+        String createGame="CreateGame&"+user;
         try{
-                clientSocket.toSend(checkGame);
+                clientSocket.toSend(createGame);
             }catch (IOException ex) {
                         Logger.getLogger(ClientProtocol.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -126,10 +125,9 @@ public class ClientProtocol  {
      * Method to check if the opponent is avaiable
      * @param id 
      */
-    public void checkOpponent(int id){
+    public void JoinGame(String user){
         if(connect==false) connection();
-        String checkGame="CheckOpponent&"+id;
-        System.out.println("Sending id "+id+" to get opponent");
+        String checkGame="JoinGame&"+user;
         try{
                 clientSocket.toSend(checkGame);
             }catch (IOException ex) {
@@ -159,8 +157,8 @@ public class ClientProtocol  {
                 case "Login" : return handlerLogin(tokens);
                 case "Signup"   :return handlerSignup(tokens);
                 case "ForgotPassword" :return handlerForgotPassword(tokens);
-                case "CheckGame": return handlerCheck(tokens);
-                case "CheckOpponent": return handlerOpponent(tokens);
+                case "CreateGame": return handlerCreate(tokens);
+                case "JoinGame": return handlerJoinGame(tokens);
                 default : return null;
             } 
         }
@@ -191,12 +189,14 @@ public class ClientProtocol  {
      * @param tokens strings received from server
      * @return a simplified confirmation code
      */
-    private  ArrayList<String> handlerOpponent(String[] tokens) {          //ATENCAO: Quando enviar confirmação do server, ter cuidado para enviar um vetor de strings com 3 elementos ou modificar o código
+    private  ArrayList<String> handlerJoinGame(String[] tokens) {          //ATENCAO: Quando enviar confirmação do server, ter cuidado para enviar um vetor de strings com 3 elementos ou modificar o código
         
         ArrayList<String> login;
         login = new ArrayList<>();
         int j=0;
         
+        login.add(tokens[j++]);
+        login.add(tokens[j++]);
         login.add(tokens[j++]);
         login.add(tokens[j]);
         System.out.println(Arrays.toString(tokens));
@@ -209,7 +209,7 @@ public class ClientProtocol  {
      * @param tokens strings received from server
      * @return a simplified confirmation code
      */
-    private  ArrayList<String> handlerCheck(String[] tokens) {          //ATENCAO: Quando enviar confirmação do server, ter cuidado para enviar um vetor de strings com 3 elementos ou modificar o código
+    private  ArrayList<String> handlerCreate(String[] tokens) {          //ATENCAO: Quando enviar confirmação do server, ter cuidado para enviar um vetor de strings com 3 elementos ou modificar o código
         
         ArrayList<String> check;
         check = new ArrayList<>();
@@ -259,4 +259,5 @@ public class ClientProtocol  {
        
        return forgotpassword;
     }
+    
 }

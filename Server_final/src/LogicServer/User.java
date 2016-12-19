@@ -1,6 +1,7 @@
 package LogicServer;
 
 import DataBase.UserDB;
+import java.sql.SQLException;
 
 /**
  * Class responsible for handling the connection between the server and the database
@@ -15,6 +16,7 @@ public class User {
     private Integer question;
     private String anwser;
     public int c;
+    public static Game gameid[]=new Game[100000];
     public static UserDB userData;
     
     /**
@@ -121,9 +123,12 @@ public class User {
      * @param user
      * @return 
      */
-    public static String[] UserCheckGame(String user){
-        String[] opponent=userData.getGame(user);
-        return opponent;
+    public static String[] UserCreateGame(String user){
+        String[] returned=userData.getGame(user);
+        int id = Integer.parseInt(returned[1]);
+        gameid[id]=new Game(returned[0],id);
+        System.out.println("I have " + returned[0]+ " and "+returned[1]);
+        return returned;
     }
         
     /**
@@ -131,9 +136,12 @@ public class User {
      * @param id
      * @return 
      */
-    public static String CheckOpponent(String id){
-        int gameid=Integer.parseInt(id);
-        String opponent=userData.CheckOpponent(gameid);
+    public static String[] JoinGame(String user) throws SQLException{
+        System.out.println("Sending info to DB");
+        String[] opponent=userData.JoinGame(user);
+        int id = Integer.parseInt(opponent[0]);
+        if("ok".equals(opponent[2]))
+            gameid[id].setOpponent(opponent[1]);
         return opponent;
     }
     

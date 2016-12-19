@@ -22,10 +22,9 @@ public class Game {
      * @param player1 string with the name of the player 1
      * @param player2 string with the name of the player 2
      */
-    Game(int id, String player1, String player2) {
+    Game(int id, String player1) {
         this.me = player1;
         this.GameId = id;
-        this.opponent = player2;
     }
 
     /**
