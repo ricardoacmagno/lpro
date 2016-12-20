@@ -13,6 +13,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.*;
+import GUI.UIinicial;
+import LogicClient.Game;
+import LogicClient.User;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *<code>GameUI</code> represents the UI of a game
@@ -326,6 +332,10 @@ public class GameUI extends javax.swing.JFrame {
                                     }
                                     entered = false;
                                     player1.placeShip(d, y1, x1, horizontal);
+                                    String modo="H";
+                                    if(!horizontal)
+                                        modo="V";
+                                    player1.setInfo(d, y1, x1, modo);
                                     for (int y = 0; y < 10; y++) {
                                         for (int x = 0; x < 10; x++) {
                                             mypanel[y][x].removeMouseListener(teste[y][x]);
@@ -345,6 +355,15 @@ public class GameUI extends javax.swing.JFrame {
                                         placeShipUi(player1.carrier);
                                     } else {
                                         jProgressBar.setValue(100);
+                                        User myuser=UIinicial.user;
+                                        Game mygame=User.game;
+                                        try {
+                                            player1.sendBoats(myuser,mygame);
+                                        } catch (IOException ex) {
+                                            Logger.getLogger(GameUI.class.getName()).log(Level.SEVERE, null, ex);
+                                        } catch (InterruptedException ex) {
+                                            Logger.getLogger(GameUI.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
                                         initGrid2();
                                     }
                                 }

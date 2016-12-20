@@ -1,6 +1,8 @@
 package LogicServer;
 
 import DataBase.UserDB;
+import java.io.IOException;
+import java.net.Socket;
 import java.sql.SQLException;
 
 /**
@@ -141,7 +143,7 @@ public class User {
         String[] opponent=userData.JoinGame(user);
         int id = Integer.parseInt(opponent[0]);
         if("ok".equals(opponent[2]))
-            gameid[id].setOpponent(opponent[1]);
+            gameid[id].setOpponent(user);
         return opponent;
     }
     
@@ -185,5 +187,15 @@ public class User {
      */
     public static int sendForgotPassword(String[] ChangePassword){
        return userData.newPass(ChangePassword[1], ChangePassword[2], ChangePassword[3], ChangePassword[4]);
+    }
+    
+    public static void setSocketPlayer1(Socket mysocket, int id){
+        gameid[id].setSplayer1(mysocket);
+    }
+    public static void setSocketPlayer2(Socket mysocket, int id){
+        gameid[id].setSplayer2(mysocket);
+    }
+    public static void sendWarning(int id) throws IOException{
+        gameid[id].newOpponent();
     }
 }

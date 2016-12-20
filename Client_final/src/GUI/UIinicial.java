@@ -36,7 +36,7 @@ public class UIinicial extends javax.swing.JFrame {
     String oldpassword = new String();
     String mail = new String();
     String name = new String();
-    public User user=null;
+    public static User user=null;
     public UIinicial() {
         initComponents();
         defaultpanel();
@@ -1202,9 +1202,17 @@ public static boolean validate(String emailStr) {
     private void CreateGame1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateGame1ActionPerformed
         // TODO add your handling code here:
         setContentPane(GameJoined);
+        invalidate();
+        validate();
         backvalue=Intro;
+        jOptionPane1.showMessageDialog(null,"Waiting for opponents...");
         try {
             user.getGame();
+            user.hearOpponent();
+            welcome2.setText(username+ " vs " + user.getGameOpponent());
+            gameui = new GameUI(username,user.getGameOpponent());
+            jOptionPane1.setVisible(false);
+            gameui.setVisible(true);
         } catch (IOException ex) {
             Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {

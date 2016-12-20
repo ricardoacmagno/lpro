@@ -9,7 +9,8 @@ import ClientCommunication.ClientProtocol;
 import static java.lang.Thread.sleep;
 
 /**
- *<code>User</code> represents a user
+ * <code>User</code> represents a user
+ *
  * @author ricar
  */
 public class User {
@@ -22,9 +23,8 @@ public class User {
     private String OldPassword = null;
     private int resultadoLogin = -1;
     private int resultadoPassword = -1;
-    public Game game;
-
-    ClientProtocol client;
+    public static Game game;
+    public static ClientProtocol client;
 
     /**
      * Constructor
@@ -46,8 +46,8 @@ public class User {
 
     /**
      * <code>sendData()</code> is responsible for invoking the protocol, sending
-     * the necessary data. 
-     * Also responsible for identifying if the information was correctly acknowledged by the database or if an error occurred
+     * the necessary data. Also responsible for identifying if the information
+     * was correctly acknowledged by the database or if an error occurred
      *
      * @param ack Flag to identify what type of information is being sent
      * @throws IOException
@@ -136,16 +136,21 @@ public class User {
                     System.out.println("I am " + dataReceived.get(1) + " playing in game id " + dataReceived.get(2));
                     int gameid = Integer.parseInt(dataReceived.get(2));
                     game = new Game(gameid, Username);
-                    client.disconnect();
+
                 } else if ("JoinGame".equals(dataReceived.get(0))) {
-                    if(dataReceived.get(3).equals("ok")){
+                    if (dataReceived.get(3).equals("ok")) {
                         int gameid = Integer.parseInt(dataReceived.get(1));
                         game = new Game(gameid, Username);
                         game.setOpponent(dataReceived.get(2));
                     }
                     System.out.println("New opponent " + dataReceived.get(1));
-                    client.disconnect();
+
+                } else if ("Warning".equals(dataReceived.get(0))) {
+                    game.setOpponent(dataReceived.get(2));
+                    System.out.println("My opponent is " + dataReceived.get(2));
+
                 }
+
             }
 
         } catch (IOException | InterruptedException e) {
@@ -166,10 +171,9 @@ public class User {
         interrupt();
     
     }*/
-    
     /**
-     * Method that serves to send the result of the
-     * verification made in <code>sendData()</code>
+     * Method that serves to send the result of the verification made in
+     * <code>sendData()</code>
      *
      * @return identifier from what was received
      * @throws InterruptedException
@@ -179,8 +183,8 @@ public class User {
     }
 
     /**
-     * Method that serves to send the result of
-     * the verification made in <code>sendData()</code>
+     * Method that serves to send the result of the verification made in
+     * <code>sendData()</code>
      *
      * @return 1 if everything is ok or 2 to 5 if is an error
      */
@@ -189,8 +193,7 @@ public class User {
     }
 
     /**
-     * Method that creates a game if there isn't any game or
-     * join one
+     * Method that creates a game if there isn't any game or join one
      *
      * @throws IOException
      * @throws InterruptedException
@@ -201,8 +204,7 @@ public class User {
     }
 
     /**
-     * Method that checks if the game created by the user has an
-     * opponent
+     * Method that checks if the game created by the user has an opponent
      *
      * @throws IOException
      * @throws InterruptedException
@@ -216,11 +218,23 @@ public class User {
      *
      * @return a string with the name of the opponent player
      */
-    public Game getGamepls(){
+    public Game getGamepls() {
         return game;
     }
-    
+
     public String getGameOpponent() {
         return game.getOpponent();
+    }
+    public ClientProtocol getClient(){
+        return client;
+    }
+    public void hearOpponent() throws IOException, InterruptedException {
+        ArrayList<String> dataReceived = null;
+        dataReceived = client.hear();
+        if ("Warning".equals(dataReceived.get(0))) {
+            game.setOpponent(dataReceived.get(2));
+            System.out.println("My opponent is " + dataReceived.get(2));
+
+        }
     }
 }

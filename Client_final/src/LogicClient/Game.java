@@ -10,11 +10,11 @@ package LogicClient;
  * @author francisco
  */
 public class Game {
-
+    
     private String me = null;
     private String opponent = null;
     private int GameId = 0;
-
+    boolean player1placed, player2placed;
     /**
      * Constructor
      *
@@ -23,6 +23,8 @@ public class Game {
      * @param player2 string with the name of the player 2
      */
     Game(int id, String player1) {
+        this.player1placed = false;
+        this.player2placed = false;
         this.me = player1;
         this.GameId = id;
     }

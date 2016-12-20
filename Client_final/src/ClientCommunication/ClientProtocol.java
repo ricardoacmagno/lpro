@@ -134,7 +134,14 @@ public class ClientProtocol  {
                         Logger.getLogger(ClientProtocol.class.getName()).log(Level.SEVERE, null, ex);
             }
     }
-
+    public void sendBoat(String mystring){
+        if(connect==false) connection();
+        try{
+                clientSocket.toSend(mystring);
+            }catch (IOException ex) {
+                        Logger.getLogger(ClientProtocol.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
     
     /**
      * Method responsible for checking the server's response
@@ -159,6 +166,7 @@ public class ClientProtocol  {
                 case "ForgotPassword" :return handlerForgotPassword(tokens);
                 case "CreateGame": return handlerCreate(tokens);
                 case "JoinGame": return handlerJoinGame(tokens);
+                case "Warning": return handlerWarning(tokens);
                 default : return null;
             } 
         }
@@ -258,6 +266,19 @@ public class ClientProtocol  {
         System.out.println(Arrays.toString(tokens));
        
        return forgotpassword;
+    }
+    
+    private ArrayList<String> handlerWarning(String[] tokens) {
+       ArrayList<String> warning;
+       
+       warning=new ArrayList<>();
+       int j=0;
+        warning.add(tokens[j++]);
+        warning.add(tokens[j++]);
+        warning.add(tokens[j]);
+        System.out.println(Arrays.toString(tokens));
+       
+       return warning;
     }
     
 }

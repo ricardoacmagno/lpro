@@ -1,5 +1,7 @@
 package LogicClient;
 
+import ClientCommunication.ClientProtocol;
+import java.io.IOException;
 import java.util.Scanner;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -11,9 +13,10 @@ import java.util.Scanner;
  * @author Utilizador
  */
 public class Player {
-
+    static User user;
+    static ClientProtocol client;
     private String name = new String();
-    private int id;
+    private static int id;
     private boolean firsttoplay;
     private boolean winner;
     private int playNr;
@@ -23,7 +26,7 @@ public class Player {
     public Ship battleship;
     public Ship cruiser;
     public Ship submarine;
-    public Ship destroyer;
+    public static Ship destroyer;
     public Board ShipBoard;
     public Board HitBoard;
     Scanner textscanner = new Scanner(System.in);
@@ -182,5 +185,21 @@ public class Player {
     public String getName(){
         return name;
     }
-
+    public void setInfo(Ship ship,int y, int x, String mode){
+        ship.setInfo(y, x, mode);
+    }
+    public static String getInfo(Ship ship){
+        String toreturn = ship.getInfo();
+        return toreturn;
+    }
+    
+    public static void sendBoats(User user, Game game) throws IOException, InterruptedException{
+        String info=null;
+        client=user.getClient();
+        info=getInfo(destroyer);
+        user.sendData("destroyer&"+id+"&"+info);
+    }
+    public void setUser(User user){
+        this.user=user;
+    }
 }
