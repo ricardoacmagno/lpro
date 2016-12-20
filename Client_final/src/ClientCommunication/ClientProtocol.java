@@ -167,6 +167,7 @@ public class ClientProtocol  {
                 case "CreateGame": return handlerCreate(tokens);
                 case "JoinGame": return handlerJoinGame(tokens);
                 case "Warning": return handlerWarning(tokens);
+                case "Ships": return handlerShips(tokens);
                 default : return null;
             } 
         }
@@ -274,6 +275,17 @@ public class ClientProtocol  {
        warning=new ArrayList<>();
        int j=0;
         warning.add(tokens[j++]);
+        warning.add(tokens[j++]);
+        warning.add(tokens[j]);
+        System.out.println(Arrays.toString(tokens));
+       
+       return warning;
+    }
+     private ArrayList<String> handlerShips(String[] tokens) {
+       ArrayList<String> warning;
+       
+       warning=new ArrayList<>();
+       int j=0;
         warning.add(tokens[j++]);
         warning.add(tokens[j]);
         System.out.println(Arrays.toString(tokens));

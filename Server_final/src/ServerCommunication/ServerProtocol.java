@@ -1,5 +1,6 @@
 package ServerCommunication;
 
+import LogicServer.Game;
 import LogicServer.User;
 import java.io.IOException;
 import java.net.Socket;
@@ -44,8 +45,8 @@ public class ServerProtocol extends Thread {
                 return handlerCreateGame(stringUis[1]);
             case "JoinGame":
                 return handlerJoinGame(stringUis[1]);
-            /*case "Carrier":
-                return setCarrierInfo(stringUis[1],stringUis[2]);*/
+            case "Carrier":
+                return setCarrierInfo(stringUis[1],stringUis[2],stringUis[3]);
         }
     }
 
@@ -251,9 +252,13 @@ public class ServerProtocol extends Thread {
         String[] teste = {"JoinGame", opponent[0], opponent[1], opponent[2]};
         return teste;
     }
-    /*
-     public String[] setCarrierInfo(String sid, String shipinfo){
-        
-    }*/
+    
+    public String[] setCarrierInfo(String sid, String shipinfo, String username){
+        int id = Integer.parseInt(sid);
+        Game game= User.getGameid(id);
+        String ok=game.setCarrierInfo(shipinfo,username);
+        String[] toreturn={ok};
+        return toreturn;
+    }
     
 }

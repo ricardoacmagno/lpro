@@ -189,13 +189,16 @@ public class User {
        return userData.newPass(ChangePassword[1], ChangePassword[2], ChangePassword[3], ChangePassword[4]);
     }
     
-    public static void setSocketPlayer1(Socket mysocket, int id){
+    public static void setSocketPlayer1(Socket mysocket, int id) throws IOException{
         gameid[id].setSplayer1(mysocket);
     }
-    public static void setSocketPlayer2(Socket mysocket, int id){
+    public static void setSocketPlayer2(Socket mysocket, int id) throws IOException{
         gameid[id].setSplayer2(mysocket);
     }
     public static void sendWarning(int id) throws IOException{
         gameid[id].newOpponent();
+    }
+    public static Game getGameid(int id){
+        return gameid[id];
     }
 }

@@ -5,6 +5,8 @@
  */
 package LogicClient;
 
+import static LogicClient.User.game;
+
 /**
  *<code>Game</code> represents a game
  * @author francisco
@@ -54,5 +56,9 @@ public class Game {
      */
     public void setOpponent(String name) {
         this.opponent = name;
+    }
+    
+    public int getGameid(){
+        return GameId;
     }
 }

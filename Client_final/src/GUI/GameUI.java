@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.*;
 import GUI.UIinicial;
+import static GUI.UIinicial.user;
 import LogicClient.Game;
 import LogicClient.User;
 import java.io.IOException;
@@ -93,7 +94,7 @@ public class GameUI extends javax.swing.JFrame {
     /**
      * <code>initGrid2()</code> initialize the hit board UI
      */
-    private void initGrid2() {
+    private void initGrid2() throws IOException, InterruptedException {
 
         jPanel2.remove(jProgressBar);
         label3.setForeground(Color.green);
@@ -115,6 +116,7 @@ public class GameUI extends javax.swing.JFrame {
             }
         }
         pack();
+        player1.hearShips();
         turn(player1);
     }
 
@@ -357,14 +359,16 @@ public class GameUI extends javax.swing.JFrame {
                                         jProgressBar.setValue(100);
                                         User myuser=UIinicial.user;
                                         Game mygame=User.game;
+                                       
                                         try {
                                             player1.sendBoats(myuser,mygame);
+                                            initGrid2();
+                                            System.out.println("Grid 2 init");
                                         } catch (IOException ex) {
                                             Logger.getLogger(GameUI.class.getName()).log(Level.SEVERE, null, ex);
                                         } catch (InterruptedException ex) {
                                             Logger.getLogger(GameUI.class.getName()).log(Level.SEVERE, null, ex);
                                         }
-                                        initGrid2();
                                     }
                                 }
                             } else if (evt.getButton() == MouseEvent.BUTTON3) {

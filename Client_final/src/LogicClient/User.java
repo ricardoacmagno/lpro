@@ -75,6 +75,7 @@ public class User {
         } else if (ack.equals("join")) {
             client.JoinGame(Username);
         }
+        
         try {
             ArrayList<String> dataReceived = null;
             dataReceived = client.hear();

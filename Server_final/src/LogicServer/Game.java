@@ -15,11 +15,13 @@ import ServerCommunication.GameServer;
  */
 public class Game {
 
-    private final int id;
-    private final String player1;
-    private String player2;
-    private Socket splayer1, splayer2;
-    private String player1ShipInfo;
+    private static int id;
+    private static String player1,player1Ships;
+    private static String player2;
+    private static Socket splayer1, splayer2;
+    private static String player1ShipInfo;
+    private static GameServer p1;
+    private static GameServer p2;
     public Game(String owner, int id) {
         this.player1 = owner;
         this.player2 = "null";
@@ -29,14 +31,22 @@ public class Game {
     public void setOpponent(String user) {
         player2 = user;
     }
-    public void setSplayer1( Socket mysocket){
+    public void setSplayer1( Socket mysocket) throws IOException{
         splayer1=mysocket;
+        p1=new GameServer(splayer1);
     }
-    public void setSplayer2( Socket mysocket){
+    public void setSplayer2( Socket mysocket) throws IOException{
         splayer2=mysocket;
+        p2=new GameServer(splayer2);
     }
-    public void newOpponent() throws IOException{
-        GameServer p1=new GameServer(splayer1);
+    public static void newOpponent() throws IOException{
         p1.sendClient("Warning&"+id+"&"+player2);
+    }
+    public String setCarrierInfo(String info, String username){
+        if(username.equals(player1)){
+            player1Ships=info;
+            p2.sendClient("Ships&"+info);
+        }
+        return "ok";
     }
 }

@@ -59,7 +59,7 @@ public class MultiServerThread extends Thread {
                 state = 4;
             } else if (uno[0].equals("JoinGame")) {
                 state = 5;
-            } else if (uno[0].equals("Carrier")) {
+            } else if (uno[0].equals("destroyer")) {
                 state = 7;
             }
             
@@ -120,7 +120,6 @@ public class MultiServerThread extends Thread {
                     break;
                 case 6:
                     outputLine = "Opponent&" + uno[1];
-                case 7:
                     
 
             }
