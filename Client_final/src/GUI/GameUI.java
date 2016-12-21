@@ -177,6 +177,7 @@ public class GameUI extends javax.swing.JFrame {
                     @Override
                     public void mousePressed(java.awt.event.MouseEvent evt) {
                         if (evt.getButton() == MouseEvent.BUTTON1) {
+                            player.printHitBoard();
                             if (player.checkShipBoard(y1, x1, 'S') == true) {
                                 current.setBackground(Color.green);
                                 player.hit();
