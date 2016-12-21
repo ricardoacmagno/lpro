@@ -45,7 +45,7 @@ public class ServerProtocol extends Thread {
                 return handlerCreateGame(stringUis[1]);
             case "JoinGame":
                 return handlerJoinGame(stringUis[1]);
-            case "Carrier":
+            case "destroyer":
                 return setCarrierInfo(stringUis[1],stringUis[2],stringUis[3]);
         }
     }
@@ -254,6 +254,7 @@ public class ServerProtocol extends Thread {
     }
     
     public String[] setCarrierInfo(String sid, String shipinfo, String username){
+        System.out.println("Setting ships info");
         int id = Integer.parseInt(sid);
         Game game= User.getGameid(id);
         String ok=game.setCarrierInfo(shipinfo,username);

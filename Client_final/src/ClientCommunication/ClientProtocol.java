@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  * 
  * @author ilia
  */
-public class ClientProtocol  {
+public class ClientProtocol {
     private  boolean connect=false;
     private  SocketClient clientSocket; 
     private  final ConcurrentHashMap<Integer,Object> sleepers = new ConcurrentHashMap<>();
@@ -24,6 +24,7 @@ public class ClientProtocol  {
     public  boolean connection(){
         if (connect==false){
            try{
+          System.out.println("Needed to reconnect");
           clientSocket = new SocketClient();
           clientSocket.openSocket();
           connect=true;
@@ -51,6 +52,7 @@ public class ClientProtocol  {
             connect=false;
         }
     }
+    
 
     /**
      * Method responsible for creating a specific login encoded string
@@ -135,7 +137,7 @@ public class ClientProtocol  {
             }
     }
     public void sendBoat(String mystring){
-        if(connect==false) connection();
+       
         try{
                 clientSocket.toSend(mystring);
             }catch (IOException ex) {
@@ -152,7 +154,7 @@ public class ClientProtocol  {
      */    
     public  ArrayList <String> hear() throws IOException, InterruptedException {
           
-        if(connect==false)  connection();
+        //if(connect==false)  connection();
         
         String echo;
         echo = clientSocket.received();
@@ -168,6 +170,7 @@ public class ClientProtocol  {
                 case "JoinGame": return handlerJoinGame(tokens);
                 case "Warning": return handlerWarning(tokens);
                 case "Ships": return handlerShips(tokens);
+                case "destroyer": return handlerok(tokens);
                 default : return null;
             } 
         }
@@ -282,6 +285,18 @@ public class ClientProtocol  {
        return warning;
     }
      private ArrayList<String> handlerShips(String[] tokens) {
+       ArrayList<String> warning;
+       
+       warning=new ArrayList<>();
+       int j=0;
+        warning.add(tokens[j++]);
+        warning.add(tokens[j]);
+        System.out.println(Arrays.toString(tokens));
+       
+       return warning;
+    }
+     
+     private ArrayList<String> handlerok(String[] tokens) {
        ArrayList<String> warning;
        
        warning=new ArrayList<>();

@@ -199,14 +199,20 @@ public class Player {
     public static void sendBoats(User user, Game game) throws IOException, InterruptedException{
         String info=null;
         client=user.getClient();
+        int gameid=game.getGameid();
         info=getInfo(destroyer);
-        client.sendBoat("destroyer&"+id+"&"+info+"&"+name);
+        String tosend="destroyer&"+gameid+"&"+info+"&"+name;
+        client.sendBoat(tosend);
+        ArrayList<String> dataReceived = null;
+        dataReceived = client.hear();
+        System.out.println(dataReceived);
     }
     public void setUser(User user){
         this.user=user;
     }
     public void hearShips() throws IOException, InterruptedException {
         ArrayList<String> dataReceived = null;
+        System.out.println("Trying to hear");
         dataReceived = client.hear();
         if ("Ships".equals(dataReceived.get(0))) {
             System.out.println("Carrier is in: "+dataReceived.get(1));

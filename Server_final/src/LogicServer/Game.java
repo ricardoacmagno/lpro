@@ -19,7 +19,7 @@ public class Game {
     private static String player1,player1Ships;
     private static String player2;
     private static Socket splayer1, splayer2;
-    private static String player1ShipInfo;
+    private static String player2Ships;
     private static GameServer p1;
     private static GameServer p2;
     public Game(String owner, int id) {
@@ -46,6 +46,10 @@ public class Game {
         if(username.equals(player1)){
             player1Ships=info;
             p2.sendClient("Ships&"+info);
+        }
+        else if(username.equals(player2)){
+            player2Ships=info;
+            p1.sendClient("Ships&"+info);
         }
         return "ok";
     }

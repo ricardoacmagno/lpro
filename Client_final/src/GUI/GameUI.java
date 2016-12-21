@@ -18,6 +18,7 @@ import static GUI.UIinicial.user;
 import LogicClient.Game;
 import LogicClient.User;
 import java.io.IOException;
+import static java.lang.Thread.sleep;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -116,6 +117,7 @@ public class GameUI extends javax.swing.JFrame {
             }
         }
         pack();
+        sleep(100);
         player1.hearShips();
         turn(player1);
     }
@@ -362,6 +364,7 @@ public class GameUI extends javax.swing.JFrame {
                                        
                                         try {
                                             player1.sendBoats(myuser,mygame);
+                                            System.out.println("Boats sent in UI");
                                             initGrid2();
                                             System.out.println("Grid 2 init");
                                         } catch (IOException ex) {
