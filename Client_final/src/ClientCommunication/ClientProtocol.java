@@ -69,7 +69,7 @@ public class ClientProtocol {
      * @param username user's login username
      * @param password user's login password
      */
-    public void sendLogin(String username, String password, User user) {
+    public void sendLogin(String username, String password) {
         if (connect == false) {
             connection();
         }
@@ -80,9 +80,10 @@ public class ClientProtocol {
         } catch (IOException ex) {
             Logger.getLogger(ClientProtocol.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Listen listen = new Listen(clientSocket.getSocket(), user);
-        Thread t = new Thread(listen);
-        t.start();
+    }
+    
+    public void startListen(User user){
+        new Listen(clientSocket.getSocket(), user).start();
     }
 
     /**

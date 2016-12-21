@@ -72,7 +72,7 @@ public class User {
         System.out.println("mail:" + Mail + " Username : " + Username + " Pass: " + Password + " oldpassword:" + OldPassword);
 
         if (ack.equals("Login")) {
-            client.sendLogin(Username, Password, this);
+            client.sendLogin(Username, Password);
         } else if (ack.equals("Signup")) {
             client.sendSignUp(Name, Mail, Username, Password);
         } else if (ack.equals("ForgotPassword")) {
@@ -99,6 +99,7 @@ public class User {
 
                         }
                     }
+                    client.startListen(this);
                 } else if ("Signup".equals(dataReceived.get(0))) {
                     if ("Erro".equals(dataReceived.get(1))) {
                         if ("Username".equals(dataReceived.get(2))) {
@@ -229,19 +230,32 @@ public class User {
                 int gameid = Integer.parseInt(dataReceived[1]);
                 game = new Game(gameid, Username);
                 game.setOpponent(dataReceived[2]);
-                
-            }
-            join.signal();
-            lock.unlock();
 
+            }
+            lock.lock();
+            try {
+                join.signal();
+                
+            } finally {
+                lock.unlock();
+            }
+           
             System.out.println("New opponent " + dataReceived[1]);
 
         } else if ("Warning".equals(dataReceived[0])) {
 
             game.setOpponent(dataReceived[2]);
             System.out.println("My opponent is " + dataReceived[2]);
-            notFull.signal();
-            lock.unlock();
+            
+            lock.lock();
+            try {
+                notFull.signal();
+                
+            } finally {
+                lock.unlock();
+            }
+            System.out.println("Signal");
+
         }
 
     }

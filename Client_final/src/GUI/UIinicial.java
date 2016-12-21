@@ -29,50 +29,53 @@ public class UIinicial extends javax.swing.JFrame {
     /**
      * Creates new form UIinicial
      */
-    public static UIinicial main=new UIinicial();
+    public static UIinicial main = new UIinicial();
     String username = new String();
     JPanel backvalue = new JPanel();
     String password = new String();
     String oldpassword = new String();
     String mail = new String();
     String name = new String();
-    public static User user=null;
+    public static User user = null;
+
     public UIinicial() {
         initComponents();
         defaultpanel();
     }
-    
-    private void defaultpanel(){
+
+    private void defaultpanel() {
         setContentPane(Inicial);
-        
+
         invalidate();
         validate();
     }
-    
-    private void InicialSetDefault(){
+
+    private void InicialSetDefault() {
         jTextFieldInicial.setText("Enter username...");
         jPasswordInicial.setText("Password");
     }
-    public static User getUser(){
+
+    public static User getUser() {
         return main.user;
     }
-    private void SignupSetDefault(){
+
+    private void SignupSetDefault() {
         emailTextSignup.setText("Enter e-mail...");
         usernameTextSignup.setText("Enter username...");
         jPasswordSignup.setText("Password");
         AnswerQuestionSignup.setText("Answer Here...");
         usernameTextSignup1.setText("Enter name...");
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select your question here...", "Item1", "Item2", "ItemN" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Select your question here...", "Item1", "Item2", "ItemN"}));
     }
-    private void ForgotPasswordSetDefault(){
+
+    private void ForgotPasswordSetDefault() {
         emailText1.setText("Enter e-mail...");
         usernameText4.setText("Enter username...");
         jPasswordField5.setText("Password");
         jPasswordField6.setText("Password");
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select your question here...", "Item1", "Item2", "ItemN" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Select your question here...", "Item1", "Item2", "ItemN"}));
         usernameText5.setText("Answer Here...");
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -1054,35 +1057,34 @@ public class UIinicial extends javax.swing.JFrame {
     private void AnswerQuestionSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnswerQuestionSignupActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_AnswerQuestionSignupActionPerformed
-public static final Pattern VALID_EMAIL_ADDRESS_REGEX = 
-    Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX
+            = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
-public static boolean validate(String emailStr) {
-        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(emailStr);
+    public static boolean validate(String emailStr) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return matcher.find();
-}
+    }
     private void login2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login2ActionPerformed
         // TODO add your handling code here:
-        if(jPasswordSignup.getText().isEmpty()||emailTextSignup.getText().isEmpty()||usernameTextSignup.getText().isEmpty()||usernameTextSignup1.getText().isEmpty())
-        jOptionPane1.showMessageDialog(null,"Empty parameters");
-        else{
-            username=usernameTextSignup.getText();
+        if (jPasswordSignup.getText().isEmpty() || emailTextSignup.getText().isEmpty() || usernameTextSignup.getText().isEmpty() || usernameTextSignup1.getText().isEmpty()) {
+            jOptionPane1.showMessageDialog(null, "Empty parameters");
+        } else {
+            username = usernameTextSignup.getText();
             name = usernameTextSignup1.getText();
-            if (jPasswordSignup.getText().contains("&") || username.contains("&") || emailTextSignup.getText().contains("&")||name.contains("&")){
+            if (jPasswordSignup.getText().contains("&") || username.contains("&") || emailTextSignup.getText().contains("&") || name.contains("&")) {
                 jOptionPane1.showMessageDialog(null, "Invalid caracter '&'");
                 return;
             }
-            if(validate(emailTextSignup.getText())) {   
-                mail=emailTextSignup.getText();
-            }
-            else { 
+            if (validate(emailTextSignup.getText())) {
+                mail = emailTextSignup.getText();
+            } else {
                 jOptionPane1.showMessageDialog(null, "Invalid mail");
                 return;
-                 }
-            
+            }
+
             jOptionPane1.setVisible(false);
-            password=MD5_hash.MD5_hash(jPasswordSignup.getText());
-           
+            password = MD5_hash.MD5_hash(jPasswordSignup.getText());
+
             /*if (user!=null){
                 try {
                     user.join();
@@ -1090,7 +1092,7 @@ public static boolean validate(String emailStr) {
                     Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }*/
-            user=new User(username, password, mail, name, null);
+            user = new User(username, password, mail, name, null);
             System.out.println(user);
             try {
                 user.sendData("Signup");
@@ -1098,15 +1100,18 @@ public static boolean validate(String emailStr) {
                 Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
-                if(user.getResultadoLogin()==4)  jOptionPane1.showMessageDialog(null, "Username already used!");
-                else if(user.getResultadoLogin()==5)  jOptionPane1.showMessageDialog(null, "Email already used!");
-                else setContentPane(Inicial);
+                if (user.getResultadoLogin() == 4) {
+                    jOptionPane1.showMessageDialog(null, "Username already used!");
+                } else if (user.getResultadoLogin() == 5) {
+                    jOptionPane1.showMessageDialog(null, "Email already used!");
+                } else {
+                    setContentPane(Inicial);
+                }
             } catch (InterruptedException ex) {
                 Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
             }
             jOptionPane1.setVisible(false);
-            
-           
+
             backvalue = Inicial;
 
         }
@@ -1135,39 +1140,45 @@ public static boolean validate(String emailStr) {
 
     private void login3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login3ActionPerformed
         // TODO add your handling code here:
- 
-        if(emailText1.getText().isEmpty()||usernameText4.getText().isEmpty()||jPasswordField5.getText().isEmpty())
-        jOptionPane1.showMessageDialog(null,"Empty parameters");
-        else{   
-            mail =  emailText1.getText();
+
+        if (emailText1.getText().isEmpty() || usernameText4.getText().isEmpty() || jPasswordField5.getText().isEmpty()) {
+            jOptionPane1.showMessageDialog(null, "Empty parameters");
+        } else {
+            mail = emailText1.getText();
             username = usernameText4.getText();
             oldpassword = MD5_hash.MD5_hash(jPasswordField5.getText());
-           
-             if (jPasswordField5.getText().contains("&") ){
+
+            if (jPasswordField5.getText().contains("&")) {
                 jOptionPane1.showMessageDialog(null, "Invalid caracter '&'");
                 return;
             }
-            
+
             jOptionPane1.setVisible(false);
-            password=MD5_hash.MD5_hash(jPasswordField6.getText());
-            
-            user=new User(mail, username, oldpassword, null, password); 
-            
-            try{
-               user.sendData("ForgotPassword");
-           }catch (IOException | InterruptedException ex) {
+            password = MD5_hash.MD5_hash(jPasswordField6.getText());
+
+            user = new User(mail, username, oldpassword, null, password);
+
+            try {
+                user.sendData("ForgotPassword");
+            } catch (IOException | InterruptedException ex) {
                 Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-           if(user.getResultadoRecoverPassword()==2) jOptionPane1.showMessageDialog(null, "Email doesn't exist!");
-           else if(user.getResultadoRecoverPassword()==3) jOptionPane1.showMessageDialog(null, "Username doesn't exist!");
-            else if(user.getResultadoRecoverPassword()==4) jOptionPane1.showMessageDialog(null, "Wrong Password!");
-           else if(user.getResultadoRecoverPassword()==5)  jOptionPane1.showMessageDialog(null, "Email and Username aren't compatible!");
-           else setContentPane(Inicial);
-           
+
+            if (user.getResultadoRecoverPassword() == 2) {
+                jOptionPane1.showMessageDialog(null, "Email doesn't exist!");
+            } else if (user.getResultadoRecoverPassword() == 3) {
+                jOptionPane1.showMessageDialog(null, "Username doesn't exist!");
+            } else if (user.getResultadoRecoverPassword() == 4) {
+                jOptionPane1.showMessageDialog(null, "Wrong Password!");
+            } else if (user.getResultadoRecoverPassword() == 5) {
+                jOptionPane1.showMessageDialog(null, "Email and Username aren't compatible!");
+            } else {
+                setContentPane(Inicial);
+            }
+
             jOptionPane1.setVisible(false);
-          }
-        backvalue=Inicial;
+        }
+        backvalue = Inicial;
     }//GEN-LAST:event_login3ActionPerformed
 
     private void newAcc2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newAcc2ActionPerformed
@@ -1187,17 +1198,22 @@ public static boolean validate(String emailStr) {
             // TODO add your handling code here:
             user.JoinGame();
             user.lock.lock();
-            user.join.await();
-            welcome2.setText(username+ " vs " + user.getGameOpponent());
-            gameui = new GameUI(username,user.getGameOpponent());
+            try {
+                user.join.await(); // releases lock and waits until doSomethingElse is called
+            } finally {
+                user.lock.unlock();
+            }
+            System.out.println("Unlocked");
+            welcome2.setText(username + " vs " + user.getGameOpponent());
+            gameui = new GameUI(username, user.getGameOpponent());
             gameui.setVisible(true);
-            
+
         } catch (IOException ex) {
             Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
             Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_JoinGame1ActionPerformed
 
     private void CreateGame1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateGame1ActionPerformed
@@ -1205,14 +1221,19 @@ public static boolean validate(String emailStr) {
         setContentPane(GameJoined);
         invalidate();
         validate();
-        backvalue=Intro;
-        jOptionPane1.showMessageDialog(null,"Waiting for opponents...");
+        backvalue = Intro;
+        jOptionPane1.showMessageDialog(null, "Waiting for opponents...");
         try {
             user.getGame();
             user.lock.lock();
-            user.notFull.await();
-            welcome2.setText(username+ " vs " + user.getGameOpponent());
-            gameui = new GameUI(username,user.getGameOpponent());
+            try {
+                user.notFull.await(); // releases lock and waits until doSomethingElse is called
+            } finally {
+                user.lock.unlock();
+            }
+            System.out.println("Unlocked");
+            welcome2.setText(username + " vs " + user.getGameOpponent());
+            gameui = new GameUI(username, user.getGameOpponent());
             jOptionPane1.setVisible(false);
             gameui.setVisible(true);
         } catch (IOException ex) {
@@ -1290,7 +1311,7 @@ public static boolean validate(String emailStr) {
 
     private void jPasswordField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField5ActionPerformed
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_jPasswordField5ActionPerformed
 
     private void usernameText5FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameText5FocusGained
@@ -1309,15 +1330,16 @@ public static boolean validate(String emailStr) {
 
     private void jTextFieldInicialFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldInicialFocusGained
         // TODO add your handling code here:
-        if(jTextFieldInicial.getText().equals("Enter username..."))
-        jTextFieldInicial.setText("");
+        if (jTextFieldInicial.getText().equals("Enter username...")) {
+            jTextFieldInicial.setText("");
+        }
     }//GEN-LAST:event_jTextFieldInicialFocusGained
 
     private void newAcc1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newAcc1ActionPerformed
         setContentPane(Signup);
         invalidate();
         validate();
-        backvalue=Inicial;
+        backvalue = Inicial;
         SignupSetDefault();
     }//GEN-LAST:event_newAcc1ActionPerformed
 
@@ -1335,22 +1357,23 @@ public static boolean validate(String emailStr) {
 
     private void jPasswordInicialFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordInicialFocusGained
         // TODO add your handling code here:
-        if(jPasswordInicial.getText().equals("Password"))
-        jPasswordInicial.setText("");
+        if (jPasswordInicial.getText().equals("Password")) {
+            jPasswordInicial.setText("");
+        }
     }//GEN-LAST:event_jPasswordInicialFocusGained
 
     private void login1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login1ActionPerformed
         // TODO add your handling code here:
-        if(jTextFieldInicial.getText().isEmpty()||jPasswordInicial.getText().isEmpty())
-        jOptionPane1.showMessageDialog(null,"Empty parameters");
-        else{
-            username=jTextFieldInicial.getText();
-            if (jPasswordInicial.getText().contains("&") || username.contains("&")){
+        if (jTextFieldInicial.getText().isEmpty() || jPasswordInicial.getText().isEmpty()) {
+            jOptionPane1.showMessageDialog(null, "Empty parameters");
+        } else {
+            username = jTextFieldInicial.getText();
+            if (jPasswordInicial.getText().contains("&") || username.contains("&")) {
                 jOptionPane1.showMessageDialog(null, "Invalid caracter '&'");
                 return;
             }
             jOptionPane1.setVisible(false);
-            password=MD5_hash.MD5_hash(jPasswordInicial.getText());
+            password = MD5_hash.MD5_hash(jPasswordInicial.getText());
             System.out.println("Username: " + username);
             System.out.println("Hash: " + password);
             /*if (user!=null){
@@ -1360,7 +1383,7 @@ public static boolean validate(String emailStr) {
                     Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }*/
-            user=new User(username, password, null, null, null);
+            user = new User(username, password, null, null, null);
             System.out.println(user);
             try {
                 user.sendData("Login");
@@ -1368,28 +1391,27 @@ public static boolean validate(String emailStr) {
                 Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
-                if(user.getResultadoLogin()==2)  jOptionPane1.showMessageDialog(null, "Username not found!");
-                else if(user.getResultadoLogin()==3)  jOptionPane1.showMessageDialog(null, "Wrong Password!");
-                else setContentPane(Intro);
+                if (user.getResultadoLogin() == 2) {
+                    jOptionPane1.showMessageDialog(null, "Username not found!");
+                } else if (user.getResultadoLogin() == 3) {
+                    jOptionPane1.showMessageDialog(null, "Wrong Password!");
+                } else {
+                    setContentPane(Intro);
+                }
             } catch (InterruptedException ex) {
                 Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
             }
             jOptionPane1.setVisible(false);
             System.out.println(password);
-            
-            
-            
-            
-            welcome1.setText("Welcome "+username+"!");
+
+            welcome1.setText("Welcome " + username + "!");
             backvalue = Inicial;
         }
     }//GEN-LAST:event_login1ActionPerformed
 
     private void forgotPwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forgotPwActionPerformed
         // TODO add your handling code here:
-        
-        
-        
+
         ForgotPasswordSetDefault();
         setContentPane(ForgotPassword);
         invalidate();
@@ -1429,7 +1451,7 @@ public static boolean validate(String emailStr) {
 
     private void goback4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goback4ActionPerformed
         setContentPane(backvalue);
-        backvalue=Inicial;
+        backvalue = Inicial;
         invalidate();
         validate();
     }//GEN-LAST:event_goback4ActionPerformed
@@ -1437,7 +1459,6 @@ public static boolean validate(String emailStr) {
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton1ActionPerformed
-
 
     /**
      * @param args the command line arguments
@@ -1459,7 +1480,7 @@ public static boolean validate(String emailStr) {
             java.util.logging.Logger.getLogger(UIinicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
