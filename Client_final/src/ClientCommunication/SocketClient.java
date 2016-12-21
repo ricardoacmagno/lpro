@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class SocketClient extends Socket {
 
-    private Socket kkSocket = null;
+    public Socket kkSocket = null;
     private PrintWriter out = null;
     private BufferedReader in = null;
     InputStreamReader input = null;
@@ -41,6 +41,9 @@ public class SocketClient extends Socket {
             System.err.println("Couldn't get I/O for the connection to: gnomo.fe.up.pt");
             System.exit(1);
         }
+    }
+    public Socket getSocket(){
+        return kkSocket;
     }
 
     /**

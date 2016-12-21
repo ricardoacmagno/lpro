@@ -7,6 +7,10 @@ import java.util.logging.Logger;
 import ClientCommunication.ClientProtocol;
 
 import static java.lang.Thread.sleep;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * <code>User</code> represents a user
@@ -25,6 +29,9 @@ public class User {
     private int resultadoPassword = -1;
     public static Game game;
     public static ClientProtocol client;
+    public final Lock lock = new ReentrantLock();
+    public final Condition notFull = lock.newCondition();
+    public final Condition join = lock.newCondition();
 
     /**
      * Constructor
@@ -61,19 +68,15 @@ public class User {
         }.start();
         
         sleep(100);*/
-
+        sleep(50);
         System.out.println("mail:" + Mail + " Username : " + Username + " Pass: " + Password + " oldpassword:" + OldPassword);
 
         if (ack.equals("Login")) {
-            client.sendLogin(Username, Password);
+            client.sendLogin(Username, Password, this);
         } else if (ack.equals("Signup")) {
             client.sendSignUp(Name, Mail, Username, Password);
         } else if (ack.equals("ForgotPassword")) {
             client.sendChangePassword(Username, Password, Mail, OldPassword);
-        } else if (ack.equals("create")) {
-            client.CreateGame(Username);
-        } else if (ack.equals("join")) {
-            client.JoinGame(Username);
         }
 
         try {
@@ -93,7 +96,7 @@ public class User {
                     } else if ("OK".equals(dataReceived.get(1))) {
                         if (Username.equals(dataReceived.get(2))) {
                             resultadoLogin = 1;
-                        
+
                         }
                     }
                 } else if ("Signup".equals(dataReceived.get(0))) {
@@ -136,23 +139,6 @@ public class User {
                         }
                     }
                     client.disconnect();
-                } else if ("CreateGame".equals(dataReceived.get(0))) {
-                    System.out.println("I am " + dataReceived.get(1) + " playing in game id " + dataReceived.get(2));
-                    int gameid = Integer.parseInt(dataReceived.get(2));
-                    game = new Game(gameid, Username);
-
-                } else if ("JoinGame".equals(dataReceived.get(0))) {
-                    if (dataReceived.get(3).equals("ok")) {
-                        int gameid = Integer.parseInt(dataReceived.get(1));
-                        game = new Game(gameid, Username);
-                        game.setOpponent(dataReceived.get(2));
-
-                    }
-                    System.out.println("New opponent " + dataReceived.get(1));
-
-                } else if ("Warning".equals(dataReceived.get(0))) {
-                    game.setOpponent(dataReceived.get(2));
-                    System.out.println("My opponent is " + dataReceived.get(2));
                 }
 
             }
@@ -196,7 +182,7 @@ public class User {
      * @throws InterruptedException
      */
     public void getGame() throws IOException, InterruptedException {
-        sendData("create");
+        sendtoServer("create");
 
     }
 
@@ -207,7 +193,7 @@ public class User {
      * @throws InterruptedException
      */
     public void JoinGame() throws IOException, InterruptedException {
-        sendData("join");
+        sendtoServer("join");
     }
 
     /**
@@ -223,17 +209,49 @@ public class User {
         return game.getOpponent();
     }
 
+    public boolean getOpponentBool() {
+        return game.getOpponentBoolean();
+    }
+
     public ClientProtocol getClient() {
         return client;
     }
 
-    public void hearOpponent() throws IOException, InterruptedException {
-        ArrayList<String> dataReceived = null;
-        dataReceived = client.hear();
-        if ("Warning".equals(dataReceived.get(0))) {
-            game.setOpponent(dataReceived.get(2));
-            System.out.println("My opponent is " + dataReceived.get(2));
+    public void refreshData(String[] dataReceived) {
+        if ("CreateGame".equals(dataReceived[0])) {
+            System.out.println("I am " + dataReceived[1] + " playing in game id " + dataReceived[2]);
+            int gameid = Integer.parseInt(dataReceived[2]);
+            game = new Game(gameid, Username);
 
+        } else if ("JoinGame".equals(dataReceived[0])) {
+
+            if (dataReceived[3].equals("ok")) {
+                int gameid = Integer.parseInt(dataReceived[1]);
+                game = new Game(gameid, Username);
+                game.setOpponent(dataReceived[2]);
+                
+            }
+            join.signal();
+            lock.unlock();
+
+            System.out.println("New opponent " + dataReceived[1]);
+
+        } else if ("Warning".equals(dataReceived[0])) {
+
+            game.setOpponent(dataReceived[2]);
+            System.out.println("My opponent is " + dataReceived[2]);
+            notFull.signal();
+            lock.unlock();
         }
+
+    }
+
+    public void sendtoServer(String ack) {
+        if (ack.equals("create")) {
+            client.CreateGame(Username);
+        } else if (ack.equals("join")) {
+            client.JoinGame(Username);
+        }
+
     }
 }

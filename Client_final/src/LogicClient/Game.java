@@ -16,7 +16,7 @@ public class Game {
     private String me = null;
     private String opponent = null;
     private int GameId = 0;
-    boolean player1placed, player2placed;
+    boolean player1placed, player2placed,opponentbool;
     /**
      * Constructor
      *
@@ -25,12 +25,16 @@ public class Game {
      * @param player2 string with the name of the player 2
      */
     Game(int id, String player1) {
+        this.opponentbool = false;
         this.player1placed = false;
         this.player2placed = false;
         this.me = player1;
         this.GameId = id;
+        
     }
-
+    public Boolean getOpponentBoolean() {
+        return opponentbool;
+    }
     /**
      * <code>getOpponent()</code> checks the name of the opponent player
      *
@@ -56,6 +60,7 @@ public class Game {
      */
     public void setOpponent(String name) {
         this.opponent = name;
+        opponentbool=true;
     }
     
     public int getGameid(){

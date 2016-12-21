@@ -19,7 +19,7 @@ public class GameServer {
     PrintWriter out;
     public GameServer(Socket socket) throws IOException{
         this.mysocket=socket;
-         out = new PrintWriter(mysocket.getOutputStream(), true);
+        out = new PrintWriter(mysocket.getOutputStream(), true);
     }
     
     public void sendClient(String tosend){

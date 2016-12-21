@@ -1186,7 +1186,8 @@ public static boolean validate(String emailStr) {
         try {
             // TODO add your handling code here:
             user.JoinGame();
-                
+            user.lock.lock();
+            user.join.await();
             welcome2.setText(username+ " vs " + user.getGameOpponent());
             gameui = new GameUI(username,user.getGameOpponent());
             gameui.setVisible(true);
@@ -1208,7 +1209,8 @@ public static boolean validate(String emailStr) {
         jOptionPane1.showMessageDialog(null,"Waiting for opponents...");
         try {
             user.getGame();
-            user.hearOpponent();
+            user.lock.lock();
+            user.notFull.await();
             welcome2.setText(username+ " vs " + user.getGameOpponent());
             gameui = new GameUI(username,user.getGameOpponent());
             jOptionPane1.setVisible(false);
