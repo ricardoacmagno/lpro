@@ -172,9 +172,11 @@ public class User {
     public String getUsername() {
         return Username;
     }
-    public static void setPlayer(Player player){
+
+    public static void setPlayer(Player player) {
         //this.player=player;
     }
+
     /**
      * Method that serves to send the result of the verification made in
      * <code>sendData()</code>
@@ -268,20 +270,20 @@ public class User {
         } else if ("Ships".equals(dataReceived[0])) {
             System.out.println("Ships received");
             game.player2placed = true;
-            
+
             for (int c = 1; c <= 5; c++) {
-                String shipinfo=dataReceived[c];
-                int y=shipinfo.charAt(0)-'0';
-                int x=shipinfo.charAt(1)-'0';
-                int size=shipinfo.charAt(2)-'0';
-                boolean hor=true;
-                System.out.println("y="+y+" ,x="+x+" ,size="+size+" ,hor="+hor);
-                if(shipinfo.charAt(3)=='V')
-                    hor=false;
-                gameui.player1.placeHitBoard(y,x,size,hor);
+                String shipinfo = dataReceived[c];
+                int y = shipinfo.charAt(0) - '0';
+                int x = shipinfo.charAt(1) - '0';
+                int size = shipinfo.charAt(2) - '0';
+                boolean hor = true;
+                System.out.println("y=" + y + " ,x=" + x + " ,size=" + size + " ,hor=" + hor);
+                if (shipinfo.charAt(3) == 'V') {
+                    hor = false;
+                }
+                gameui.player1.placeHitBoard(y, x, size, hor);
             }
-            
-            
+
             if (game.player1placed == true) {
                 System.out.println("Grid 2 init");
                 gameui.initGrid2();

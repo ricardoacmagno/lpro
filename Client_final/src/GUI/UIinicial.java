@@ -1197,6 +1197,12 @@ public class UIinicial extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             user.JoinGame();
+            user.lock.lock();
+            try {
+                user.join.await(); // releases lock and waits until doSomethingElse is called
+            } finally {
+                user.lock.unlock();
+            }
             System.out.println("Unlocked");
             welcome2.setText(username + " vs " + user.getGameOpponent());
             gameui = new GameUI(username, user.getGameOpponent());

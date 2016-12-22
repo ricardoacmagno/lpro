@@ -9,21 +9,22 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-
 /**
  *
  * @author Francisco
  */
 public class GameServer {
+
     private final Socket mysocket;
     PrintWriter out;
-    public GameServer(Socket socket) throws IOException{
-        this.mysocket=socket;
+
+    public GameServer(Socket socket) throws IOException {
+        this.mysocket = socket;
         out = new PrintWriter(mysocket.getOutputStream(), true);
     }
-    
-    public void sendClient(String tosend){
+
+    public void sendClient(String tosend) {
         out.println(tosend);
     }
-    
+
 }

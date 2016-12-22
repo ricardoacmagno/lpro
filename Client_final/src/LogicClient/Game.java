@@ -8,15 +8,17 @@ package LogicClient;
 import static LogicClient.User.game;
 
 /**
- *<code>Game</code> represents a game
+ * <code>Game</code> represents a game
+ *
  * @author francisco
  */
 public class Game {
-    
+
     private String me = null;
     private String opponent = null;
     private int GameId = 0;
-    public boolean player1placed, player2placed,opponentbool;
+    public boolean player1placed, player2placed, opponentbool;
+
     /**
      * Constructor
      *
@@ -30,11 +32,13 @@ public class Game {
         this.player2placed = false;
         this.me = player1;
         this.GameId = id;
-        
+
     }
+
     public Boolean getOpponentBoolean() {
         return opponentbool;
     }
+
     /**
      * <code>getOpponent()</code> checks the name of the opponent player
      *
@@ -60,12 +64,11 @@ public class Game {
      */
     public void setOpponent(String name) {
         this.opponent = name;
-        opponentbool=true;
+        opponentbool = true;
     }
-    
-    public int getGameid(){
+
+    public int getGameid() {
         return GameId;
     }
-    
 
 }

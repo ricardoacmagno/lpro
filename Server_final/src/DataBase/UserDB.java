@@ -122,7 +122,7 @@ public final class UserDB extends PostgreSQLink {
             }
         }
         String oops = id + "";
-        String[] toReturn = {user,oops};
+        String[] toReturn = {user, oops};
         return toReturn;
     }
 
@@ -157,26 +157,25 @@ public final class UserDB extends PostgreSQLink {
      */
     public String[] JoinGame(String user) throws SQLException {
         System.out.println("Checking game...");
-            PostgreSQLink.connect();
-            int id=0;
-            String opponent="";
-            String ok="ok";
-           // Statement statement = getConnection().createStatement();
-            statement = getConnection().createStatement();
-            ResultSet results1 = statement.executeQuery("SELECT player1name, id FROM gamesrunning WHERE player1joined = '"+true+"' AND player2joined = '"+false+"';");
-            if (results1.next()){
-                 opponent= results1.getString("player1name");
-                id=results1.getInt("id");
-                statement.executeUpdate("UPDATE gamesrunning SET player2joined = '"+true+"', player2name = '"+user+"' WHERE player1joined = '"+true+"';");
-                results1.close();
-                statement.close();
-            }
-            else{
-                ok="notok";
-            }
-            String sid=""+id;
-            String[] toReturn = {sid,opponent,ok};
-            System.out.println("Info of player " + user+" placed in DB");
+        PostgreSQLink.connect();
+        int id = 0;
+        String opponent = "";
+        String ok = "ok";
+        // Statement statement = getConnection().createStatement();
+        statement = getConnection().createStatement();
+        ResultSet results1 = statement.executeQuery("SELECT player1name, id FROM gamesrunning WHERE player1joined = '" + true + "' AND player2joined = '" + false + "';");
+        if (results1.next()) {
+            opponent = results1.getString("player1name");
+            id = results1.getInt("id");
+            statement.executeUpdate("UPDATE gamesrunning SET player2joined = '" + true + "', player2name = '" + user + "' WHERE player1joined = '" + true + "';");
+            results1.close();
+            statement.close();
+        } else {
+            ok = "notok";
+        }
+        String sid = "" + id;
+        String[] toReturn = {sid, opponent, ok};
+        System.out.println("Info of player " + user + " placed in DB");
         return toReturn;
     }
 

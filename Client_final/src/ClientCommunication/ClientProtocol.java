@@ -81,8 +81,8 @@ public class ClientProtocol {
             Logger.getLogger(ClientProtocol.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void startListen(User user){
+
+    public void startListen(User user) {
         new Listen(clientSocket.getSocket(), user).start();
     }
 

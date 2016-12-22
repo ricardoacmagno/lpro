@@ -23,11 +23,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *<code>GameUI</code> represents the UI of a game
+ * <code>GameUI</code> represents the UI of a game
+ *
  * @author francisco
  */
 public class GameUI extends javax.swing.JFrame {
-    
+
     private static JPanel[][] mypanel = new JPanel[10][10];
     private static JPanel[][] hitpanel = new JPanel[10][10];
     private JPanel jPanelbig = new JPanel();
@@ -70,7 +71,7 @@ public class GameUI extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     private void initGrid() {
-        gameui=this;
+        gameui = this;
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         jPanel1.setLayout(new java.awt.GridLayout(11, 11));
         JPanel blank = new JPanel();
@@ -92,7 +93,8 @@ public class GameUI extends javax.swing.JFrame {
         pack();
 
     }
-    public Player getPlayer(){
+
+    public Player getPlayer() {
         return player1;
     }
 
@@ -127,9 +129,9 @@ public class GameUI extends javax.swing.JFrame {
     /**
      * <code>startBoardGui()</code> define the settings of each param jpanel
      *
-     * @param jpanel 
-     * @param Layout 
-     * @param currentpanel 
+     * @param jpanel
+     * @param Layout
+     * @param currentpanel
      */
     public void startBoardGui(JPanel jpanel, GroupLayout Layout, JPanel currentpanel) {
         jpanel.setBorder(javax.swing.BorderFactory.createLineBorder(Color.gray));
@@ -138,17 +140,18 @@ public class GameUI extends javax.swing.JFrame {
         jpanel.setLayout(Layout);
         Layout.setHorizontalGroup(
                 Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
         );
         Layout.setVerticalGroup(
                 Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
         );
         currentpanel.add(jpanel);
     }
 
     /**
      * <code>turn()</code> represents the turn of each player
+     *
      * @param player represents a player
      */
     public void turn(Player player) {
@@ -163,7 +166,8 @@ public class GameUI extends javax.swing.JFrame {
                      * <code>mouseEntered()</code> change settings when the
                      * mouse enters
                      *
-                     * @param evt an event which indicates that a mouse action occurred in a component
+                     * @param evt an event which indicates that a mouse action
+                     * occurred in a component
                      */
                     @Override
                     public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -174,12 +178,13 @@ public class GameUI extends javax.swing.JFrame {
                      * <code>mousePressed()</code> change settings when the
                      * mousse is pressed
                      *
-                     * @param evt an event which indicates that a mouse action occurred in a component
+                     * @param evt an event which indicates that a mouse action
+                     * occurred in a component
                      */
                     @Override
                     public void mousePressed(java.awt.event.MouseEvent evt) {
                         if (evt.getButton() == MouseEvent.BUTTON1) {
-                            player.printHitBoard();
+
                             if (player.checkHitBoard(y1, x1, 'S') == true) {
                                 current.setBackground(Color.green);
                                 player.hit();
@@ -204,7 +209,8 @@ public class GameUI extends javax.swing.JFrame {
                      * <code>mouseExited()</code> change settings when the mouse
                      * exits
                      *
-                     * @param evt an event which indicates that a mouse action occurred in a component
+                     * @param evt an event which indicates that a mouse action
+                     * occurred in a component
                      */
                     @Override
                     public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -220,7 +226,7 @@ public class GameUI extends javax.swing.JFrame {
     /**
      * <code>placeShipUi()</code> represents the UI of placing a ship
      *
-     * @param ship represents a ship 
+     * @param ship represents a ship
      */
     public void placeShipUi(Ship ship) {
         d = ship;
@@ -298,7 +304,8 @@ public class GameUI extends javax.swing.JFrame {
                          * <code>mouseEntered()</code> change settings when the
                          * mouse enters
                          *
-                         * @param evt an event which indicates that a mouse action occurred in a component
+                         * @param evt an event which indicates that a mouse
+                         * action occurred in a component
                          */
                         @Override
                         public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -321,7 +328,8 @@ public class GameUI extends javax.swing.JFrame {
                          * <code>mousePressed()</code> change settings when the
                          * mousse is pressed
                          *
-                         * @param evt an event which indicates that a mouse action occurred in a component
+                         * @param evt an event which indicates that a mouse
+                         * action occurred in a component
                          */
                         @Override
                         public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -339,9 +347,10 @@ public class GameUI extends javax.swing.JFrame {
                                     }
                                     entered = false;
                                     player1.placeShip(d, y1, x1, horizontal);
-                                    String modo="H";
-                                    if(!horizontal)
-                                        modo="V";
+                                    String modo = "H";
+                                    if (!horizontal) {
+                                        modo = "V";
+                                    }
                                     player1.setInfo(d, y1, x1, modo);
                                     for (int y = 0; y < 10; y++) {
                                         for (int x = 0; x < 10; x++) {
@@ -362,17 +371,17 @@ public class GameUI extends javax.swing.JFrame {
                                         placeShipUi(player1.carrier);
                                     } else {
                                         jProgressBar.setValue(100);
-                                        User myuser=UIinicial.user;
-                                        Game mygame=User.game;
-                                       
+                                        User myuser = UIinicial.user;
+                                        Game mygame = User.game;
+
                                         try {
-                                            player1.sendBoats(myuser,mygame, gameui);
+                                            player1.sendBoats(myuser, mygame, gameui);
                                             System.out.println("Boats sent in UI");
-                                            mygame.player1placed=true;
-                                            if(mygame.player2placed==true){
+                                            mygame.player1placed = true;
+                                            if (mygame.player2placed == true) {
                                                 initGrid2();
                                             }
-                                            
+
                                         } catch (IOException ex) {
                                             Logger.getLogger(GameUI.class.getName()).log(Level.SEVERE, null, ex);
                                         } catch (InterruptedException ex) {
@@ -396,7 +405,8 @@ public class GameUI extends javax.swing.JFrame {
                          * <code>mouseExited()</code> change settings when the
                          * mouse exits
                          *
-                         * @param evt an event which indicates that a mouse action occurred in a component
+                         * @param evt an event which indicates that a mouse
+                         * action occurred in a component
                          */
                         @Override
                         public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -419,8 +429,8 @@ public class GameUI extends javax.swing.JFrame {
      * @param size
      * @param y
      * @param x
-     * @param next 
-     * @param current 
+     * @param next
+     * @param current
      * @param ShipInWay
      * @param n
      */
@@ -516,7 +526,7 @@ public class GameUI extends javax.swing.JFrame {
     /**
      * <code>createLetterLabel()</code> creates a label
      *
-     * @param letter 
+     * @param letter
      * @param y
      * @param panel
      */

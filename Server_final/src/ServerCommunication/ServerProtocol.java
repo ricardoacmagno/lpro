@@ -46,7 +46,7 @@ public class ServerProtocol extends Thread {
             case "JoinGame":
                 return handlerJoinGame(stringUis[1]);
             case "Ships":
-                return setCarrierInfo(stringUis[1],stringUis[2],stringUis[3],stringUis[4],stringUis[5],stringUis[6],stringUis[7]);
+                return setCarrierInfo(stringUis[1], stringUis[2], stringUis[3], stringUis[4], stringUis[5], stringUis[6], stringUis[7]);
         }
     }
 
@@ -252,15 +252,15 @@ public class ServerProtocol extends Thread {
         String[] teste = {"JoinGame", opponent[0], opponent[1], opponent[2]};
         return teste;
     }
-    
-    public String[] setCarrierInfo(String sid, String infod,String infos,String infoc,String infob,String infoca, String username){
+
+    public String[] setCarrierInfo(String sid, String infod, String infos, String infoc, String infob, String infoca, String username) {
         System.out.println("Setting ships info");
         int id = Integer.parseInt(sid);
-        Game game= User.getGameid(id);
-        String tosend=infod+"&"+infos+"&"+infoc+"&"+infob+"&"+infoca;
-        String ok=game.setShipsInfo(tosend,username);
-        String[] toreturn={ok};
+        Game game = User.getGameid(id);
+        String tosend = infod + "&" + infos + "&" + infoc + "&" + infob + "&" + infoca;
+        String ok = game.setShipsInfo(tosend, username);
+        String[] toreturn = {ok};
         return toreturn;
     }
-    
+
 }

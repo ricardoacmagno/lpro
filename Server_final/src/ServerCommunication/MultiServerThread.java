@@ -42,7 +42,7 @@ public class MultiServerThread extends Thread {
         System.out.println("New thread made");
         while (connection) {
             try {
-                state=0;
+                state = 0;
                 out = new PrintWriter(socket.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
@@ -64,7 +64,7 @@ public class MultiServerThread extends Thread {
                     state = 4;
                 } else if (uno[0].equals("JoinGame")) {
                     state = 5;
-                } 
+                }
 
                 switch (state) {
                     case 1:
@@ -125,7 +125,7 @@ public class MultiServerThread extends Thread {
                         outputLine = "Opponent&" + uno[1];
                         break;
                     case 7:
-                        outputLine = "destroyer&"+uno[1];
+                        outputLine = "destroyer&" + uno[1];
 
                 }
                 System.out.println("outputLine " + outputLine);
