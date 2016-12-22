@@ -1,5 +1,6 @@
 package DataBase;
 
+import LogicServer.Game;
 import static java.lang.Thread.sleep;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -230,5 +231,13 @@ public final class UserDB extends PostgreSQLink {
         }
         return -1;
 
+    }
+    public void finishGame(Game game) throws SQLException{
+        PostgreSQLink.connect();
+        statement = getConnection().createStatement();
+        ResultSet results1 = statement.executeQuery("SELECT shipsplayer1, shipsplayer2 , winner FROM gamesrunning WHERE id = '" + game.getId() + "';");
+        if (results1.next()){
+            statement.executeUpdate("UPDATE gamesrunning SET shipsplayer1 = '" + game.getPlayer2Ships() + "', shipsplayer2 = '" + game.getPlayer2Ships() + "', winner = '" + game.getWinner() + "' WHERE id= '" + game.getId() + "';");
+        }
     }
 }

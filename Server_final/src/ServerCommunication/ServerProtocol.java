@@ -47,7 +47,12 @@ public class ServerProtocol extends Thread {
                 return handlerJoinGame(stringUis[1]);
             case "Ships":
                 return setCarrierInfo(stringUis[1], stringUis[2], stringUis[3], stringUis[4], stringUis[5], stringUis[6], stringUis[7]);
+            case "Turn":
+                handlerTurn(stringUis[1],stringUis[2],stringUis[3],stringUis[4]);
+                String[] ok = {"turn ok"};
+                return ok;
         }
+        
     }
 
     /**
@@ -261,6 +266,15 @@ public class ServerProtocol extends Thread {
         String ok = game.setShipsInfo(tosend, username);
         String[] toreturn = {ok};
         return toreturn;
+    }
+    
+    public void handlerTurn(String sid ,String position,String result,String myname) throws IOException, SQLException{
+        int id = Integer.parseInt(sid);
+        Game game = User.getGameid(id);
+        game.setTurn(result,position,myname);
+        if(game.getWinnerbool()){
+            User.finishGame(game);
+        }
     }
 
 }

@@ -283,12 +283,23 @@ public class User {
                 }
                 gameui.player1.placeHitBoard(y, x, size, hor);
             }
-
+            int play = Integer.parseInt(dataReceived[6]);
+            if(play==1)
+                gameui.player1.setfirstplay();
             if (game.player1placed == true) {
                 System.out.println("Grid 2 init");
                 gameui.initGrid2();
             }
 
+        }  else if ("Turn".equals(dataReceived[0])) {
+            String hitinfo=dataReceived[1];
+            int y = hitinfo.charAt(0) - '0';
+            int x = hitinfo.charAt(1) - '0';
+            if(dataReceived[2].equals("hit"))
+                gameui.hitPanel(y,x);
+            else
+                gameui.missPanel(y, x);
+            gameui.turn(gameui.player1);
         }
 
     }

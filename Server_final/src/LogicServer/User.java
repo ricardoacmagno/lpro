@@ -228,4 +228,7 @@ public class User {
     public static Game getGameid(int id) {
         return gameid[id];
     }
+    public static void finishGame(Game game) throws SQLException{
+        userData.finishGame(game);
+    }
 }

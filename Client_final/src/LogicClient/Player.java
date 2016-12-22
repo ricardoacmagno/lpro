@@ -87,6 +87,14 @@ public class Player {
         return hitcount >= 17;
     }
 
+    public void setfirstplay() {
+        firsttoplay = true;
+    }
+
+    public boolean getfirstplay() {
+        return firsttoplay;
+    }
+
     /**
      * <code>printShipBoard()</code> prints in terminal the ship board of the
      * player
@@ -227,21 +235,19 @@ public class Player {
         client = user.getClient();
         user.set(gameui);
         String tosend = "Ships&" + gameid + "&" + infod + "&" + infos + "&" + infoc + "&" + infob + "&" + infoca + "&" + user.getUsername();
-        client.sendBoat(tosend);
+        client.send(tosend);
+    }
+
+    public static void sendTurn(int y, int x, String result, User user) throws IOException, InterruptedException {
+        int gameid = game.getGameid();
+        String tosend = "Turn&" + gameid + "&" + y + x + "&" + result + "&" + user.getUsername();
+        client.send(tosend);
     }
 
     public void setUser(User user) {
         this.user = user;
     }
 
-    public void hearShips() throws IOException, InterruptedException {
-        ArrayList<String> dataReceived = null;
-        System.out.println("Trying to hear");
-        dataReceived = client.hear();
-        if ("Ships".equals(dataReceived.get(0))) {
-            System.out.println("Carrier is in: " + dataReceived.get(1));
 
-        }
-    }
 
 }

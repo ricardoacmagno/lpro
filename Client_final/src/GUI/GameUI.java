@@ -40,7 +40,7 @@ public class GameUI extends javax.swing.JFrame {
     private Label[] numberhit = new Label[10];
     private MouseListener[][] teste = new MouseListener[10][10];
     private MouseListener[][] teste1 = new MouseListener[10][10];
-
+    Color water = new Color(61,151,255);
     private Ship[] shipnr = new Ship[5];
     public static GameUI gameui;
     public static Player player1;
@@ -123,7 +123,9 @@ public class GameUI extends javax.swing.JFrame {
             }
         }
         pack();
-        turn(player1);
+        if (player1.getfirstplay()) {
+            turn(player1);
+        }
     }
 
     /**
@@ -184,25 +186,34 @@ public class GameUI extends javax.swing.JFrame {
                     @Override
                     public void mousePressed(java.awt.event.MouseEvent evt) {
                         if (evt.getButton() == MouseEvent.BUTTON1) {
-
+                            current.setBorder(javax.swing.BorderFactory.createLineBorder(Color.gray, 1));
                             if (player.checkHitBoard(y1, x1, 'S') == true) {
                                 current.setBackground(Color.green);
                                 player.hit();
-                                if (player.checkWinner()) {
-                                    for (int y = 0; y < 10; y++) {
-                                        for (int x = 0; x < 10; x++) {
-                                            hitpanel[y][x].removeMouseListener(teste1[y][x]);
-                                        }
-                                        JOptionPane.showMessageDialog(null, player.getName() + " won!");
-                                    }
+                                try {
+                                    player.sendTurn(y1,x1,"hit", user);
+                                } catch (IOException | InterruptedException ex) {
+                                    Logger.getLogger(GameUI.class.getName()).log(Level.SEVERE, null, ex);
                                 }
+
                             } else {
                                 player.miss();
-                                current.setBackground(Color.red);
+                                try {
+                                    player.sendTurn(y1,x1,"miss", user);
+                                } catch (IOException | InterruptedException ex) {
+                                    Logger.getLogger(GameUI.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                current.setBackground(water);
+                            }
+                            for (int y = 0; y < 10; y++) {
+                                for (int x = 0; x < 10; x++) {
+                                    hitpanel[y][x].removeMouseListener(teste1[y][x]);
+                                }
                             }
                         } else if (evt.getButton() == MouseEvent.BUTTON3) {
 
                         }
+
                     }
 
                     /**
@@ -222,7 +233,14 @@ public class GameUI extends javax.swing.JFrame {
             }
         }
     }
-
+    public void hitPanel(int y, int x){
+        JPanel current = mypanel[y][x];
+        current.setBackground(Color.red);
+    }
+    public void missPanel(int y, int x){
+        JPanel current = mypanel[y][x];
+        current.setBackground(water);
+    }
     /**
      * <code>placeShipUi()</code> represents the UI of placing a ship
      *

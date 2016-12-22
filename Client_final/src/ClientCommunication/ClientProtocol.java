@@ -164,7 +164,7 @@ public class ClientProtocol {
         }
     }
 
-    public void sendBoat(String mystring) {
+    public void send(String mystring) {
 
         try {
             clientSocket.toSend(mystring);
