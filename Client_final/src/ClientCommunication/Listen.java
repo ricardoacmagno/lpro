@@ -52,13 +52,14 @@ public class Listen extends Thread {
                 Logger.getLogger(Listen.class.getName()).log(Level.SEVERE, null, ex);
             }
             System.out.println("Received from Thread: " + fromServer);
+            String[] echo = fromServer.split("&");
             try {
-                sleep(50);
+                user.refreshData(echo);
+            } catch (IOException ex) {
+                Logger.getLogger(Listen.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Listen.class.getName()).log(Level.SEVERE, null, ex);
             }
-            String[] echo = fromServer.split("&");
-            user.refreshData(echo);
         }
     }
 }

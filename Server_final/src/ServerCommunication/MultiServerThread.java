@@ -64,9 +64,7 @@ public class MultiServerThread extends Thread {
                     state = 4;
                 } else if (uno[0].equals("JoinGame")) {
                     state = 5;
-                } else if (uno[0].equals("destroyer")) {
-                    state = 7;
-                }
+                } 
 
                 switch (state) {
                     case 1:

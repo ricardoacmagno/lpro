@@ -27,7 +27,7 @@ import java.util.logging.Logger;
  * @author francisco
  */
 public class GameUI extends javax.swing.JFrame {
-
+    
     private static JPanel[][] mypanel = new JPanel[10][10];
     private static JPanel[][] hitpanel = new JPanel[10][10];
     private JPanel jPanelbig = new JPanel();
@@ -42,7 +42,7 @@ public class GameUI extends javax.swing.JFrame {
 
     private Ship[] shipnr = new Ship[5];
     public static GameUI gameui;
-    private static Player player1;
+    public static Player player1;
     private static Player player2;
     private boolean horizontal = true;
     private boolean entered = false;
@@ -70,6 +70,7 @@ public class GameUI extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     private void initGrid() {
+        gameui=this;
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         jPanel1.setLayout(new java.awt.GridLayout(11, 11));
         JPanel blank = new JPanel();
@@ -91,11 +92,14 @@ public class GameUI extends javax.swing.JFrame {
         pack();
 
     }
+    public Player getPlayer(){
+        return player1;
+    }
 
     /**
      * <code>initGrid2()</code> initialize the hit board UI
      */
-    private void initGrid2() throws IOException, InterruptedException {
+    public void initGrid2() throws IOException, InterruptedException {
 
         jPanel2.remove(jProgressBar);
         label3.setForeground(Color.green);
@@ -117,8 +121,6 @@ public class GameUI extends javax.swing.JFrame {
             }
         }
         pack();
-        sleep(100);
-        player1.hearShips();
         turn(player1);
     }
 
@@ -178,7 +180,7 @@ public class GameUI extends javax.swing.JFrame {
                     public void mousePressed(java.awt.event.MouseEvent evt) {
                         if (evt.getButton() == MouseEvent.BUTTON1) {
                             player.printHitBoard();
-                            if (player.checkShipBoard(y1, x1, 'S') == true) {
+                            if (player.checkHitBoard(y1, x1, 'S') == true) {
                                 current.setBackground(Color.green);
                                 player.hit();
                                 if (player.checkWinner()) {
@@ -348,7 +350,7 @@ public class GameUI extends javax.swing.JFrame {
                                     }
                                     if (d == player1.destroyer) {
                                         jProgressBar.setValue(20);
-                                        placeShipUi(player1.submarine);
+                                        placeShipUi(player1.getSubmarine());
                                     } else if (d == player1.submarine) {
                                         jProgressBar.setValue(40);
                                         placeShipUi(player1.cruiser);
@@ -364,10 +366,13 @@ public class GameUI extends javax.swing.JFrame {
                                         Game mygame=User.game;
                                        
                                         try {
-                                            player1.sendBoats(myuser,mygame);
+                                            player1.sendBoats(myuser,mygame, gameui);
                                             System.out.println("Boats sent in UI");
-                                            initGrid2();
-                                            System.out.println("Grid 2 init");
+                                            mygame.player1placed=true;
+                                            if(mygame.player2placed==true){
+                                                initGrid2();
+                                            }
+                                            
                                         } catch (IOException ex) {
                                             Logger.getLogger(GameUI.class.getName()).log(Level.SEVERE, null, ex);
                                         } catch (InterruptedException ex) {

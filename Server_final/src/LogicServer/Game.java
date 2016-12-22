@@ -42,7 +42,7 @@ public class Game {
     public static void newOpponent() throws IOException{
         p1.sendClient("Warning&"+id+"&"+player2);
     }
-    public String setCarrierInfo(String info, String username){
+    public String setShipsInfo(String info, String username){
         if(username.equals(player1)){
             player1Ships=info;
             p2.sendClient("Ships&"+info);

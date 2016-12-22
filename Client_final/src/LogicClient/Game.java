@@ -16,7 +16,7 @@ public class Game {
     private String me = null;
     private String opponent = null;
     private int GameId = 0;
-    boolean player1placed, player2placed,opponentbool;
+    public boolean player1placed, player2placed,opponentbool;
     /**
      * Constructor
      *
@@ -66,4 +66,6 @@ public class Game {
     public int getGameid(){
         return GameId;
     }
+    
+
 }

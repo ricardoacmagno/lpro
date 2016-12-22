@@ -74,7 +74,7 @@ public class Ship {
     }
     
     public String getInfo(){
-        String toreturn = y +""+x+""+mode;
+        String toreturn = y +""+x+""+size+""+mode;
         return toreturn;
     }
 }

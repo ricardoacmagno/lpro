@@ -1,6 +1,7 @@
 package LogicClient;
 
 import ClientCommunication.ClientProtocol;
+import GUI.GameUI;
 import static LogicClient.User.client;
 import static LogicClient.User.game;
 import java.io.IOException;
@@ -25,10 +26,10 @@ public class Player {
     private int playNr;
     private int hitcount;
     private int misscount;
-    public Ship carrier;
-    public Ship battleship;
-    public Ship cruiser;
-    public Ship submarine;
+    public static Ship carrier;
+    public static Ship battleship;
+    public static Ship cruiser;
+    public static Ship submarine;
     public static Ship destroyer;
     public Board ShipBoard;
     public Board HitBoard;
@@ -55,7 +56,9 @@ public class Player {
         ShipBoard = new Board();
         HitBoard = new Board();
     }
-
+    public Ship getSubmarine(){
+        return submarine;
+    }
     /**
      * <code>hit()</code> increments a hit on the player
      */
@@ -164,8 +167,19 @@ public class Player {
             }
         }
         boat.place();
-        printShipBoard();
-        System.out.println("Placed " + boat.getName());
+        //printShipBoard();
+        //System.out.println("Placed " + boat.getName());
+    }
+    public void placeHitBoard( int y, int x,int size, boolean hor) {
+        if (hor == true) {
+            for (int c = x; c < (x + size); c++) {
+                setHitBoard(y, c, 'S');
+            }
+        } else {
+            for (int c = y; c < (y + size); c++) {
+                setHitBoard(c, x, 'S');
+            }
+        }
     }
 
     /**
@@ -196,16 +210,17 @@ public class Player {
         return toreturn;
     }
     
-    public static void sendBoats(User user, Game game) throws IOException, InterruptedException{
-        String info=null;
-        client=user.getClient();
+    public static void sendBoats(User user, Game game, GameUI gameui) throws IOException, InterruptedException{
         int gameid=game.getGameid();
-        info=getInfo(destroyer);
-        String tosend="destroyer&"+gameid+"&"+info+"&"+name;
+        String infod=getInfo(destroyer);
+        String infos=getInfo(submarine);
+        String infoc=getInfo(cruiser);
+        String infob=getInfo(battleship);
+        String infoca=getInfo(carrier);
+        client=user.getClient();
+        user.set(gameui);
+        String tosend="Ships&"+gameid+"&"+infod+"&"+infos+"&"+infoc+"&"+infob+"&"+infoca+"&"+user.getUsername();
         client.sendBoat(tosend);
-        ArrayList<String> dataReceived = null;
-        dataReceived = client.hear();
-        System.out.println(dataReceived);
     }
     public void setUser(User user){
         this.user=user;
