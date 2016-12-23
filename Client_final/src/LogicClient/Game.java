@@ -38,14 +38,16 @@ public class Game {
     public Boolean getOpponentBoolean() {
         return opponentbool;
     }
-
+    public String getName(){
+        return me;
+    }
     /**
      * <code>getOpponent()</code> checks the name of the opponent player
      *
      * @return the name of the opponent player
      */
     public String getOpponent() {
-        return opponent;
+        return this.opponent;
     }
 
     /**

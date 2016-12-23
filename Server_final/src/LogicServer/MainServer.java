@@ -9,7 +9,6 @@ import ServerCommunication.MultiServer;
  * @author ricar
  */
 public class MainServer {
-
     /**
      * Main method that creates a new class <code>MultiServer</code>
      *

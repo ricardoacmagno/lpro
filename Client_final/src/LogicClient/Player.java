@@ -22,7 +22,7 @@ public class Player {
 
     static User user;
     static ClientProtocol client;
-    private static String name = new String();
+    public static String name = new String();
     private static int id;
     private boolean firsttoplay;
     private boolean winner;

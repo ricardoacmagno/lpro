@@ -1,5 +1,6 @@
 package ServerCommunication;
 
+import LogicServer.Chat;
 import LogicServer.Game;
 import LogicServer.User;
 import java.io.IOException;
@@ -16,7 +17,7 @@ import java.sql.SQLException;
 public class ServerProtocol extends Thread {
 
     Socket mysocket;
-
+    Chat chat;
     /**
      * Method responsible for calling the proper method to handle the server
      * call based on the first argument of the <code>String</code> server
@@ -24,16 +25,19 @@ public class ServerProtocol extends Thread {
      * @param server encoded <code>String</code> with all the information
      * necessary
      * @param mysocket
+     * @param chat
      * @return result of the specific method call or null in case of error
      * @throws IOException
      * @throws Exception
      */
-    public String[] getData(String server, Socket mysocket) throws IOException, Exception {                  // DONE FOR NOW // CREATE PLAYER CLASS
+    public String[] getData(String server, Socket mysocket,Chat chat) throws IOException, Exception {                  // DONE FOR NOW // CREATE PLAYER CLASS
         String[] stringUis;
         this.mysocket = mysocket;
+        this.chat=chat;
         stringUis = server.split("&");
         switch (stringUis[0]) {
             case "Login":
+                chat.newConnection(mysocket);
                 return handlerLogin(stringUis);
             case "Signup":
                 return handlerSignup(stringUis);
@@ -51,6 +55,10 @@ public class ServerProtocol extends Thread {
                 handlerTurn(stringUis[1],stringUis[2],stringUis[3],stringUis[4]);
                 String[] ok = {"turn ok"};
                 return ok;
+            case "Chat":
+                chat.newChat(stringUis[1],stringUis[2]);
+                String[] ok1= {"Chat ok"};
+                return ok1;
         }
         
     }

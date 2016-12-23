@@ -1,5 +1,6 @@
 package ServerCommunication;
 
+import LogicServer.Chat;
 import java.io.*;
 import java.net.Socket;
 import java.util.logging.Level;
@@ -17,15 +18,16 @@ public class MultiServerThread extends Thread {
     PrintWriter out = null;
     BufferedReader in = null;
     boolean connection = true;
-
+    Chat chat;
     /**
      * Method responsible for handling the multiple calls to the server
      *
      * @param socket Socket id
      */
-    public MultiServerThread(Socket socket) {
+    public MultiServerThread(Socket socket,Chat chat) {
         super("MultiServerThread");
         this.socket = socket;
+        this.chat=chat;
         connection = true;
     }
     String[] uno = new String[20];
@@ -50,7 +52,7 @@ public class MultiServerThread extends Thread {
                 ServerProtocol kappa = new ServerProtocol();
 
                 if ((inputLine = in.readLine()) != null) {
-                    uno = kappa.getData(inputLine, socket);
+                    uno = kappa.getData(inputLine, socket,chat);
                     System.out.println("inputline " + inputLine);
                 }
                 System.out.println(uno[0]);

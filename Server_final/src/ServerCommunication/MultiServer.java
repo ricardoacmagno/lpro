@@ -1,5 +1,6 @@
 package ServerCommunication;
 
+import LogicServer.Chat;
 import java.io.IOException;
 import java.net.ServerSocket;
 
@@ -17,6 +18,7 @@ public class MultiServer {
      *
      * @throws IOException
      */
+    public static Chat chat=null;
     public void openSocket() throws IOException {
         ServerSocket serverSocket = null;
         boolean listening = true;
@@ -28,9 +30,9 @@ public class MultiServer {
             System.err.println("Could not listen on port: 1633.");
             System.exit(-1);
         }
-
+        chat=new Chat();
         while (listening) {
-            new MultiServerThread(serverSocket.accept()).start();
+            new MultiServerThread(serverSocket.accept(),chat).start();
         }
         serverSocket.close();
     }
