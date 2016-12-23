@@ -16,6 +16,7 @@ import java.util.ArrayList;
  */
 public class Chat {
 
+    
     ArrayList<GameServer> connections;
 
     public Chat() {
@@ -30,5 +31,6 @@ public class Chat {
             element.sendClient(tosend);
         }
     }
-
+    
+    
 }

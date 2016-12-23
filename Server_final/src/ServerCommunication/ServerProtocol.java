@@ -41,8 +41,6 @@ public class ServerProtocol extends Thread {
                 return handlerLogin(stringUis);
             case "Signup":
                 return handlerSignup(stringUis);
-            default:
-                return null;
             case "ForgotPassword":
                 return handlerForgotPassword(stringUis);
             case "CreateGame":
@@ -59,6 +57,9 @@ public class ServerProtocol extends Thread {
                 chat.newChat(stringUis[1],stringUis[2]);
                 String[] ok1= {"Chat ok"};
                 return ok1;
+                
+            default:
+                return null;
         }
         
     }
@@ -256,6 +257,7 @@ public class ServerProtocol extends Thread {
      * @param id
      * @return
      */
+    
     public String[] handlerJoinGame(String user) throws SQLException, IOException {
         System.out.println("Sending JoinGame to logic server");
         String[] opponent = User.JoinGame(user);

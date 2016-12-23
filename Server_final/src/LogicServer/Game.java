@@ -128,5 +128,12 @@ public class Game {
                 p1.sendClient("Turn&" + position + "&" + result);
         }
     }
-
+    
+    
+    
+    
+    
+    
+    
+    
 }

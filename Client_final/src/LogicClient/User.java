@@ -314,6 +314,7 @@ public class User {
             ui.getIntro();
         }  else if ("Chat".equals(dataReceived[0])) {
             ui.RefreshChat(dataReceived[1]);
+            gameui.RefreshChat(dataReceived[1]);
         } 
 
     }
@@ -332,6 +333,7 @@ public class User {
         }
 
     }
+    
     public void sendChat(String user, String tosend){
         client.send("Chat&"+user+"&"+tosend);
     }

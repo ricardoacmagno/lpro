@@ -5,6 +5,7 @@
  */
 package LogicClient;
 
+import static LogicClient.User.client;
 import static LogicClient.User.game;
 
 /**
@@ -32,7 +33,7 @@ public class Game {
         this.player2placed = false;
         this.me = player1;
         this.GameId = id;
-
+      
     }
 
     public Boolean getOpponentBoolean() {
@@ -71,6 +72,10 @@ public class Game {
 
     public int getGameid() {
         return GameId;
+    }
+      
+      public void sendGameChat(String user, String tosend){
+        client.send("Chat&"+user+"&"+tosend);
     }
 
 }
