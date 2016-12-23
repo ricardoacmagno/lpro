@@ -20,7 +20,7 @@ public class User {
     private Integer question;
     private String anwser;
     public int c;
-    public static Game gameid[] = new Game[100000];
+    public static Game gameid[] = new Game[999999999];
     public static UserDB userData;
 
     /**

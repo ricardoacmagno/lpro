@@ -298,10 +298,12 @@ public class User {
             int x = hitinfo.charAt(1) - '0';
             if(dataReceived[2].equals("hit"))
                 gameui.hitPanel(y,x);
-            else
+                
+            else{
                 gameui.missPanel(y, x);
-            gameui.setLabel("Your turn to play");
-            gameui.turn(gameui.player1);
+                gameui.setLabel("Your turn to play");
+                gameui.turn(gameui.player1);
+            }
         }  else if ("Winner".equals(dataReceived[0])) {
             gameui.setOption("Congrats! You won!");
             gameui.setVisible(false);
@@ -314,6 +316,7 @@ public class User {
             ui.getIntro();
         }  else if ("Chat".equals(dataReceived[0])) {
             ui.RefreshChat(dataReceived[1]);
+        }  else if ("privateChat".equals(dataReceived[0])) {
             gameui.RefreshChat(dataReceived[1]);
         } 
 
@@ -336,5 +339,8 @@ public class User {
     
     public void sendChat(String user, String tosend){
         client.send("Chat&"+user+"&"+tosend);
+    }
+    public void sendprivateChat(String user, String tosend){
+        client.send("privateChat&"+game.getId()+"&"+user+"&"+tosend);
     }
 }

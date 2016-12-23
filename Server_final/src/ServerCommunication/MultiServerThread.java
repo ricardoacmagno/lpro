@@ -19,15 +19,16 @@ public class MultiServerThread extends Thread {
     BufferedReader in = null;
     boolean connection = true;
     Chat chat;
+
     /**
      * Method responsible for handling the multiple calls to the server
      *
      * @param socket Socket id
      */
-    public MultiServerThread(Socket socket,Chat chat) {
+    public MultiServerThread(Socket socket, Chat chat) {
         super("MultiServerThread");
         this.socket = socket;
-        this.chat=chat;
+        this.chat = chat;
         connection = true;
     }
     String[] uno = new String[20];
@@ -52,7 +53,7 @@ public class MultiServerThread extends Thread {
                 ServerProtocol kappa = new ServerProtocol();
 
                 if ((inputLine = in.readLine()) != null) {
-                    uno = kappa.getData(inputLine, socket,chat);
+                    uno = kappa.getData(inputLine, socket, chat);
                     System.out.println("inputline " + inputLine);
                 }
                 System.out.println(uno[0]);
@@ -66,6 +67,8 @@ public class MultiServerThread extends Thread {
                     state = 4;
                 } else if (uno[0].equals("JoinGame")) {
                     state = 5;
+                } else {
+                    state = 8;
                 }
 
                 switch (state) {
@@ -128,6 +131,8 @@ public class MultiServerThread extends Thread {
                         break;
                     case 7:
                         outputLine = "destroyer&" + uno[1];
+                    case 8:
+                        outputLine = uno[0];
 
                 }
                 System.out.println("outputLine " + outputLine);

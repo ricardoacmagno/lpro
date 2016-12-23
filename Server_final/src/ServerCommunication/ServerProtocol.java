@@ -55,8 +55,13 @@ public class ServerProtocol extends Thread {
                 return ok;
             case "Chat":
                 chat.newChat(stringUis[1],stringUis[2]);
-                String[] ok1= {"Chat ok"};
+                String[] ok1= {"Your chat was sent to all players"};
                 return ok1;
+            case "privateChat":
+                newprivateChat(stringUis[1],stringUis[2],stringUis[3]);
+                String[] ok2= {"Your private chat was sent"};
+                return ok2;
+                
                 
             default:
                 return null;
@@ -285,6 +290,11 @@ public class ServerProtocol extends Thread {
         if(game.getWinnerbool()){
             User.finishGame(game);
         }
+    }
+    public void newprivateChat(String sid,String username, String received) {
+        int id = Integer.parseInt(sid);
+        Game game = User.getGameid(id);
+        game.newPrivateChat(username,received);
     }
 
 }
