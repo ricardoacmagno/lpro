@@ -172,6 +172,17 @@ public class ClientProtocol {
             Logger.getLogger(ClientProtocol.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
+    public void sendMessage (String message){
+        
+        try{
+            clientSocket.toSend(message);   
+        } catch (IOException ex){
+            Logger.getLogger(ClientProtocol.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 
     /**
      * Method responsible for checking the server's response Calls the
@@ -207,6 +218,8 @@ public class ClientProtocol {
                     return handlerShips(tokens);
                 case "destroyer":
                     return handlerok(tokens);
+                case "chat":
+                    return handlerMessage(tokens);
                 default:
                     return null;
             }
@@ -352,6 +365,19 @@ public class ClientProtocol {
         System.out.println(Arrays.toString(tokens));
 
         return warning;
+    }
+
+    private ArrayList<String> handlerMessage(String[] tokens) {
+       ArrayList<String> chat;
+       
+       chat = new ArrayList<>();
+       int j=0;
+       
+       chat.add(tokens[j++]);
+       chat.add(tokens[j]);
+       System.out.println(Arrays.toString(tokens));
+        
+       return chat;
     }
 
 }
