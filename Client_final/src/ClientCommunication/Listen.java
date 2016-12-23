@@ -51,7 +51,7 @@ public class Listen extends Thread {
                 connected = false;
                 Logger.getLogger(Listen.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if(!fromServer.equals("null")){
+
             System.out.println("Received from Thread: " + fromServer);
             String[] echo = fromServer.split("&");
             try {
@@ -61,8 +61,7 @@ public class Listen extends Thread {
             } catch (InterruptedException ex) {
                 Logger.getLogger(Listen.class.getName()).log(Level.SEVERE, null, ex);
             }
-            }
-            
+
         }
     }
 }
