@@ -1,5 +1,6 @@
 package ServerCommunication;
 
+import LogicServer.Chat;
 import LogicServer.Game;
 import LogicServer.User;
 import java.io.IOException;
@@ -16,7 +17,7 @@ import java.sql.SQLException;
 public class ServerProtocol extends Thread {
 
     Socket mysocket;
-
+    Chat chat;
     /**
      * Method responsible for calling the proper method to handle the server
      * call based on the first argument of the <code>String</code> server
@@ -24,16 +25,19 @@ public class ServerProtocol extends Thread {
      * @param server encoded <code>String</code> with all the information
      * necessary
      * @param mysocket
+     * @param chat
      * @return result of the specific method call or null in case of error
      * @throws IOException
      * @throws Exception
      */
-    public String[] getData(String server, Socket mysocket) throws IOException, Exception {                  // DONE FOR NOW // CREATE PLAYER CLASS
+    public String[] getData(String server, Socket mysocket,Chat chat) throws IOException, Exception {                  // DONE FOR NOW // CREATE PLAYER CLASS
         String[] stringUis;
         this.mysocket = mysocket;
+        this.chat=chat;
         stringUis = server.split("&");
         switch (stringUis[0]) {
             case "Login":
+                chat.newConnection(mysocket);
                 return handlerLogin(stringUis);
             case "Signup":
                 return handlerSignup(stringUis);
@@ -45,9 +49,18 @@ public class ServerProtocol extends Thread {
                 return handlerCreateGame(stringUis[1]);
             case "JoinGame":
                 return handlerJoinGame(stringUis[1]);
-            case "destroyer":
-                return setCarrierInfo(stringUis[1],stringUis[2],stringUis[3]);
+            case "Ships":
+                return setCarrierInfo(stringUis[1], stringUis[2], stringUis[3], stringUis[4], stringUis[5], stringUis[6], stringUis[7]);
+            case "Turn":
+                handlerTurn(stringUis[1],stringUis[2],stringUis[3],stringUis[4]);
+                String[] ok = {"turn ok"};
+                return ok;
+            case "Chat":
+                chat.newChat(stringUis[1],stringUis[2]);
+                String[] ok1= {"Chat ok"};
+                return ok1;
         }
+        
     }
 
     /**
@@ -252,14 +265,24 @@ public class ServerProtocol extends Thread {
         String[] teste = {"JoinGame", opponent[0], opponent[1], opponent[2]};
         return teste;
     }
-    
-    public String[] setCarrierInfo(String sid, String shipinfo, String username){
+
+    public String[] setCarrierInfo(String sid, String infod, String infos, String infoc, String infob, String infoca, String username) {
         System.out.println("Setting ships info");
         int id = Integer.parseInt(sid);
-        Game game= User.getGameid(id);
-        String ok=game.setCarrierInfo(shipinfo,username);
-        String[] toreturn={ok};
+        Game game = User.getGameid(id);
+        String tosend = infod + "&" + infos + "&" + infoc + "&" + infob + "&" + infoca;
+        String ok = game.setShipsInfo(tosend, username);
+        String[] toreturn = {ok};
         return toreturn;
     }
     
+    public void handlerTurn(String sid ,String position,String result,String myname) throws IOException, SQLException{
+        int id = Integer.parseInt(sid);
+        Game game = User.getGameid(id);
+        game.setTurn(result,position,myname);
+        if(game.getWinnerbool()){
+            User.finishGame(game);
+        }
+    }
+
 }

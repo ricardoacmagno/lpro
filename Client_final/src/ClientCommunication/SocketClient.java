@@ -42,7 +42,8 @@ public class SocketClient extends Socket {
             System.exit(1);
         }
     }
-    public Socket getSocket(){
+
+    public Socket getSocket() {
         return kkSocket;
     }
 

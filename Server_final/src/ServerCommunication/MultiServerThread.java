@@ -1,5 +1,6 @@
 package ServerCommunication;
 
+import LogicServer.Chat;
 import java.io.*;
 import java.net.Socket;
 import java.util.logging.Level;
@@ -17,15 +18,16 @@ public class MultiServerThread extends Thread {
     PrintWriter out = null;
     BufferedReader in = null;
     boolean connection = true;
-
+    Chat chat;
     /**
      * Method responsible for handling the multiple calls to the server
      *
      * @param socket Socket id
      */
-    public MultiServerThread(Socket socket) {
+    public MultiServerThread(Socket socket,Chat chat) {
         super("MultiServerThread");
         this.socket = socket;
+        this.chat=chat;
         connection = true;
     }
     String[] uno = new String[20];
@@ -42,7 +44,7 @@ public class MultiServerThread extends Thread {
         System.out.println("New thread made");
         while (connection) {
             try {
-                state=0;
+                state = 0;
                 out = new PrintWriter(socket.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
@@ -50,7 +52,7 @@ public class MultiServerThread extends Thread {
                 ServerProtocol kappa = new ServerProtocol();
 
                 if ((inputLine = in.readLine()) != null) {
-                    uno = kappa.getData(inputLine, socket);
+                    uno = kappa.getData(inputLine, socket,chat);
                     System.out.println("inputline " + inputLine);
                 }
                 System.out.println(uno[0]);
@@ -64,8 +66,6 @@ public class MultiServerThread extends Thread {
                     state = 4;
                 } else if (uno[0].equals("JoinGame")) {
                     state = 5;
-                } else if (uno[0].equals("destroyer")) {
-                    state = 7;
                 }
 
                 switch (state) {
@@ -127,7 +127,7 @@ public class MultiServerThread extends Thread {
                         outputLine = "Opponent&" + uno[1];
                         break;
                     case 7:
-                        outputLine = "destroyer&"+uno[1];
+                        outputLine = "destroyer&" + uno[1];
 
                 }
                 System.out.println("outputLine " + outputLine);

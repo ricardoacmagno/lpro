@@ -7,6 +7,7 @@ package LogicClient;
  */
 /**
  * <code>Ship</code> represents a ship
+ *
  * @author Utilizador
  */
 public class Ship {
@@ -14,7 +15,7 @@ public class Ship {
     private final int size;
     private final int id;
     private boolean placed;
-    private int x,y;
+    private int x, y;
     private String mode;
     private final String name;
 
@@ -65,16 +66,16 @@ public class Ship {
     public String getName() {
         return name;
     }
-    
-    public void setInfo( int y, int x, String mode){
-        this.y=y;
-        this.x=x;
-        this.mode=mode;
-        
+
+    public void setInfo(int y, int x, String mode) {
+        this.y = y;
+        this.x = x;
+        this.mode = mode;
+
     }
-    
-    public String getInfo(){
-        String toreturn = y +""+x+""+mode;
+
+    public String getInfo() {
+        String toreturn = y + "" + x + "" + size + "" + mode;
         return toreturn;
     }
 }

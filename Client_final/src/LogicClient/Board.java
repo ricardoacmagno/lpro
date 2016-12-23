@@ -7,6 +7,7 @@ package LogicClient;
  */
 /**
  * <code>Board</code> represents a player board
+ *
  * @author Utilizador
  */
 public class Board {

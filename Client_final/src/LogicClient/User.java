@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ClientCommunication.ClientProtocol;
+import GUI.GameUI;
+import static GUI.GameUI.gameui;
+import GUI.UIinicial;
+import static GUI.UIinicial.user;
+import static LogicClient.Player.client;
 
 import static java.lang.Thread.sleep;
 import java.util.concurrent.Semaphore;
@@ -32,7 +37,9 @@ public class User {
     public final Lock lock = new ReentrantLock();
     public final Condition notFull = lock.newCondition();
     public final Condition join = lock.newCondition();
-
+    GameUI gameui;
+    public static Player player;
+    UIinicial ui;
     /**
      * Constructor
      *
@@ -42,12 +49,13 @@ public class User {
      * @param Name string with the user name
      * @param OldPassword string with the old password
      */
-    public User(String Username, String Password, String Mail, String Name, String OldPassword) {
+    public User(String Username, String Password, String Mail, String Name, String OldPassword, UIinicial ui) {
         this.Username = Username;
         this.Password = Password;
         this.Mail = Mail;
         this.Name = Name;
         this.OldPassword = OldPassword;
+        this.ui=ui;
         client = new ClientProtocol();
     }
 
@@ -166,6 +174,14 @@ public class User {
         return resultadoLogin;
     }
 
+    public String getUsername() {
+        return Username;
+    }
+
+    public static void setPlayer(Player player) {
+        //this.player=player;
+    }
+
     /**
      * Method that serves to send the result of the verification made in
      * <code>sendData()</code>
@@ -217,8 +233,7 @@ public class User {
     public ClientProtocol getClient() {
         return client;
     }
-
-    public void refreshData(String[] dataReceived) {
+    public void refreshData(String[] dataReceived) throws IOException, InterruptedException {
         if ("CreateGame".equals(dataReceived[0])) {
             System.out.println("I am " + dataReceived[1] + " playing in game id " + dataReceived[2]);
             int gameid = Integer.parseInt(dataReceived[2]);
@@ -230,34 +245,81 @@ public class User {
                 int gameid = Integer.parseInt(dataReceived[1]);
                 game = new Game(gameid, Username);
                 game.setOpponent(dataReceived[2]);
-
-            }
-            lock.lock();
-            try {
-                join.signal();
                 
-            } finally {
-                lock.unlock();
+                ui.setWelcome2(ui.getUsername() + " vs " + user.getGameOpponent());
+                gameui = new GameUI(ui.getUsername(), user.getGameOpponent());
+                gameui.setVisible(true);
             }
-           
+            
+
             System.out.println("New opponent " + dataReceived[1]);
 
         } else if ("Warning".equals(dataReceived[0])) {
-
-            game.setOpponent(dataReceived[2]);
-            System.out.println("My opponent is " + dataReceived[2]);
             
-            lock.lock();
-            try {
-                notFull.signal();
-                
-            } finally {
-                lock.unlock();
+            game.setOpponent(dataReceived[2]);
+            
+            
+            gameui = new GameUI(ui.getUsername(), user.getGameOpponent());
+            gameui.setVisible(true);
+            
+
+        } else if ("Ships".equals(dataReceived[0])) {
+            System.out.println("Ships received");
+            game.player2placed = true;
+
+            for (int c = 1; c <= 5; c++) {
+                String shipinfo = dataReceived[c];
+                int y = shipinfo.charAt(0) - '0';
+                int x = shipinfo.charAt(1) - '0';
+                int size = shipinfo.charAt(2) - '0';
+                boolean hor = true;
+                System.out.println("y=" + y + " ,x=" + x + " ,size=" + size + " ,hor=" + hor);
+                if (shipinfo.charAt(3) == 'V') {
+                    hor = false;
+                }
+                gameui.player1.placeHitBoard(y, x, size, hor);
             }
-            System.out.println("Signal");
+            int play = Integer.parseInt(dataReceived[6]);
+            gameui.setLabel("Opponent turn to play");
+            if(play==1){
+                gameui.setLabel("Your turn to play");
+                gameui.player1.setfirstplay();
+            }
+            
+            if (game.player1placed == true) {
+                System.out.println("Grid 2 init");
+                gameui.initGrid2();
+            }
 
-        }
+        }  else if ("Turn".equals(dataReceived[0])) {
+            
+            String hitinfo=dataReceived[1];
+            int y = hitinfo.charAt(0) - '0';
+            int x = hitinfo.charAt(1) - '0';
+            if(dataReceived[2].equals("hit"))
+                gameui.hitPanel(y,x);
+            else
+                gameui.missPanel(y, x);
+            gameui.setLabel("Your turn to play");
+            gameui.turn(gameui.player1);
+        }  else if ("Winner".equals(dataReceived[0])) {
+            gameui.setOption("Congrats! You won!");
+            gameui.setVisible(false);
+            gameui.dispose();
+            ui.getIntro();
+        }  else if ("Loser".equals(dataReceived[0])) {
+            gameui.setOption("You lost!");
+            gameui.setVisible(false);
+            gameui.dispose();
+            ui.getIntro();
+        }  else if ("Chat".equals(dataReceived[0])) {
+            ui.RefreshChat(dataReceived[1]);
+        } 
 
+    }
+
+    public void set(GameUI gameui) {
+        this.gameui = gameui;
     }
 
     public void sendtoServer(String ack) {
@@ -265,7 +327,12 @@ public class User {
             client.CreateGame(Username);
         } else if (ack.equals("join")) {
             client.JoinGame(Username);
+        } else if (ack.equals("join")) {
+            client.JoinGame(Username);
         }
 
+    }
+    public void sendChat(String user, String tosend){
+        client.send("Chat&"+user+"&"+tosend);
     }
 }

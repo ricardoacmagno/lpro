@@ -28,7 +28,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *<code>GameUI</code> represents the UI of a game
+ * <code>GameUI</code> represents the UI of a game
+ *
  * @author francisco
  */
 public class GameUI extends javax.swing.JFrame {
@@ -44,21 +45,26 @@ public class GameUI extends javax.swing.JFrame {
     private Label[] numberhit = new Label[10];
     private MouseListener[][] teste = new MouseListener[10][10];
     private MouseListener[][] teste1 = new MouseListener[10][10];
+
     
     private WindowListener window = null;
     private KeyListener key = null;
     private MouseListener mouse = null;
    
+
+    Color water = new Color(61,151,255);
+
     private Ship[] shipnr = new Ship[5];
     public static GameUI gameui;
-    private static Player player1;
-    private static Player player2;
+    public static Player player1;
+    public static Player player2;
     private boolean horizontal = true;
     private boolean entered = false;
     private int progress;
     private Ship d = new Ship(0, 0, "error");
     private String name1 = "player1";
-
+    private static Game mygame;
+    
     /**
      * Constructor
      *
@@ -72,18 +78,19 @@ public class GameUI extends javax.swing.JFrame {
         player1 = new Player(myPlayer);
         player2 = new Player(opponent);
         label2.setText(myPlayer + " vs " + opponent);
+        label4.setVisible(false);
         initGrid();
         
-        
-        
-        
+
     }
+    
 
     /**
      * <code>initGrid()</code> initialize the ship board UI
      */
     @SuppressWarnings("unchecked")
     private void initGrid() {
+        gameui = this;
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         jPanel1.setLayout(new java.awt.GridLayout(11, 11));
         JPanel blank = new JPanel();
@@ -105,11 +112,21 @@ public class GameUI extends javax.swing.JFrame {
         pack();
 
     }
+    public void setLabel(String string){
+        label4.setText(string);
+        label4.setVisible(true);
+    }
+    public void setOption(String string){
+        jOptionPane1.showMessageDialog(null, string);
+    }
 
+    public Player getPlayer() {
+        return player1;
+    }
     /**
      * <code>initGrid2()</code> initialize the hit board UI
      */
-    private void initGrid2() throws IOException, InterruptedException {
+    public void initGrid2() throws IOException, InterruptedException {
 
         jPanel2.remove(jProgressBar);
         label3.setForeground(Color.green);
@@ -131,17 +148,19 @@ public class GameUI extends javax.swing.JFrame {
             }
         }
         pack();
-        sleep(100);
-        player1.hearShips();
-        turn(player1);
+        if (player1.getfirstplay()) {        
+            turn(player1);
+            
+        }
+           
     }
 
     /**
      * <code>startBoardGui()</code> define the settings of each param jpanel
      *
-     * @param jpanel 
-     * @param Layout 
-     * @param currentpanel 
+     * @param jpanel
+     * @param Layout
+     * @param currentpanel
      */
     public void startBoardGui(JPanel jpanel, GroupLayout Layout, JPanel currentpanel) {
         jpanel.setBorder(javax.swing.BorderFactory.createLineBorder(Color.gray));
@@ -150,20 +169,22 @@ public class GameUI extends javax.swing.JFrame {
         jpanel.setLayout(Layout);
         Layout.setHorizontalGroup(
                 Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
         );
         Layout.setVerticalGroup(
                 Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
         );
         currentpanel.add(jpanel);
     }
 
     /**
      * <code>turn()</code> represents the turn of each player
+     *
      * @param player represents a player
      */
     public void turn(Player player) {
+        
         for (int y = 0; y < 10; y++) {
             for (int x = 0; x < 10; x++) {
                 JPanel current;
@@ -175,7 +196,8 @@ public class GameUI extends javax.swing.JFrame {
                      * <code>mouseEntered()</code> change settings when the
                      * mouse enters
                      *
-                     * @param evt an event which indicates that a mouse action occurred in a component
+                     * @param evt an event which indicates that a mouse action
+                     * occurred in a component
                      */
                     @Override
                     public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -186,37 +208,49 @@ public class GameUI extends javax.swing.JFrame {
                      * <code>mousePressed()</code> change settings when the
                      * mousse is pressed
                      *
-                     * @param evt an event which indicates that a mouse action occurred in a component
+                     * @param evt an event which indicates that a mouse action
+                     * occurred in a component
                      */
                     @Override
                     public void mousePressed(java.awt.event.MouseEvent evt) {
                         if (evt.getButton() == MouseEvent.BUTTON1) {
-                            player.printHitBoard();
-                            if (player.checkShipBoard(y1, x1, 'S') == true) {
+                            label4.setText("Opponent turn to play");
+                            current.setBorder(javax.swing.BorderFactory.createLineBorder(Color.gray, 1));
+                            if (player.checkHitBoard(y1, x1, 'S') == true) {
                                 current.setBackground(Color.green);
                                 player.hit();
-                                if (player.checkWinner()) {
-                                    for (int y = 0; y < 10; y++) {
-                                        for (int x = 0; x < 10; x++) {
-                                            hitpanel[y][x].removeMouseListener(teste1[y][x]);
-                                        }
-                                        JOptionPane.showMessageDialog(null, player.getName() + " won!");
-                                    }
+                                try {
+                                    player.sendTurn(y1,x1,"hit", user);
+                                } catch (IOException | InterruptedException ex) {
+                                    Logger.getLogger(GameUI.class.getName()).log(Level.SEVERE, null, ex);
                                 }
+
                             } else {
                                 player.miss();
-                                current.setBackground(Color.red);
+                                try {
+                                    player.sendTurn(y1,x1,"miss", user);
+                                } catch (IOException | InterruptedException ex) {
+                                    Logger.getLogger(GameUI.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                current.setBackground(water);
+                            }
+                            for (int y = 0; y < 10; y++) {
+                                for (int x = 0; x < 10; x++) {
+                                    hitpanel[y][x].removeMouseListener(teste1[y][x]);
+                                }
                             }
                         } else if (evt.getButton() == MouseEvent.BUTTON3) {
 
                         }
+
                     }
 
                     /**
                      * <code>mouseExited()</code> change settings when the mouse
                      * exits
                      *
-                     * @param evt an event which indicates that a mouse action occurred in a component
+                     * @param evt an event which indicates that a mouse action
+                     * occurred in a component
                      */
                     @Override
                     public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -228,11 +262,18 @@ public class GameUI extends javax.swing.JFrame {
             }
         }
     }
-
+    public void hitPanel(int y, int x){
+        JPanel current = mypanel[y][x];
+        current.setBackground(Color.red);
+    }
+    public void missPanel(int y, int x){
+        JPanel current = mypanel[y][x];
+        current.setBackground(water);
+    }
     /**
      * <code>placeShipUi()</code> represents the UI of placing a ship
      *
-     * @param ship represents a ship 
+     * @param ship represents a ship
      */
     public void placeShipUi(Ship ship) {
         d = ship;
@@ -310,7 +351,8 @@ public class GameUI extends javax.swing.JFrame {
                          * <code>mouseEntered()</code> change settings when the
                          * mouse enters
                          *
-                         * @param evt an event which indicates that a mouse action occurred in a component
+                         * @param evt an event which indicates that a mouse
+                         * action occurred in a component
                          */
                         @Override
                         public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -333,7 +375,8 @@ public class GameUI extends javax.swing.JFrame {
                          * <code>mousePressed()</code> change settings when the
                          * mousse is pressed
                          *
-                         * @param evt an event which indicates that a mouse action occurred in a component
+                         * @param evt an event which indicates that a mouse
+                         * action occurred in a component
                          */
                         @Override
                         public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -351,9 +394,10 @@ public class GameUI extends javax.swing.JFrame {
                                     }
                                     entered = false;
                                     player1.placeShip(d, y1, x1, horizontal);
-                                    String modo="H";
-                                    if(!horizontal)
-                                        modo="V";
+                                    String modo = "H";
+                                    if (!horizontal) {
+                                        modo = "V";
+                                    }
                                     player1.setInfo(d, y1, x1, modo);
                                     for (int y = 0; y < 10; y++) {
                                         for (int x = 0; x < 10; x++) {
@@ -362,7 +406,7 @@ public class GameUI extends javax.swing.JFrame {
                                     }
                                     if (d == player1.destroyer) {
                                         jProgressBar.setValue(20);
-                                        placeShipUi(player1.submarine);
+                                        placeShipUi(player1.getSubmarine());
                                     } else if (d == player1.submarine) {
                                         jProgressBar.setValue(40);
                                         placeShipUi(player1.cruiser);
@@ -374,14 +418,17 @@ public class GameUI extends javax.swing.JFrame {
                                         placeShipUi(player1.carrier);
                                     } else {
                                         jProgressBar.setValue(100);
-                                        User myuser=UIinicial.user;
-                                        Game mygame=User.game;
-                                       
+                                        User myuser = UIinicial.user;
+                                        Game mygame = User.game;
+
                                         try {
-                                            player1.sendBoats(myuser,mygame);
+                                            player1.sendBoats(myuser, mygame, gameui);
                                             System.out.println("Boats sent in UI");
-                                            initGrid2();
-                                            System.out.println("Grid 2 init");
+                                            mygame.player1placed = true;
+                                            if (mygame.player2placed == true) {
+                                                initGrid2();
+                                            }
+
                                         } catch (IOException ex) {
                                             Logger.getLogger(GameUI.class.getName()).log(Level.SEVERE, null, ex);
                                         } catch (InterruptedException ex) {
@@ -405,7 +452,8 @@ public class GameUI extends javax.swing.JFrame {
                          * <code>mouseExited()</code> change settings when the
                          * mouse exits
                          *
-                         * @param evt an event which indicates that a mouse action occurred in a component
+                         * @param evt an event which indicates that a mouse
+                         * action occurred in a component
                          */
                         @Override
                         public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -428,8 +476,8 @@ public class GameUI extends javax.swing.JFrame {
      * @param size
      * @param y
      * @param x
-     * @param next 
-     * @param current 
+     * @param next
+     * @param current
      * @param ShipInWay
      * @param n
      */
@@ -525,7 +573,7 @@ public class GameUI extends javax.swing.JFrame {
     /**
      * <code>createLetterLabel()</code> creates a label
      *
-     * @param letter 
+     * @param letter
      * @param y
      * @param panel
      */
@@ -556,29 +604,7 @@ public class GameUI extends javax.swing.JFrame {
         number.setBackground(new java.awt.Color(246, 244, 242));
         panel.add(number);
     }
-
-    public void Chat (String S){
-        
-        Panel p = new Panel();
-        p.setLayout(new FlowLayout());
-        
-        jTextArea1.setVisible(false);
-        jTextArea1.setFont(new Font("Arial", Font.PLAIN, 16));
-        jTextArea1.addKeyListener(key);
-       
-        p.add(jTextArea1);
-        p.setBackground(new Color(221,221,221));
-        
-        jButton1.addMouseListener(mouse);
-        jTextArea1.add(jButton1);
-        
-        p.add(jButton1);
-        
-        jTextArea1.setVisible(true);
-        
-    }
-  
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -595,11 +621,15 @@ public class GameUI extends javax.swing.JFrame {
         label1 = new java.awt.Label();
         label2 = new java.awt.Label();
         label3 = new java.awt.Label();
+<<<<<<< HEAD
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jScrollBar1 = new javax.swing.JScrollBar();
         jTextField1 = new javax.swing.JTextField();
+=======
+        label4 = new java.awt.Label();
+>>>>>>> origin/master
 
         jOptionPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -623,7 +653,7 @@ public class GameUI extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(14, Short.MAX_VALUE)
                 .addComponent(jProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -641,7 +671,7 @@ public class GameUI extends javax.swing.JFrame {
         label1.setText("Right Click to change\n Vertical/Horizontal");
 
         label2.setAlignment(java.awt.Label.CENTER);
-        label2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        label2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         label2.setText("Me vs Player");
 
         label3.setAlignment(java.awt.Label.CENTER);
@@ -649,6 +679,7 @@ public class GameUI extends javax.swing.JFrame {
         label3.setForeground(new java.awt.Color(188, 51, 51));
         label3.setText("Ships Placed!");
 
+<<<<<<< HEAD
         jButton1.setText("Send");
 
         jTextArea1.setColumns(20);
@@ -661,6 +692,11 @@ public class GameUI extends javax.swing.JFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
+=======
+        label4.setAlignment(java.awt.Label.CENTER);
+        label4.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        label4.setText("Me vs Player");
+>>>>>>> origin/master
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -668,8 +704,8 @@ public class GameUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+<<<<<<< HEAD
                     .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -685,6 +721,25 @@ public class GameUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
+=======
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+>>>>>>> origin/master
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -693,10 +748,11 @@ public class GameUI extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, 324, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
+                        .addContainerGap()
                         .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+<<<<<<< HEAD
                         .addGap(19, 19, 19)
                         .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -712,6 +768,13 @@ public class GameUI extends javax.swing.JFrame {
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(29, 29, 29))))
+=======
+                        .addGap(40, 40, 40)
+                        .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37))
+>>>>>>> origin/master
         );
 
         jPanel1.getAccessibleContext().setAccessibleName("");
@@ -721,6 +784,7 @@ public class GameUI extends javax.swing.JFrame {
 
     private void jOptionPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jOptionPane1MouseClicked
         // TODO add your handling code here:
+        jOptionPane1.setVisible(false);
     }//GEN-LAST:event_jOptionPane1MouseClicked
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -781,5 +845,6 @@ public class GameUI extends javax.swing.JFrame {
     private java.awt.Label label1;
     private java.awt.Label label2;
     private java.awt.Label label3;
+    private java.awt.Label label4;
     // End of variables declaration//GEN-END:variables
 }
