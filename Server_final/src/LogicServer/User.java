@@ -20,7 +20,7 @@ public class User {
     private Integer question;
     private String anwser;
     public int c;
-    public static Game gameid[] = new Game[999999999];
+    public static Game gameid[] = new Game[999999];
     public static UserDB userData;
 
     /**
@@ -230,5 +230,8 @@ public class User {
     }
     public static void finishGame(Game game) throws SQLException{
         userData.finishGame(game);
+    }
+    public static void cancelGame(int id) throws SQLException{
+        userData.cancelGame(id);
     }
 }

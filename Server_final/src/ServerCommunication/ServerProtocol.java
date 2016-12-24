@@ -30,10 +30,10 @@ public class ServerProtocol extends Thread {
      * @throws IOException
      * @throws Exception
      */
-    public String[] getData(String server, Socket mysocket,Chat chat) throws IOException, Exception {                  // DONE FOR NOW // CREATE PLAYER CLASS
+    public String[] getData(String server, Socket mysocket, Chat chat) throws IOException, Exception {                  // DONE FOR NOW // CREATE PLAYER CLASS
         String[] stringUis;
         this.mysocket = mysocket;
-        this.chat=chat;
+        this.chat = chat;
         stringUis = server.split("&");
         switch (stringUis[0]) {
             case "Login":
@@ -50,23 +50,26 @@ public class ServerProtocol extends Thread {
             case "Ships":
                 return setCarrierInfo(stringUis[1], stringUis[2], stringUis[3], stringUis[4], stringUis[5], stringUis[6], stringUis[7]);
             case "Turn":
-                handlerTurn(stringUis[1],stringUis[2],stringUis[3],stringUis[4]);
+                handlerTurn(stringUis[1], stringUis[2], stringUis[3], stringUis[4]);
                 String[] ok = {"turn ok"};
                 return ok;
             case "Chat":
-                chat.newChat(stringUis[1],stringUis[2]);
-                String[] ok1= {"Your chat was sent to all players"};
+                chat.newChat(stringUis[1], stringUis[2]);
+                String[] ok1 = {"Your chat was sent to all players"};
                 return ok1;
             case "privateChat":
-                newprivateChat(stringUis[1],stringUis[2],stringUis[3]);
-                String[] ok2= {"Your private chat was sent"};
+                newprivateChat(stringUis[1], stringUis[2], stringUis[3]);
+                String[] ok2 = {"Your private chat was sent"};
                 return ok2;
-                
-                
+            case "Cancel":
+                cancelGame(stringUis[1]);
+                String[] ok3 = {"Your game was canceled"};
+                return ok3;
+
             default:
                 return null;
         }
-        
+
     }
 
     /**
@@ -262,7 +265,6 @@ public class ServerProtocol extends Thread {
      * @param id
      * @return
      */
-    
     public String[] handlerJoinGame(String user) throws SQLException, IOException {
         System.out.println("Sending JoinGame to logic server");
         String[] opponent = User.JoinGame(user);
@@ -282,19 +284,25 @@ public class ServerProtocol extends Thread {
         String[] toreturn = {ok};
         return toreturn;
     }
-    
-    public void handlerTurn(String sid ,String position,String result,String myname) throws IOException, SQLException{
+
+    public void handlerTurn(String sid, String position, String result, String myname) throws IOException, SQLException {
         int id = Integer.parseInt(sid);
         Game game = User.getGameid(id);
-        game.setTurn(result,position,myname);
-        if(game.getWinnerbool()){
+        game.setTurn(result, position, myname);
+        if (game.getWinnerbool()) {
             User.finishGame(game);
         }
     }
-    public void newprivateChat(String sid,String username, String received) {
+
+    public void newprivateChat(String sid, String username, String received) {
         int id = Integer.parseInt(sid);
         Game game = User.getGameid(id);
-        game.newPrivateChat(username,received);
+        game.newPrivateChat(username, received);
+    }
+
+    public static void cancelGame(String sid) throws SQLException {
+        int id = Integer.parseInt(sid);
+        User.cancelGame(id);
     }
 
 }

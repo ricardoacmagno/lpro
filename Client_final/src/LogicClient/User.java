@@ -233,6 +233,9 @@ public class User {
     public ClientProtocol getClient() {
         return client;
     }
+    public void cancelGame(){
+        client.send("Cancel&"+game.getId());
+    }
     public void refreshData(String[] dataReceived) throws IOException, InterruptedException {
         if ("CreateGame".equals(dataReceived[0])) {
             System.out.println("I am " + dataReceived[1] + " playing in game id " + dataReceived[2]);

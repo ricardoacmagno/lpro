@@ -214,7 +214,6 @@ public final class UserDB extends PostgreSQLink {
      * case of success
      */
     public int newPass(String mail, String Username, String OldPassword, String Password) {
-        System.out.println("ESTOU AQUI");
         try {
             PostgreSQLink.connect();
             statement = getConnection().createStatement();
@@ -232,12 +231,22 @@ public final class UserDB extends PostgreSQLink {
         return -1;
 
     }
-    public void finishGame(Game game) throws SQLException{
+
+    public void finishGame(Game game) throws SQLException {
         PostgreSQLink.connect();
         statement = getConnection().createStatement();
         ResultSet results1 = statement.executeQuery("SELECT shipsplayer1, shipsplayer2 , winner FROM gamesrunning WHERE id = '" + game.getId() + "';");
-        if (results1.next()){
+        if (results1.next()) {
             statement.executeUpdate("UPDATE gamesrunning SET shipsplayer1 = '" + game.getPlayer2Ships() + "', shipsplayer2 = '" + game.getPlayer2Ships() + "', winner = '" + game.getWinner() + "' WHERE id= '" + game.getId() + "';");
+        }
+    }
+
+    public void cancelGame(int id) throws SQLException {
+        PostgreSQLink.connect();
+        statement = getConnection().createStatement();
+        ResultSet results1 = statement.executeQuery("SELECT player2joined, winner FROM gamesrunning WHERE id = '" + id + "';");
+        if (results1.next()) {
+            statement.executeUpdate("UPDATE gamesrunning SET player2joined = '" + true + "', winner = '" + "canceled" + "' WHERE id= '" + id + "';");
         }
     }
 }
