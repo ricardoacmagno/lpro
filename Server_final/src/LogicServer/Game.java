@@ -41,8 +41,15 @@ public class Game {
         this.result = randomNum.nextInt(2);
     }
 
-    public void setOpponent(String user) {
+    public void setOpponent(String user) throws IOException {
         player2 = user;
+        newOpponent();
+    }
+    public String getPlayer1(){
+        return player1;
+    }
+    public String getPlayer2(){
+        return player2;
     }
 
     public boolean getWinnerbool() {
@@ -71,7 +78,7 @@ public class Game {
         p2 = new GameServer(splayer2);
     }
 
-    public static void newOpponent() throws IOException {
+    public void newOpponent() throws IOException {
         p1.sendClient("Warning&" + id + "&" + player2);
     }
 

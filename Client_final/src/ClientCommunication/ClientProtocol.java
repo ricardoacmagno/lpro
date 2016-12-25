@@ -150,13 +150,14 @@ public class ClientProtocol {
     /**
      * Method to check if the opponent is avaiable
      *
+     * @param user
      * @param id
      */
-    public void JoinGame(String user) {
+    public void JoinGame(String user, String opponent) {
         if (connect == false) {
             connection();
         }
-        String checkGame = "JoinGame&" + user;
+        String checkGame = "JoinGame&" + user+"&"+opponent;
         try {
             clientSocket.toSend(checkGame);
         } catch (IOException ex) {

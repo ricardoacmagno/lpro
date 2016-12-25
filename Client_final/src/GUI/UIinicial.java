@@ -20,6 +20,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
+import javax.swing.ListModel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -39,7 +40,8 @@ public class UIinicial extends javax.swing.JFrame {
     String mail = new String();
     String name = new String();
     public static User user = null;
-    String chat="";
+    String chat = "";
+
     public UIinicial() {
         initComponents();
         defaultpanel();
@@ -47,7 +49,7 @@ public class UIinicial extends javax.swing.JFrame {
 
     private void defaultpanel() {
         setContentPane(Inicial);
-
+        jOptionPane3.setVisible(false);
         invalidate();
         validate();
     }
@@ -56,12 +58,70 @@ public class UIinicial extends javax.swing.JFrame {
         jTextFieldInicial.setText("Enter username...");
         jPasswordInicial.setText("Password");
     }
+
     public static User getUser() {
         return main.user;
     }
-    public void setWelcome2(String string){
+
+    public void setWelcome2(String string) {
         welcome2.setText(string);
     }
+
+    public void addjList1(String toadd) {
+        ListModel model = jList1.getModel();
+        int plus1 = model.getSize() + 1;
+        String[] newstring = new String[plus1];
+
+        newstring[model.getSize()] = toadd + " game";
+        for (int c = 0; c < model.getSize(); c++) {
+            newstring[c] = (String) model.getElementAt(c);
+        }
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = newstring;
+
+            @Override
+            public int getSize() {
+                return strings.length;
+            }
+
+            @Override
+            public String getElementAt(int i) {
+                return strings[i];
+            }
+        });
+    }
+
+    public void rmvjList1(String tormv) {
+        ListModel model = jList1.getModel();
+        int plus1 = model.getSize();
+        String[] newstring = new String[plus1];
+        int i = 0;
+        if (plus1 > 0) {
+            for (int c = 0; c < model.getSize(); c++) {
+                String list = (String) model.getElementAt(c);
+                tormv+=" game";
+                if (!(tormv.equals((String) model.getElementAt(c)))) {
+                    newstring[i] = (String) model.getElementAt(c);
+                    i++;
+                }
+            }
+        }
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = newstring;
+
+            @Override
+            public int getSize() {
+                return strings.length;
+            }
+
+            @Override
+            public String getElementAt(int i) {
+                return strings[i];
+            }
+        });
+    }
+
     private void SignupSetDefault() {
         emailTextSignup.setText("Enter e-mail...");
         usernameTextSignup.setText("Enter username...");
@@ -70,25 +130,28 @@ public class UIinicial extends javax.swing.JFrame {
         usernameTextSignup1.setText("Enter name...");
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Select your question here...", "Item1", "Item2", "ItemN"}));
     }
-    public void RefreshChat(String entered){
+
+    public void RefreshChat(String entered) {
         String ok;
-        int size=entered.length();
-        for(int c=0;c<size;c=c+40){
-            if(c+40<size)
-                ok=entered.substring(c, c+40);           
-            else
-                ok=entered.substring(c);
-            chat+=ok+"\n";
+        int size = entered.length();
+        for (int c = 0; c < size; c = c + 40) {
+            if (c + 40 < size) {
+                ok = entered.substring(c, c + 40);
+            } else {
+                ok = entered.substring(c);
+            }
+            chat += ok + "\n";
         }
         jTextArea1.setText(chat);
         JScrollBar vertical = jScrollPane5.getVerticalScrollBar();
-        vertical.setValue( vertical.getMaximum() );
-        
+        vertical.setValue(vertical.getMaximum());
+
     }
-    public void getIntro(){
-        backvalue=Inicial;
+
+    public void getIntro() {
+        backvalue = Inicial;
         setContentPane(Intro);
-        
+
     }
 
     private void ForgotPasswordSetDefault() {
@@ -99,7 +162,8 @@ public class UIinicial extends javax.swing.JFrame {
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Select your question here...", "Item1", "Item2", "ItemN"}));
         usernameText5.setText("Answer Here...");
     }
-    public String getUsername(){
+
+    public String getUsername() {
         return username;
     }
 
@@ -114,6 +178,7 @@ public class UIinicial extends javax.swing.JFrame {
 
         jOptionPane1 = new javax.swing.JOptionPane();
         jOptionPane2 = new javax.swing.JOptionPane();
+        jOptionPane3 = new javax.swing.JOptionPane();
         Signup = new javax.swing.JPanel();
         title3 = new javax.swing.JLabel();
         username2 = new javax.swing.JLabel();
@@ -186,6 +251,12 @@ public class UIinicial extends javax.swing.JFrame {
         title7 = new javax.swing.JLabel();
         goback4 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
+
+        jOptionPane3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jOptionPane3MouseClicked(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("mainFrame");
@@ -878,7 +949,7 @@ public class UIinicial extends javax.swing.JFrame {
         jScrollPane2.setToolTipText("Chat here");
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -917,9 +988,7 @@ public class UIinicial extends javax.swing.JFrame {
                 .addGroup(IntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(IntroLayout.createSequentialGroup()
                         .addGroup(IntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, IntroLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(IntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, IntroLayout.createSequentialGroup()
                                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1251,7 +1320,17 @@ public class UIinicial extends javax.swing.JFrame {
     private void JoinGame1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JoinGame1ActionPerformed
         try {
             // TODO add your handling code here:
-            user.JoinGame();
+           String selected;
+            if(!jList1.isSelectionEmpty()){
+                 selected= jList1.getSelectedValue();
+            
+                String[] mysplit = selected.split(" ");
+                user.JoinGame(mysplit[0]);
+            }
+            else{
+               jOptionPane3.showMessageDialog(null, "You have to select a game in order to play, if there are no games creted create a new one!"); 
+            }
+                
 
         } catch (IOException ex) {
             Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
@@ -1493,27 +1572,33 @@ public class UIinicial extends javax.swing.JFrame {
 
     private void jTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseClicked
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_jTextField1MouseClicked
 
     private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
         // TODO add your handling code here:
-        if(jTextField1.getText().equals("Chat here..."))
+        if (jTextField1.getText().equals("Chat here...")) {
             jTextField1.setText("");
+        }
     }//GEN-LAST:event_jTextField1FocusGained
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String entered=jTextField1.getText();
-        String ok="";
-        user.sendChat(username,entered);
+        String entered = jTextField1.getText();
+        String ok = "";
+        user.sendChat(username, entered);
         jTextField1.setText("");
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jOptionPane3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jOptionPane3MouseClicked
+        // TODO add your handling code here:
+        jOptionPane3.setVisible(false);
+    }//GEN-LAST:event_jOptionPane3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -1582,6 +1667,7 @@ public class UIinicial extends javax.swing.JFrame {
     private javax.swing.JList<String> jList1;
     private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JOptionPane jOptionPane2;
+    private javax.swing.JOptionPane jOptionPane3;
     private javax.swing.JPasswordField jPasswordField5;
     private javax.swing.JPasswordField jPasswordField6;
     private javax.swing.JPasswordField jPasswordInicial;

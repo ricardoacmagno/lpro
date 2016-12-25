@@ -1,9 +1,11 @@
 package LogicServer;
 
 import DataBase.UserDB;
+import ServerCommunication.GameServer;
 import java.io.IOException;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Class responsible for handling the connection between the server and the
@@ -19,8 +21,9 @@ public class User {
     private String password;
     private Integer question;
     private String anwser;
+    private static Game newgame;
     public int c;
-    public static Game gameid[] = new Game[999999];
+    private static ArrayList<Pair> game = new ArrayList();
     public static UserDB userData;
 
     /**
@@ -139,25 +142,34 @@ public class User {
      * @param user
      * @return
      */
-    public static String[] UserCreateGame(String user) {
+    public static String[] UserCreateGame(String user, Socket mysocket) throws IOException {
         String[] returned = userData.getGame(user);
         int id = Integer.parseInt(returned[1]);
-        gameid[id] = new Game(returned[0], id);
+        newgame = new Game(returned[0], id);
+        game.add(new Pair(id, newgame));
+        GameServer myclient = new GameServer(mysocket);
         System.out.println("I have " + returned[0] + " and " + returned[1]);
         return returned;
     }
 
     /**
      *
-     * @param id
+     * @param user
      * @return
+     * @throws java.sql.SQLException
      */
-    public static String[] JoinGame(String user) throws SQLException {
+    public static String[] JoinGame(String user, String sopponent) throws SQLException, IOException {
         System.out.println("Sending info to DB");
-        String[] opponent = userData.JoinGame(user);
+        String[] opponent = userData.JoinGame(user, sopponent);
         int id = Integer.parseInt(opponent[0]);
-        if ("ok".equals(opponent[2])) {
-            gameid[id].setOpponent(user);
+        for (Pair element : game) {
+            if (element.getKey() == id) {
+                if ("ok".equals(opponent[2])) {
+                    Game mygame = element.getValue();
+                    mygame.setOpponent(user);
+                }
+                break;
+            }
         }
         return opponent;
     }
@@ -214,24 +226,81 @@ public class User {
     }
 
     public static void setSocketPlayer1(Socket mysocket, int id) throws IOException {
-        gameid[id].setSplayer1(mysocket);
+        Game mygame = null;
+        for (Pair element : game) {
+            if (element.getKey() == id) {
+                mygame = element.getValue();
+                break;
+            }
+        }
+        if (mygame != null) {
+            mygame.setSplayer1(mysocket);
+        }
     }
 
     public static void setSocketPlayer2(Socket mysocket, int id) throws IOException {
-        gameid[id].setSplayer2(mysocket);
+        Game mygame = null;
+        for (Pair element : game) {
+            if (element.getKey() == id) {
+                mygame = element.getValue();
+                break;
+            }
+        }
+        if (mygame != null) {
+            mygame.setSplayer2(mysocket);
+        }
     }
 
     public static void sendWarning(int id) throws IOException {
-        gameid[id].newOpponent();
+        Game mygame = null;
+        for (Pair element : game) {
+            if (element.getKey() == id) {
+                mygame = element.getValue();
+                break;
+            }
+        }
+        if (mygame != null) {
+            mygame.newOpponent();
+        }
+
     }
 
     public static Game getGameid(int id) {
-        return gameid[id];
+        Game mygame=null;
+        for (Pair element : game) {
+            if (element.getKey() == id) {
+                System.out.println("Found a game with id "+element.getKey());
+                mygame = element.getValue();
+                break;
+            }
+        }
+        return mygame;
     }
-    public static void finishGame(Game game) throws SQLException{
-        userData.finishGame(game);
+
+    public static void finishGame(Game mygame) throws SQLException {
+        for (Pair element : game) {
+            if(element.getValue()==mygame)
+                game.remove(element);
+        }
+        userData.finishGame(mygame);
     }
-    public static void cancelGame(int id) throws SQLException{
+
+    public static void cancelGame(int id) throws SQLException {
+        for (Pair element : game) {
+            if (element.getKey() == id) {
+                game.remove(element);
+                break;
+            }
+        }
         userData.cancelGame(id);
+    }
+
+    public static void sendGames(Socket mysocket) throws IOException {
+        GameServer myclient = new GameServer(mysocket);
+        for (Pair element : game) {
+            Game somegame = element.getValue();
+            if(somegame.getPlayer2().equals("null"))
+                myclient.sendClient("GameAdd&" + somegame.getPlayer1());
+        }
     }
 }

@@ -40,6 +40,7 @@ public class User {
     GameUI gameui;
     public static Player player;
     UIinicial ui;
+
     /**
      * Constructor
      *
@@ -55,7 +56,7 @@ public class User {
         this.Mail = Mail;
         this.Name = Name;
         this.OldPassword = OldPassword;
-        this.ui=ui;
+        this.ui = ui;
         client = new ClientProtocol();
     }
 
@@ -108,6 +109,7 @@ public class User {
                         }
                     }
                     client.startListen(this);
+                    client.send("GameList");
                 } else if ("Signup".equals(dataReceived.get(0))) {
                     if ("Erro".equals(dataReceived.get(1))) {
                         if ("Username".equals(dataReceived.get(2))) {
@@ -209,8 +211,8 @@ public class User {
      * @throws IOException
      * @throws InterruptedException
      */
-    public void JoinGame() throws IOException, InterruptedException {
-        sendtoServer("join");
+    public void JoinGame(String opponent) throws IOException, InterruptedException {
+        client.JoinGame(Username, opponent);
     }
 
     /**
@@ -233,9 +235,11 @@ public class User {
     public ClientProtocol getClient() {
         return client;
     }
-    public void cancelGame(){
-        client.send("Cancel&"+game.getId());
+
+    public void cancelGame() {
+        client.send("Cancel&" + game.getId());
     }
+
     public void refreshData(String[] dataReceived) throws IOException, InterruptedException {
         if ("CreateGame".equals(dataReceived[0])) {
             System.out.println("I am " + dataReceived[1] + " playing in game id " + dataReceived[2]);
@@ -248,23 +252,20 @@ public class User {
                 int gameid = Integer.parseInt(dataReceived[1]);
                 game = new Game(gameid, Username);
                 game.setOpponent(dataReceived[2]);
-                
+
                 ui.setWelcome2(ui.getUsername() + " vs " + user.getGameOpponent());
                 gameui = new GameUI(ui.getUsername(), user.getGameOpponent());
                 gameui.setVisible(true);
             }
-            
 
             System.out.println("New opponent " + dataReceived[1]);
 
         } else if ("Warning".equals(dataReceived[0])) {
-            
+
             game.setOpponent(dataReceived[2]);
-            
-            
+
             gameui = new GameUI(ui.getUsername(), user.getGameOpponent());
             gameui.setVisible(true);
-            
 
         } else if ("Ships".equals(dataReceived[0])) {
             System.out.println("Ships received");
@@ -284,44 +285,47 @@ public class User {
             }
             int play = Integer.parseInt(dataReceived[6]);
             gameui.setLabel("Opponent turn to play");
-            if(play==1){
+            if (play == 1) {
                 gameui.setLabel("Your turn to play");
                 gameui.player1.setfirstplay();
             }
-            
+
             if (game.player1placed == true) {
                 System.out.println("Grid 2 init");
                 gameui.initGrid2();
             }
 
-        }  else if ("Turn".equals(dataReceived[0])) {
-            
-            String hitinfo=dataReceived[1];
+        } else if ("Turn".equals(dataReceived[0])) {
+
+            String hitinfo = dataReceived[1];
             int y = hitinfo.charAt(0) - '0';
             int x = hitinfo.charAt(1) - '0';
-            if(dataReceived[2].equals("hit"))
-                gameui.hitPanel(y,x);
-                
-            else{
+            if (dataReceived[2].equals("hit")) {
+                gameui.hitPanel(y, x);
+            } else {
                 gameui.missPanel(y, x);
                 gameui.setLabel("Your turn to play");
                 gameui.turn(gameui.player1);
             }
-        }  else if ("Winner".equals(dataReceived[0])) {
+        } else if ("Winner".equals(dataReceived[0])) {
             gameui.setOption("Congrats! You won!");
             gameui.setVisible(false);
             gameui.dispose();
             ui.getIntro();
-        }  else if ("Loser".equals(dataReceived[0])) {
+        } else if ("Loser".equals(dataReceived[0])) {
             gameui.setOption("You lost!");
             gameui.setVisible(false);
             gameui.dispose();
             ui.getIntro();
-        }  else if ("Chat".equals(dataReceived[0])) {
+        } else if ("Chat".equals(dataReceived[0])) {
             ui.RefreshChat(dataReceived[1]);
-        }  else if ("privateChat".equals(dataReceived[0])) {
+        } else if ("privateChat".equals(dataReceived[0])) {
             gameui.RefreshChat(dataReceived[1]);
-        } 
+        } else if ("GameAdd".equals(dataReceived[0])) {
+            ui.addjList1(dataReceived[1]);
+        } else if ("GameRmv".equals(dataReceived[0])) {
+            ui.rmvjList1(dataReceived[1]);
+        }
 
     }
 
@@ -332,18 +336,14 @@ public class User {
     public void sendtoServer(String ack) {
         if (ack.equals("create")) {
             client.CreateGame(Username);
-        } else if (ack.equals("join")) {
-            client.JoinGame(Username);
-        } else if (ack.equals("join")) {
-            client.JoinGame(Username);
         }
+    }
 
+    public void sendChat(String user, String tosend) {
+        client.send("Chat&" + user + "&" + tosend);
     }
-    
-    public void sendChat(String user, String tosend){
-        client.send("Chat&"+user+"&"+tosend);
-    }
-    public void sendprivateChat(String user, String tosend){
-        client.send("privateChat&"+game.getId()+"&"+user+"&"+tosend);
+
+    public void sendprivateChat(String user, String tosend) {
+        client.send("privateChat&" + game.getId() + "&" + user + "&" + tosend);
     }
 }

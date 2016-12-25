@@ -46,7 +46,7 @@ public class ServerProtocol extends Thread {
             case "CreateGame":
                 return handlerCreateGame(stringUis[1]);
             case "JoinGame":
-                return handlerJoinGame(stringUis[1]);
+                return handlerJoinGame(stringUis[1],stringUis[2]);
             case "Ships":
                 return setCarrierInfo(stringUis[1], stringUis[2], stringUis[3], stringUis[4], stringUis[5], stringUis[6], stringUis[7]);
             case "Turn":
@@ -65,6 +65,10 @@ public class ServerProtocol extends Thread {
                 cancelGame(stringUis[1]);
                 String[] ok3 = {"Your game was canceled"};
                 return ok3;
+            case "GameList":
+                User.sendGames(mysocket);
+                String[] ok4 = {"Sent game list"};
+                return ok4;
 
             default:
                 return null;
@@ -252,9 +256,10 @@ public class ServerProtocol extends Thread {
      */
     public String[] handlerCreateGame(String user) throws Exception {
         System.out.println("CreateGameHandler received " + user);
-        String[] returned = User.UserCreateGame(user);
+        String[] returned = User.UserCreateGame(user, mysocket);
         int id = Integer.parseInt(returned[1]);
         User.setSocketPlayer1(mysocket, id);
+        chat.newGame(user);
         String[] toReturn = {"CreateGame", returned[0], returned[1]};
         System.out.println("Server created game");
         return toReturn;
@@ -265,11 +270,12 @@ public class ServerProtocol extends Thread {
      * @param id
      * @return
      */
-    public String[] handlerJoinGame(String user) throws SQLException, IOException {
+    public String[] handlerJoinGame(String user, String stringopponent) throws SQLException, IOException {
         System.out.println("Sending JoinGame to logic server");
-        String[] opponent = User.JoinGame(user);
+        String[] opponent = User.JoinGame(user,stringopponent);
         int id = Integer.parseInt(opponent[0]);
         User.setSocketPlayer2(mysocket, id);
+        chat.rmvGame(stringopponent);
         User.sendWarning(id);
         String[] teste = {"JoinGame", opponent[0], opponent[1], opponent[2]};
         return teste;

@@ -156,7 +156,7 @@ public final class UserDB extends PostgreSQLink {
      * @param id
      * @return
      */
-    public String[] JoinGame(String user) throws SQLException {
+    public String[] JoinGame(String user, String sopponent) throws SQLException {
         System.out.println("Checking game...");
         PostgreSQLink.connect();
         int id = 0;
@@ -164,7 +164,7 @@ public final class UserDB extends PostgreSQLink {
         String ok = "ok";
         // Statement statement = getConnection().createStatement();
         statement = getConnection().createStatement();
-        ResultSet results1 = statement.executeQuery("SELECT player1name, id FROM gamesrunning WHERE player1joined = '" + true + "' AND player2joined = '" + false + "';");
+        ResultSet results1 = statement.executeQuery("SELECT player1name, id FROM gamesrunning WHERE player1joined = '" + true + "' AND player2joined = '" + false + "'  AND player1name = '" + sopponent + "';");
         if (results1.next()) {
             opponent = results1.getString("player1name");
             id = results1.getInt("id");

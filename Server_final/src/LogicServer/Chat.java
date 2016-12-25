@@ -31,6 +31,18 @@ public class Chat {
             element.sendClient(tosend);
         }
     }
+    public void newGame(String username){
+        String tosend= "GameAdd&"+username;
+        for(GameServer element : connections){
+            element.sendClient(tosend);
+        }
+    }
+     public void rmvGame(String username){
+        String tosend= "GameRmv&"+username;
+        for(GameServer element : connections){
+            element.sendClient(tosend);
+        }
+    }
     
     
     
