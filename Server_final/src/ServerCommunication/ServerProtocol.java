@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class ServerProtocol extends Thread {
 
     Socket mysocket;
-    Chat chat;
+    public static Chat chat;
     /**
      * Method responsible for calling the proper method to handle the server
      * call based on the first argument of the <code>String</code> server
@@ -62,7 +62,7 @@ public class ServerProtocol extends Thread {
                 String[] ok2 = {"Your private chat was sent"};
                 return ok2;
             case "Cancel":
-                cancelGame(stringUis[1]);
+                cancelGame(stringUis[1], stringUis[2]);
                 String[] ok3 = {"Your game was canceled"};
                 return ok3;
             case "GameList":
@@ -306,9 +306,11 @@ public class ServerProtocol extends Thread {
         game.newPrivateChat(username, received);
     }
 
-    public static void cancelGame(String sid) throws SQLException {
+    public static void cancelGame(String sid, String user) throws SQLException {
         int id = Integer.parseInt(sid);
+        
         User.cancelGame(id);
+        chat.rmvGame(user);
     }
 
 }

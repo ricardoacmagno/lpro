@@ -164,11 +164,12 @@ public final class UserDB extends PostgreSQLink {
         String ok = "ok";
         // Statement statement = getConnection().createStatement();
         statement = getConnection().createStatement();
-        ResultSet results1 = statement.executeQuery("SELECT player1name, id FROM gamesrunning WHERE player1joined = '" + true + "' AND player2joined = '" + false + "'  AND player1name = '" + sopponent + "';");
+        ResultSet results1 = statement.executeQuery("SELECT id,player1name FROM gamesrunning WHERE player1joined = '" + true + "' AND player2joined = '" + false + "'  AND player1name = '" + sopponent + "';");
         if (results1.next()) {
             opponent = results1.getString("player1name");
             id = results1.getInt("id");
-            statement.executeUpdate("UPDATE gamesrunning SET player2joined = '" + true + "', player2name = '" + user + "' WHERE player1joined = '" + true + "';");
+            statement.executeUpdate("UPDATE gamesrunning SET player2joined = '" + true + "', player2name = '" + user + "' WHERE player1joined = '" + true + "'  AND id = '" + id + "';");
+            System.out.println("Info of player " + user + " placed in DB, he joined game");
             results1.close();
             statement.close();
         } else {
@@ -176,7 +177,7 @@ public final class UserDB extends PostgreSQLink {
         }
         String sid = "" + id;
         String[] toReturn = {sid, opponent, ok};
-        System.out.println("Info of player " + user + " placed in DB");
+        
         return toReturn;
     }
 

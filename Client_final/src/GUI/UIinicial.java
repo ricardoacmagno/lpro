@@ -109,7 +109,7 @@ public class UIinicial extends javax.swing.JFrame {
             Iterator<String> iter = all.iterator();
             while (iter.hasNext()) {
                 String mystring = iter.next();
-
+                
                 if (mystring.equals(tormv)) {
                     iter.remove();
                 } else {

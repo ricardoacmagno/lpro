@@ -146,8 +146,7 @@ public class User {
     public static String[] UserCreateGame(String user, Socket mysocket) throws IOException {
         String[] returned = userData.getGame(user);
         int id = Integer.parseInt(returned[1]);
-        newgame = new Game(returned[0], id);
-        game.add(new Pair(id, newgame));
+        game.add(new Pair(id, new Game(returned[0], id)));
         GameServer myclient = new GameServer(mysocket);
         System.out.println("I have " + returned[0] + " and " + returned[1]);
         return returned;
@@ -166,11 +165,14 @@ public class User {
         for (Pair element : game) {
             if (element.getKey() == id) {
                 if ("ok".equals(opponent[2])) {
+                    System.out.println("Joining "+element.getValue().getPlayer1()+" game");
                     Game mygame = element.getValue();
                     mygame.setOpponent(user);
                 }
                 break;
             }
+            else
+                System.out.println("Trying to join, not "+element.getValue().getPlayer1()+" game");
         }
         return opponent;
     }
@@ -235,6 +237,7 @@ public class User {
             }
         }
         if (mygame != null) {
+            System.out.println("socket of player1 placed, and game identified sucessfuly");
             mygame.setSplayer1(mysocket);
         }
     }
@@ -243,6 +246,7 @@ public class User {
         Game mygame = null;
         for (Pair element : game) {
             if (element.getKey() == id) {
+                System.out.println("socket of player2 placed, and game identified sucessfuly");
                 mygame = element.getValue();
                 break;
             }
@@ -256,11 +260,13 @@ public class User {
         Game mygame = null;
         for (Pair element : game) {
             if (element.getKey() == id) {
+                System.out.println("Got a match to send warning");
                 mygame = element.getValue();
                 break;
             }
         }
         if (mygame != null) {
+            
             mygame.newOpponent();
         }
 
@@ -282,25 +288,34 @@ public class User {
         Iterator<Pair> iter = game.iterator();
         while (iter.hasNext()) {
             Pair mypair = iter.next();
-
+            
             if (mypair.getValue() == mygame) {
+                System.out.println("Finishing "+mypair.getValue().getPlayer1()+" game");
                 iter.remove();
             }
+            else
+                System.out.println("Not "+mypair.getValue().getPlayer1()+" game");
         }
 
         userData.finishGame(mygame);
     }
 
-    public static void cancelGame(int id) throws SQLException {
+    public static String cancelGame(int id) throws SQLException {
         Iterator<Pair> iter = game.iterator();
+        String player1="Error";
         while (iter.hasNext()) {
             Pair mypair = iter.next();
-
+            
             if (mypair.getKey() == id) {
+                System.out.println("Canceling "+mypair.getValue().getPlayer1()+" game");
+                player1=mypair.getValue().getPlayer1();
                 iter.remove();
             }
+            else
+                System.out.println("Not "+mypair.getValue().getPlayer1()+" game");
         }
         userData.cancelGame(id);
+        return player1;
     }
 
     public static void sendGames(Socket mysocket) throws IOException {

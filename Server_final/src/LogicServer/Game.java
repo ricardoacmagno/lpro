@@ -79,6 +79,7 @@ public class Game {
     }
 
     public void newOpponent() throws IOException {
+        
         p1.sendClient("Warning&" + id + "&" + player2);
     }
 

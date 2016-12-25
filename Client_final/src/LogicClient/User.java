@@ -237,7 +237,7 @@ public class User {
     }
 
     public void cancelGame() {
-        client.send("Cancel&" + game.getId());
+        client.send("Cancel&" + game.getId() +"&"+ game.getName());
     }
 
     public void refreshData(String[] dataReceived) throws IOException, InterruptedException {
