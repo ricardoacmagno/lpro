@@ -344,6 +344,6 @@ public class User {
     }
 
     public void sendprivateChat(String user, String tosend) {
-        client.send("privateChat&" + game.getId() + "&" + user + "&" + tosend);
+        client.send("privateChat&" + game.getId() + "&" + game.getMyName() + "&" + tosend);
     }
 }

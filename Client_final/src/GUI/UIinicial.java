@@ -14,6 +14,8 @@ import java.awt.Frame;
 import static java.awt.SystemColor.text;
 import java.awt.Window;
 import static java.lang.Thread.sleep;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JDialog;
@@ -92,21 +94,35 @@ public class UIinicial extends javax.swing.JFrame {
         });
     }
 
+    @SuppressWarnings("empty-statement")
     public void rmvjList1(String tormv) {
         ListModel model = jList1.getModel();
         int plus1 = model.getSize();
-        String[] newstring = new String[plus1];
-        int i = 0;
-        if (plus1 > 0) {
+        String testing = "";
+        tormv += " game";
+        final String[] newstring;
+        ArrayList<String> all = new ArrayList();
+        if (plus1 > 1) {
             for (int c = 0; c < model.getSize(); c++) {
-                String list = (String) model.getElementAt(c);
-                tormv+=" game";
-                if (!(tormv.equals((String) model.getElementAt(c)))) {
-                    newstring[i] = (String) model.getElementAt(c);
-                    i++;
-                }
+                all.add((String) model.getElementAt(c));
             }
+            Iterator<String> iter = all.iterator();
+            while (iter.hasNext()) {
+                String mystring = iter.next();
+
+                if (mystring.equals(tormv)) {
+                    iter.remove();
+                } else {
+                    testing += "&" + mystring;
+                }
+
+            }
+            newstring = testing.split("&");
+
+        } else {
+            newstring = new String[0];
         }
+
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = newstring;
 
@@ -1320,17 +1336,15 @@ public class UIinicial extends javax.swing.JFrame {
     private void JoinGame1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JoinGame1ActionPerformed
         try {
             // TODO add your handling code here:
-           String selected;
-            if(!jList1.isSelectionEmpty()){
-                 selected= jList1.getSelectedValue();
-            
+            String selected;
+            if (!jList1.isSelectionEmpty()) {
+                selected = jList1.getSelectedValue();
+
                 String[] mysplit = selected.split(" ");
                 user.JoinGame(mysplit[0]);
+            } else {
+                jOptionPane3.showMessageDialog(null, "You have to select a game in order to play, if there are no games creted create a new one!");
             }
-            else{
-               jOptionPane3.showMessageDialog(null, "You have to select a game in order to play, if there are no games creted create a new one!"); 
-            }
-                
 
         } catch (IOException ex) {
             Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);

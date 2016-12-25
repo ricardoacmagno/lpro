@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Class responsible for handling the connection between the server and the
@@ -266,10 +267,10 @@ public class User {
     }
 
     public static Game getGameid(int id) {
-        Game mygame=null;
+        Game mygame = null;
         for (Pair element : game) {
             if (element.getKey() == id) {
-                System.out.println("Found a game with id "+element.getKey());
+                System.out.println("Found a game with id " + element.getKey());
                 mygame = element.getValue();
                 break;
             }
@@ -278,18 +279,25 @@ public class User {
     }
 
     public static void finishGame(Game mygame) throws SQLException {
-        for (Pair element : game) {
-            if(element.getValue()==mygame)
-                game.remove(element);
+        Iterator<Pair> iter = game.iterator();
+        while (iter.hasNext()) {
+            Pair mypair = iter.next();
+
+            if (mypair.getValue() == mygame) {
+                iter.remove();
+            }
         }
+
         userData.finishGame(mygame);
     }
 
     public static void cancelGame(int id) throws SQLException {
-        for (Pair element : game) {
-            if (element.getKey() == id) {
-                game.remove(element);
-                break;
+        Iterator<Pair> iter = game.iterator();
+        while (iter.hasNext()) {
+            Pair mypair = iter.next();
+
+            if (mypair.getKey() == id) {
+                iter.remove();
             }
         }
         userData.cancelGame(id);
@@ -299,8 +307,9 @@ public class User {
         GameServer myclient = new GameServer(mysocket);
         for (Pair element : game) {
             Game somegame = element.getValue();
-            if(somegame.getPlayer2().equals("null"))
+            if (somegame.getPlayer2().equals("null")) {
                 myclient.sendClient("GameAdd&" + somegame.getPlayer1());
+            }
         }
     }
 }
