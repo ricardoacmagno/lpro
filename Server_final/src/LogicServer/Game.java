@@ -6,7 +6,6 @@
 package LogicServer;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.Socket;
 import ServerCommunication.GameServer;
 import java.util.Random;
@@ -17,45 +16,57 @@ import java.util.Random;
  */
 public class Game {
 
-    private static int id;
-    private static String player1, player1Ships;
-    private static String player2, winner, loser;
-    private static Socket splayer1, splayer2;
-    private static String player2Ships;
-    private static GameServer p1;
-    private static GameServer p2;
-    private static boolean winnerbool;
+    private int id;
+    private String player1, player1Ships;
+    private String player2, winner, loser;
+    private Socket splayer1, splayer2;
+    private String player2Ships;
+    private GameServer p1;
+    private GameServer p2;
+    private boolean winnerbool;
     int result;
-    private static int player1hit, player2hit;
+    private int player1hit, player2hit;
 
     public Game(String owner, int id) {
         this.player1 = owner;
         this.player2 = "null";
         this.id = id;
-        this.winner=null;
-        this.loser=null;
+        this.winner = null;
+        this.loser = null;
         this.player1hit = 0;
         this.player2hit = 0;
-        this.winnerbool=false;
+        this.winnerbool = false;
         Random randomNum = new Random();
         this.result = randomNum.nextInt(2);
     }
 
-    public void setOpponent(String user) {
+    public void setOpponent(String user) throws IOException {
         player2 = user;
+        newOpponent();
     }
-    public boolean getWinnerbool(){
+    public String getPlayer1(){
+        return player1;
+    }
+    public String getPlayer2(){
+        return player2;
+    }
+
+    public boolean getWinnerbool() {
         return winnerbool;
     }
-    public String getPlayer1Ships(){
+
+    public String getPlayer1Ships() {
         return player1Ships;
     }
-    public String getPlayer2Ships(){
+
+    public String getPlayer2Ships() {
         return player2Ships;
     }
-    public String getWinner(){
+
+    public String getWinner() {
         return winner;
     }
+
     public void setSplayer1(Socket mysocket) throws IOException {
         splayer1 = mysocket;
         p1 = new GameServer(splayer1);
@@ -66,7 +77,8 @@ public class Game {
         p2 = new GameServer(splayer2);
     }
 
-    public static void newOpponent() throws IOException {
+    public void newOpponent() throws IOException {
+        
         p1.sendClient("Warning&" + id + "&" + player2);
     }
 
@@ -92,48 +104,51 @@ public class Game {
         }
         return "ok";
     }
-    public int getId(){
+
+    public int getId() {
         return id;
     }
 
-    public static void setTurn(String result, String position, String username) throws IOException {
+    public void setTurn(String result, String position, String username) throws IOException {
         if (username.equals(player1)) {
-            
+
             if (result.equals("hit")) {
                 player1hit++;
                 System.out.println("Player 1 hits are " + player1hit);
             }
-            if(player1hit>=17){
-                winner=player1;
-                loser=player2;
-                winnerbool=true;
+            if (player1hit >= 17) {
+                winner = player1;
+                loser = player2;
+                winnerbool = true;
                 p2.sendClient("Loser");
                 p1.sendClient("Winner");
-            }
-            else
+            } else {
                 p2.sendClient("Turn&" + position + "&" + result);
+            }
         } else if (username.equals(player2)) {
             if (result.equals("hit")) {
                 player2hit++;
                 System.out.println("Player 2 hits are " + player2hit);
             }
-            if(player2hit>=17){
-                winnerbool=true;
-                winner=player1;
-                loser=player2;
+            if (player2hit >= 17) {
+                winnerbool = true;
+                winner = player1;
+                loser = player2;
                 p2.sendClient("Winner");
                 p1.sendClient("Loser");
-            }
-            else
+            } else {
                 p1.sendClient("Turn&" + position + "&" + result);
+            }
         }
+
+    }
+
+    public void newPrivateChat(String username, String received) {
+        String tosend = "privateChat&" + username + ": " + received;
+        p2.sendClient(tosend);
+        p1.sendClient(tosend);
+            
     }
     
-    
-    
-    
-    
-    
-    
-    
+
 }

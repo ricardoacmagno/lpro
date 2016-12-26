@@ -6,7 +6,6 @@
 package LogicClient;
 
 import static LogicClient.User.client;
-import static LogicClient.User.game;
 
 /**
  * <code>Game</code> represents a game
@@ -76,6 +75,9 @@ public class Game {
       
       public void sendGameChat(String user, String tosend){
         client.send("Chat&"+user+"&"+tosend);
+    }
+    public String getMyName(){
+        return me;
     }
 
 }

@@ -58,7 +58,9 @@ public class Listen extends Thread {
                 user.refreshData(echo);
             } catch (IOException ex) {
                 Logger.getLogger(Listen.class.getName()).log(Level.SEVERE, null, ex);
+                connected=false;
             } catch (InterruptedException ex) {
+                connected=false;
                 Logger.getLogger(Listen.class.getName()).log(Level.SEVERE, null, ex);
             }
 

@@ -1,9 +1,13 @@
 package LogicServer;
 
 import DataBase.UserDB;
+import ServerCommunication.GameServer;
 import java.io.IOException;
+import static java.lang.Thread.sleep;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Class responsible for handling the connection between the server and the
@@ -20,8 +24,8 @@ public class User {
     private Integer question;
     private String anwser;
     public int c;
-    public static Game gameid[] = new Game[100000];
     public static UserDB userData;
+    public static Chat chat;
 
     /**
      * Constructor
@@ -110,9 +114,10 @@ public class User {
      * <code>false</code> if it is not
      * @throws Exception
      */
-    public static boolean confirmUsername(String received) throws Exception {
+    public static boolean confirmUsername(String received, Chat chat) throws Exception {
         System.out.println("USER.RECEIVED: " + received);
         userData = new UserDB();
+        User.chat = chat;
         userData.setUsername(received);
         userData.getLine();
         //Chamar a parte do DB >> verificar se encontrou uma lista através daquele username
@@ -139,25 +144,50 @@ public class User {
      * @param user
      * @return
      */
-    public static String[] UserCreateGame(String user) {
+    public static String[] UserCreateGame(String user, Socket mysocket, Chat chatreceived) throws IOException {
+        System.out.println("List of games before create:");
+        for (Pair element : chat.game) {
+            System.out.println(element.getValue().getId());
+        }
         String[] returned = userData.getGame(user);
         int id = Integer.parseInt(returned[1]);
-        gameid[id] = new Game(returned[0], id);
+        Game mygame=new Game(returned[0], id);
+        
+        Pair mynewpair=new Pair(id,mygame );
+        mynewpair.setKey(id);
+        mynewpair.setValue(mygame);
+        System.out.println("Created a pair "+mynewpair+"( "+id+" , "+mygame+" )");
+        chat.game.add(mynewpair);
+        System.out.println("List of games after create and add:");
+        for (Pair element : chat.game) {
+            System.out.println(element.getValue().getPlayer1()+" game");
+        }
+        GameServer myclient = new GameServer(mysocket);
         System.out.println("I have " + returned[0] + " and " + returned[1]);
         return returned;
     }
 
     /**
      *
-     * @param id
+     * @param user
      * @return
+     * @throws java.sql.SQLException
      */
-    public static String[] JoinGame(String user) throws SQLException {
+    public static String[] JoinGame(String user, String sopponent) throws SQLException, IOException {
         System.out.println("Sending info to DB");
-        String[] opponent = userData.JoinGame(user);
+        String[] opponent = userData.JoinGame(user, sopponent);
         int id = Integer.parseInt(opponent[0]);
-        if ("ok".equals(opponent[2])) {
-            gameid[id].setOpponent(user);
+        for (Pair element : chat.game) {
+            if (element.getKey() == id) {
+                if ("ok".equals(opponent[2])) {
+                    System.out.println("Joining " + element.getValue().getPlayer1() + " game, with id of" + element.getKey());
+                    Game mygame = element.getValue();
+                    mygame.setOpponent(user);
+                }
+                break;
+            } else {
+                System.out.println("Trying to join, not " + element.getValue().getPlayer1() + " game");
+            }
         }
         return opponent;
     }
@@ -214,21 +244,101 @@ public class User {
     }
 
     public static void setSocketPlayer1(Socket mysocket, int id) throws IOException {
-        gameid[id].setSplayer1(mysocket);
+        Game mygame = null;
+        for (Pair element : chat.game) {
+            if (element.getKey() == id) {
+                mygame = element.getValue();
+                break;
+            }
+        }
+        if (mygame != null) {
+            System.out.println("socket of player1 placed, and game identified sucessfuly");
+            mygame.setSplayer1(mysocket);
+        }
     }
 
     public static void setSocketPlayer2(Socket mysocket, int id) throws IOException {
-        gameid[id].setSplayer2(mysocket);
+        Game mygame = null;
+        for (Pair element : chat.game) {
+            if (element.getKey() == id) {
+                System.out.println("socket of player2 placed, and game identified sucessfuly");
+                mygame = element.getValue();
+                break;
+            }
+        }
+        if (mygame != null) {
+            mygame.setSplayer2(mysocket);
+        }
     }
 
     public static void sendWarning(int id) throws IOException {
-        gameid[id].newOpponent();
+        Game mygame = null;
+        for (Pair element : chat.game) {
+            if (element.getKey() == id) {
+                System.out.println("Got a match to send warning");
+                mygame = element.getValue();
+                mygame.newOpponent();
+                break;
+            }
+        }
+
     }
 
     public static Game getGameid(int id) {
-        return gameid[id];
+        Game mygame = null;
+        for (Pair element : chat.game) {
+            if (element.getKey() == id) {
+                System.out.println("Found a game with id " + element.getKey());
+                mygame = element.getValue();
+                break;
+            }
+        }
+        return mygame;
     }
-    public static void finishGame(Game game) throws SQLException{
-        userData.finishGame(game);
+
+    public static void finishGame(Game mygame) throws SQLException {
+        Iterator<Pair> iter = chat.game.iterator();
+        while (iter.hasNext()) {
+            Pair mypair = iter.next();
+
+            if (mypair.getValue() == mygame) {
+                System.out.println("Finishing " + mypair.getValue().getPlayer1() + " game");
+                iter.remove();
+            } else {
+                System.out.println("Not " + mypair.getValue().getPlayer1() + " game");
+            }
+        }
+
+        userData.finishGame(mygame);
+    }
+
+    public static String cancelGame(int id) throws SQLException {
+        Iterator<Pair> iter = chat.game.iterator();
+        String player1 = "Error";
+        while (iter.hasNext()) {
+            Pair mypair = iter.next();
+
+            if (mypair.getKey() == id) {
+                System.out.println("Canceling " + mypair.getValue().getPlayer1() + " game");
+                player1 = mypair.getValue().getPlayer1();
+                iter.remove();
+            } else {
+                System.out.println("Not " + mypair.getValue().getPlayer1() + " game");
+            }
+        }
+        userData.cancelGame(id);
+        return player1;
+    }
+
+    public static void sendGames(Socket mysocket) throws IOException, InterruptedException {
+        GameServer myclient = new GameServer(mysocket);
+        for (Pair element : chat.game) {
+            Game somegame = element.getValue();
+            if (somegame.getPlayer2().equals("null")) {
+                myclient.sendClient("GameAdd&" + somegame.getPlayer1());
+                sleep(50);
+                System.out.println("Sent "+somegame.getPlayer1()+" game");
+            }
+        }
     }
 }

@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class ServerProtocol extends Thread {
 
     Socket mysocket;
-    Chat chat;
+    public static Chat chat;
     /**
      * Method responsible for calling the proper method to handle the server
      * call based on the first argument of the <code>String</code> server
@@ -30,10 +30,10 @@ public class ServerProtocol extends Thread {
      * @throws IOException
      * @throws Exception
      */
-    public String[] getData(String server, Socket mysocket,Chat chat) throws IOException, Exception {                  // DONE FOR NOW // CREATE PLAYER CLASS
+    public String[] getData(String server, Socket mysocket, Chat chat) throws IOException, Exception {                  // DONE FOR NOW // CREATE PLAYER CLASS
         String[] stringUis;
         this.mysocket = mysocket;
-        this.chat=chat;
+        this.chat = chat;
         stringUis = server.split("&");
         switch (stringUis[0]) {
             case "Login":
@@ -44,24 +44,38 @@ public class ServerProtocol extends Thread {
             case "ForgotPassword":
                 return handlerForgotPassword(stringUis);
             case "CreateGame":
+                this.mysocket=mysocket;
                 return handlerCreateGame(stringUis[1]);
             case "JoinGame":
-                return handlerJoinGame(stringUis[1]);
+                this.mysocket=mysocket;
+                return handlerJoinGame(stringUis[1],stringUis[2]);
             case "Ships":
                 return setCarrierInfo(stringUis[1], stringUis[2], stringUis[3], stringUis[4], stringUis[5], stringUis[6], stringUis[7]);
             case "Turn":
-                handlerTurn(stringUis[1],stringUis[2],stringUis[3],stringUis[4]);
+                handlerTurn(stringUis[1], stringUis[2], stringUis[3], stringUis[4]);
                 String[] ok = {"turn ok"};
                 return ok;
             case "Chat":
-                chat.newChat(stringUis[1],stringUis[2]);
-                String[] ok1= {"Chat ok"};
+                chat.newChat(stringUis[1], stringUis[2]);
+                String[] ok1 = {"Your chat was sent to all players"};
                 return ok1;
-                
+            case "privateChat":
+                newprivateChat(stringUis[1], stringUis[2], stringUis[3]);
+                String[] ok2 = {"Your private chat was sent"};
+                return ok2;
+            case "Cancel":
+                cancelGame(stringUis[1], stringUis[2]);
+                String[] ok3 = {"Your game was canceled"};
+                return ok3;
+            case "GameList":
+                User.sendGames(mysocket);
+                String[] ok4 = {"Sent game list"};
+                return ok4;
+
             default:
                 return null;
         }
-        
+
     }
 
     /**
@@ -87,7 +101,7 @@ public class ServerProtocol extends Thread {
                     return new String[]{"Login", "FailedConnection", "LOGIN_FAILED"};
                 }
             } else if (state == 1) {
-                if (User.confirmUsername(Ui)) {              //CRIAR NA CLASSE PLAYER O METODO CONFIRMUSERNAME
+                if (User.confirmUsername(Ui,chat)) {              //CRIAR NA CLASSE PLAYER O METODO CONFIRMUSERNAME
                     UsernameEPass[1] = Ui;
                     System.out.println("Protocol_Username: " + Ui);
                     state = 2;
@@ -134,7 +148,7 @@ public class ServerProtocol extends Thread {
                     return new String[]{"Signup", "FailedConnection", "SIGNUP_FAILED"};
                 }
             } else if (state == 1) {
-                if (!User.confirmUsername(Ui)) {              //CRIAR NA CLASSE PLAYER O METODO CONFIRMUSERNAME
+                if (!User.confirmUsername(Ui,chat)) {              //CRIAR NA CLASSE PLAYER O METODO CONFIRMUSERNAME
                     Data[1] = Ui;
                     System.out.println("DataBase_Username: " + Ui);
                     state = 2;
@@ -199,7 +213,7 @@ public class ServerProtocol extends Thread {
                     return new String[]{"ForgotPassword", "FailedConnection", "EMAIL_FAILED"};
                 }
             } else if (state == 2) {
-                if (User.confirmUsername(Ui)) {              //CRIAR NA CLASSE PLAYER O METODO CONFIRMUSERNAME
+                if (User.confirmUsername(Ui,chat)) {              //CRIAR NA CLASSE PLAYER O METODO CONFIRMUSERNAME
                     System.out.println("CONFIRM USERNAME FUNCIONA");
                     ChangePass[2] = Ui;
                     System.out.println("Protocol_Username: " + Ui);
@@ -244,9 +258,10 @@ public class ServerProtocol extends Thread {
      */
     public String[] handlerCreateGame(String user) throws Exception {
         System.out.println("CreateGameHandler received " + user);
-        String[] returned = User.UserCreateGame(user);
+        String[] returned = User.UserCreateGame(user, mysocket,chat);
         int id = Integer.parseInt(returned[1]);
         User.setSocketPlayer1(mysocket, id);
+        chat.newGame(user);
         String[] toReturn = {"CreateGame", returned[0], returned[1]};
         System.out.println("Server created game");
         return toReturn;
@@ -257,12 +272,12 @@ public class ServerProtocol extends Thread {
      * @param id
      * @return
      */
-    
-    public String[] handlerJoinGame(String user) throws SQLException, IOException {
+    public String[] handlerJoinGame(String user, String stringopponent) throws SQLException, IOException {
         System.out.println("Sending JoinGame to logic server");
-        String[] opponent = User.JoinGame(user);
+        String[] opponent = User.JoinGame(user,stringopponent);
         int id = Integer.parseInt(opponent[0]);
         User.setSocketPlayer2(mysocket, id);
+        chat.rmvGame(stringopponent);
         User.sendWarning(id);
         String[] teste = {"JoinGame", opponent[0], opponent[1], opponent[2]};
         return teste;
@@ -277,14 +292,27 @@ public class ServerProtocol extends Thread {
         String[] toreturn = {ok};
         return toreturn;
     }
-    
-    public void handlerTurn(String sid ,String position,String result,String myname) throws IOException, SQLException{
+
+    public void handlerTurn(String sid, String position, String result, String myname) throws IOException, SQLException {
         int id = Integer.parseInt(sid);
         Game game = User.getGameid(id);
-        game.setTurn(result,position,myname);
-        if(game.getWinnerbool()){
+        game.setTurn(result, position, myname);
+        if (game.getWinnerbool()) {
             User.finishGame(game);
         }
+    }
+
+    public void newprivateChat(String sid, String username, String received) {
+        int id = Integer.parseInt(sid);
+        Game game = User.getGameid(id);
+        game.newPrivateChat(username, received);
+    }
+
+    public static void cancelGame(String sid, String user) throws SQLException {
+        int id = Integer.parseInt(sid);
+        
+        User.cancelGame(id);
+        chat.rmvGame(user);
     }
 
 }
