@@ -98,7 +98,6 @@ public final class UserDB extends PostgreSQLink {
     public String[] getGame(String user) {
         int id = 0;
         try {
-            System.out.println("Creating game...");
             PostgreSQLink.connect();
             // Statement statement = getConnection().createStatement();
             statement = getConnection().createStatement();
@@ -109,7 +108,7 @@ public final class UserDB extends PostgreSQLink {
                 if (results5.next()) {
 
                     id = results5.getInt("id");
-                    System.out.println("Game of " + user + "created with id of" + id);
+                    System.out.println("Game of " + user + " created with id of " + id);
                 }
                 System.out.println(id);
                 results5.close();

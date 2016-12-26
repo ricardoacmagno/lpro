@@ -6,7 +6,6 @@
 package LogicClient;
 
 import static LogicClient.User.client;
-import static LogicClient.User.game;
 
 /**
  * <code>Game</code> represents a game

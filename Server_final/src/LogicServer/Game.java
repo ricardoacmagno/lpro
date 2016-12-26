@@ -6,7 +6,6 @@
 package LogicServer;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.Socket;
 import ServerCommunication.GameServer;
 import java.util.Random;
@@ -17,16 +16,16 @@ import java.util.Random;
  */
 public class Game {
 
-    private static int id;
-    private static String player1, player1Ships;
-    private static String player2, winner, loser;
-    private static Socket splayer1, splayer2;
-    private static String player2Ships;
-    private static GameServer p1;
-    private static GameServer p2;
-    private static boolean winnerbool;
+    private int id;
+    private String player1, player1Ships;
+    private String player2, winner, loser;
+    private Socket splayer1, splayer2;
+    private String player2Ships;
+    private GameServer p1;
+    private GameServer p2;
+    private boolean winnerbool;
     int result;
-    private static int player1hit, player2hit;
+    private int player1hit, player2hit;
 
     public Game(String owner, int id) {
         this.player1 = owner;
@@ -110,7 +109,7 @@ public class Game {
         return id;
     }
 
-    public static void setTurn(String result, String position, String username) throws IOException {
+    public void setTurn(String result, String position, String username) throws IOException {
         if (username.equals(player1)) {
 
             if (result.equals("hit")) {
