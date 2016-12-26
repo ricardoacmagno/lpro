@@ -14,12 +14,15 @@ import java.awt.Frame;
 import static java.awt.SystemColor.text;
 import java.awt.Window;
 import static java.lang.Thread.sleep;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
+import javax.swing.ListModel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -39,7 +42,8 @@ public class UIinicial extends javax.swing.JFrame {
     String mail = new String();
     String name = new String();
     public static User user = null;
-    String chat="";
+    String chat = "";
+
     public UIinicial() {
         initComponents();
         defaultpanel();
@@ -47,7 +51,7 @@ public class UIinicial extends javax.swing.JFrame {
 
     private void defaultpanel() {
         setContentPane(Inicial);
-
+        jOptionPane3.setVisible(false);
         invalidate();
         validate();
     }
@@ -56,12 +60,84 @@ public class UIinicial extends javax.swing.JFrame {
         jTextFieldInicial.setText("Enter username...");
         jPasswordInicial.setText("Password");
     }
+
     public static User getUser() {
         return main.user;
     }
-    public void setWelcome2(String string){
+
+    public void setWelcome2(String string) {
         welcome2.setText(string);
     }
+
+    public void addjList1(String toadd) {
+        ListModel model = jList1.getModel();
+        int plus1 = model.getSize() + 1;
+        String[] newstring = new String[plus1];
+
+        newstring[model.getSize()] = toadd + " game";
+        for (int c = 0; c < model.getSize(); c++) {
+            newstring[c] = (String) model.getElementAt(c);
+        }
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = newstring;
+
+            @Override
+            public int getSize() {
+                return strings.length;
+            }
+
+            @Override
+            public String getElementAt(int i) {
+                return strings[i];
+            }
+        });
+    }
+
+    @SuppressWarnings("empty-statement")
+    public void rmvjList1(String tormv) {
+        ListModel model = jList1.getModel();
+        int plus1 = model.getSize();
+        String testing = "";
+        tormv += " game";
+        final String[] newstring;
+        ArrayList<String> all = new ArrayList();
+        if (plus1 > 1) {
+            for (int c = 0; c < model.getSize(); c++) {
+                all.add((String) model.getElementAt(c));
+            }
+            Iterator<String> iter = all.iterator();
+            while (iter.hasNext()) {
+                String mystring = iter.next();
+                
+                if (mystring.equals(tormv)) {
+                    iter.remove();
+                } else {
+                    testing += "&" + mystring;
+                }
+
+            }
+            newstring = testing.split("&");
+
+        } else {
+            newstring = new String[0];
+        }
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = newstring;
+
+            @Override
+            public int getSize() {
+                return strings.length;
+            }
+
+            @Override
+            public String getElementAt(int i) {
+                return strings[i];
+            }
+        });
+    }
+
     private void SignupSetDefault() {
         emailTextSignup.setText("Enter e-mail...");
         usernameTextSignup.setText("Enter username...");
@@ -70,25 +146,28 @@ public class UIinicial extends javax.swing.JFrame {
         usernameTextSignup1.setText("Enter name...");
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Select your question here...", "Item1", "Item2", "ItemN"}));
     }
-    public void RefreshChat(String entered){
+
+    public void RefreshChat(String entered) {
         String ok;
-        int size=entered.length();
-        for(int c=0;c<size;c=c+40){
-            if(c+40<size)
-                ok=entered.substring(c, c+40);
-            else
-                ok=entered.substring(c);
-            chat+=ok+"\n";
+        int size = entered.length();
+        for (int c = 0; c < size; c = c + 40) {
+            if (c + 40 < size) {
+                ok = entered.substring(c, c + 40);
+            } else {
+                ok = entered.substring(c);
+            }
+            chat += ok + "\n";
         }
         jTextArea1.setText(chat);
         JScrollBar vertical = jScrollPane5.getVerticalScrollBar();
-        vertical.setValue( vertical.getMaximum() );
-        
+        vertical.setValue(vertical.getMaximum());
+
     }
-    public void getIntro(){
-        backvalue=Inicial;
+
+    public void getIntro() {
+        backvalue = Inicial;
         setContentPane(Intro);
-        
+
     }
 
     private void ForgotPasswordSetDefault() {
@@ -99,7 +178,8 @@ public class UIinicial extends javax.swing.JFrame {
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Select your question here...", "Item1", "Item2", "ItemN"}));
         usernameText5.setText("Answer Here...");
     }
-    public String getUsername(){
+
+    public String getUsername() {
         return username;
     }
 
@@ -114,6 +194,7 @@ public class UIinicial extends javax.swing.JFrame {
 
         jOptionPane1 = new javax.swing.JOptionPane();
         jOptionPane2 = new javax.swing.JOptionPane();
+        jOptionPane3 = new javax.swing.JOptionPane();
         Signup = new javax.swing.JPanel();
         title3 = new javax.swing.JLabel();
         username2 = new javax.swing.JLabel();
@@ -167,8 +248,6 @@ public class UIinicial extends javax.swing.JFrame {
         Intro = new javax.swing.JPanel();
         goback = new javax.swing.JButton();
         newAcc2 = new javax.swing.JButton();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTextPane4 = new javax.swing.JTextPane();
         PlayersOnline1 = new javax.swing.JButton();
         Rankings1 = new javax.swing.JButton();
         JoinGame1 = new javax.swing.JButton();
@@ -180,11 +259,20 @@ public class UIinicial extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        jLabel8 = new javax.swing.JLabel();
         GameJoined = new javax.swing.JPanel();
         welcome2 = new javax.swing.JLabel();
         title7 = new javax.swing.JLabel();
         goback4 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
+
+        jOptionPane3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jOptionPane3MouseClicked(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("mainFrame");
@@ -298,74 +386,79 @@ public class UIinicial extends javax.swing.JFrame {
             .addGroup(SignupLayout.createSequentialGroup()
                 .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(SignupLayout.createSequentialGroup()
-                        .addContainerGap(146, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(title3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 39, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SignupLayout.createSequentialGroup()
-                        .addContainerGap(24, Short.MAX_VALUE)
-                        .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(SignupLayout.createSequentialGroup()
+                        .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(SignupLayout.createSequentialGroup()
-                                .addGap(0, 14, Short.MAX_VALUE)
+                                .addContainerGap(38, Short.MAX_VALUE)
                                 .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(email)
-                                    .addComponent(username2)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel2)
-                                        .addComponent(password3)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                                .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(usernameTextSignup, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPasswordSignup, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(emailTextSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(usernameTextSignup1, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(0, 26, Short.MAX_VALUE))
+                                    .addGroup(SignupLayout.createSequentialGroup()
+                                        .addComponent(email)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                                        .addComponent(emailTextSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(SignupLayout.createSequentialGroup()
+                                        .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(username2)
+                                            .addComponent(password3)
+                                            .addComponent(jLabel2))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(usernameTextSignup, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                                            .addComponent(jPasswordSignup, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(usernameTextSignup1, javax.swing.GroupLayout.Alignment.TRAILING)))))
                             .addGroup(SignupLayout.createSequentialGroup()
-                                .addComponent(login2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(goback3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(SignupLayout.createSequentialGroup()
-                                .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(AnswerQuestionSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 33, Short.MAX_VALUE)))))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(SignupLayout.createSequentialGroup()
+                                        .addComponent(login2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(goback3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(AnswerQuestionSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 7, Short.MAX_VALUE)))
+                .addGap(28, 28, 28)
                 .addComponent(jLabel5)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addGap(36, 36, 36))
         );
         SignupLayout.setVerticalGroup(
             SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SignupLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(title3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19)
                 .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(SignupLayout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(40, 40, 40))
+                    .addGroup(SignupLayout.createSequentialGroup()
+                        .addComponent(title3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(email)
                             .addComponent(emailTextSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(username2)
                             .addComponent(usernameTextSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPasswordSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(password3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(usernameTextSignup1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(AnswerQuestionSignup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(login2)
-                            .addComponent(goback3))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE))
-                .addContainerGap())
+                            .addComponent(jPasswordSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(password3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(usernameTextSignup1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(AnswerQuestionSignup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addGroup(SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(goback3)
+                            .addComponent(login2))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         Inicial.setPreferredSize(new java.awt.Dimension(450, 350));
@@ -588,7 +681,7 @@ public class UIinicial extends javax.swing.JFrame {
                 .addComponent(title4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addComponent(welcome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(GuestIntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(GuestIntroLayout.createSequentialGroup()
@@ -786,12 +879,6 @@ public class UIinicial extends javax.swing.JFrame {
             }
         });
 
-        jTextPane4.setText("Games Running");
-        jTextPane4.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jTextPane4.setEnabled(false);
-        jTextPane4.setFocusable(false);
-        jScrollPane4.setViewportView(jTextPane4);
-
         PlayersOnline1.setText("Players Online");
         PlayersOnline1.setEnabled(false);
         PlayersOnline1.setFocusPainted(false);
@@ -874,6 +961,20 @@ public class UIinicial extends javax.swing.JFrame {
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ads/headerimage_updated3.png"))); // NOI18N
         jLabel6.setText("jLabel6");
 
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane2.setToolTipText("Chat here");
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList1.setToolTipText("");
+        jScrollPane2.setViewportView(jList1);
+
+        jLabel8.setText("Games Running");
+
         javax.swing.GroupLayout IntroLayout = new javax.swing.GroupLayout(Intro);
         Intro.setLayout(IntroLayout);
         IntroLayout.setHorizontalGroup(
@@ -881,62 +982,59 @@ public class UIinicial extends javax.swing.JFrame {
             .addGroup(IntroLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(IntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, IntroLayout.createSequentialGroup()
+                        .addComponent(newAcc2, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(goback)
+                        .addGap(14, 14, 14))
                     .addGroup(IntroLayout.createSequentialGroup()
                         .addGroup(IntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(IntroLayout.createSequentialGroup()
-                                .addComponent(newAcc2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(goback, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(IntroLayout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(IntroLayout.createSequentialGroup()
                                 .addGap(32, 32, 32)
-                                .addGroup(IntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(JoinGame1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(CreateGame1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Rankings1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(PlayersOnline1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(IntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(welcome1)
+                                    .addGroup(IntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(JoinGame1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(CreateGame1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(Rankings1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(PlayersOnline1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(title6, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(IntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(IntroLayout.createSequentialGroup()
                         .addGroup(IntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, IntroLayout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(IntroLayout.createSequentialGroup()
-                        .addGap(0, 157, Short.MAX_VALUE)
-                        .addComponent(title6, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(168, Short.MAX_VALUE))
-                    .addGroup(IntroLayout.createSequentialGroup()
-                        .addComponent(welcome1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(IntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, IntroLayout.createSequentialGroup()
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, IntroLayout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(76, 76, 76))))
         );
         IntroLayout.setVerticalGroup(
             IntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(IntroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(title6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addComponent(welcome1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(IntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(IntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(IntroLayout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                        .addComponent(title6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(IntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
-                        .addGap(27, 27, 27))
-                    .addGroup(IntroLayout.createSequentialGroup()
+                        .addComponent(welcome1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(CreateGame1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(JoinGame1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JoinGame1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(IntroLayout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(IntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(IntroLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(Rankings1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -947,7 +1045,15 @@ public class UIinicial extends javax.swing.JFrame {
                             .addComponent(goback))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(IntroLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(IntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1))
+                        .addGap(27, 27, 27))))
         );
 
         GameJoined.setPreferredSize(new java.awt.Dimension(450, 350));
@@ -995,9 +1101,9 @@ public class UIinicial extends javax.swing.JFrame {
         GameJoinedLayout.setVerticalGroup(
             GameJoinedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(GameJoinedLayout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addComponent(title7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(welcome2)
                 .addGap(43, 43, 43)
                 .addComponent(goback4)
@@ -1230,7 +1336,15 @@ public class UIinicial extends javax.swing.JFrame {
     private void JoinGame1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JoinGame1ActionPerformed
         try {
             // TODO add your handling code here:
-            user.JoinGame();
+            String selected;
+            if (!jList1.isSelectionEmpty()) {
+                selected = jList1.getSelectedValue();
+
+                String[] mysplit = selected.split(" ");
+                user.JoinGame(mysplit[0]);
+            } else {
+                jOptionPane3.showMessageDialog(null, "You have to select a game in order to play, if there are no games creted create a new one!");
+            }
 
         } catch (IOException ex) {
             Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
@@ -1464,6 +1578,7 @@ public class UIinicial extends javax.swing.JFrame {
 
     private void goback4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goback4ActionPerformed
         setContentPane(backvalue);
+        user.cancelGame();
         backvalue = Inicial;
         invalidate();
         validate();
@@ -1471,27 +1586,33 @@ public class UIinicial extends javax.swing.JFrame {
 
     private void jTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseClicked
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_jTextField1MouseClicked
 
     private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
         // TODO add your handling code here:
-        if(jTextField1.getText().equals("Chat here..."))
+        if (jTextField1.getText().equals("Chat here...")) {
             jTextField1.setText("");
+        }
     }//GEN-LAST:event_jTextField1FocusGained
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String entered=jTextField1.getText();
-        String ok="";
-        user.sendChat(username,entered);
+        String entered = jTextField1.getText();
+        String ok = "";
+        user.sendChat(username, entered);
         jTextField1.setText("");
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jOptionPane3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jOptionPane3MouseClicked
+        // TODO add your handling code here:
+        jOptionPane3.setVisible(false);
+    }//GEN-LAST:event_jOptionPane3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -1556,20 +1677,22 @@ public class UIinicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JOptionPane jOptionPane2;
+    private javax.swing.JOptionPane jOptionPane3;
     private javax.swing.JPasswordField jPasswordField5;
     private javax.swing.JPasswordField jPasswordField6;
     private javax.swing.JPasswordField jPasswordInicial;
     private javax.swing.JPasswordField jPasswordSignup;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextFieldInicial;
     private javax.swing.JTextPane jTextPane1;
-    private javax.swing.JTextPane jTextPane4;
     private javax.swing.JButton login1;
     private javax.swing.JButton login2;
     private javax.swing.JButton login3;
