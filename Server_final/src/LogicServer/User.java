@@ -24,8 +24,8 @@ public class User {
     private String anwser;
     private static Game newgame;
     public int c;
-    private static ArrayList<Pair> game = new ArrayList();
     public static UserDB userData;
+    public static Chat chat;
 
     /**
      * Constructor
@@ -114,9 +114,10 @@ public class User {
      * <code>false</code> if it is not
      * @throws Exception
      */
-    public static boolean confirmUsername(String received) throws Exception {
+    public static boolean confirmUsername(String received, Chat chat) throws Exception {
         System.out.println("USER.RECEIVED: " + received);
         userData = new UserDB();
+        User.chat=chat;
         userData.setUsername(received);
         userData.getLine();
         //Chamar a parte do DB >> verificar se encontrou uma lista através daquele username
@@ -143,10 +144,11 @@ public class User {
      * @param user
      * @return
      */
-    public static String[] UserCreateGame(String user, Socket mysocket) throws IOException {
+    public static String[] UserCreateGame(String user, Socket mysocket, Chat chatreceived) throws IOException {
         String[] returned = userData.getGame(user);
         int id = Integer.parseInt(returned[1]);
-        game.add(new Pair(id, new Game(returned[0], id)));
+        User.chat=chatreceived;
+        chat.game.add(new Pair(id, new Game(returned[0], id)));
         GameServer myclient = new GameServer(mysocket);
         System.out.println("I have " + returned[0] + " and " + returned[1]);
         return returned;
@@ -162,10 +164,10 @@ public class User {
         System.out.println("Sending info to DB");
         String[] opponent = userData.JoinGame(user, sopponent);
         int id = Integer.parseInt(opponent[0]);
-        for (Pair element : game) {
+        for (Pair element : chat.game) {
             if (element.getKey() == id) {
                 if ("ok".equals(opponent[2])) {
-                    System.out.println("Joining "+element.getValue().getPlayer1()+" game");
+                    System.out.println("Joining "+element.getValue().getPlayer1()+" game, with id of"+ element.getKey());
                     Game mygame = element.getValue();
                     mygame.setOpponent(user);
                 }
@@ -230,7 +232,7 @@ public class User {
 
     public static void setSocketPlayer1(Socket mysocket, int id) throws IOException {
         Game mygame = null;
-        for (Pair element : game) {
+        for (Pair element : chat.game) {
             if (element.getKey() == id) {
                 mygame = element.getValue();
                 break;
@@ -244,7 +246,7 @@ public class User {
 
     public static void setSocketPlayer2(Socket mysocket, int id) throws IOException {
         Game mygame = null;
-        for (Pair element : game) {
+        for (Pair element : chat.game) {
             if (element.getKey() == id) {
                 System.out.println("socket of player2 placed, and game identified sucessfuly");
                 mygame = element.getValue();
@@ -258,23 +260,20 @@ public class User {
 
     public static void sendWarning(int id) throws IOException {
         Game mygame = null;
-        for (Pair element : game) {
+        for (Pair element : chat.game) {
             if (element.getKey() == id) {
                 System.out.println("Got a match to send warning");
                 mygame = element.getValue();
+                mygame.newOpponent();
                 break;
             }
-        }
-        if (mygame != null) {
-            
-            mygame.newOpponent();
         }
 
     }
 
     public static Game getGameid(int id) {
         Game mygame = null;
-        for (Pair element : game) {
+        for (Pair element : chat.game) {
             if (element.getKey() == id) {
                 System.out.println("Found a game with id " + element.getKey());
                 mygame = element.getValue();
@@ -285,7 +284,7 @@ public class User {
     }
 
     public static void finishGame(Game mygame) throws SQLException {
-        Iterator<Pair> iter = game.iterator();
+        Iterator<Pair> iter = chat.game.iterator();
         while (iter.hasNext()) {
             Pair mypair = iter.next();
             
@@ -301,7 +300,7 @@ public class User {
     }
 
     public static String cancelGame(int id) throws SQLException {
-        Iterator<Pair> iter = game.iterator();
+        Iterator<Pair> iter = chat.game.iterator();
         String player1="Error";
         while (iter.hasNext()) {
             Pair mypair = iter.next();
@@ -320,7 +319,7 @@ public class User {
 
     public static void sendGames(Socket mysocket) throws IOException {
         GameServer myclient = new GameServer(mysocket);
-        for (Pair element : game) {
+        for (Pair element : chat.game) {
             Game somegame = element.getValue();
             if (somegame.getPlayer2().equals("null")) {
                 myclient.sendClient("GameAdd&" + somegame.getPlayer1());

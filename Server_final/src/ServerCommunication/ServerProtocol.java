@@ -44,8 +44,10 @@ public class ServerProtocol extends Thread {
             case "ForgotPassword":
                 return handlerForgotPassword(stringUis);
             case "CreateGame":
+                this.mysocket=mysocket;
                 return handlerCreateGame(stringUis[1]);
             case "JoinGame":
+                this.mysocket=mysocket;
                 return handlerJoinGame(stringUis[1],stringUis[2]);
             case "Ships":
                 return setCarrierInfo(stringUis[1], stringUis[2], stringUis[3], stringUis[4], stringUis[5], stringUis[6], stringUis[7]);
@@ -99,7 +101,7 @@ public class ServerProtocol extends Thread {
                     return new String[]{"Login", "FailedConnection", "LOGIN_FAILED"};
                 }
             } else if (state == 1) {
-                if (User.confirmUsername(Ui)) {              //CRIAR NA CLASSE PLAYER O METODO CONFIRMUSERNAME
+                if (User.confirmUsername(Ui,chat)) {              //CRIAR NA CLASSE PLAYER O METODO CONFIRMUSERNAME
                     UsernameEPass[1] = Ui;
                     System.out.println("Protocol_Username: " + Ui);
                     state = 2;
@@ -146,7 +148,7 @@ public class ServerProtocol extends Thread {
                     return new String[]{"Signup", "FailedConnection", "SIGNUP_FAILED"};
                 }
             } else if (state == 1) {
-                if (!User.confirmUsername(Ui)) {              //CRIAR NA CLASSE PLAYER O METODO CONFIRMUSERNAME
+                if (!User.confirmUsername(Ui,chat)) {              //CRIAR NA CLASSE PLAYER O METODO CONFIRMUSERNAME
                     Data[1] = Ui;
                     System.out.println("DataBase_Username: " + Ui);
                     state = 2;
@@ -211,7 +213,7 @@ public class ServerProtocol extends Thread {
                     return new String[]{"ForgotPassword", "FailedConnection", "EMAIL_FAILED"};
                 }
             } else if (state == 2) {
-                if (User.confirmUsername(Ui)) {              //CRIAR NA CLASSE PLAYER O METODO CONFIRMUSERNAME
+                if (User.confirmUsername(Ui,chat)) {              //CRIAR NA CLASSE PLAYER O METODO CONFIRMUSERNAME
                     System.out.println("CONFIRM USERNAME FUNCIONA");
                     ChangePass[2] = Ui;
                     System.out.println("Protocol_Username: " + Ui);
@@ -256,7 +258,7 @@ public class ServerProtocol extends Thread {
      */
     public String[] handlerCreateGame(String user) throws Exception {
         System.out.println("CreateGameHandler received " + user);
-        String[] returned = User.UserCreateGame(user, mysocket);
+        String[] returned = User.UserCreateGame(user, mysocket,chat);
         int id = Integer.parseInt(returned[1]);
         User.setSocketPlayer1(mysocket, id);
         chat.newGame(user);

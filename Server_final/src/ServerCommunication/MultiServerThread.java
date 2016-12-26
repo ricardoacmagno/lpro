@@ -18,7 +18,7 @@ public class MultiServerThread extends Thread {
     PrintWriter out = null;
     BufferedReader in = null;
     boolean connection = true;
-    Chat chat;
+    public static Chat chat;
 
     /**
      * Method responsible for handling the multiple calls to the server

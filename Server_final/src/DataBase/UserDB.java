@@ -96,20 +96,20 @@ public final class UserDB extends PostgreSQLink {
      * @return
      */
     public String[] getGame(String user) {
-        String opponent = null;
         int id = 0;
         try {
             System.out.println("Creating game...");
             PostgreSQLink.connect();
             // Statement statement = getConnection().createStatement();
             statement = getConnection().createStatement();
-            System.out.println("Battleship server needs to create a game");
             statement.executeUpdate("INSERT INTO "
                     + "gamesrunning(player1name, player2name, player1joined, player2joined, shipsplayer1, shipsplayer2, player1ready, player2ready, winner) "
                     + "VALUES ('" + user + "','" + "default" + "','" + true + "','" + false + "','" + null + "','" + null + "','" + false + "','" + false + "','" + null + "');");
-            try (ResultSet results5 = statement.executeQuery("SELECT player1name, id FROM gamesrunning WHERE player1joined = '" + true + "' AND player2joined = '" + false + "';")) {
+            try (ResultSet results5 = statement.executeQuery("SELECT id FROM gamesrunning WHERE player2joined = '" + false + "' AND player1name = '" + user + "';")) {
                 if (results5.next()) {
+
                     id = results5.getInt("id");
+                    System.out.println("Game of " + user + "created with id of" + id);
                 }
                 System.out.println(id);
                 results5.close();
@@ -169,7 +169,7 @@ public final class UserDB extends PostgreSQLink {
             opponent = results1.getString("player1name");
             id = results1.getInt("id");
             statement.executeUpdate("UPDATE gamesrunning SET player2joined = '" + true + "', player2name = '" + user + "' WHERE player1joined = '" + true + "'  AND id = '" + id + "';");
-            System.out.println("Info of player " + user + " placed in DB, he joined game");
+            System.out.println("Info of player " + user + " placed in DB, he joined game of " +opponent +" with game id "+id);
             results1.close();
             statement.close();
         } else {
@@ -177,7 +177,7 @@ public final class UserDB extends PostgreSQLink {
         }
         String sid = "" + id;
         String[] toReturn = {sid, opponent, ok};
-        
+
         return toReturn;
     }
 
