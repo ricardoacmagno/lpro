@@ -372,4 +372,7 @@ public class User {
     public void getRanks(){
         client.send("Rankings");
     }
+    public boolean turnAdd(String string){
+        return game.turnAdd(string);
+    }
 }

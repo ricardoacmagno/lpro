@@ -19,6 +19,7 @@ import LogicClient.Game;
 import LogicClient.User;
 import java.io.IOException;
 import static java.lang.Thread.sleep;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -205,32 +206,35 @@ public class GameUI extends javax.swing.JFrame {
                     @Override
                     public void mousePressed(java.awt.event.MouseEvent evt) {
                         if (evt.getButton() == MouseEvent.BUTTON1) {
-                            
+
                             label4.setVisible(true);
                             label4.setForeground(Color.black);
                             current.setBorder(javax.swing.BorderFactory.createLineBorder(Color.gray, 1));
                             if (player.checkHitBoard(y1, x1, 'S') == true) {
                                 current.setBackground(Color.green);
-                                player.hit();
-                                try {
-                                    player.sendTurn(y1, x1, "hit", user);
-                                } catch (IOException | InterruptedException ex) {
-                                    Logger.getLogger(GameUI.class.getName()).log(Level.SEVERE, null, ex);
+                                if (user.turnAdd(y1 + "" + x1)) {
+                                    player.hit();
+                                    try {
+                                        player.sendTurn(y1, x1, "hit", user);
+                                    } catch (IOException | InterruptedException ex) {
+                                        Logger.getLogger(GameUI.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
                                 }
-
-                            } else {
+                            } else if (player.checkHitBoard(y1, x1, '~')) {
                                 label4.setText("Opponent turn to play");
-                                player.miss();
-                                try {
-                                    player.sendTurn(y1, x1, "miss", user);
-                                } catch (IOException | InterruptedException ex) {
-                                    Logger.getLogger(GameUI.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                                current.setBackground(water);
-                            
-                                for (int y = 0; y < 10; y++) {
-                                    for (int x = 0; x < 10; x++) {
-                                        hitpanel[y][x].removeMouseListener(teste1[y][x]);
+                                if (user.turnAdd(y1 + "" + x1)) {
+                                    player.miss();
+                                    try {
+                                        player.sendTurn(y1, x1, "miss", user);
+                                    } catch (IOException | InterruptedException ex) {
+                                        Logger.getLogger(GameUI.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                    current.setBackground(water);
+
+                                    for (int y = 0; y < 10; y++) {
+                                        for (int x = 0; x < 10; x++) {
+                                            hitpanel[y][x].removeMouseListener(teste1[y][x]);
+                                        }
                                     }
                                 }
                             }
@@ -810,8 +814,9 @@ public class GameUI extends javax.swing.JFrame {
 
     private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
         // TODO add your handling code here:
-        if(jTextField1.getText().equals("Chat here..."))
+        if (jTextField1.getText().equals("Chat here...")) {
             jTextField1.setText("");
+        }
     }//GEN-LAST:event_jTextField1FocusGained
 
     /**

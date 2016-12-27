@@ -47,10 +47,12 @@ public class UIinicial extends javax.swing.JFrame {
     String question = new String();
     public static User user = null;
     String chat = "";
-
+    public boolean rankingb = false;
+    char Separator;
     public UIinicial() {
         initComponents();
         defaultpanel();
+        
     }
 
     private void defaultpanel() {
@@ -74,25 +76,36 @@ public class UIinicial extends javax.swing.JFrame {
     }
 
     public void updateTable(String[] sorted) {
+        Separator = ((char)007);
+        int rows = jTable1.getRowCount();
         jTable1.setAutoCreateColumnsFromModel(true);
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        String[] all=new String[sorted.length*6];
-        int x = sorted.length - 1;
-        int y=0;
-        for (int c = x; c >= 0; c--) {
-            String splitit=sorted[c];
-            String[] divided =splitit.split("-");
-            if(y<15)
-                model.insertRow(y,new Object[]{divided[5] , divided[0] , divided[1] , divided[4] , divided[2] , divided[3]});
+        int y = 0;
+        while (y < rows) {
+            model.removeRow(0);
             y++;
         }
-        model.fireTableDataChanged();
-        jTable1.setModel(model);
-        
-        jTable1.repaint();
-        pack();
-        
+        String[] all = new String[sorted.length * 6];
+        int x = sorted.length - 1;
+        y = 0;
+        for (int c = x; c >= 0; c--) {
+            String splitit = sorted[c];
+            String[] divided = splitit.split(Separator+"");
+            if (y < 15) {
+                model.addRow(new Object[]{divided[5], divided[0], divided[1], divided[4], divided[2], divided[3]});
+
+                y++;
+            }
+
+            model.fireTableDataChanged();
+            jTable1.setModel(model);
+            rankingb = true;
+            jTable1.repaint();
+            pack();
+
+        }
     }
+    
 
     public void addjList1(String toadd) {
         ListModel model = jList1.getModel();
@@ -717,7 +730,7 @@ public class UIinicial extends javax.swing.JFrame {
         GuestIntroLayout.setVerticalGroup(
             GuestIntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(GuestIntroLayout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
+                .addContainerGap(23, Short.MAX_VALUE)
                 .addComponent(title4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addComponent(welcome)
@@ -730,7 +743,7 @@ public class UIinicial extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addGap(33, 33, 33)
                         .addComponent(goback2)))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         ForgotPassword.setPreferredSize(new java.awt.Dimension(450, 350));
@@ -1139,9 +1152,9 @@ public class UIinicial extends javax.swing.JFrame {
         GameJoinedLayout.setVerticalGroup(
             GameJoinedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(GameJoinedLayout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addComponent(title7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(welcome2)
                 .addGap(43, 43, 43)
                 .addComponent(goback4)
@@ -1209,7 +1222,7 @@ public class UIinicial extends javax.swing.JFrame {
         jTable1.setRowHeight(25);
         jScrollPane4.setViewportView(jTable1);
 
-        jLabel9.setText("Top 15 Ranking");
+        jLabel9.setText("Ranking");
 
         javax.swing.GroupLayout RankingsLayout = new javax.swing.GroupLayout(Rankings);
         Rankings.setLayout(RankingsLayout);
@@ -1431,10 +1444,10 @@ public class UIinicial extends javax.swing.JFrame {
 
         String[] questions = {"What is your favourite color?", "What is your favourite animal?", "What is your favourite food?"};
 
-       // JComboBox box = new JComboBox(questions);
-       // add(box);
-       // question = (String) box.getSelectedItem();
-       question = (String) jComboBox2.getSelectedItem();
+        // JComboBox box = new JComboBox(questions);
+        // add(box);
+        // question = (String) box.getSelectedItem();
+        question = (String) jComboBox2.getSelectedItem();
         System.out.println("you select   " + question);
 
 

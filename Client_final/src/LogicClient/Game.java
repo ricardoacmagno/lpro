@@ -6,6 +6,7 @@
 package LogicClient;
 
 import static LogicClient.User.client;
+import java.util.ArrayList;
 
 /**
  * <code>Game</code> represents a game
@@ -14,6 +15,7 @@ import static LogicClient.User.client;
  */
 public class Game {
 
+    ArrayList<String> turns;
     private String me = null;
     private String opponent = null;
     private int GameId = 0;
@@ -32,15 +34,17 @@ public class Game {
         this.player2placed = false;
         this.me = player1;
         this.GameId = id;
-      
+        turns = new ArrayList<String>();
     }
 
     public Boolean getOpponentBoolean() {
         return opponentbool;
     }
-    public String getName(){
+
+    public String getName() {
         return me;
     }
+
     /**
      * <code>getOpponent()</code> checks the name of the opponent player
      *
@@ -72,12 +76,23 @@ public class Game {
     public int getGameid() {
         return GameId;
     }
-      
-      public void sendGameChat(String user, String tosend){
-        client.send("Chat&"+user+"&"+tosend);
+
+    public void sendGameChat(String user, String tosend) {
+        client.send("Chat&" + user + "&" + tosend);
     }
-    public String getMyName(){
+
+    public String getMyName() {
         return me;
     }
 
+    public Boolean turnAdd(String myturn) {
+        for (String element : turns) {
+            if (element.equals(myturn)) {
+                System.out.println("Try again");
+                return false;
+            }
+        }
+        turns.add(myturn);
+        return true;
+    }
 }
