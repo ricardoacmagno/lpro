@@ -129,15 +129,10 @@ public final class UserDB extends PostgreSQLink {
                 System.out.println(id);
                 results5.close();
             }
-            ResultSet results2 = statement.executeQuery("SELECT gameshosted,name FROM signuplpro WHERE name = '" + user + "';");
+            ResultSet results2 = statement.executeQuery("SELECT gameshosted FROM signuplpro WHERE username = '" + user + "';");
             if (results2.next()) {
-                String name = results2.getString("name");
-                int playerid= results2.getInt("id");
-                if (user.equals(name)) {
-                    System.out.println(user+"vs"+name);
-                    int gamescreated = results2.getInt("gameshosted") + 1;
-                    statement.executeUpdate("UPDATE signuplpro SET gameshosted = '" + gamescreated + "' WHERE id = '" + playerid + "';");
-                }
+                int gamescreated = results2.getInt("gameshosted") + 1;
+                statement.executeUpdate("UPDATE signuplpro SET gameshosted = '" + gamescreated + "' WHERE username = '" + user + "';");
             }
             statement.close();
 
@@ -200,14 +195,10 @@ public final class UserDB extends PostgreSQLink {
         } else {
             ok = "notok";
         }
-        ResultSet results2 = statement.executeQuery("SELECT gamesjoined, name,id FROM signuplpro WHERE name = '" + user + "';");
+        ResultSet results2 = statement.executeQuery("SELECT gamesjoined FROM signuplpro WHERE username = '" + user + "';");
         if (results2.next()) {
-            String name = results2.getString("name");
-            int idplayer = results2.getInt("id");
-            if (name.equals(user)) {
-                int gamesjoined = results2.getInt("gamesjoined") + 1;
-                statement.executeUpdate("UPDATE signuplpro SET gamesjoined = '" + gamesjoined + "' WHERE id = '" + idplayer + "';");
-            }
+            int gamesjoined = results2.getInt("gamesjoined") + 1;
+            statement.executeUpdate("UPDATE signuplpro SET gamesjoined = '" + gamesjoined + "' WHERE username = '" + user + "';");
         }
         statement.close();
         String sid = "" + id;
@@ -275,27 +266,21 @@ public final class UserDB extends PostgreSQLink {
         if (results1.next()) {
             statement.executeUpdate("UPDATE gamesrunning SET shipsplayer1 = '" + game.getPlayer2Ships() + "', shipsplayer2 = '" + game.getPlayer2Ships() + "', winner = '" + game.getWinner() + "' WHERE id= '" + game.getId() + "';");
         }
-        ResultSet results2 = statement.executeQuery("SELECT hits, wins, name, id FROM signuplpro WHERE name = '" + game.getWinner() + "';");
+        ResultSet results2 = statement.executeQuery("SELECT hits, wins FROM signuplpro WHERE username = '" + game.getWinner() + "';");
         if (results2.next()) {
-            String name = results2.getString("name");
-            if (name.equals(game.getWinner())) {
-                System.out.println("Finishing winner "+name+"vs"+game.getWinner());
-                int id= results2.getInt("id");
-                System.out.println("Updating winner "+name);
-                int wins = results2.getInt("wins") + 1;
-                int hits = results2.getInt("hits") + game.getWinnerHits();
-                statement.executeUpdate("UPDATE signuplpro SET hits = '" + hits + "', wins = '" + wins + "' WHERE id = '" + id + "';");
-            }
+
+            int wins = results2.getInt("wins") + 1;
+            int hits = results2.getInt("hits") + game.getWinnerHits();
+            statement.executeUpdate("UPDATE signuplpro SET hits = '" + hits + "', wins = '" + wins + "' WHERE username = '" + game.getWinner() + "';");
+
         }
-        ResultSet results3 = statement.executeQuery("SELECT hits, losses, name, id FROM signuplpro WHERE name = '" + game.getLoser() + "';");
+        ResultSet results3 = statement.executeQuery("SELECT hits, losses FROM signuplpro WHERE username = '" + game.getLoser() + "';");
         if (results3.next()) {
-            String name = results3.getString("name");
-            if (name.equals(game.getLoser())) {
-                int id= results3.getInt("id");
-                int losses = results3.getInt("losses") + 1;
-                int hits = results3.getInt("hits") + game.getLoserHits();
-                statement.executeUpdate("UPDATE signuplpro SET hits = '" + hits + "', losses = '" + losses + "' WHERE id = '" + id + "';");
-            }
+
+            int losses = results3.getInt("losses") + 1;
+            int hits = results3.getInt("hits") + game.getLoserHits();
+            statement.executeUpdate("UPDATE signuplpro SET hits = '" + hits + "', losses = '" + losses + "' WHERE username = '" + game.getLoser() + "';");
+
         }
         statement.close();
     }
@@ -307,14 +292,12 @@ public final class UserDB extends PostgreSQLink {
         if (results1.next()) {
             statement.executeUpdate("UPDATE gamesrunning SET player2joined = '" + true + "', winner = '" + "canceled" + "' WHERE id= '" + id + "';");
         }
-        ResultSet results2 = statement.executeQuery("SELECT gameshosted, name FROM signuplpro WHERE name = '" + user + "';");
+        ResultSet results2 = statement.executeQuery("SELECT gameshosted FROM signuplpro WHERE username = '" + user + "';");
         if (results2.next()) {
-            String name = results2.getString("name");
-            int idplayer = results2.getInt("id");
-            if (name.equals(user)) {
-                int gamescreated = results2.getInt("gameshosted") - 1;
-                statement.executeUpdate("UPDATE signuplpro SET gameshosted = '" + gamescreated + "' WHERE id = '" + idplayer + "';");
-            }
+            
+            int gamescreated = results2.getInt("gameshosted") - 1;
+            statement.executeUpdate("UPDATE signuplpro SET gameshosted = '" + gamescreated + "' WHERE username = '" + user + "';");
+            
         }
         statement.close();
     }
