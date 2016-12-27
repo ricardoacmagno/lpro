@@ -1431,9 +1431,10 @@ public class UIinicial extends javax.swing.JFrame {
 
         String[] questions = {"What is your favourite color?", "What is your favourite animal?", "What is your favourite food?"};
 
-        JComboBox box = new JComboBox(questions);
-        add(box);
-        question = (String) box.getSelectedItem();
+       // JComboBox box = new JComboBox(questions);
+       // add(box);
+       // question = (String) box.getSelectedItem();
+       question = (String) jComboBox2.getSelectedItem();
         System.out.println("you select   " + question);
 
 
