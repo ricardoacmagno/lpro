@@ -33,9 +33,9 @@ public class MultiServerThread extends Thread {
     }
 
     int state = 0;
-
+    
     @Override
-
+    
     /**
      * Thread runnable responsible for invoking the methods in the class
      * <code>ServerProtocol</code> Also prints in the output the string returned
@@ -117,6 +117,10 @@ public class MultiServerThread extends Thread {
                             } else if (uno[2].equals("FORGOTPASSWORD_FAILED")) {
                                 outputLine = "ForgotPassword&Erro&NotCompatible";
                                 break;
+                            } else if (uno[2].equals("QUESTION_FAILED")){
+                                outputLine = "ForgotPassword&Erro&Question";
+                            } else if (uno[2].equals("ANSWER_FAILED")){
+                                outputLine = "ForgotPassword&Erro&Answer";
                             }
 
                         } else {

@@ -116,13 +116,16 @@ public class ClientProtocol {
      * @param username user's username
      * @param OldPassword user's old password
      * @param NewPassword user's new password
+     * @param Question choosen question on signup
+     * @param Answer user's answer
      */
-    public void sendChangePassword(String mail, String username, String OldPassword, String NewPassword) {
+    
+    public void sendChangePassword(String mail, String username, String OldPassword, String NewPassword, String Question, String Answer) {
         if (connect == false) {
             connection();
         }
 
-        String ChangePassword = "ForgotPassword&" + mail + "&" + username + "&" + OldPassword + "&" + NewPassword;
+        String ChangePassword = "ForgotPassword&" + mail + "&" + username + "&" + OldPassword + "&" + NewPassword + "&" + Question + "&" + Answer;
 
         System.out.println("CHANGEPASSWORD USER " + ChangePassword);
         try {

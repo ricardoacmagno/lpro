@@ -19,7 +19,7 @@ public final class UserDB extends PostgreSQLink {
     private String username;
     private String password;
     private String email;
-    private Integer question;
+    private String question;
     private String answer;
 
     Statement statement = null;
@@ -49,7 +49,16 @@ public final class UserDB extends PostgreSQLink {
     public void setEmail(String email) {
         this.email = email;
     }
+    
+    public void setQuestion (String question){
+        this.question = question;
+    }
 
+     public void setAnswer (String answer){
+        this.answer = answer;
+    }
+    
+    
     /**
      * Method that sets the <code>password</code> from the database based on a
      * username previously defined in <code>setUsername</code>
@@ -90,6 +99,15 @@ public final class UserDB extends PostgreSQLink {
         return password;
     }
 
+    public String getQuestion(){
+        return question;
+    }
+    
+    public String getAnswer(){
+        return answer;
+    }
+    
+    
     /**
      *
      * @param user
@@ -149,6 +167,10 @@ public final class UserDB extends PostgreSQLink {
         }
         return false;
     }
+    
+    
+    
+    
 
     /**
      *
@@ -213,12 +235,12 @@ public final class UserDB extends PostgreSQLink {
      * @return an error flag in case of error or a positive <code>int</code> in
      * case of success
      */
-    public int newPass(String mail, String Username, String OldPassword, String Password) {
+    public int newPass(String mail, String Username, String OldPassword, String Password, String Question, String Answer) {
         try {
             PostgreSQLink.connect();
             statement = getConnection().createStatement();
 
-            return statement.executeUpdate("UPDATE signuplpro SET password='" + Password + "' WHERE  email='" + mail + "' and username = '" + Username + "' and password='" + OldPassword + "';");
+            return statement.executeUpdate("UPDATE signuplpro SET password='" + Password + "' WHERE  email='" + mail + "' and username = '" + Username + "' and password='" + OldPassword +  "'and question='" + Question + "' and answer='" + Answer +"';");
 
         } catch (Exception e) {
 
@@ -249,4 +271,6 @@ public final class UserDB extends PostgreSQLink {
             statement.executeUpdate("UPDATE gamesrunning SET player2joined = '" + true + "', winner = '" + "canceled" + "' WHERE id= '" + id + "';");
         }
     }
+
+  
 }

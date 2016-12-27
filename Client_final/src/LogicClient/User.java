@@ -89,7 +89,7 @@ public class User {
         } else if (ack.equals("Signup")) {
             client.sendSignUp(Name, Mail, Username, Password, Question, Answer);
         } else if (ack.equals("ForgotPassword")) {
-            client.sendChangePassword(Username, Password, Mail, OldPassword);
+            client.sendChangePassword(Username, Password, Mail, OldPassword, Question, Answer);
         }
 
         try {
@@ -142,10 +142,13 @@ public class User {
 
                         } else if ("Password".equals(dataReceived.get(2))) {
                             resultadoPassword = 4;
-
+                            
+                        }else if ("Question".equals(dataReceived.get(2))){
+                            resultadoPassword =5 ;
+                        }else if ("Answer".equals(dataReceived.get(2))){
+                            resultadoPassword =6;
                         } else if ("NotCompatible".equals(dataReceived.get(2))) {
-                            resultadoPassword = 5;
-
+                            resultadoPassword = 7;
                         }
                     } else if ("OK".equals(dataReceived.get(1))) {
                         if (Username.equals(dataReceived.get(2))) {

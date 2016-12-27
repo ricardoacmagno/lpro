@@ -186,7 +186,7 @@ public class ServerProtocol extends Thread {
      * @throws Exception
      */
     private String[] handlerForgotPassword(String[] receive) throws Exception {
-        String[] ChangePass = new String[4];
+        String[] ChangePass = new String[7];
         int state = 0;
         for (String Ui : receive) {
 
@@ -233,7 +233,28 @@ public class ServerProtocol extends Thread {
                     System.out.println("PASSWORD_NOT_FOUND: " + Ui);      //VERIFICAR ISTO
                     return new String[]{"ForgotPassword", "FailedConnection", "PASSWORD_FAILED"};
                 }
-            } else if (state == 4) {
+                
+            } else if (state ==4 ) {
+                
+                if(User.confirmQuestion(Ui)){
+                    ChangePass[4] = Ui;
+                    System.out.println("Protocol_Question: " + Ui);
+                    state = 5;
+                }else {
+                    System.out.println("QUESTION_NOT_FOUND: " + Ui);
+                    return new String[]{"ForgotPassword", "FailedConnection", "QUESTION_FAILED"};
+                }
+            }else if (state ==5){
+                if(User.confirmAnswer(Ui)){
+                    ChangePass[5] = Ui;
+                    System.out.println("Protocol_Answer: " + Ui);
+                    state =6;
+                }else {
+                    System.out.println("ANSWER_NOT_FOUND: " + Ui);
+                    return new String[] {"ForgotPassword", "FailedConnection", "ANSWER_FAILED"};
+                }
+                
+            } else if (state == 6) {
 
                 if (User.sendForgotPassword(receive) > 0) {
                     System.out.println("PASSWORD_SUCCESFULL");

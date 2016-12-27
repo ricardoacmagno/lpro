@@ -125,6 +125,8 @@ public class User {
         return received.equals(userData.getUsername());                //SAME AS WHAT FOLLOWS
 
     }
+  
+    
 
     /**
      * Method that verifies if the password's hash is correct
@@ -207,6 +209,31 @@ public class User {
 
         return userData.getEmail(received);
     }
+    
+      
+    public static boolean confirmQuestion (String received) throws Exception {
+        System.out.println("QUESTION RECEIVED: " + received);
+        
+        userData= new UserDB();
+        userData.setQuestion(received);
+        
+       return received.equals(userData.getQuestion());
+    }
+    
+    
+    public static boolean confirmAnswer (String received) throws Exception{
+        System.out.println("ANSWER RECEIVED: " +  received);
+        
+        userData = new UserDB();
+        userData.setAnswer(received);
+        
+        return received.equals(userData.getAnswer());
+    }
+    
+    
+    
+    
+    
 
     /**
      * Method that verifies if the email picked by the user is already in use
@@ -220,6 +247,8 @@ public class User {
 
         return userData.getEmail(received);                //SAME AS WHAT FOLLOWS
     }
+    
+    
 
     /**
      * Method that uses the <code>UserDB</code> class to insert the signup
@@ -240,7 +269,7 @@ public class User {
      * @return a positive value in case of success or a negative error flag
      */
     public static int sendForgotPassword(String[] ChangePassword) {
-        return userData.newPass(ChangePassword[1], ChangePassword[2], ChangePassword[3], ChangePassword[4]);
+        return userData.newPass(ChangePassword[1], ChangePassword[2], ChangePassword[3], ChangePassword[4], ChangePassword[5], ChangePassword[6]);
     }
 
     public static void setSocketPlayer1(Socket mysocket, int id) throws IOException {

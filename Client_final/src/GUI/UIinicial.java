@@ -178,7 +178,7 @@ public class UIinicial extends javax.swing.JFrame {
         usernameText4.setText("Enter username...");
         jPasswordField5.setText("Password");
         jPasswordField6.setText("Password");
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Select your question here...", "Item1", "Item2", "ItemN"}));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Select your question here...", "What is your favourite color?", "What is your favourite animal?", "What is your favourite food?"}));
         usernameText5.setText("Answer Here...");
     }
 
@@ -1207,9 +1207,11 @@ public class UIinicial extends javax.swing.JFrame {
        
        String[] questions = {"What is your favourite color?", "What is your favourite animal?","What is your favourite food?" };
      
-       JComboBox<String>  box = new JComboBox<>(questions);
-       add(box);
-       question = (String) box.getSelectedItem();
+    //   JComboBox<String>  box = new JComboBox<>(questions);
+     //  add(box);
+     
+        question =  (String) jComboBox1.getSelectedItem();
+       //question = (String) box.getSelectedItem();
        System.out.println("you select   " + question);
        
     }//GEN-LAST:event_jComboBox1ActionPerformed
@@ -1296,6 +1298,15 @@ public class UIinicial extends javax.swing.JFrame {
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         // TODO add your handling code here:
+        
+       String[] questions = {"What is your favourite color?", "What is your favourite animal?","What is your favourite food?" };
+     
+       JComboBox box = new JComboBox(questions);
+       add(box);
+       question = (String) box.getSelectedItem();
+       System.out.println("you select   " + question);
+     
+        
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
     private void usernameText5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameText5ActionPerformed
@@ -1305,11 +1316,13 @@ public class UIinicial extends javax.swing.JFrame {
     private void login3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login3ActionPerformed
         // TODO add your handling code here:
 
-        if (emailText1.getText().isEmpty() || usernameText4.getText().isEmpty() || jPasswordField5.getText().isEmpty()) {
+        if (emailText1.getText().isEmpty() || usernameText4.getText().isEmpty() || jPasswordField5.getText().isEmpty() || usernameText5.getText().isEmpty()) {
             jOptionPane1.showMessageDialog(null, "Empty parameters");
         } else {
             mail = emailText1.getText();
             username = usernameText4.getText();
+            answer = usernameText5.getText();
+            
             oldpassword = MD5_hash.MD5_hash(jPasswordField5.getText());
 
             if (jPasswordField5.getText().contains("&")) {
@@ -1320,7 +1333,7 @@ public class UIinicial extends javax.swing.JFrame {
             jOptionPane1.setVisible(false);
             password = MD5_hash.MD5_hash(jPasswordField6.getText());
 
-            user = new User(mail, username, oldpassword, null, password,null, null, this);
+            user = new User(mail, username, oldpassword, null, password, question , answer, this);
 
             try {
                 user.sendData("ForgotPassword");
@@ -1334,7 +1347,11 @@ public class UIinicial extends javax.swing.JFrame {
                 jOptionPane1.showMessageDialog(null, "Username doesn't exist!");
             } else if (user.getResultadoRecoverPassword() == 4) {
                 jOptionPane1.showMessageDialog(null, "Wrong Password!");
-            } else if (user.getResultadoRecoverPassword() == 5) {
+            } else if (user.getResultadoRecoverPassword() == 5){
+                jOptionPane1.showMessageDialog(null, "Wrong Question!");
+            }else if (user.getResultadoRecoverPassword() == 6){
+                jOptionPane1.showMessageDialog(null, "Wrong Answer!");
+            } else if (user.getResultadoRecoverPassword() == 7) {
                 jOptionPane1.showMessageDialog(null, "Email and Username aren't compatible!");
             } else {
                 setContentPane(Inicial);
