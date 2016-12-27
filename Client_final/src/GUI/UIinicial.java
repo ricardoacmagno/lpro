@@ -25,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import javax.swing.ListModel;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -72,6 +73,27 @@ public class UIinicial extends javax.swing.JFrame {
         welcome2.setText(string);
     }
 
+    public void updateTable(String[] sorted) {
+        jTable1.setAutoCreateColumnsFromModel(true);
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        String[] all=new String[sorted.length*6];
+        int x = sorted.length - 1;
+        int y=0;
+        for (int c = x; c >= 0; c--) {
+            String splitit=sorted[c];
+            String[] divided =splitit.split("-");
+            if(y<15)
+                model.insertRow(y,new Object[]{divided[5] , divided[0] , divided[1] , divided[4] , divided[2] , divided[3]});
+            y++;
+        }
+        model.fireTableDataChanged();
+        jTable1.setModel(model);
+        
+        jTable1.repaint();
+        pack();
+        
+    }
+
     public void addjList1(String toadd) {
         ListModel model = jList1.getModel();
         int plus1 = model.getSize() + 1;
@@ -112,7 +134,7 @@ public class UIinicial extends javax.swing.JFrame {
             Iterator<String> iter = all.iterator();
             while (iter.hasNext()) {
                 String mystring = iter.next();
-                
+
                 if (mystring.equals(tormv)) {
                     iter.remove();
                 } else {
@@ -272,6 +294,12 @@ public class UIinicial extends javax.swing.JFrame {
         title7 = new javax.swing.JLabel();
         goback4 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
+        Rankings = new javax.swing.JPanel();
+        title8 = new javax.swing.JLabel();
+        goback5 = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel9 = new javax.swing.JLabel();
 
         jOptionPane3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -693,7 +721,7 @@ public class UIinicial extends javax.swing.JFrame {
                 .addComponent(title4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addComponent(welcome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(GuestIntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(GuestIntroLayout.createSequentialGroup()
@@ -902,8 +930,6 @@ public class UIinicial extends javax.swing.JFrame {
         });
 
         Rankings1.setText("Rankings");
-        Rankings1.setEnabled(false);
-        Rankings1.setFocusable(false);
         Rankings1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Rankings1ActionPerformed(evt);
@@ -1113,15 +1139,111 @@ public class UIinicial extends javax.swing.JFrame {
         GameJoinedLayout.setVerticalGroup(
             GameJoinedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(GameJoinedLayout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap(17, Short.MAX_VALUE)
                 .addComponent(title7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addComponent(welcome2)
                 .addGap(43, 43, 43)
                 .addComponent(goback4)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+        );
+
+        Rankings.setPreferredSize(new java.awt.Dimension(450, 350));
+
+        title8.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        title8.setText("Battleship");
+        title8.setAlignmentX(0.5F);
+        title8.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        title8.setIconTextGap(7);
+        title8.setPreferredSize(new java.awt.Dimension(100, 19));
+
+        goback5.setText("Go Back");
+        goback5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                goback5ActionPerformed(evt);
+            }
+        });
+
+        jTable1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Username", "Wins", "Hits", "Losses", "Hosted", "Joined"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTable1.setFocusable(false);
+        jTable1.setRowHeight(25);
+        jScrollPane4.setViewportView(jTable1);
+
+        jLabel9.setText("Top 15 Ranking");
+
+        javax.swing.GroupLayout RankingsLayout = new javax.swing.GroupLayout(Rankings);
+        Rankings.setLayout(RankingsLayout);
+        RankingsLayout.setHorizontalGroup(
+            RankingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(RankingsLayout.createSequentialGroup()
+                .addGap(156, 156, 156)
+                .addComponent(title8, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RankingsLayout.createSequentialGroup()
+                .addGap(0, 31, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
+            .addGroup(RankingsLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel9)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(RankingsLayout.createSequentialGroup()
+                .addGap(170, 170, 170)
+                .addComponent(goback5, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        RankingsLayout.setVerticalGroup(
+            RankingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(RankingsLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(title8, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(goback5)
+                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1159,6 +1281,11 @@ public class UIinicial extends javax.swing.JFrame {
                     .addContainerGap()
                     .addComponent(GameJoined, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(14, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(Rankings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(16, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1193,6 +1320,11 @@ public class UIinicial extends javax.swing.JFrame {
                     .addContainerGap()
                     .addComponent(GameJoined, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(14, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(Rankings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(16, Short.MAX_VALUE)))
         );
 
         pack();
@@ -1204,23 +1336,21 @@ public class UIinicial extends javax.swing.JFrame {
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
-       
-       String[] questions = {"What is your favourite color?", "What is your favourite animal?","What is your favourite food?" };
-     
-    //   JComboBox<String>  box = new JComboBox<>(questions);
-     //  add(box);
-     
-        question =  (String) jComboBox1.getSelectedItem();
-       //question = (String) box.getSelectedItem();
-       System.out.println("you select   " + question);
-       
+
+        String[] questions = {"What is your favourite color?", "What is your favourite animal?", "What is your favourite food?"};
+
+        //   JComboBox<String>  box = new JComboBox<>(questions);
+        //  add(box);
+        question = (String) jComboBox1.getSelectedItem();
+        //question = (String) box.getSelectedItem();
+        System.out.println("you select   " + question);
+
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void AnswerQuestionSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnswerQuestionSignupActionPerformed
         // TODO add your handling code here:
-        
-        
-        
+
+
     }//GEN-LAST:event_AnswerQuestionSignupActionPerformed
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX
             = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
@@ -1231,7 +1361,7 @@ public class UIinicial extends javax.swing.JFrame {
     }
     private void login2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login2ActionPerformed
         // TODO add your handling code here:
-        if (jPasswordSignup.getText().isEmpty() || emailTextSignup.getText().isEmpty() || usernameTextSignup.getText().isEmpty() || usernameTextSignup1.getText().isEmpty() || AnswerQuestionSignup.getText().isEmpty() ) {
+        if (jPasswordSignup.getText().isEmpty() || emailTextSignup.getText().isEmpty() || usernameTextSignup.getText().isEmpty() || usernameTextSignup1.getText().isEmpty() || AnswerQuestionSignup.getText().isEmpty()) {
             jOptionPane1.showMessageDialog(null, "Empty parameters");
         } else {
             username = usernameTextSignup.getText();
@@ -1258,7 +1388,7 @@ public class UIinicial extends javax.swing.JFrame {
                     Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }*/
-            user = new User(username, password, mail, name, null ,question, answer, this);
+            user = new User(username, password, mail, name, null, question, answer, this);
             System.out.println(user);
             try {
                 user.sendData("Signup");
@@ -1298,15 +1428,15 @@ public class UIinicial extends javax.swing.JFrame {
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         // TODO add your handling code here:
-        
-       String[] questions = {"What is your favourite color?", "What is your favourite animal?","What is your favourite food?" };
-     
-       JComboBox box = new JComboBox(questions);
-       add(box);
-       question = (String) box.getSelectedItem();
-       System.out.println("you select   " + question);
-     
-        
+
+        String[] questions = {"What is your favourite color?", "What is your favourite animal?", "What is your favourite food?"};
+
+        JComboBox box = new JComboBox(questions);
+        add(box);
+        question = (String) box.getSelectedItem();
+        System.out.println("you select   " + question);
+
+
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
     private void usernameText5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameText5ActionPerformed
@@ -1322,7 +1452,7 @@ public class UIinicial extends javax.swing.JFrame {
             mail = emailText1.getText();
             username = usernameText4.getText();
             answer = usernameText5.getText();
-            
+
             oldpassword = MD5_hash.MD5_hash(jPasswordField5.getText());
 
             if (jPasswordField5.getText().contains("&")) {
@@ -1333,7 +1463,7 @@ public class UIinicial extends javax.swing.JFrame {
             jOptionPane1.setVisible(false);
             password = MD5_hash.MD5_hash(jPasswordField6.getText());
 
-            user = new User(mail, username, oldpassword, null, password, question , answer, this);
+            user = new User(mail, username, oldpassword, null, password, question, answer, this);
 
             try {
                 user.sendData("ForgotPassword");
@@ -1347,9 +1477,9 @@ public class UIinicial extends javax.swing.JFrame {
                 jOptionPane1.showMessageDialog(null, "Username doesn't exist!");
             } else if (user.getResultadoRecoverPassword() == 4) {
                 jOptionPane1.showMessageDialog(null, "Wrong Password!");
-            } else if (user.getResultadoRecoverPassword() == 5){
+            } else if (user.getResultadoRecoverPassword() == 5) {
                 jOptionPane1.showMessageDialog(null, "Wrong Question!");
-            }else if (user.getResultadoRecoverPassword() == 6){
+            } else if (user.getResultadoRecoverPassword() == 6) {
                 jOptionPane1.showMessageDialog(null, "Wrong Answer!");
             } else if (user.getResultadoRecoverPassword() == 7) {
                 jOptionPane1.showMessageDialog(null, "Email and Username aren't compatible!");
@@ -1372,6 +1502,11 @@ public class UIinicial extends javax.swing.JFrame {
 
     private void Rankings1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Rankings1ActionPerformed
         // TODO add your handling code here:
+        user.getRanks();
+        setContentPane(Rankings);
+        invalidate();
+        validate();
+        backvalue = Intro;
     }//GEN-LAST:event_Rankings1ActionPerformed
 
     private void JoinGame1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JoinGame1ActionPerformed
@@ -1551,7 +1686,7 @@ public class UIinicial extends javax.swing.JFrame {
                     Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }*/
-            user = new User(username, password, null, null, null,null, null,this);
+            user = new User(username, password, null, null, null, null, null, this);
             System.out.println(user);
             try {
                 user.sendData("Login");
@@ -1655,6 +1790,14 @@ public class UIinicial extends javax.swing.JFrame {
         jOptionPane3.setVisible(false);
     }//GEN-LAST:event_jOptionPane3MouseClicked
 
+    private void goback5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goback5ActionPerformed
+        // TODO add your handling code here:
+        setContentPane(backvalue);
+        invalidate();
+        validate();
+        backvalue = Inicial;
+    }//GEN-LAST:event_goback5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1695,6 +1838,7 @@ public class UIinicial extends javax.swing.JFrame {
     private javax.swing.JButton JoinGame;
     private javax.swing.JButton JoinGame1;
     private javax.swing.JButton PlayersOnline1;
+    private javax.swing.JPanel Rankings;
     private javax.swing.JButton Rankings1;
     private javax.swing.JPanel Signup;
     private javax.swing.JLabel email;
@@ -1708,6 +1852,7 @@ public class UIinicial extends javax.swing.JFrame {
     private javax.swing.JButton goback2;
     private javax.swing.JButton goback3;
     private javax.swing.JButton goback4;
+    private javax.swing.JButton goback5;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
@@ -1719,6 +1864,7 @@ public class UIinicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList2;
     private javax.swing.JOptionPane jOptionPane1;
@@ -1731,7 +1877,9 @@ public class UIinicial extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextFieldInicial;
@@ -1752,6 +1900,7 @@ public class UIinicial extends javax.swing.JFrame {
     private javax.swing.JLabel title5;
     private javax.swing.JLabel title6;
     private javax.swing.JLabel title7;
+    private javax.swing.JLabel title8;
     private javax.swing.JLabel username1;
     private javax.swing.JLabel username2;
     private javax.swing.JLabel username3;

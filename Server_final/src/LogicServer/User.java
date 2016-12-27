@@ -125,8 +125,6 @@ public class User {
         return received.equals(userData.getUsername());                //SAME AS WHAT FOLLOWS
 
     }
-  
-    
 
     /**
      * Method that verifies if the password's hash is correct
@@ -153,16 +151,16 @@ public class User {
         }
         String[] returned = userData.getGame(user);
         int id = Integer.parseInt(returned[1]);
-        Game mygame=new Game(returned[0], id);
-        
-        Pair mynewpair=new Pair(id,mygame );
+        Game mygame = new Game(returned[0], id);
+
+        Pair mynewpair = new Pair(id, mygame);
         mynewpair.setKey(id);
         mynewpair.setValue(mygame);
-        System.out.println("Created a pair "+mynewpair+"( "+id+" , "+mygame+" )");
+        System.out.println("Created a pair " + mynewpair + "( " + id + " , " + mygame + " )");
         chat.game.add(mynewpair);
         System.out.println("List of games after create and add:");
         for (Pair element : chat.game) {
-            System.out.println(element.getValue().getPlayer1()+" game");
+            System.out.println(element.getValue().getPlayer1() + " game");
         }
         GameServer myclient = new GameServer(mysocket);
         System.out.println("I have " + returned[0] + " and " + returned[1]);
@@ -209,31 +207,24 @@ public class User {
 
         return userData.getEmail(received);
     }
-    
-      
-    public static boolean confirmQuestion (String received) throws Exception {
+
+    public static boolean confirmQuestion(String received) throws Exception {
         System.out.println("QUESTION RECEIVED: " + received);
-        
-        userData= new UserDB();
+
+        userData = new UserDB();
         userData.setQuestion(received);
-        
-       return received.equals(userData.getQuestion());
+
+        return received.equals(userData.getQuestion());
     }
-    
-    
-    public static boolean confirmAnswer (String received) throws Exception{
-        System.out.println("ANSWER RECEIVED: " +  received);
-        
+
+    public static boolean confirmAnswer(String received) throws Exception {
+        System.out.println("ANSWER RECEIVED: " + received);
+
         userData = new UserDB();
         userData.setAnswer(received);
-        
+
         return received.equals(userData.getAnswer());
     }
-    
-    
-    
-    
-    
 
     /**
      * Method that verifies if the email picked by the user is already in use
@@ -247,8 +238,6 @@ public class User {
 
         return userData.getEmail(received);                //SAME AS WHAT FOLLOWS
     }
-    
-    
 
     /**
      * Method that uses the <code>UserDB</code> class to insert the signup
@@ -355,7 +344,7 @@ public class User {
                 System.out.println("Not " + mypair.getValue().getPlayer1() + " game");
             }
         }
-        userData.cancelGame(id);
+        userData.cancelGame(id, player1);
         return player1;
     }
 
@@ -366,8 +355,13 @@ public class User {
             if (somegame.getPlayer2().equals("null")) {
                 myclient.sendClient("GameAdd&" + somegame.getPlayer1());
                 sleep(50);
-                System.out.println("Sent "+somegame.getPlayer1()+" game");
+                System.out.println("Sent " + somegame.getPlayer1() + " game");
             }
         }
+    }
+
+    public static void getRankings(Socket mysocket) throws SQLException, IOException {
+        GameServer myclient = new GameServer(mysocket);
+        myclient.sendClient(userData.getRanking());
     }
 }

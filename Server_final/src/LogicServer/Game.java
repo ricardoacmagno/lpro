@@ -142,7 +142,23 @@ public class Game {
         }
 
     }
-
+    public int getWinnerHits(){
+        if(winner.equals(player1))
+            return player1hit;
+        else if(winner.equals(player2))
+            return player2hit;
+        return 0;
+    }
+    public int getLoserHits(){
+        if(winner.equals(player1))
+            return player2hit;
+        else if(winner.equals(player2))
+            return player1hit;
+        return 0;
+    }
+    public String getLoser(){
+        return loser;
+    }
     public void newPrivateChat(String username, String received) {
         String tosend = "privateChat&" + username + ": " + received;
         p2.sendClient(tosend);

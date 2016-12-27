@@ -12,6 +12,7 @@ import static GUI.UIinicial.user;
 import static LogicClient.Player.client;
 
 import static java.lang.Thread.sleep;
+import java.util.Arrays;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -332,6 +333,21 @@ public class User {
             ui.addjList1(dataReceived[1]);
         } else if ("GameRmv".equals(dataReceived[0])) {
             ui.rmvjList1(dataReceived[1]);
+        } else if ("Rankings".equals(dataReceived[0])) {
+            int size=dataReceived.length;
+            String[] myranks = new String[size-1];
+            int j=0;
+            for(int c=0;c<size;c++){
+                if(!dataReceived[c].equals("Rankings")){
+                    myranks[j]=dataReceived[c];
+                    j++;
+                }
+            }
+            for(int c=0;c<size-1;c++)
+                System.out.println(myranks[c]);
+            Arrays.sort(myranks);
+            System.out.println("Received and sorted ranks: "+myranks);
+            ui.updateTable(myranks);
         }
 
     }
@@ -352,5 +368,8 @@ public class User {
 
     public void sendprivateChat(String user, String tosend) {
         client.send("privateChat&" + game.getId() + "&" + game.getMyName() + "&" + tosend);
+    }
+    public void getRanks(){
+        client.send("Rankings");
     }
 }

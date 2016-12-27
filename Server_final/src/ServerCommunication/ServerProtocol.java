@@ -71,7 +71,10 @@ public class ServerProtocol extends Thread {
                 User.sendGames(mysocket);
                 String[] ok4 = {"Sent game list"};
                 return ok4;
-
+            case "Rankings":
+                User.getRankings(mysocket);
+                String[] ok5 = {"Sent ranks list"};
+                return ok5;
             default:
                 return null;
         }
