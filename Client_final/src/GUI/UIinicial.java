@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -41,6 +42,8 @@ public class UIinicial extends javax.swing.JFrame {
     String oldpassword = new String();
     String mail = new String();
     String name = new String();
+    String answer = new String();
+    String question = new String();
     public static User user = null;
     String chat = "";
 
@@ -144,7 +147,7 @@ public class UIinicial extends javax.swing.JFrame {
         jPasswordSignup.setText("Password");
         AnswerQuestionSignup.setText("Answer Here...");
         usernameTextSignup1.setText("Enter name...");
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Select your question here...", "Item1", "Item2", "ItemN"}));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Select your question here...", "What is your favourite color? ", "What is your favourite animal?", "What is your favourite food?"}));
     }
 
     public void RefreshChat(String entered) {
@@ -195,6 +198,8 @@ public class UIinicial extends javax.swing.JFrame {
         jOptionPane1 = new javax.swing.JOptionPane();
         jOptionPane2 = new javax.swing.JOptionPane();
         jOptionPane3 = new javax.swing.JOptionPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jList2 = new javax.swing.JList<>();
         Signup = new javax.swing.JPanel();
         title3 = new javax.swing.JLabel();
         username2 = new javax.swing.JLabel();
@@ -274,6 +279,13 @@ public class UIinicial extends javax.swing.JFrame {
             }
         });
 
+        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane3.setViewportView(jList2);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("mainFrame");
         setResizable(false);
@@ -330,7 +342,7 @@ public class UIinicial extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select your question here...", "Item1", "Item2", "ItemN" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select your question here...", "What is your favourite color?", "What is your favourite animal?", "What is your favourite food?" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -690,7 +702,7 @@ public class UIinicial extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addGap(33, 33, 33)
                         .addComponent(goback2)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         ForgotPassword.setPreferredSize(new java.awt.Dimension(450, 350));
@@ -862,7 +874,7 @@ public class UIinicial extends javax.swing.JFrame {
 
         Intro.setPreferredSize(new java.awt.Dimension(450, 350));
 
-        goback.setText("Go Back");
+        goback.setText("Logout");
         goback.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 gobackActionPerformed(evt);
@@ -983,7 +995,7 @@ public class UIinicial extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(IntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, IntroLayout.createSequentialGroup()
-                        .addComponent(newAcc2, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                        .addComponent(newAcc2, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(goback)
                         .addGap(14, 14, 14))
@@ -1101,9 +1113,9 @@ public class UIinicial extends javax.swing.JFrame {
         GameJoinedLayout.setVerticalGroup(
             GameJoinedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(GameJoinedLayout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addComponent(title7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(welcome2)
                 .addGap(43, 43, 43)
                 .addComponent(goback4)
@@ -1192,10 +1204,21 @@ public class UIinicial extends javax.swing.JFrame {
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
+       
+       String[] questions = {"What is your favourite color?", "What is your favourite animal?","What is your favourite food?" };
+     
+       JComboBox<String>  box = new JComboBox<>(questions);
+       add(box);
+       question = (String) box.getSelectedItem();
+       System.out.println("you select   " + question);
+       
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void AnswerQuestionSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnswerQuestionSignupActionPerformed
         // TODO add your handling code here:
+        
+        
+        
     }//GEN-LAST:event_AnswerQuestionSignupActionPerformed
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX
             = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
@@ -1206,11 +1229,12 @@ public class UIinicial extends javax.swing.JFrame {
     }
     private void login2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login2ActionPerformed
         // TODO add your handling code here:
-        if (jPasswordSignup.getText().isEmpty() || emailTextSignup.getText().isEmpty() || usernameTextSignup.getText().isEmpty() || usernameTextSignup1.getText().isEmpty()) {
+        if (jPasswordSignup.getText().isEmpty() || emailTextSignup.getText().isEmpty() || usernameTextSignup.getText().isEmpty() || usernameTextSignup1.getText().isEmpty() || AnswerQuestionSignup.getText().isEmpty() ) {
             jOptionPane1.showMessageDialog(null, "Empty parameters");
         } else {
             username = usernameTextSignup.getText();
             name = usernameTextSignup1.getText();
+            answer = AnswerQuestionSignup.getText();
             if (jPasswordSignup.getText().contains("&") || username.contains("&") || emailTextSignup.getText().contains("&") || name.contains("&")) {
                 jOptionPane1.showMessageDialog(null, "Invalid caracter '&'");
                 return;
@@ -1232,7 +1256,7 @@ public class UIinicial extends javax.swing.JFrame {
                     Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }*/
-            user = new User(username, password, mail, name, null, this);
+            user = new User(username, password, mail, name, null ,question, answer, this);
             System.out.println(user);
             try {
                 user.sendData("Signup");
@@ -1296,7 +1320,7 @@ public class UIinicial extends javax.swing.JFrame {
             jOptionPane1.setVisible(false);
             password = MD5_hash.MD5_hash(jPasswordField6.getText());
 
-            user = new User(mail, username, oldpassword, null, password, this);
+            user = new User(mail, username, oldpassword, null, password,null, null, this);
 
             try {
                 user.sendData("ForgotPassword");
@@ -1510,7 +1534,7 @@ public class UIinicial extends javax.swing.JFrame {
                     Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }*/
-            user = new User(username, password, null, null, null, this);
+            user = new User(username, password, null, null, null,null, null,this);
             System.out.println(user);
             try {
                 user.sendData("Login");
@@ -1679,6 +1703,7 @@ public class UIinicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JList<String> jList1;
+    private javax.swing.JList<String> jList2;
     private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JOptionPane jOptionPane2;
     private javax.swing.JOptionPane jOptionPane3;
@@ -1688,6 +1713,7 @@ public class UIinicial extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordSignup;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;

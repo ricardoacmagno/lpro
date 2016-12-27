@@ -94,12 +94,14 @@ public class ClientProtocol {
      * @param mail user's email address
      * @param username user's unique username
      * @param password user's password
+     * @param question question choosen
+     * @param answer user's answer
      */
-    public void sendSignUp(String name, String mail, String username, String password) {
+    public void sendSignUp(String name, String mail, String username, String password, String question, String answer) {
         if (connect == false) {
             connection();
         }
-        String message = "Signup&" + username + "&" + mail + "&" + password + "&" + name;
+        String message = "Signup&" + username + "&" + mail + "&" + password + "&" + name + "&" + question + "&"+ answer;
         try {
             clientSocket.toSend(message);
         } catch (IOException ex) {

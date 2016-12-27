@@ -189,12 +189,12 @@ public final class UserDB extends PostgreSQLink {
      * @param Name User's received real name
      * @param Mail User's received email
      */
-    public void newLine(String Username, String Password, String Name, String Mail) {
+    public void newLine(String Username, String Password, String Name, String Mail, String Question, String Answer) {
 
         try {
             statement = getConnection().createStatement();
             //System.out.println("statemente ="  + statement);
-            statement.executeQuery("INSERT INTO signuplpro(name, email, username, password) VALUES ('" + Name + "','" + Mail + "','" + Username + "','" + Password + "');");  //"' DEFAULT");
+            statement.executeQuery("INSERT INTO signuplpro(name, email, username, password, question, answer) VALUES ('" + Name + "','" + Mail + "','" + Username + "','" + Password + "','" + Question + "','" + Answer +"');");  //"' DEFAULT");
         } catch (Exception e) {
             if (!e.getMessage().equals("No results were returned by the query.")) {
                 Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, e);

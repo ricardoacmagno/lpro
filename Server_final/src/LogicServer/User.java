@@ -21,7 +21,7 @@ public class User {
     private String email;
     private String username;
     private String password;
-    private Integer question;
+    private String question;
     private String anwser;
     public int c;
     public static UserDB userData;
@@ -38,7 +38,7 @@ public class User {
      * @param anwser User's answer for the security question
      * @throws Exception
      */
-    public User(String name, String email, String username, String password, Integer question, String anwser) throws Exception {
+    public User(String name, String email, String username, String password, String question, String anwser) throws Exception {
         this.name = name;
         this.email = email;
         this.username = username;
@@ -92,7 +92,7 @@ public class User {
      *
      * @return user's security question id
      */
-    public Integer getQuestion() {
+    public String getQuestion() {
         return question;
     }
 
@@ -229,7 +229,7 @@ public class User {
      * Email, Password and Name
      */
     public static void sendSignup(String[] data) {
-        userData.newLine(data[1], data[3], data[4], data[2]);   //Manda primeiro o Username, Password, Nome e Email
+        userData.newLine(data[1], data[3], data[4], data[2], data[5], data[6]);   //Manda primeiro o Username, Password, Nome e Email
     }
 
     /**

@@ -29,6 +29,8 @@ public class User {
     private String Password = null;
     private String Mail = null;
     private String Name = null;
+    private String Question = null;
+    private String Answer = null;
     private String OldPassword = null;
     private int resultadoLogin = -1;
     private int resultadoPassword = -1;
@@ -50,12 +52,14 @@ public class User {
      * @param Name string with the user name
      * @param OldPassword string with the old password
      */
-    public User(String Username, String Password, String Mail, String Name, String OldPassword, UIinicial ui) {
+    public User(String Username, String Password, String Mail, String Name, String OldPassword, String Question, String Answer ,UIinicial ui) {
         this.Username = Username;
         this.Password = Password;
         this.Mail = Mail;
         this.Name = Name;
         this.OldPassword = OldPassword;
+        this.Question= Question;
+        this.Answer = Answer;
         this.ui = ui;
         client = new ClientProtocol();
     }
@@ -78,12 +82,12 @@ public class User {
         
         sleep(100);*/
         sleep(50);
-        System.out.println("mail:" + Mail + " Username : " + Username + " Pass: " + Password + " oldpassword:" + OldPassword);
+        System.out.println("mail:" + Mail + " Username : " + Username + " Pass: " + Password + " oldpassword:" + OldPassword + "question" + Question + "answer" + Answer );
 
         if (ack.equals("Login")) {
             client.sendLogin(Username, Password);
         } else if (ack.equals("Signup")) {
-            client.sendSignUp(Name, Mail, Username, Password);
+            client.sendSignUp(Name, Mail, Username, Password, Question, Answer);
         } else if (ack.equals("ForgotPassword")) {
             client.sendChangePassword(Username, Password, Mail, OldPassword);
         }
