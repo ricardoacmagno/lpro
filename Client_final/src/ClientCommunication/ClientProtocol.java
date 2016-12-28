@@ -39,6 +39,8 @@ public class ClientProtocol {
         }
         return true;
     }
+    
+
 
     /**
      * Serves only to check if the Client-Server connection has been established
@@ -171,7 +173,9 @@ public class ClientProtocol {
     }
 
     public void send(String mystring) {
-
+        if (connect == false) {
+            connection();
+        }
         try {
             clientSocket.toSend(mystring);
         } catch (IOException ex) {

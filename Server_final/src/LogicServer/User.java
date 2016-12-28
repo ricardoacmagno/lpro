@@ -348,16 +348,17 @@ public class User {
         return player1;
     }
 
-    public static void sendGames(Socket mysocket) throws IOException, InterruptedException {
+    public static void sendGames(Socket mysocket, Chat chat) throws IOException, InterruptedException {
+        User.chat = chat;
         GameServer myclient = new GameServer(mysocket);
-        for (Pair element : chat.game) {
-            Game somegame = element.getValue();
-            if (somegame.getPlayer2().equals("null")) {
-                myclient.sendClient("GameAdd&" + somegame.getPlayer1());
-                sleep(50);
-                System.out.println("Sent " + somegame.getPlayer1() + " game");
+            for (Pair element : chat.game) {
+                Game somegame = element.getValue();
+                if (somegame.getPlayer2().equals("null")) {
+                    myclient.sendClient("GameAdd&" + somegame.getPlayer1());
+                    sleep(50);
+                    System.out.println("Sent " + somegame.getPlayer1() + " game");
+                }
             }
-        }
     }
 
     public static void getRankings(Socket mysocket) throws SQLException, IOException {

@@ -8,6 +8,7 @@ import LogicClient.MD5_hash;
 import LogicClient.User;
 import ClientCommunication.SocketClient;
 import static GUI.GameUI.gameui;
+import LogicClient.Ranks;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Frame;
@@ -49,10 +50,11 @@ public class UIinicial extends javax.swing.JFrame {
     String chat = "";
     public boolean rankingb = false;
     char Separator;
+
     public UIinicial() {
         initComponents();
         defaultpanel();
-        
+
     }
 
     private void defaultpanel() {
@@ -75,8 +77,7 @@ public class UIinicial extends javax.swing.JFrame {
         welcome2.setText(string);
     }
 
-    public void updateTable(String[] sorted) {
-        Separator = ((char)007);
+    public void updateTable(ArrayList<Ranks> sorted) {
         int rows = jTable1.getRowCount();
         jTable1.setAutoCreateColumnsFromModel(true);
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -85,27 +86,19 @@ public class UIinicial extends javax.swing.JFrame {
             model.removeRow(0);
             y++;
         }
-        String[] all = new String[sorted.length * 6];
-        int x = sorted.length - 1;
+        String[] all = new String[sorted.size() * 6];
         y = 0;
-        for (int c = x; c >= 0; c--) {
-            String splitit = sorted[c];
-            String[] divided = splitit.split(Separator+"");
-            if (y < 15) {
-                model.addRow(new Object[]{divided[5], divided[0], divided[1], divided[4], divided[2], divided[3]});
-
-                y++;
-            }
-
-            model.fireTableDataChanged();
-            jTable1.setModel(model);
-            rankingb = true;
-            jTable1.repaint();
-            pack();
+        for (Ranks element : sorted) {
+            model.addRow(new Object[]{element.getName(), element.getWins(), element.getHits(), element.getLosses(), element.getHosted(), element.getJoined()});
 
         }
+        model.fireTableDataChanged();
+        jTable1.setModel(model);
+        rankingb = true;
+        jTable1.repaint();
+        pack();
+
     }
-    
 
     public void addjList1(String toadd) {
         ListModel model = jList1.getModel();
@@ -118,6 +111,19 @@ public class UIinicial extends javax.swing.JFrame {
         }
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = newstring;
+
+            @Override
+            public int getSize() {
+                return strings.length;
+            }
+
+            @Override
+            public String getElementAt(int i) {
+                return strings[i];
+            }
+        });
+        jList3.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = newstring;
 
             @Override
@@ -174,6 +180,19 @@ public class UIinicial extends javax.swing.JFrame {
                 return strings[i];
             }
         });
+        jList3.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = newstring;
+
+            @Override
+            public int getSize() {
+                return strings.length;
+            }
+
+            @Override
+            public String getElementAt(int i) {
+                return strings[i];
+            }
+        });
     }
 
     private void SignupSetDefault() {
@@ -203,8 +222,13 @@ public class UIinicial extends javax.swing.JFrame {
     }
 
     public void getIntro() {
-        backvalue = Inicial;
-        setContentPane(Intro);
+        if (user.getrealName().equals("guest")) {
+            backvalue = Inicial;
+            setContentPane(GuestIntro);
+        } else {
+            backvalue = Inicial;
+            setContentPane(Intro);
+        }
 
     }
 
@@ -263,13 +287,13 @@ public class UIinicial extends javax.swing.JFrame {
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         jLabel3 = new javax.swing.JLabel();
         GuestIntro = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
         JoinGame = new javax.swing.JButton();
         welcome = new javax.swing.JLabel();
         title4 = new javax.swing.JLabel();
         goback2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jList3 = new javax.swing.JList<>();
         ForgotPassword = new javax.swing.JPanel();
         title5 = new javax.swing.JLabel();
         username3 = new javax.swing.JLabel();
@@ -664,16 +688,8 @@ public class UIinicial extends javax.swing.JFrame {
 
         GuestIntro.setPreferredSize(new java.awt.Dimension(450, 350));
 
-        jTextPane1.setText("Games Running");
-        jTextPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jTextPane1.setEnabled(false);
-        jTextPane1.setFocusable(false);
-        jScrollPane1.setViewportView(jTextPane1);
-
         JoinGame.setText("Join Game");
-        JoinGame.setEnabled(false);
         JoinGame.setFocusPainted(false);
-        JoinGame.setFocusable(false);
         JoinGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JoinGameActionPerformed(evt);
@@ -699,51 +715,47 @@ public class UIinicial extends javax.swing.JFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ads/36324.jpg"))); // NOI18N
 
+        jScrollPane6.setViewportView(jList3);
+
         javax.swing.GroupLayout GuestIntroLayout = new javax.swing.GroupLayout(GuestIntro);
         GuestIntro.setLayout(GuestIntroLayout);
         GuestIntroLayout.setHorizontalGroup(
             GuestIntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(GuestIntroLayout.createSequentialGroup()
-                .addGroup(GuestIntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(GuestIntroLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(GuestIntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GuestIntroLayout.createSequentialGroup()
-                                .addComponent(JoinGame, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(47, 47, 47))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GuestIntroLayout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26))))
-                    .addGroup(GuestIntroLayout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(goback2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
-            .addGroup(GuestIntroLayout.createSequentialGroup()
                 .addContainerGap(167, Short.MAX_VALUE)
-                .addGroup(GuestIntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(title4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(welcome))
+                .addComponent(title4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(168, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GuestIntroLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(GuestIntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(welcome)
+                    .addGroup(GuestIntroLayout.createSequentialGroup()
+                        .addGroup(GuestIntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(goback2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(GuestIntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(JoinGame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(41, 41, 41)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(35, 35, 35))
         );
         GuestIntroLayout.setVerticalGroup(
             GuestIntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(GuestIntroLayout.createSequentialGroup()
                 .addContainerGap(23, Short.MAX_VALUE)
                 .addComponent(title4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(welcome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addGroup(GuestIntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(GuestIntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(GuestIntroLayout.createSequentialGroup()
-                        .addComponent(JoinGame)
-                        .addGap(29, 29, 29)
+                        .addComponent(JoinGame, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel4)
-                        .addGap(33, 33, 33)
-                        .addComponent(goback2)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(goback2))
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         ForgotPassword.setPreferredSize(new java.awt.Dimension(450, 350));
@@ -932,7 +944,7 @@ public class UIinicial extends javax.swing.JFrame {
             }
         });
 
-        PlayersOnline1.setText("Players Online");
+        PlayersOnline1.setText("Spectate");
         PlayersOnline1.setEnabled(false);
         PlayersOnline1.setFocusPainted(false);
         PlayersOnline1.setFocusable(false);
@@ -1024,7 +1036,7 @@ public class UIinicial extends javax.swing.JFrame {
         jList1.setToolTipText("");
         jScrollPane2.setViewportView(jList1);
 
-        jLabel8.setText("Games Running");
+        jLabel8.setText("Joinable Games");
 
         javax.swing.GroupLayout IntroLayout = new javax.swing.GroupLayout(Intro);
         Intro.setLayout(IntroLayout);
@@ -1078,19 +1090,20 @@ public class UIinicial extends javax.swing.JFrame {
                         .addComponent(welcome1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(CreateGame1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(JoinGame1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(JoinGame1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(7, 7, 7))
                     .addGroup(IntroLayout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(IntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(IntroLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(4, 4, 4)
                         .addComponent(Rankings1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(PlayersOnline1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(IntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(newAcc2)
                             .addComponent(goback))
@@ -1429,6 +1442,24 @@ public class UIinicial extends javax.swing.JFrame {
 
     private void JoinGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JoinGameActionPerformed
         // TODO add your handling code here:
+        try {
+            username = user.getName();
+            // TODO add your handling code here:
+            String selected;
+            if (!jList3.isSelectionEmpty()) {
+                selected = jList3.getSelectedValue();
+
+                String[] mysplit = selected.split(" ");
+                user.GuestJoinGame(mysplit[0]);
+            } else {
+                jOptionPane3.showMessageDialog(null, "You have to select a game in order to play, if there are no games creted create a new one!");
+            }
+
+        } catch (IOException ex) {
+            Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_JoinGameActionPerformed
 
     private void usernameText4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameText4ActionPerformed
@@ -1532,6 +1563,7 @@ public class UIinicial extends javax.swing.JFrame {
 
                 String[] mysplit = selected.split(" ");
                 user.JoinGame(mysplit[0]);
+
             } else {
                 jOptionPane3.showMessageDialog(null, "You have to select a game in order to play, if there are no games creted create a new one!");
             }
@@ -1563,9 +1595,37 @@ public class UIinicial extends javax.swing.JFrame {
     private void gobackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gobackActionPerformed
         // TODO add your handling code here:
         InicialSetDefault();
+        user.sendLogout();
         setContentPane(backvalue);
         invalidate();
         validate();
+        String[] newstring = new String[0];
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = newstring;
+
+            @Override
+            public int getSize() {
+                return strings.length;
+            }
+
+            @Override
+            public String getElementAt(int i) {
+                return strings[i];
+            }
+        });
+        jList3.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = newstring;
+
+            @Override
+            public int getSize() {
+                return strings.length;
+            }
+
+            @Override
+            public String getElementAt(int i) {
+                return strings[i];
+            }
+        });
     }//GEN-LAST:event_gobackActionPerformed
 
     private void goback1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goback1ActionPerformed
@@ -1578,10 +1638,39 @@ public class UIinicial extends javax.swing.JFrame {
 
     private void goback2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goback2ActionPerformed
         // TODO add your handling code here:
+        user.sendLogout();
         InicialSetDefault();
         setContentPane(backvalue);
         invalidate();
         validate();
+        String[] newstring = new String[0];
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = newstring;
+
+            @Override
+            public int getSize() {
+                return strings.length;
+            }
+
+            @Override
+            public String getElementAt(int i) {
+                return strings[i];
+            }
+        });
+        jList3.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = newstring;
+
+            @Override
+            public int getSize() {
+                return strings.length;
+            }
+
+            @Override
+            public String getElementAt(int i) {
+                return strings[i];
+            }
+        });
+
     }//GEN-LAST:event_goback2ActionPerformed
 
     private void goback3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goback3ActionPerformed
@@ -1662,6 +1751,16 @@ public class UIinicial extends javax.swing.JFrame {
 
     private void playGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playGuestActionPerformed
         // TODO add your handling code here:
+        User guestuser = new User("", "", "", "guest", "", "", "", this);
+        guestuser.Listen();
+        try {
+            sleep(50);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        guestuser.getList();
+        user = guestuser;
+        welcome.setText("Welcome " + user.getUsername() + "!");
         setContentPane(GuestIntro);
         invalidate();
         validate();
@@ -1681,6 +1780,7 @@ public class UIinicial extends javax.swing.JFrame {
 
     private void login1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login1ActionPerformed
         // TODO add your handling code here:
+
         if (jTextFieldInicial.getText().isEmpty() || jPasswordInicial.getText().isEmpty()) {
             jOptionPane1.showMessageDialog(null, "Empty parameters");
         } else {
@@ -1720,7 +1820,7 @@ public class UIinicial extends javax.swing.JFrame {
             }
             jOptionPane1.setVisible(false);
             System.out.println(password);
-
+            user.setName(username);
             welcome1.setText("Welcome " + username + "!");
             backvalue = Inicial;
         }
@@ -1881,6 +1981,7 @@ public class UIinicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList2;
+    private javax.swing.JList<String> jList3;
     private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JOptionPane jOptionPane2;
     private javax.swing.JOptionPane jOptionPane3;
@@ -1888,16 +1989,15 @@ public class UIinicial extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField6;
     private javax.swing.JPasswordField jPasswordInicial;
     private javax.swing.JPasswordField jPasswordSignup;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextFieldInicial;
-    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JButton login1;
     private javax.swing.JButton login2;
     private javax.swing.JButton login3;

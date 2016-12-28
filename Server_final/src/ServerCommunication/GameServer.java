@@ -17,7 +17,6 @@ public class GameServer {
 
     private final Socket mysocket;
     PrintWriter out;
-
     public GameServer(Socket socket) throws IOException {
         this.mysocket = socket;
         out = new PrintWriter(mysocket.getOutputStream(), true);
@@ -25,6 +24,10 @@ public class GameServer {
 
     public void sendClient(String tosend) {
         out.println(tosend);
+    }
+    
+    public Socket getSocket(){
+        return mysocket;
     }
 
 }

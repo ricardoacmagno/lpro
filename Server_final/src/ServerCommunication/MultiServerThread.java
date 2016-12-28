@@ -72,6 +72,8 @@ public class MultiServerThread extends Thread {
                     state = 5;
                 } else if (uno[0].equals("random")) {
                     state = 0;
+                } else if (uno[0].equals("Logout")) {
+                    state = 6;
                 } else {
                     state = 8;
                 }
@@ -145,7 +147,7 @@ public class MultiServerThread extends Thread {
                 }
                 System.out.println("outputLine " + outputLine);
                 out.println(outputLine);
-                if (state == 2 || state == 3) {
+                if (state == 2 || state == 3 || state==6) {
                     out.close();
                     in.close();
                     socket.close();

@@ -13,6 +13,8 @@ import static LogicClient.Player.client;
 
 import static java.lang.Thread.sleep;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -53,13 +55,13 @@ public class User {
      * @param Name string with the user name
      * @param OldPassword string with the old password
      */
-    public User(String Username, String Password, String Mail, String Name, String OldPassword, String Question, String Answer ,UIinicial ui) {
+    public User(String Username, String Password, String Mail, String Name, String OldPassword, String Question, String Answer, UIinicial ui) {
         this.Username = Username;
         this.Password = Password;
         this.Mail = Mail;
         this.Name = Name;
         this.OldPassword = OldPassword;
-        this.Question= Question;
+        this.Question = Question;
         this.Answer = Answer;
         this.ui = ui;
         client = new ClientProtocol();
@@ -83,7 +85,7 @@ public class User {
         
         sleep(100);*/
         sleep(50);
-        System.out.println("mail:" + Mail + " Username : " + Username + " Pass: " + Password + " oldpassword:" + OldPassword + "question" + Question + "answer" + Answer );
+        System.out.println("mail:" + Mail + " Username : " + Username + " Pass: " + Password + " oldpassword:" + OldPassword + "question" + Question + "answer" + Answer);
 
         if (ack.equals("Login")) {
             client.sendLogin(Username, Password);
@@ -143,11 +145,11 @@ public class User {
 
                         } else if ("Password".equals(dataReceived.get(2))) {
                             resultadoPassword = 4;
-                            
-                        }else if ("Question".equals(dataReceived.get(2))){
-                            resultadoPassword =5 ;
-                        }else if ("Answer".equals(dataReceived.get(2))){
-                            resultadoPassword =6;
+
+                        } else if ("Question".equals(dataReceived.get(2))) {
+                            resultadoPassword = 5;
+                        } else if ("Answer".equals(dataReceived.get(2))) {
+                            resultadoPassword = 6;
                         } else if ("NotCompatible".equals(dataReceived.get(2))) {
                             resultadoPassword = 7;
                         }
@@ -245,7 +247,7 @@ public class User {
     }
 
     public void cancelGame() {
-        client.send("Cancel&" + game.getId() +"&"+ game.getName());
+        client.send("Cancel&" + game.getId() + "&" + game.getName());
     }
 
     public void refreshData(String[] dataReceived) throws IOException, InterruptedException {
@@ -294,12 +296,13 @@ public class User {
             int play = Integer.parseInt(dataReceived[6]);
             gameui.setLabel("Opponent turn to play");
             if (play == 1) {
-                gameui.setLabel("Your turn to play");
-                gameui.player1.setfirstplay();
-            }
+                    gameui.player1.setfirstplay();
+                    gameui.setLabel("Your turn to play");
+                }
 
             if (game.player1placed == true) {
                 System.out.println("Grid 2 init");
+                
                 gameui.initGrid2();
             }
 
@@ -333,24 +336,53 @@ public class User {
             ui.addjList1(dataReceived[1]);
         } else if ("GameRmv".equals(dataReceived[0])) {
             ui.rmvjList1(dataReceived[1]);
+        } else if ("GuestLogin".equals(dataReceived[0])) {
+            this.Username=dataReceived[1];
         } else if ("Rankings".equals(dataReceived[0])) {
-            int size=dataReceived.length;
-            String[] myranks = new String[size-1];
-            int j=0;
-            for(int c=0;c<size;c++){
-                if(!dataReceived[c].equals("Rankings")){
-                    myranks[j]=dataReceived[c];
+            char Separator = ((char)007);
+            ArrayList<Ranks> mysort = new ArrayList<Ranks>();
+            int size = dataReceived.length;
+            String[] myranks = new String[size - 1];
+            int j = 0;
+            for (int c = 0; c < size; c++) {
+                if (!dataReceived[c].equals("Rankings")) {
+                    myranks[j] = dataReceived[c];
+                    String[] toadd=myranks[j].split(Separator+"");
+                    int wins=Integer.parseInt(toadd[0]);
+                    int hits=Integer.parseInt(toadd[1]);
+                    int gameshosted=Integer.parseInt(toadd[2]);
+                    int gamesjoined=Integer.parseInt(toadd[3]);
+                    int losses=Integer.parseInt(toadd[4]);
+                    String nick=toadd[5];
+                    mysort.add(new Ranks(nick,wins,hits,gameshosted,gamesjoined,losses));
                     j++;
                 }
             }
-            for(int c=0;c<size-1;c++)
-                System.out.println(myranks[c]);
-            Arrays.sort(myranks);
-            System.out.println("Received and sorted ranks: "+myranks);
-            ui.updateTable(myranks);
+            
+            /*WIns primary, hits secondary*/
+            
+            Collections.sort(mysort, new Comparator<Ranks>() {
+                public int compare(Ranks o1, Ranks o2) {
+                    if (o1.getHits() == o2.getHits()) {
+                        return 0;
+                    }
+                    return o1.getHits() < o2.getHits() ? -1 : 1;
+                }
+            });
+            Collections.sort(mysort, new Comparator<Ranks>() {
+                public int compare(Ranks o1, Ranks o2) {
+                    if (o1.getWins() == o2.getWins()) {
+                        return 0;
+                    }
+                    return o1.getWins() < o2.getWins() ? -1 : 1;
+                }
+            });
+            Collections.reverse(mysort);
+            ui.updateTable(mysort);
         }
 
     }
+
 
     public void set(GameUI gameui) {
         this.gameui = gameui;
@@ -369,10 +401,38 @@ public class User {
     public void sendprivateChat(String user, String tosend) {
         client.send("privateChat&" + game.getId() + "&" + game.getMyName() + "&" + tosend);
     }
-    public void getRanks(){
+
+    public void getRanks() {
         client.send("Rankings");
     }
-    public boolean turnAdd(String string){
+
+    public boolean turnAdd(String string) {
         return game.turnAdd(string);
+    }
+    
+    public void getList(){
+        client.send("GameList");
+    }
+    public void Listen(){
+        client.connection();
+        client.startListen(this);
+        client.send("Guest");
+    }
+    
+    public void GuestJoinGame(String opponent) throws IOException, InterruptedException {
+        client.JoinGame(Username, opponent);
+    }
+    
+    public String getName(){
+        return Username;
+    }
+    public String getrealName(){
+        return Name;
+    }
+    public void setName(String name){
+        this.Name=name;
+    }
+    public void sendLogout(){
+        client.send("Logout");
     }
 }

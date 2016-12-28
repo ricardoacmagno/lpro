@@ -68,13 +68,21 @@ public class ServerProtocol extends Thread {
                 String[] ok3 = {"Your game was canceled"};
                 return ok3;
             case "GameList":
-                User.sendGames(mysocket);
+                User.sendGames(mysocket,chat);
                 String[] ok4 = {"Sent game list"};
                 return ok4;
             case "Rankings":
                 User.getRankings(mysocket);
                 String[] ok5 = {"Sent ranks list"};
                 return ok5;
+            case "Guest":
+                loginGuest(mysocket);
+                String[] ok6 = {"Guest player joined"};
+                return ok6;
+            case "Logout":
+                chat.rmvConnection(mysocket);
+                String[] logout = {"Logged out and connections closed"};
+                return logout;
             default:
                 return null;
         }
@@ -337,6 +345,10 @@ public class ServerProtocol extends Thread {
         
         User.cancelGame(id);
         chat.rmvGame(user);
+    }
+    
+    public void loginGuest(Socket socket) throws IOException{
+        chat.newGuest(socket);
     }
 
 }
