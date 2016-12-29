@@ -115,9 +115,14 @@ public class ColorChooser extends javax.swing.JFrame {
         System.out.println(color);
 
         ui.getInicial().setBackground(color);
+        ui.getSignup().setBackground(color);
+        ui.getGuestPlayer().setBackground(color);
+        ui.getRankings().setBackground(color);
+        ui.getGameJoined().setBackground(color);
+        ui.getIntro1().setBackground(color);
+        ui.getForgotPassword().setBackground(color);
 
-
-
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
