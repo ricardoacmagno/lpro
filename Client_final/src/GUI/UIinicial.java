@@ -350,10 +350,6 @@ public class UIinicial extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
-        Backgroud = new javax.swing.JPanel();
-        jColorChooser1 = new javax.swing.JColorChooser();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
 
         jOptionPane3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -381,6 +377,7 @@ public class UIinicial extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("mainFrame");
+        setPreferredSize(new java.awt.Dimension(450, 350));
         setResizable(false);
         setSize(new java.awt.Dimension(450, 350));
 
@@ -783,7 +780,7 @@ public class UIinicial extends javax.swing.JFrame {
             .addGroup(GuestIntroLayout.createSequentialGroup()
                 .addContainerGap(22, Short.MAX_VALUE)
                 .addComponent(title4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addComponent(welcome)
                 .addGap(18, 18, 18)
                 .addGroup(GuestIntroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1204,9 +1201,9 @@ public class UIinicial extends javax.swing.JFrame {
         GameJoinedLayout.setVerticalGroup(
             GameJoinedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(GameJoinedLayout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
+                .addContainerGap(19, Short.MAX_VALUE)
                 .addComponent(title7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(welcome2)
                 .addGap(43, 43, 43)
                 .addComponent(goback4)
@@ -1311,45 +1308,11 @@ public class UIinicial extends javax.swing.JFrame {
                 .addGap(18, 18, 18))
         );
 
-        jButton3.setText("Go back");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jButton4.setText("Choose");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout BackgroudLayout = new javax.swing.GroupLayout(Backgroud);
-        Backgroud.setLayout(BackgroudLayout);
-        BackgroudLayout.setHorizontalGroup(
-            BackgroudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BackgroudLayout.createSequentialGroup()
-                .addComponent(jColorChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 613, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(BackgroudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)))
-        );
-        BackgroudLayout.setVerticalGroup(
-            BackgroudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(jColorChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(BackgroudLayout.createSequentialGroup()
-                .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 613, Short.MAX_VALUE)
+            .addGap(0, 690, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -1385,11 +1348,6 @@ public class UIinicial extends javax.swing.JFrame {
                     .addContainerGap()
                     .addComponent(Rankings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(153, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(Backgroud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1429,11 +1387,6 @@ public class UIinicial extends javax.swing.JFrame {
                     .addContainerGap()
                     .addComponent(Rankings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(16, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(Backgroud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
@@ -2001,14 +1954,18 @@ public class UIinicial extends javax.swing.JFrame {
         validate();
         backvalue = Inicial;
     }//GEN-LAST:event_goback5ActionPerformed
-
+    
+    public JPanel getInicial(){
+        return Inicial;
+    }
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         
         JColorChooser chooser = new JColorChooser();
         
         //BackgroundSetDefault();
-        setContentPane(Backgroud);
+        new ColorChooser(this).setVisible(true);
         
        
       
@@ -2017,41 +1974,6 @@ public class UIinicial extends javax.swing.JFrame {
         backvalue = Inicial;
     
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-       
-        setContentPane(Inicial);
-        invalidate();
-        validate();
-        backvalue = Inicial;
-    
-          
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-           
-       Color color;
-       JColorChooser chooser = new JColorChooser();
- 
-        System.out.println(chooser);
-       
-       color = chooser.getColor();
-             System.out.println(color);
-       color.getRGB();
-    
-        System.out.println(color);
-       
-     Inicial.setBackground(color);
-     
-       
-       
-       invalidate();
-       validate();
-      backvalue = Inicial;
-            
-    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2084,7 +2006,6 @@ public class UIinicial extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField AnswerQuestionSignup;
-    private javax.swing.JPanel Backgroud;
     private javax.swing.JButton CreateGame1;
     private javax.swing.JPanel ForgotPassword;
     private javax.swing.JPanel GameJoined;
@@ -2111,9 +2032,6 @@ public class UIinicial extends javax.swing.JFrame {
     private javax.swing.JButton goback5;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
