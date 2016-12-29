@@ -215,6 +215,14 @@ public class Player {
     public String getName() {
         return name;
     }
+    
+     public int getHitCount() {
+        return hitcount;
+    }
+
+       public int getMissCount() {
+        return misscount;
+    }
 
     public void setInfo(Ship ship, int y, int x, String mode) {
         ship.setInfo(y, x, mode);
