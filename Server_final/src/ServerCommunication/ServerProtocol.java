@@ -81,8 +81,12 @@ public class ServerProtocol extends Thread {
                 return ok6;
             case "Logout":
                 chat.rmvConnection(mysocket);
-                String[] logout = {"Logged out and connections closed"};
+                String[] logout = {"Trying to logout and close connections"};
                 return logout;
+            case "RunningGames":
+                chat.SendGames(mysocket);
+                String[] sendgames = {"Trying to send games to spectator"};
+                return sendgames;
             default:
                 return null;
         }

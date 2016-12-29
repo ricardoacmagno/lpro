@@ -296,9 +296,11 @@ public class User {
                 System.out.println("Got a match to send warning");
                 mygame = element.getValue();
                 mygame.newOpponent();
+                chat.AddSpec(mygame.getPlayer1(),mygame.getPlayer2());
                 break;
             }
         }
+        
 
     }
 
@@ -326,7 +328,7 @@ public class User {
                 System.out.println("Not " + mypair.getValue().getPlayer1() + " game");
             }
         }
-
+        chat.RmvSpec(mygame.getPlayer1(),mygame.getPlayer2());
         userData.finishGame(mygame);
     }
 

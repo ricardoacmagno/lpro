@@ -64,8 +64,8 @@ public class Chat {
             element.sendClient(tosend);
         }
     }
-    
-    public void rmvConnection(Socket mysocket){
+
+    public void rmvConnection(Socket mysocket) {
         Iterator<GameServer> iter = connections.iterator();
         while (iter.hasNext()) {
             GameServer connection = iter.next();
@@ -74,8 +74,37 @@ public class Chat {
                 iter.remove();
                 System.out.println("Removed connection from array");
                 break;
-            } 
+            }
         }
+    }
+
+    public void SendGames(Socket mysocket) {
+        char Separator = ((char) 007);
+        for (GameServer element : connections) {
+            if (element.getSocket() == mysocket) {
+                String tosend = "Spec";
+                for (Pair mygame : game) {
+
+                    tosend += "&" + mygame.getValue().getPlayer1() + Separator + "" + mygame.getValue().getPlayer2();
+                }
+                tosend += "&end";
+                element.sendClient(tosend);
+            }
+
+        }
+    }
+
+    public void AddSpec(String player1, String player2) {
+        for (GameServer element : connections) {
+            element.sendClient("SpecAdd&" + player1 + "&" + player2);
+        }
+
+    }
+    public void RmvSpec(String player1, String player2) {
+        for (GameServer element : connections) {
+            element.sendClient("SpecRmv&" + player1 + "&" + player2);
+        }
+
     }
 
 }

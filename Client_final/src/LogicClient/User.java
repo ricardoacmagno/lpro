@@ -338,6 +338,18 @@ public class User {
             ui.rmvjList1(dataReceived[1]);
         } else if ("GuestLogin".equals(dataReceived[0])) {
             this.Username=dataReceived[1];
+        } else if ("Spec".equals(dataReceived[0])) {
+            char Separator = ((char)007);
+            int c=1;
+            while(!dataReceived[c].equals("end")){
+                String[] player=dataReceived[c].split(Separator+"");
+                ui.addjList2(player[0],player[1]);
+                c++;
+            }
+        } else if ("SpecAdd".equals(dataReceived[0])) {
+            ui.addjList2(dataReceived[1],dataReceived[2]);
+        } else if ("SpecRmv".equals(dataReceived[0])) {
+            ui.rmvjList2(dataReceived[1],dataReceived[2]);
         } else if ("Rankings".equals(dataReceived[0])) {
             char Separator = ((char)007);
             ArrayList<Ranks> mysort = new ArrayList<Ranks>();
@@ -435,4 +447,8 @@ public class User {
     public void sendLogout(){
         client.send("Logout");
     }
+    public void getRunningGames(){
+        client.send("RunningGames");
+    }
+    
 }
