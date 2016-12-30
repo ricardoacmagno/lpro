@@ -218,14 +218,16 @@ public class Game {
             if (ships2) {
                 join.sendClient("Spectator&Ships&" + player2Ships + "&" + "player2");
             }
-            sleep(50);
+            sleep(25);
             if (ships1) {
                 join.sendClient("Spectator&Ships&" + player1Ships + "&" + "player1");
             }
+             sleep(25);
             if (turn > 0) {
                 String[] all = spectatorTurn.split(Separator + "");
+                int size = all.length;
                 int c = 1;
-                while (!all[c].equals("")) {
+                while (c < size) {
                     join.sendClient(all[c]);
                     sleep(25);
                     c++;
@@ -240,6 +242,7 @@ public class Game {
             element.sendClient(string);
         }
     }
+
     public void rmvSpec(Socket rmvsocket) {
         Iterator<GameServer> iter = spectators.iterator();
         while (iter.hasNext()) {
@@ -249,8 +252,8 @@ public class Game {
                 iter.remove();
                 System.out.println("Spectator removed");
                 break;
-                
-            } 
+
+            }
         }
     }
 }

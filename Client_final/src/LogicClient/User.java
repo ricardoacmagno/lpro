@@ -101,9 +101,9 @@ public class User {
         } else if (ack.equals("Signup")) {
             client.sendSignUp(Name, Mail, Username, Password, Question, Answer);
         } else if (ack.equals("ForgotPassword")) {
-            client.sendChangePassword(Mail, Username, Password, Mail, OldPassword, Question, Answer);
+            //client.sendChangePassword(Mail, Username, Password, Mail, OldPassword, Question, Answer);
         } else if (ack.equals("ChangeProfile")){
-            client.sendChangeProfile(Name, Username, Password, ConfirmPassword);
+            //client.sendChangeProfile(Name, Username, Password, ConfirmPassword);
         }
 
         try {
