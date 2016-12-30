@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import ClientCommunication.ClientProtocol;
 import GUI.GameUI;
 import static GUI.GameUI.gameui;
+import GUI.SpectatorUI;
 import GUI.UIinicial;
 import static GUI.UIinicial.user;
 import static LogicClient.Player.client;
@@ -42,6 +43,7 @@ public class User {
     public final Lock lock = new ReentrantLock();
     public final Condition notFull = lock.newCondition();
     public final Condition join = lock.newCondition();
+    SpectatorUI specui;
     GameUI gameui;
     public static Player player;
     UIinicial ui;
@@ -296,13 +298,13 @@ public class User {
             int play = Integer.parseInt(dataReceived[6]);
             gameui.setLabel("Opponent turn to play");
             if (play == 1) {
-                    gameui.player1.setfirstplay();
-                    gameui.setLabel("Your turn to play");
-                }
+                gameui.player1.setfirstplay();
+                gameui.setLabel("Your turn to play");
+            }
 
             if (game.player1placed == true) {
                 System.out.println("Grid 2 init");
-                
+
                 gameui.initGrid2();
             }
 
@@ -337,21 +339,45 @@ public class User {
         } else if ("GameRmv".equals(dataReceived[0])) {
             ui.rmvjList1(dataReceived[1]);
         } else if ("GuestLogin".equals(dataReceived[0])) {
-            this.Username=dataReceived[1];
+            this.Username = dataReceived[1];
         } else if ("Spec".equals(dataReceived[0])) {
-            char Separator = ((char)007);
-            int c=1;
-            while(!dataReceived[c].equals("end")){
-                String[] player=dataReceived[c].split(Separator+"");
-                ui.addjList2(player[0],player[1]);
-                c++;
+            char Separator = ((char) 007);
+            int c = 1;
+            while (!dataReceived[c].equals("end")) {
+                String[] player = dataReceived[c].split(Separator + "");
+                if (!player[1].equals("null")) {
+                    ui.addjList2(player[0], player[1]);
+                    c++;
+                }
+            }
+        } else if ("Spectator".equals(dataReceived[0])) {
+            if(dataReceived[1].equals("Ships")){
+                String carrier=dataReceived[6];
+                String battleship=dataReceived[5];
+                String cruiser=dataReceived[4];
+                String submarine=dataReceived[3];
+                String destroyer=dataReceived[2];
+                String player=dataReceived[7];
+                specui.setShips(player,destroyer,submarine,cruiser,battleship,carrier);
+            }
+            else if(dataReceived[1].equals("Turn")){
+                specui.updateTurn(dataReceived[2],dataReceived[3],dataReceived[4]);
+                
+            }
+            else if(dataReceived[1].equals("privateChat")){
+                specui.updateChat(dataReceived[2]);
+                
+            }
+            else if(dataReceived[1].equals("Finish")){
+                specui.setWinner(dataReceived[2]);
+                
             }
         } else if ("SpecAdd".equals(dataReceived[0])) {
-            ui.addjList2(dataReceived[1],dataReceived[2]);
+            ui.addjList2(dataReceived[1], dataReceived[2]);
         } else if ("SpecRmv".equals(dataReceived[0])) {
-            ui.rmvjList2(dataReceived[1],dataReceived[2]);
+            ui.rmvjList2(dataReceived[1], dataReceived[2]);
         } else if ("Rankings".equals(dataReceived[0])) {
-            char Separator = ((char)007);
+            char Separator = ((char) 007);
             ArrayList<Ranks> mysort = new ArrayList<Ranks>();
             int size = dataReceived.length;
             String[] myranks = new String[size - 1];
@@ -359,20 +385,19 @@ public class User {
             for (int c = 0; c < size; c++) {
                 if (!dataReceived[c].equals("Rankings")) {
                     myranks[j] = dataReceived[c];
-                    String[] toadd=myranks[j].split(Separator+"");
-                    int wins=Integer.parseInt(toadd[0]);
-                    int hits=Integer.parseInt(toadd[1]);
-                    int gameshosted=Integer.parseInt(toadd[2]);
-                    int gamesjoined=Integer.parseInt(toadd[3]);
-                    int losses=Integer.parseInt(toadd[4]);
-                    String nick=toadd[5];
-                    mysort.add(new Ranks(nick,wins,hits,gameshosted,gamesjoined,losses));
+                    String[] toadd = myranks[j].split(Separator + "");
+                    int wins = Integer.parseInt(toadd[0]);
+                    int hits = Integer.parseInt(toadd[1]);
+                    int gameshosted = Integer.parseInt(toadd[2]);
+                    int gamesjoined = Integer.parseInt(toadd[3]);
+                    int losses = Integer.parseInt(toadd[4]);
+                    String nick = toadd[5];
+                    mysort.add(new Ranks(nick, wins, hits, gameshosted, gamesjoined, losses));
                     j++;
                 }
             }
-            
+
             /*WIns primary, hits secondary*/
-            
             Collections.sort(mysort, new Comparator<Ranks>() {
                 public int compare(Ranks o1, Ranks o2) {
                     if (o1.getHits() == o2.getHits()) {
@@ -394,7 +419,6 @@ public class User {
         }
 
     }
-
 
     public void set(GameUI gameui) {
         this.gameui = gameui;
@@ -421,34 +445,47 @@ public class User {
     public boolean turnAdd(String string) {
         return game.turnAdd(string);
     }
-    
-    public void getList(){
+
+    public void getList() {
         client.send("GameList");
     }
-    public void Listen(){
+
+    public void Listen() {
         client.connection();
         client.startListen(this);
         client.send("Guest");
     }
-    
+
     public void GuestJoinGame(String opponent) throws IOException, InterruptedException {
         client.JoinGame(Username, opponent);
     }
-    
-    public String getName(){
+
+    public String getName() {
         return Username;
     }
-    public String getrealName(){
+
+    public String getrealName() {
         return Name;
     }
-    public void setName(String name){
-        this.Name=name;
+
+    public void setName(String name) {
+        this.Name = name;
     }
-    public void sendLogout(){
+
+    public void sendLogout() {
         client.send("Logout");
     }
-    public void getRunningGames(){
+
+    public void getRunningGames() {
         client.send("RunningGames");
     }
-    
+
+    public void SpectateGame(String player1, String player2, SpectatorUI ui) {
+        this.specui = ui;
+        client.send("Spectate&" + player1 + "&" + player2);
+    }
+    public void exitSpec(String player1, String player2){
+        specui.dispose();
+        client.send("exitSpec&"+player1+"&"+player2);
+    }
 }

@@ -59,6 +59,7 @@ public class UIinicial extends javax.swing.JFrame {
     String chat = "";
     public boolean rankingb = false;
     char Separator;
+    SpectatorUI myui;
 
     public UIinicial() {
         initComponents();
@@ -68,7 +69,7 @@ public class UIinicial extends javax.swing.JFrame {
 
     private void defaultpanel() {
         setContentPane(Inicial);
-       // Inicial.setBackground(Color.cyan);
+        // Inicial.setBackground(Color.cyan);
         jOptionPane3.setVisible(false);
         invalidate();
         validate();
@@ -77,7 +78,7 @@ public class UIinicial extends javax.swing.JFrame {
     private void InicialSetDefault() {
         jTextFieldInicial.setText("Enter username...");
         jPasswordInicial.setText("Password");
-       
+
     }
 
     public static User getUser() {
@@ -110,6 +111,7 @@ public class UIinicial extends javax.swing.JFrame {
         pack();
 
     }
+
     public void addjList2(String player1, String player2) {
         ListModel model = jList2.getModel();
         int plus1 = model.getSize() + 1;
@@ -133,10 +135,11 @@ public class UIinicial extends javax.swing.JFrame {
                 return strings[i];
             }
         });
-        
+
     }
+
     @SuppressWarnings("empty-statement")
-    public void rmvjList2(String player1,String player2) {
+    public void rmvjList2(String player1, String player2) {
         ListModel model = jList2.getModel();
         int plus1 = model.getSize();
         String testing = "";
@@ -177,9 +180,8 @@ public class UIinicial extends javax.swing.JFrame {
                 return strings[i];
             }
         });
-        
+
     }
-    
 
     public void addjList1(String toadd) {
         ListModel model = jList1.getModel();
@@ -718,6 +720,11 @@ public class UIinicial extends javax.swing.JFrame {
         });
 
         jToggleButton1.setText("Sound");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout InicialLayout = new org.jdesktop.layout.GroupLayout(Inicial);
         Inicial.setLayout(InicialLayout);
@@ -748,11 +755,14 @@ public class UIinicial extends javax.swing.JFrame {
                     .add(InicialLayout.createSequentialGroup()
                         .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(InicialLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                            .add(title2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 115, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jButton2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .add(login1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .add(playGuest, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, InicialLayout.createSequentialGroup()
+                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(title2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 115, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(71, 71, 71)))
                 .add(InicialLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jToggleButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 86, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel3))
@@ -1683,16 +1693,14 @@ public class UIinicial extends javax.swing.JFrame {
     }
     private void login2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login2ActionPerformed
         // TODO add your handling code here:
-      
-        
-                
+
         if (jPasswordSignup.getText().isEmpty() || emailTextSignup.getText().isEmpty() || usernameTextSignup.getText().isEmpty() || usernameTextSignup1.getText().isEmpty() || AnswerQuestionSignup.getText().isEmpty()) {
             jOptionPane1.showMessageDialog(null, "Empty parameters");
         } else {
             username = usernameTextSignup.getText();
             name = usernameTextSignup1.getText();
             answer = AnswerQuestionSignup.getText();
-            
+
             if (jPasswordSignup.getText().contains("&") || username.contains("&") || emailTextSignup.getText().contains("&") || name.contains("&")) {
                 jOptionPane1.showMessageDialog(null, "Invalid caracter '&'");
                 return;
@@ -1839,6 +1847,20 @@ public class UIinicial extends javax.swing.JFrame {
 
     private void PlayersOnline1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlayersOnline1ActionPerformed
         user.getRunningGames();
+        String[] newstring = new String[0];
+        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = newstring;
+
+            @Override
+            public int getSize() {
+                return strings.length;
+            }
+
+            @Override
+            public String getElementAt(int i) {
+                return strings[i];
+            }
+        });
         setContentPane(SpectatorIntro);
         invalidate();
         validate();
@@ -1894,7 +1916,7 @@ public class UIinicial extends javax.swing.JFrame {
 
     private void gobackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gobackActionPerformed
         // TODO add your handling code here:
-        backvalue=Inicial;
+        backvalue = Inicial;
         InicialSetDefault();
         user.sendLogout();
         setContentPane(backvalue);
@@ -2212,80 +2234,93 @@ public class UIinicial extends javax.swing.JFrame {
         validate();
         backvalue = Inicial;
     }//GEN-LAST:event_goback5ActionPerformed
-    
-    public JPanel getInicial(){
+
+    public JPanel getInicial() {
         return Inicial;
     }
-    
-     public JPanel getSignup(){
+
+    public JPanel getSignup() {
         return Signup;
     }
-     
-      public JPanel getGuestPlayer(){
+
+    public JPanel getGuestPlayer() {
         return GuestIntro;
     }
-      
-   public JPanel getForgotPassword(){
+
+    public JPanel getForgotPassword() {
         return ForgotPassword;
     }
-   
+
     /**
      *
      * @return
      */
-    public JPanel getIntro1(){
+    public JPanel getIntro1() {
         return Intro;
     }
-    
-    
-     public JPanel getGameJoined(){
+
+    public JPanel getGameJoined() {
         return GameJoined;
     }
-     
-       public JPanel getRankings(){
+
+    public JPanel getRankings() {
         return Rankings;
     }
-    
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        
+
         JColorChooser chooser = new JColorChooser();
-        
+
         //BackgroundSetDefault();
         new ColorChooser(this).setVisible(true);
-        
+
         invalidate();
         validate();
         backvalue = Inicial;
-    
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         setContentPane(ChangeProfile);
-       
+
         invalidate();
         validate();
         backvalue = Inicial;
-     
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-         setContentPane(Intro);
+        setContentPane(Intro);
         invalidate();
         validate();
         backvalue = Intro;
-        
-        
+
+
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void JoinGame2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JoinGame2ActionPerformed
         // TODO add your handling code here:
-        setContentPane(Intro);
-        invalidate();
-        validate();
-        backvalue = Inicial;
+        String selected;
+
+        if (!jList2.isSelectionEmpty()) {
+            selected = jList2.getSelectedValue();
+
+            String[] mysplit = selected.split(" ");
+
+            try {
+                myui = new SpectatorUI(mysplit[0], mysplit[2],user);
+                myui.setVisible(true);
+            } catch (IOException | InterruptedException ex) {
+                Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            user.SpectateGame(mysplit[0], mysplit[2], myui);
+
+        } else {
+            jOptionPane3.showMessageDialog(null, "You have to select a game in order to spectate!");
+        }
     }//GEN-LAST:event_JoinGame2ActionPerformed
 
     private void goback6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goback6ActionPerformed
@@ -2309,6 +2344,10 @@ public class UIinicial extends javax.swing.JFrame {
         validate();
         backvalue = Inicial;
     }//GEN-LAST:event_goback6ActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**
      * @param args the command line arguments

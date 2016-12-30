@@ -183,6 +183,7 @@ public class User {
                     System.out.println("Joining " + element.getValue().getPlayer1() + " game, with id of" + element.getKey());
                     Game mygame = element.getValue();
                     mygame.setOpponent(user);
+                    
                 }
                 break;
             } else {
@@ -289,13 +290,14 @@ public class User {
         }
     }
 
-    public static void sendWarning(int id) throws IOException {
+    public static void sendWarning(int id) throws IOException, InterruptedException {
         Game mygame = null;
         for (Pair element : chat.game) {
             if (element.getKey() == id) {
                 System.out.println("Got a match to send warning");
                 mygame = element.getValue();
                 mygame.newOpponent();
+                sleep(50);
                 chat.AddSpec(mygame.getPlayer1(),mygame.getPlayer2());
                 break;
             }
@@ -308,7 +310,6 @@ public class User {
         Game mygame = null;
         for (Pair element : chat.game) {
             if (element.getKey() == id) {
-                System.out.println("Found a game with id " + element.getKey());
                 mygame = element.getValue();
                 break;
             }
@@ -367,4 +368,21 @@ public class User {
         GameServer myclient = new GameServer(mysocket);
         myclient.sendClient(userData.getRanking());
     }
+    
+    public static void Spectate(String player1,String player2,Socket mysocket) throws IOException, InterruptedException{
+        for(Pair element : chat.game){
+            if(element.getValue().getPlayer1().equals(player1) && element.getValue().getPlayer2().equals(player2)){
+                Game mygame=element.getValue();
+                mygame.JoinSpec(mysocket);
+            }
+        }
+    }
+    public static void exitSpec(String player1,String player2,Socket mysocket) throws IOException, InterruptedException{
+        for(Pair element : chat.game){
+            if(element.getValue().getPlayer1().equals(player1) && element.getValue().getPlayer2().equals(player2)){
+                element.getValue().rmvSpec(mysocket);
+            }
+        }
+    }
+    
 }

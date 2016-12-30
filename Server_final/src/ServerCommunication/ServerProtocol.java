@@ -87,6 +87,14 @@ public class ServerProtocol extends Thread {
                 chat.SendGames(mysocket);
                 String[] sendgames = {"Trying to send games to spectator"};
                 return sendgames;
+            case "Spectate":
+                User.Spectate(stringUis[1], stringUis[2],mysocket);
+                String[] specgames = {"Trying to allow spectator"};
+                return specgames;
+            case "exitSpec":
+                User.exitSpec(stringUis[1], stringUis[2],mysocket);
+                String[] specexit = {"Exiting spectator"};
+                return specexit;
             default:
                 return null;
         }
@@ -308,13 +316,14 @@ public class ServerProtocol extends Thread {
      * @param id
      * @return
      */
-    public String[] handlerJoinGame(String user, String stringopponent) throws SQLException, IOException {
+    public String[] handlerJoinGame(String user, String stringopponent) throws SQLException, IOException, InterruptedException {
         System.out.println("Sending JoinGame to logic server");
         String[] opponent = User.JoinGame(user,stringopponent);
         int id = Integer.parseInt(opponent[0]);
         User.setSocketPlayer2(mysocket, id);
         chat.rmvGame(stringopponent);
         User.sendWarning(id);
+        sleep(50);
         String[] teste = {"JoinGame", opponent[0], opponent[1], opponent[2]};
         return teste;
     }
@@ -329,7 +338,7 @@ public class ServerProtocol extends Thread {
         return toreturn;
     }
 
-    public void handlerTurn(String sid, String position, String result, String myname) throws IOException, SQLException {
+    public void handlerTurn(String sid, String position, String result, String myname) throws IOException, SQLException, InterruptedException {
         int id = Integer.parseInt(sid);
         Game game = User.getGameid(id);
         game.setTurn(result, position, myname);
