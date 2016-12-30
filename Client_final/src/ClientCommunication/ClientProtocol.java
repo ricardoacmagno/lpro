@@ -136,6 +136,25 @@ public class ClientProtocol {
             Logger.getLogger(ClientProtocol.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
+    public void sendChangeProfile (String mail, String name, String username, String password, String confirmPassword){
+        if(connect == false){
+            connection();
+        }
+        
+        String ChangeProfile = "ChangeProfile&" + mail + "&" + name + "&" + username + "&" + password + "&" + confirmPassword;
+        
+        System.out.println("CHANGE_PROFILE USER " +  ChangeProfile);
+        
+         try {
+            clientSocket.toSend(ChangeProfile);
+        } catch (IOException ex) {
+            Logger.getLogger(ClientProtocol.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+
+    }
 
     /**
      * Method to create or join a game
@@ -230,6 +249,8 @@ public class ClientProtocol {
                     return handlerok(tokens);
                 case "chat":
                     return handlerMessage(tokens);
+                case "ChangeProfile":
+                    return handlerChangeProfile(tokens);
                 default:
                     return null;
             }
@@ -388,6 +409,20 @@ public class ClientProtocol {
        System.out.println(Arrays.toString(tokens));
         
        return chat;
+    }
+
+    private ArrayList<String> handlerChangeProfile(String[] tokens) {
+        
+         ArrayList<String> changeprofile;
+         
+         changeprofile = new ArrayList<>();
+         int j=0;
+         changeprofile.add(tokens[j++]);
+         changeprofile.add(tokens[j]);
+         
+         System.out.println(Arrays.toString(tokens));
+         
+         return changeprofile;
     }
 
 }

@@ -95,6 +95,8 @@ public class ServerProtocol extends Thread {
                 User.exitSpec(stringUis[1], stringUis[2],mysocket);
                 String[] specexit = {"Exiting spectator"};
                 return specexit;
+            case "ChangeProfile":
+                 return handlerChangeProfile(stringUis);
             default:
                 return null;
         }
@@ -293,6 +295,89 @@ public class ServerProtocol extends Thread {
         }
         return new String[]{"FailedConnection", "forgotPassword"};
     }
+    
+    
+       private String[] handlerChangeProfile (String[] receive) throws Exception {
+       
+        String[] ChangeProf = new String[7];
+        int state = 0;
+        for (String Ui : receive) {
+            if (state == 0) {
+                if (Ui.equals("ChangeProfile")) {
+
+                    ChangeProf[0] = Ui;
+                    state = 1;
+                } else {
+                    System.out.println(" FORGOT_PASSWORD FAILED! ");
+                    return new String[]{"ForgotPassword", "FailedConnection", "FORGOTPASSWORD_FAILED"};
+                }
+            } else if ( state ==1){
+                        
+                    if (User.confirmEmail(Ui)) {               //SAME AS ABOVE
+                    ChangeProf[1] = Ui;
+                    System.out.println("DataBase_Email: " + Ui);
+                    state = 2;     
+                 } else {
+                        System.out.println(" EMAIL FAILED! ");
+                        return new String[] {"ChangeProfile", "FailedConnection", "EMAIL_FAILED"};
+                    }
+            } else if (state ==2){
+                
+                    if(User.confirmName(Ui)){
+                        ChangeProf[2]=Ui;
+                        System.out.println("Protocol_name " + Ui);
+                        state =3;
+                    }else {
+                        System.out.println("NAME FAILED! ");
+                        return new String[]{"ChangeProfile", "FailedConnection", "NAME_FAILED"};
+                    }
+                
+            } else if(state ==3){
+                    if(User.confirmUsername(Ui, chat)){
+                    ChangeProf[3] = Ui;
+                    System.out.println("Protocol_Username: " + Ui);
+                    state = 4;
+                } else {
+                    System.out.println("USERNAME FAILED!");
+                    return new String[]{"ChangeProfile", "FailedConnection", "USERNAME_FAILED"};
+                }
+            }else if(state == 4 ){
+                  if (User.confirmPassword(Ui)) {               //SAME AS ABOVE
+                    ChangeProf[4] = Ui;
+                    System.out.println("DataBase_Hash: " + Ui);
+                    state=5;
+                } else{
+                      System.out.println("PASSWORD FAILED!");
+                      return new String[] {"ChangeProfile", "FailedConnection", "PASSWORD_FAILED"};
+                  }
+                
+            }else if(state ==5) {
+                  if (User.confirmPassword(Ui)) {               //SAME AS ABOVE
+                    ChangeProf[5] = Ui;
+                    System.out.println("DataBase_Hash: " + Ui);
+                    state=6;
+                } else{
+                      System.out.println("PASSWORD FAILED!");
+                      return new String[] {"ChangeProfile", "FailedConnection", "PASSWORD_FAILED"};
+                
+                }  
+            }else if(state ==6){
+                if (User.sendChangeProfile(receive) > 0) {
+                    System.out.println("CHANGEPROFILE_SUCCESFULL");
+                    return ChangeProf;
+                } else {
+                    System.out.println("PASSWORD_FAILED");
+                    return new String[]{"ForgotPassword", "FailedConnection", "CHANGEPROFILE_FAILED"};
+                } 
+            }      
+                  
+                  
+        }   
+
+            return new String[]{"FailedConnection", "ChangePassword"};
+    }
+    
+    
 
     /**
      *
@@ -310,7 +395,7 @@ public class ServerProtocol extends Thread {
         System.out.println("Server created game");
         return toReturn;
     }
-
+    
     /**
      *
      * @param id
@@ -364,4 +449,5 @@ public class ServerProtocol extends Thread {
         chat.newGuest(socket);
     }
 
+  
 }

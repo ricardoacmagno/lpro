@@ -21,6 +21,7 @@ public final class UserDB extends PostgreSQLink {
     private String email;
     private String question;
     private String answer;
+    private String name;
 
     Statement statement = null;
 
@@ -56,6 +57,10 @@ public final class UserDB extends PostgreSQLink {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+    
+    public void setName (String name){
+        this.name = name;
     }
 
     /**
@@ -104,6 +109,10 @@ public final class UserDB extends PostgreSQLink {
 
     public String getAnswer() {
         return answer;
+    }
+    
+    public String getName(){
+        return name;
     }
 
     /**
@@ -241,6 +250,8 @@ public final class UserDB extends PostgreSQLink {
      * @return an error flag in case of error or a positive <code>int</code> in
      * case of success
      */
+    
+    
     public int newPass(String mail, String Username, String OldPassword, String Password, String Question, String Answer) {
         try {
             PostgreSQLink.connect();
@@ -259,6 +270,25 @@ public final class UserDB extends PostgreSQLink {
 
     }
 
+    
+    public int newProfile (String mail, String Name, String Username, String  Password, String ConfirmPassword){
+        
+        try{
+            PostgreSQLink.connect();
+            statement = getConnection().createStatement();
+            
+            return statement.executeUpdate("UPDATE signuplpro SET name = '" + Name + "' + username = '" + Username + "' WHERE email ='" + mail + "' and password='" + Password + "' and password ='"  + ConfirmPassword + "';" );
+        }catch (Exception e) {
+
+            System.err.println("Error!" + e.getMessage());
+            if (!e.getMessage().equals("No results were returned by the query.")) {
+                Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        
+        
+        return -1;
+    }
     public void finishGame(Game game) throws SQLException {
         PostgreSQLink.connect();
         statement = getConnection().createStatement();

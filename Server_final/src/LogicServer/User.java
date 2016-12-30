@@ -139,6 +139,11 @@ public class User {
         return received.equals(userData.getPassword());              //CRIAR O GETPASSWORD NO USERDB PARA RETORNAR A PALAVRA PASSE
     }
 
+    
+    
+    
+    
+    
     /**
      *
      * @param user
@@ -240,6 +245,17 @@ public class User {
         return userData.getEmail(received);                //SAME AS WHAT FOLLOWS
     }
 
+    public static boolean confirmName(String received) throws Exception{
+     
+       userData = new UserDB();
+       userData.setName(received);
+        
+        return received.equals(userData.getName());
+    }
+    
+    
+    
+    
     /**
      * Method that uses the <code>UserDB</code> class to insert the signup
      * parameters in the database
@@ -261,6 +277,11 @@ public class User {
     public static int sendForgotPassword(String[] ChangePassword) {
         return userData.newPass(ChangePassword[1], ChangePassword[2], ChangePassword[3], ChangePassword[4], ChangePassword[5], ChangePassword[6]);
     }
+    
+    public static int sendChangeProfile(String[] ChangeProfile){
+        return userData.newProfile(ChangeProfile[1], ChangeProfile[2], ChangeProfile[3], ChangeProfile[4], ChangeProfile[5]);
+    }
+    
 
     public static void setSocketPlayer1(Socket mysocket, int id) throws IOException {
         Game mygame = null;

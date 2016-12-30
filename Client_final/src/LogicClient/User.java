@@ -20,6 +20,7 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import javax.swing.JLabel;
 
 /**
  * <code>User</code> represents a user
@@ -36,6 +37,7 @@ public class User {
     private String Question = null;
     private String Answer = null;
     private String OldPassword = null;
+    private String ConfirmPassword = null;
     private int resultadoLogin = -1;
     private int resultadoPassword = -1;
     public static Game game;
@@ -57,16 +59,21 @@ public class User {
      * @param Name string with the user name
      * @param OldPassword string with the old password
      */
-    public User(String Username, String Password, String Mail, String Name, String OldPassword, String Question, String Answer, UIinicial ui) {
+    public User(String Username, String Password, String Mail, String Name, String ConfirmPassword, String Question, String Answer, UIinicial ui) {
         this.Username = Username;
         this.Password = Password;
         this.Mail = Mail;
         this.Name = Name;
-        this.OldPassword = OldPassword;
+        this.ConfirmPassword = ConfirmPassword;
         this.Question = Question;
         this.Answer = Answer;
+
         this.ui = ui;
         client = new ClientProtocol();
+    }
+
+    public User(JLabel email, String name, String username, String password, String confirmPassword, Object object, Object object0, UIinicial aThis) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -87,14 +94,16 @@ public class User {
         
         sleep(100);*/
         sleep(50);
-        System.out.println("mail:" + Mail + " Username : " + Username + " Pass: " + Password + " oldpassword:" + OldPassword + "question" + Question + "answer" + Answer);
+        System.out.println("mail:" + Mail + " Username : " + Username + " Pass: " + Password + " confirmPassword:" + ConfirmPassword + "question" + Question + "answer" + Answer);
 
         if (ack.equals("Login")) {
             client.sendLogin(Username, Password);
         } else if (ack.equals("Signup")) {
             client.sendSignUp(Name, Mail, Username, Password, Question, Answer);
         } else if (ack.equals("ForgotPassword")) {
-            client.sendChangePassword(Username, Password, Mail, OldPassword, Question, Answer);
+            client.sendChangePassword(Mail, Username, Password, Mail, OldPassword, Question, Answer);
+        } else if (ack.equals("ChangeProfile")){
+            client.sendChangeProfile(Name, Username, Password, ConfirmPassword);
         }
 
         try {
