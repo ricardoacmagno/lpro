@@ -215,12 +215,12 @@ public class Player {
     public String getName() {
         return name;
     }
-    
-     public int getHitCount() {
+
+    public int getHitCount() {
         return hitcount;
     }
 
-       public int getMissCount() {
+    public int getMissCount() {
         return misscount;
     }
 
@@ -255,7 +255,5 @@ public class Player {
     public void setUser(User user) {
         this.user = user;
     }
-
-
 
 }

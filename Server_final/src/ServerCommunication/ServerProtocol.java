@@ -18,6 +18,7 @@ public class ServerProtocol extends Thread {
 
     Socket mysocket;
     public static Chat chat;
+
     /**
      * Method responsible for calling the proper method to handle the server
      * call based on the first argument of the <code>String</code> server
@@ -44,11 +45,11 @@ public class ServerProtocol extends Thread {
             case "ForgotPassword":
                 return handlerForgotPassword(stringUis);
             case "CreateGame":
-                this.mysocket=mysocket;
+                this.mysocket = mysocket;
                 return handlerCreateGame(stringUis[1]);
             case "JoinGame":
-                this.mysocket=mysocket;
-                return handlerJoinGame(stringUis[1],stringUis[2]);
+                this.mysocket = mysocket;
+                return handlerJoinGame(stringUis[1], stringUis[2]);
             case "Ships":
                 return setCarrierInfo(stringUis[1], stringUis[2], stringUis[3], stringUis[4], stringUis[5], stringUis[6], stringUis[7]);
             case "Turn":
@@ -68,7 +69,7 @@ public class ServerProtocol extends Thread {
                 String[] ok3 = {"Your game was canceled"};
                 return ok3;
             case "GameList":
-                User.sendGames(mysocket,chat);
+                User.sendGames(mysocket, chat);
                 String[] ok4 = {"Sent game list"};
                 return ok4;
             case "Rankings":
@@ -88,15 +89,15 @@ public class ServerProtocol extends Thread {
                 String[] sendgames = {"Trying to send games to spectator"};
                 return sendgames;
             case "Spectate":
-                User.Spectate(stringUis[1], stringUis[2],mysocket);
+                User.Spectate(stringUis[1], stringUis[2], mysocket);
                 String[] specgames = {"Trying to allow spectator"};
                 return specgames;
             case "exitSpec":
-                User.exitSpec(stringUis[1], stringUis[2],mysocket);
+                User.exitSpec(stringUis[1], stringUis[2], mysocket);
                 String[] specexit = {"Exiting spectator"};
                 return specexit;
             case "ChangeProfile":
-                 return handlerChangeProfile(stringUis);
+                return handlerChangeProfile(stringUis);
             default:
                 return null;
         }
@@ -126,7 +127,7 @@ public class ServerProtocol extends Thread {
                     return new String[]{"Login", "FailedConnection", "LOGIN_FAILED"};
                 }
             } else if (state == 1) {
-                if (User.confirmUsername(Ui,chat)) {              //CRIAR NA CLASSE PLAYER O METODO CONFIRMUSERNAME
+                if (User.confirmUsername(Ui, chat)) {              //CRIAR NA CLASSE PLAYER O METODO CONFIRMUSERNAME
                     UsernameEPass[1] = Ui;
                     System.out.println("Protocol_Username: " + Ui);
                     state = 2;
@@ -173,7 +174,7 @@ public class ServerProtocol extends Thread {
                     return new String[]{"Signup", "FailedConnection", "SIGNUP_FAILED"};
                 }
             } else if (state == 1) {
-                if (!User.confirmUsername(Ui,chat)) {              //CRIAR NA CLASSE PLAYER O METODO CONFIRMUSERNAME
+                if (!User.confirmUsername(Ui, chat)) {              //CRIAR NA CLASSE PLAYER O METODO CONFIRMUSERNAME
                     Data[1] = Ui;
                     System.out.println("DataBase_Username: " + Ui);
                     state = 2;
@@ -238,7 +239,7 @@ public class ServerProtocol extends Thread {
                     return new String[]{"ForgotPassword", "FailedConnection", "EMAIL_FAILED"};
                 }
             } else if (state == 2) {
-                if (User.confirmUsername(Ui,chat)) {              //CRIAR NA CLASSE PLAYER O METODO CONFIRMUSERNAME
+                if (User.confirmUsername(Ui, chat)) {              //CRIAR NA CLASSE PLAYER O METODO CONFIRMUSERNAME
                     System.out.println("CONFIRM USERNAME FUNCIONA");
                     ChangePass[2] = Ui;
                     System.out.println("Protocol_Username: " + Ui);
@@ -258,27 +259,27 @@ public class ServerProtocol extends Thread {
                     System.out.println("PASSWORD_NOT_FOUND: " + Ui);      //VERIFICAR ISTO
                     return new String[]{"ForgotPassword", "FailedConnection", "PASSWORD_FAILED"};
                 }
-                
-            } else if (state ==4 ) {
-                
-                if(User.confirmQuestion(Ui)){
+
+            } else if (state == 4) {
+
+                if (User.confirmQuestion(Ui)) {
                     ChangePass[4] = Ui;
                     System.out.println("Protocol_Question: " + Ui);
                     state = 5;
-                }else {
+                } else {
                     System.out.println("QUESTION_NOT_FOUND: " + Ui);
                     return new String[]{"ForgotPassword", "FailedConnection", "QUESTION_FAILED"};
                 }
-            }else if (state ==5){
-                if(User.confirmAnswer(Ui)){
+            } else if (state == 5) {
+                if (User.confirmAnswer(Ui)) {
                     ChangePass[5] = Ui;
                     System.out.println("Protocol_Answer: " + Ui);
-                    state =6;
-                }else {
+                    state = 6;
+                } else {
                     System.out.println("ANSWER_NOT_FOUND: " + Ui);
-                    return new String[] {"ForgotPassword", "FailedConnection", "ANSWER_FAILED"};
+                    return new String[]{"ForgotPassword", "FailedConnection", "ANSWER_FAILED"};
                 }
-                
+
             } else if (state == 6) {
 
                 if (User.sendForgotPassword(receive) > 0) {
@@ -295,10 +296,9 @@ public class ServerProtocol extends Thread {
         }
         return new String[]{"FailedConnection", "forgotPassword"};
     }
-    
-    
-       private String[] handlerChangeProfile (String[] receive) throws Exception {
-       
+
+    private String[] handlerChangeProfile(String[] receive) throws Exception {
+
         String[] ChangeProf = new String[7];
         int state = 0;
         for (String Ui : receive) {
@@ -311,29 +311,29 @@ public class ServerProtocol extends Thread {
                     System.out.println(" FORGOT_PASSWORD FAILED! ");
                     return new String[]{"ForgotPassword", "FailedConnection", "FORGOTPASSWORD_FAILED"};
                 }
-            } else if ( state ==1){
-                        
-                    if (User.confirmEmail(Ui)) {               //SAME AS ABOVE
+            } else if (state == 1) {
+
+                if (User.confirmEmail(Ui)) {               //SAME AS ABOVE
                     ChangeProf[1] = Ui;
                     System.out.println("DataBase_Email: " + Ui);
-                    state = 2;     
-                 } else {
-                        System.out.println(" EMAIL FAILED! ");
-                        return new String[] {"ChangeProfile", "FailedConnection", "EMAIL_FAILED"};
-                    }
-            } else if (state ==2){
-                
-                    if(User.confirmName(Ui)){
-                        ChangeProf[2]=Ui;
-                        System.out.println("Protocol_name " + Ui);
-                        state =3;
-                    }else {
-                        System.out.println("NAME FAILED! ");
-                        return new String[]{"ChangeProfile", "FailedConnection", "NAME_FAILED"};
-                    }
-                
-            } else if(state ==3){
-                    if(User.confirmUsername(Ui, chat)){
+                    state = 2;
+                } else {
+                    System.out.println(" EMAIL FAILED! ");
+                    return new String[]{"ChangeProfile", "FailedConnection", "EMAIL_FAILED"};
+                }
+            } else if (state == 2) {
+
+                if (User.confirmName(Ui)) {
+                    ChangeProf[2] = Ui;
+                    System.out.println("Protocol_name " + Ui);
+                    state = 3;
+                } else {
+                    System.out.println("NAME FAILED! ");
+                    return new String[]{"ChangeProfile", "FailedConnection", "NAME_FAILED"};
+                }
+
+            } else if (state == 3) {
+                if (User.confirmUsername(Ui, chat)) {
                     ChangeProf[3] = Ui;
                     System.out.println("Protocol_Username: " + Ui);
                     state = 4;
@@ -341,43 +341,40 @@ public class ServerProtocol extends Thread {
                     System.out.println("USERNAME FAILED!");
                     return new String[]{"ChangeProfile", "FailedConnection", "USERNAME_FAILED"};
                 }
-            }else if(state == 4 ){
-                  if (User.confirmPassword(Ui)) {               //SAME AS ABOVE
+            } else if (state == 4) {
+                if (User.confirmPassword(Ui)) {               //SAME AS ABOVE
                     ChangeProf[4] = Ui;
                     System.out.println("DataBase_Hash: " + Ui);
-                    state=5;
-                } else{
-                      System.out.println("PASSWORD FAILED!");
-                      return new String[] {"ChangeProfile", "FailedConnection", "PASSWORD_FAILED"};
-                  }
-                
-            }else if(state ==5) {
-                  if (User.confirmPassword(Ui)) {               //SAME AS ABOVE
+                    state = 5;
+                } else {
+                    System.out.println("PASSWORD FAILED!");
+                    return new String[]{"ChangeProfile", "FailedConnection", "PASSWORD_FAILED"};
+                }
+
+            } else if (state == 5) {
+                if (User.confirmPassword(Ui)) {               //SAME AS ABOVE
                     ChangeProf[5] = Ui;
                     System.out.println("DataBase_Hash: " + Ui);
-                    state=6;
-                } else{
-                      System.out.println("PASSWORD FAILED!");
-                      return new String[] {"ChangeProfile", "FailedConnection", "PASSWORD_FAILED"};
-                
-                }  
-            }else if(state ==6){
+                    state = 6;
+                } else {
+                    System.out.println("PASSWORD FAILED!");
+                    return new String[]{"ChangeProfile", "FailedConnection", "PASSWORD_FAILED"};
+
+                }
+            } else if (state == 6) {
                 if (User.sendChangeProfile(receive) > 0) {
                     System.out.println("CHANGEPROFILE_SUCCESFULL");
                     return ChangeProf;
                 } else {
                     System.out.println("PASSWORD_FAILED");
                     return new String[]{"ForgotPassword", "FailedConnection", "CHANGEPROFILE_FAILED"};
-                } 
-            }      
-                  
-                  
-        }   
+                }
+            }
 
-            return new String[]{"FailedConnection", "ChangePassword"};
+        }
+
+        return new String[]{"FailedConnection", "ChangePassword"};
     }
-    
-    
 
     /**
      *
@@ -387,7 +384,7 @@ public class ServerProtocol extends Thread {
      */
     public String[] handlerCreateGame(String user) throws Exception {
         System.out.println("CreateGameHandler received " + user);
-        String[] returned = User.UserCreateGame(user, mysocket,chat);
+        String[] returned = User.UserCreateGame(user, mysocket, chat);
         int id = Integer.parseInt(returned[1]);
         User.setSocketPlayer1(mysocket, id);
         chat.newGame(user);
@@ -395,7 +392,7 @@ public class ServerProtocol extends Thread {
         System.out.println("Server created game");
         return toReturn;
     }
-    
+
     /**
      *
      * @param id
@@ -403,7 +400,7 @@ public class ServerProtocol extends Thread {
      */
     public String[] handlerJoinGame(String user, String stringopponent) throws SQLException, IOException, InterruptedException {
         System.out.println("Sending JoinGame to logic server");
-        String[] opponent = User.JoinGame(user,stringopponent);
+        String[] opponent = User.JoinGame(user, stringopponent);
         int id = Integer.parseInt(opponent[0]);
         User.setSocketPlayer2(mysocket, id);
         chat.rmvGame(stringopponent);
@@ -440,14 +437,13 @@ public class ServerProtocol extends Thread {
 
     public static void cancelGame(String sid, String user) throws SQLException {
         int id = Integer.parseInt(sid);
-        
+
         User.cancelGame(id);
         chat.rmvGame(user);
     }
-    
-    public void loginGuest(Socket socket) throws IOException{
+
+    public void loginGuest(Socket socket) throws IOException {
         chat.newGuest(socket);
     }
 
-  
 }

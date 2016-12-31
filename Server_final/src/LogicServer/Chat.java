@@ -100,6 +100,7 @@ public class Chat {
         }
 
     }
+
     public void RmvSpec(String player1, String player2) {
         for (GameServer element : connections) {
             element.sendClient("SpecRmv&" + player1 + "&" + player2);

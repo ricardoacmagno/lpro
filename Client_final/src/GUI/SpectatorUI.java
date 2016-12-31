@@ -56,7 +56,7 @@ public class SpectatorUI extends javax.swing.JFrame {
         label2.setText(myPlayer + " vs " + opponent);
         label4.setVisible(true);
         label4.setForeground(bg);
-        this.user=user;
+        this.user = user;
         initGrid();
         initGrid2();
     }
@@ -86,7 +86,8 @@ public class SpectatorUI extends javax.swing.JFrame {
         pack();
 
     }
-    public void updateChat(String entered){
+
+    public void updateChat(String entered) {
         String ok;
         int size = entered.length();
         for (int c = 0; c < size; c = c + 40) {
@@ -101,153 +102,144 @@ public class SpectatorUI extends javax.swing.JFrame {
         JScrollBar vertical = jScrollPane1.getVerticalScrollBar();
         vertical.setValue(vertical.getMaximum());
     }
+
     public void updateTurn(String cord, String result, String player) {
-        int y=cord.charAt(0) - '0';
-        int x=cord.charAt(1) - '0';
-        if(player.equals("player2")){
-            if(result.equals("hit"))
+        int y = cord.charAt(0) - '0';
+        int x = cord.charAt(1) - '0';
+        if (player.equals("player2")) {
+            if (result.equals("hit")) {
                 mypanel[y][x].setBackground(Color.red);
-            else
+            } else {
                 mypanel[y][x].setBackground(water);
+            }
         }
-        if(player.equals("player1")){
-            if(result.equals("hit"))
+        if (player.equals("player1")) {
+            if (result.equals("hit")) {
                 hitpanel[y][x].setBackground(Color.red);
-            else
+            } else {
                 hitpanel[y][x].setBackground(water);
+            }
         }
     }
-    
 
-    public void setShips(String player,String destroyer,String submarine,String cruiser,String battleship,String carrier){
+    public void setShips(String player, String destroyer, String submarine, String cruiser, String battleship, String carrier) {
         System.out.println(destroyer);
-        if(player.equals("player1")){
+        if (player.equals("player1")) {
             int y = destroyer.charAt(0) - '0';
             int x = destroyer.charAt(1) - '0';
-            System.out.println(y+","+x);
-            if(destroyer.charAt(3)=='H'){
-                for(int c=x; c<x+2; c++){
-                    System.out.println("Destroyer set on "+y+c);
+            System.out.println(y + "," + x);
+            if (destroyer.charAt(3) == 'H') {
+                for (int c = x; c < x + 2; c++) {
+                    System.out.println("Destroyer set on " + y + c);
                     mypanel[y][c].setBackground(Color.black);
                 }
-            }
-            else if(destroyer.charAt(3)=='V'){
-                for(int c=y; c<y+2; c++){
-                    System.out.println("Destroyer set on"+c+x);
+            } else if (destroyer.charAt(3) == 'V') {
+                for (int c = y; c < y + 2; c++) {
+                    System.out.println("Destroyer set on" + c + x);
                     mypanel[c][x].setBackground(Color.black);
                 }
             }
             y = submarine.charAt(0) - '0';
             x = submarine.charAt(1) - '0';
-            if(submarine.charAt(3)=='H'){
-                for(int c=x; c<x+3; c++){
+            if (submarine.charAt(3) == 'H') {
+                for (int c = x; c < x + 3; c++) {
                     mypanel[y][c].setBackground(Color.black);
                 }
-            }
-            else if(submarine.charAt(3)=='V'){
-                for(int c=y; c<y+3; c++){
+            } else if (submarine.charAt(3) == 'V') {
+                for (int c = y; c < y + 3; c++) {
                     mypanel[c][x].setBackground(Color.black);
                 }
             }
             y = cruiser.charAt(0) - '0';
             x = cruiser.charAt(1) - '0';
-            if(cruiser.charAt(3)=='H'){
-                for(int c=x; c<x+3; c++){
+            if (cruiser.charAt(3) == 'H') {
+                for (int c = x; c < x + 3; c++) {
                     mypanel[y][c].setBackground(Color.black);
                 }
-            }
-            else if(cruiser.charAt(3)=='V'){
-                for(int c=y; c<y+3; c++){
+            } else if (cruiser.charAt(3) == 'V') {
+                for (int c = y; c < y + 3; c++) {
                     mypanel[c][x].setBackground(Color.black);
                 }
             }
             y = battleship.charAt(0) - '0';
             x = battleship.charAt(1) - '0';
-            if(battleship.charAt(3)=='H'){
-                for(int c=x; c<x+4; c++){
+            if (battleship.charAt(3) == 'H') {
+                for (int c = x; c < x + 4; c++) {
                     mypanel[y][c].setBackground(Color.black);
                 }
-            }
-            else if(battleship.charAt(3)=='V'){
-                for(int c=y; c<y+4; c++){
+            } else if (battleship.charAt(3) == 'V') {
+                for (int c = y; c < y + 4; c++) {
                     mypanel[c][x].setBackground(Color.black);
                 }
             }
             y = carrier.charAt(0) - '0';
             x = carrier.charAt(1) - '0';
-            if(carrier.charAt(3)=='H'){
-                for(int c=x; c<x+5; c++){
+            if (carrier.charAt(3) == 'H') {
+                for (int c = x; c < x + 5; c++) {
                     mypanel[y][c].setBackground(Color.black);
                 }
-            }
-            else if(carrier.charAt(3)=='V'){
-                for(int c=y; c<y+5; c++){
+            } else if (carrier.charAt(3) == 'V') {
+                for (int c = y; c < y + 5; c++) {
                     mypanel[c][x].setBackground(Color.black);
                 }
             }
             System.out.println("Boats of player1 placed in spec");
-        }
-        else if(player.equals("player2")){
+        } else if (player.equals("player2")) {
             int y = destroyer.charAt(0) - '0';
             int x = destroyer.charAt(1) - '0';
-            System.out.println(y+","+x);
-            if(destroyer.charAt(3)=='H'){
-                for(int c=x; c<x+2; c++){
-                    System.out.println("Destroyer set on"+y+c);
+            System.out.println(y + "," + x);
+            if (destroyer.charAt(3) == 'H') {
+                for (int c = x; c < x + 2; c++) {
+                    System.out.println("Destroyer set on" + y + c);
                     hitpanel[y][c].setBackground(Color.black);
                 }
-            }
-            else if(destroyer.charAt(3)=='V'){
-                for(int c=y; c<y+2; c++){
-                    System.out.println("Destroyer set on"+c+x);
+            } else if (destroyer.charAt(3) == 'V') {
+                for (int c = y; c < y + 2; c++) {
+                    System.out.println("Destroyer set on" + c + x);
                     hitpanel[c][x].setBackground(Color.black);
                 }
             }
             y = submarine.charAt(0) - '0';
             x = submarine.charAt(1) - '0';
-            if(submarine.charAt(3)=='H'){
-                for(int c=x; c<x+3; c++){
+            if (submarine.charAt(3) == 'H') {
+                for (int c = x; c < x + 3; c++) {
                     hitpanel[y][c].setBackground(Color.black);
                 }
-            }
-            else if(submarine.charAt(3)=='V'){
-                for(int c=y; c<y+3; c++){
+            } else if (submarine.charAt(3) == 'V') {
+                for (int c = y; c < y + 3; c++) {
                     hitpanel[c][x].setBackground(Color.black);
                 }
             }
             y = cruiser.charAt(0) - '0';
             x = cruiser.charAt(1) - '0';
-            if(cruiser.charAt(3)=='H'){
-                for(int c=x; c<x+3; c++){
+            if (cruiser.charAt(3) == 'H') {
+                for (int c = x; c < x + 3; c++) {
                     hitpanel[y][c].setBackground(Color.black);
                 }
-            }
-            else if(cruiser.charAt(3)=='V'){
-                for(int c=y; c<y+3; c++){
+            } else if (cruiser.charAt(3) == 'V') {
+                for (int c = y; c < y + 3; c++) {
                     hitpanel[c][x].setBackground(Color.black);
                 }
             }
             y = battleship.charAt(0) - '0';
             x = battleship.charAt(1) - '0';
-            if(battleship.charAt(3)=='H'){
-                for(int c=x; c<x+4; c++){
+            if (battleship.charAt(3) == 'H') {
+                for (int c = x; c < x + 4; c++) {
                     hitpanel[y][c].setBackground(Color.black);
                 }
-            }
-            else if(battleship.charAt(3)=='V'){
-                for(int c=y; c<y+4; c++){
+            } else if (battleship.charAt(3) == 'V') {
+                for (int c = y; c < y + 4; c++) {
                     hitpanel[c][x].setBackground(Color.black);
                 }
             }
             y = carrier.charAt(0) - '0';
             x = carrier.charAt(1) - '0';
-            if(carrier.charAt(3)=='H'){
-                for(int c=x; c<x+5; c++){
+            if (carrier.charAt(3) == 'H') {
+                for (int c = x; c < x + 5; c++) {
                     hitpanel[y][c].setBackground(Color.black);
                 }
-            }
-            else if(carrier.charAt(3)=='V'){
-                for(int c=y; c<y+5; c++){
+            } else if (carrier.charAt(3) == 'V') {
+                for (int c = y; c < y + 5; c++) {
                     hitpanel[c][x].setBackground(Color.black);
                 }
             }
@@ -260,7 +252,6 @@ public class SpectatorUI extends javax.swing.JFrame {
      * <code>initGrid2()</code> initialize the hit board UI
      */
     public void initGrid2() throws IOException, InterruptedException {
-
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         jPanel2.setLayout(new java.awt.GridLayout(11, 11));
@@ -306,7 +297,6 @@ public class SpectatorUI extends javax.swing.JFrame {
         currentpanel.add(jpanel);
     }
 
-
     public void hitPanel(int y, int x) {
         JPanel current = mypanel[y][x];
         current.setBackground(Color.red);
@@ -316,10 +306,6 @@ public class SpectatorUI extends javax.swing.JFrame {
         JPanel current = mypanel[y][x];
         current.setBackground(water);
     }
-
-  
-
-   
 
     /**
      * <code>createLetterLabel()</code> creates a label
@@ -372,9 +358,11 @@ public class SpectatorUI extends javax.swing.JFrame {
         vertical.setValue(vertical.getMaximum());
 
     }
-    public void setWinner(String player){
-        jOptionPane1.showMessageDialog(null, "Game ended! Winner is: "+player);
+
+    public void setWinner(String player) {
+        jOptionPane1.showMessageDialog(null, "Game ended! Winner is: " + player);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -529,9 +517,9 @@ public class SpectatorUI extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         String ok = label2.getText();
-        String[] player=ok.split(" ");
-        System.out.println("Quiting spectating "+ok);
-        user.exitSpec(player[0],player[2]);
+        String[] player = ok.split(" ");
+        System.out.println("Quiting spectating " + ok);
+        user.exitSpec(player[0], player[2]);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 

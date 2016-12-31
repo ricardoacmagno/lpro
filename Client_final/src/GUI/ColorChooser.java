@@ -12,12 +12,14 @@ import java.awt.Color;
  * @author Francisco
  */
 public class ColorChooser extends javax.swing.JFrame {
+
     UIinicial ui;
+
     /**
      * Creates new form ColorChooser
      */
     public ColorChooser(UIinicial ui) {
-        this.ui=ui;
+        this.ui = ui;
         initComponents();
     }
 
@@ -122,7 +124,7 @@ public class ColorChooser extends javax.swing.JFrame {
         ui.getIntro1().setBackground(color);
         ui.getForgotPassword().setBackground(color);
 
-        
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**

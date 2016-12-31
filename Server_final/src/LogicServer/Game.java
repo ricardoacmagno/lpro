@@ -222,7 +222,7 @@ public class Game {
             if (ships1) {
                 join.sendClient("Spectator&Ships&" + player1Ships + "&" + "player1");
             }
-             sleep(25);
+            sleep(25);
             if (turn > 0) {
                 String[] all = spectatorTurn.split(Separator + "");
                 int size = all.length;

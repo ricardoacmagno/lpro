@@ -39,8 +39,6 @@ public class ClientProtocol {
         }
         return true;
     }
-    
-
 
     /**
      * Serves only to check if the Client-Server connection has been established
@@ -103,7 +101,7 @@ public class ClientProtocol {
         if (connect == false) {
             connection();
         }
-        String message = "Signup&" + username + "&" + mail + "&" + password + "&" + name + "&" + question + "&"+ answer;
+        String message = "Signup&" + username + "&" + mail + "&" + password + "&" + name + "&" + question + "&" + answer;
         try {
             clientSocket.toSend(message);
         } catch (IOException ex) {
@@ -121,7 +119,6 @@ public class ClientProtocol {
      * @param Question choosen question on signup
      * @param Answer user's answer
      */
-    
     public void sendChangePassword(String mail, String username, String OldPassword, String NewPassword, String Question, String Answer) {
         if (connect == false) {
             connection();
@@ -136,23 +133,21 @@ public class ClientProtocol {
             Logger.getLogger(ClientProtocol.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
-    public void sendChangeProfile (String mail, String name, String username, String password, String confirmPassword){
-        if(connect == false){
+
+    public void sendChangeProfile(String mail, String name, String username, String password, String confirmPassword) {
+        if (connect == false) {
             connection();
         }
-        
+
         String ChangeProfile = "ChangeProfile&" + mail + "&" + name + "&" + username + "&" + password + "&" + confirmPassword;
-        
-        System.out.println("CHANGE_PROFILE USER " +  ChangeProfile);
-        
-         try {
+
+        System.out.println("CHANGE_PROFILE USER " + ChangeProfile);
+
+        try {
             clientSocket.toSend(ChangeProfile);
         } catch (IOException ex) {
             Logger.getLogger(ClientProtocol.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
 
     }
 
@@ -183,7 +178,7 @@ public class ClientProtocol {
         if (connect == false) {
             connection();
         }
-        String checkGame = "JoinGame&" + user+"&"+opponent;
+        String checkGame = "JoinGame&" + user + "&" + opponent;
         try {
             clientSocket.toSend(checkGame);
         } catch (IOException ex) {
@@ -201,16 +196,15 @@ public class ClientProtocol {
             Logger.getLogger(ClientProtocol.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
-    public void sendMessage (String message){
-        
-        try{
-            clientSocket.toSend(message);   
-        } catch (IOException ex){
+
+    public void sendMessage(String message) {
+
+        try {
+            clientSocket.toSend(message);
+        } catch (IOException ex) {
             Logger.getLogger(ClientProtocol.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     /**
@@ -399,30 +393,30 @@ public class ClientProtocol {
     }
 
     private ArrayList<String> handlerMessage(String[] tokens) {
-       ArrayList<String> chat;
-       
-       chat = new ArrayList<>();
-       int j=0;
-       
-       chat.add(tokens[j++]);
-       chat.add(tokens[j]);
-       System.out.println(Arrays.toString(tokens));
-        
-       return chat;
+        ArrayList<String> chat;
+
+        chat = new ArrayList<>();
+        int j = 0;
+
+        chat.add(tokens[j++]);
+        chat.add(tokens[j]);
+        System.out.println(Arrays.toString(tokens));
+
+        return chat;
     }
 
     private ArrayList<String> handlerChangeProfile(String[] tokens) {
-        
-         ArrayList<String> changeprofile;
-         
-         changeprofile = new ArrayList<>();
-         int j=0;
-         changeprofile.add(tokens[j++]);
-         changeprofile.add(tokens[j]);
-         
-         System.out.println(Arrays.toString(tokens));
-         
-         return changeprofile;
+
+        ArrayList<String> changeprofile;
+
+        changeprofile = new ArrayList<>();
+        int j = 0;
+        changeprofile.add(tokens[j++]);
+        changeprofile.add(tokens[j]);
+
+        System.out.println(Arrays.toString(tokens));
+
+        return changeprofile;
     }
 
 }

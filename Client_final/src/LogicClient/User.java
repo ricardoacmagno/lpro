@@ -102,7 +102,7 @@ public class User {
             client.sendSignUp(Name, Mail, Username, Password, Question, Answer);
         } else if (ack.equals("ForgotPassword")) {
             //client.sendChangePassword(Mail, Username, Password, Mail, OldPassword, Question, Answer);
-        } else if (ack.equals("ChangeProfile")){
+        } else if (ack.equals("ChangeProfile")) {
             //client.sendChangeProfile(Name, Username, Password, ConfirmPassword);
         }
 
@@ -360,26 +360,23 @@ public class User {
                 }
             }
         } else if ("Spectator".equals(dataReceived[0])) {
-            if(dataReceived[1].equals("Ships")){
-                String carrier=dataReceived[6];
-                String battleship=dataReceived[5];
-                String cruiser=dataReceived[4];
-                String submarine=dataReceived[3];
-                String destroyer=dataReceived[2];
-                String player=dataReceived[7];
-                specui.setShips(player,destroyer,submarine,cruiser,battleship,carrier);
-            }
-            else if(dataReceived[1].equals("Turn")){
-                specui.updateTurn(dataReceived[2],dataReceived[3],dataReceived[4]);
-                
-            }
-            else if(dataReceived[1].equals("privateChat")){
+            if (dataReceived[1].equals("Ships")) {
+                String carrier = dataReceived[6];
+                String battleship = dataReceived[5];
+                String cruiser = dataReceived[4];
+                String submarine = dataReceived[3];
+                String destroyer = dataReceived[2];
+                String player = dataReceived[7];
+                specui.setShips(player, destroyer, submarine, cruiser, battleship, carrier);
+            } else if (dataReceived[1].equals("Turn")) {
+                specui.updateTurn(dataReceived[2], dataReceived[3], dataReceived[4]);
+
+            } else if (dataReceived[1].equals("privateChat")) {
                 specui.updateChat(dataReceived[2]);
-                
-            }
-            else if(dataReceived[1].equals("Finish")){
+
+            } else if (dataReceived[1].equals("Finish")) {
                 specui.setWinner(dataReceived[2]);
-                
+
             }
         } else if ("SpecAdd".equals(dataReceived[0])) {
             ui.addjList2(dataReceived[1], dataReceived[2]);
@@ -493,8 +490,9 @@ public class User {
         this.specui = ui;
         client.send("Spectate&" + player1 + "&" + player2);
     }
-    public void exitSpec(String player1, String player2){
+
+    public void exitSpec(String player1, String player2) {
         specui.dispose();
-        client.send("exitSpec&"+player1+"&"+player2);
+        client.send("exitSpec&" + player1 + "&" + player2);
     }
 }
