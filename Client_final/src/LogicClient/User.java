@@ -198,15 +198,15 @@ public class User {
     }
 
     /**
-     * 
-     * @return 
+     * Method that returns the username
+     * @return player's username
      */
     public String getUsername() {
         return Username;
     }
 
     /**
-     * 
+     * Currently doing nothing
      * @param player 
      */
     public static void setPlayer(Player player) {
@@ -254,16 +254,16 @@ public class User {
     }
 
     /**
-     * 
-     * @return 
+     * Method that returns the opponent's name
+     * @return opponent's name 
      */
     public String getGameOpponent() {
         return game.getOpponent();
     }
 
     /**
-     * 
-     * @return 
+     * Method that returns <code>true</code> when there's an opponent
+     * @return <code>boolean</code>
      */
     public boolean getOpponentBool() {
         return game.getOpponentBoolean();
@@ -278,7 +278,7 @@ public class User {
     }
 
     /**
-     * 
+     * Method to cancel the current game
      */
     public void cancelGame() {
         client.send("Cancel&" + game.getId() + "&" + game.getName());
@@ -456,7 +456,7 @@ public class User {
     }
 
     /**
-     * 
+     * Method that sets the UI of the game
      * @param gameui 
      */
     public void set(GameUI gameui) {
@@ -464,8 +464,8 @@ public class User {
     }
 
     /**
-     * 
-     * @param ack 
+     * Method that calls the method responsible for creating a game
+     * @param ack serves as a flag to create a game
      */
     public void sendtoServer(String ack) {
         if (ack.equals("create")) {
@@ -474,32 +474,32 @@ public class User {
     }
 
     /**
-     * 
-     * @param user
-     * @param tosend 
+     * Method that receives a user's message and calls the method that sends the message and the user's username to the server
+     * @param user user's username
+     * @param tosend chat message
      */
     public void sendChat(String user, String tosend) {
         client.send("Chat&" + user + "&" + tosend);
     }
 
     /**
-     * 
-     * @param user
-     * @param tosend 
+     * Method that receives a user's private message and calls the method that sends the message and the user's username to the server
+     * @param user user's username
+     * @param tosend private message
      */
     public void sendprivateChat(String user, String tosend) {
         client.send("privateChat&" + game.getId() + "&" + game.getMyName() + "&" + tosend);
     }
 
     /**
-     * 
+     * Method responsible for calling the method responsible for sending messages to the server asking for the rankings
      */
     public void getRanks() {
         client.send("Rankings");
     }
 
     /**
-     * 
+     * Method that turns on or off the adds
      * @param string
      * @return 
      */
@@ -508,7 +508,7 @@ public class User {
     }
 
     /**
-     * 
+     * Method responsible for asking the server to send a list of the current games being played
      */
     public void getList() {
         client.send("GameList");
@@ -524,8 +524,8 @@ public class User {
     }
 
     /**
-     * 
-     * @param opponent
+     * Method responsible for calling the method <code>JoinGame</code>
+     * @param opponent  opponent's username
      * @throws IOException
      * @throws InterruptedException 
      */
@@ -534,23 +534,23 @@ public class User {
     }
 
     /**
-     * 
-     * @return 
+     * Method that returns the user's username
+     * @return user's username
      */
     public String getName() {
         return Username;
     }
 
     /**
-     * 
-     * @return 
+     * Method that retuns the user's name
+     * @return user's real name
      */
     public String getrealName() {
         return Name;
     }
 
     /**
-     * 
+     * Constructor for user's real name
      * @param name 
      */
     public void setName(String name) {
@@ -558,23 +558,23 @@ public class User {
     }
 
     /**
-     * 
+     * Method responsible for calling the <code>send</code> asking for a logout
      */
     public void sendLogout() {
         client.send("Logout");
     }
 
     /**
-     * 
+     * Method responsible for calling the <code>send</code> asking for a list of games being played
      */
     public void getRunningGames() {
         client.send("RunningGames");
     }
 
     /**
-     * 
-     * @param player1
-     * @param player2
+     * Method responsible for calling the <code>send</code> for sending the server a spectate message with the parameters
+     * @param player1   player1's username
+     * @param player2   player2's username
      * @param ui 
      */
     public void SpectateGame(String player1, String player2, SpectatorUI ui) {
@@ -583,7 +583,7 @@ public class User {
     }
 
     /**
-     * 
+     * Method that informs the server that the user is no longer spectating the game
      * @param player1
      * @param player2 
      */
