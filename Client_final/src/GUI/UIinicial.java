@@ -2307,7 +2307,7 @@ public class UIinicial extends javax.swing.JFrame {
 
     private void changeprofActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeprofActionPerformed
         // TODO add your handling code here:
-  /**
+  
          if ( emailText.getText().isEmpty()  ||nameText.getText().isEmpty() || usernameText.getText().isEmpty() || passwordText.getText().isEmpty() || jPasswordField2.getText().isEmpty()) {
             jOptionPane1.showMessageDialog(null, "Empty parameters");
         } else {
@@ -2334,69 +2334,16 @@ public class UIinicial extends javax.swing.JFrame {
             } catch (IOException | InterruptedException ex) {
                 Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
             }
-             
-               
-               
-               
+  
             jOptionPane1.setVisible(false);
       
             backvalue = Inicial;
-               
-       
-             
-                
-                
-                
-         
-                
-                
-                 if (jTextFieldInicial.getText().isEmpty() || jPasswordInicial.getText().isEmpty()) {
-            jOptionPane1.showMessageDialog(null, "Empty parameters");
-        } else {
-            username = jTextFieldInicial.getText();
-            if (jPasswordInicial.getText().contains("&") || username.contains("&")) {
-                jOptionPane1.showMessageDialog(null, "Invalid caracter '&'");
-                return;
-            }
-            jOptionPane1.setVisible(false);
-            password = MD5_hash.MD5_hash(jPasswordInicial.getText());
-            System.out.println("Username: " + username);
-            System.out.println("Hash: " + password);
-           
-            user = new User(username, password, null, null, null, null, null, this);
-            System.out.println(user);
-            try {
-                user.sendData("Login");
-            } catch (IOException | InterruptedException ex) {
-                Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                if (user.getResultadoLogin() == 2) {
-                    jOptionPane1.showMessageDialog(null, "Username not found!");
-                } else if (user.getResultadoLogin() == 3) {
-                    jOptionPane1.showMessageDialog(null, "Wrong Password!");
-                } else {
-                    setContentPane(Intro);
-                }
-            } catch (InterruptedException ex) {
-                Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            jOptionPane1.setVisible(false);
-            System.out.println(password);
-            user.setName(username);
-            welcome1.setText("Welcome " + username + "!");
-            backvalue = Inicial;
-                
-                
                       
-                
-                
-                
-                
+         }          
                 
         
         backvalue = Inicial;
-**/
+
     }//GEN-LAST:event_changeprofActionPerformed
 
     private void JoinGame2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JoinGame2ActionPerformed
