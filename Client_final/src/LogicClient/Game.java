@@ -73,18 +73,36 @@ public class Game {
         opponentbool = true;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public int getGameid() {
         return GameId;
     }
 
+    /**
+     * 
+     * @param user
+     * @param tosend 
+     */
     public void sendGameChat(String user, String tosend) {
         client.send("Chat&" + user + "&" + tosend);
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getMyName() {
         return me;
     }
 
+    /**
+     * 
+     * @param myturn
+     * @return 
+     */
     public Boolean turnAdd(String myturn) {
         for (String element : turns) {
             if (element.equals(myturn)) {

@@ -84,6 +84,10 @@ public class ClientProtocol {
         }
     }
 
+    /**
+     * 
+     * @param user 
+     */
     public void startListen(User user) {
         new Listen(clientSocket.getSocket(), user).start();
     }
@@ -138,6 +142,14 @@ public class ClientProtocol {
         }
     }
 
+    /**
+     * 
+     * @param mail
+     * @param name
+     * @param username
+     * @param password
+     * @param confirmPassword 
+     */
     public void sendChangeProfile(String mail, String name, String username, String password, String confirmPassword) {
         if (connect == false) {
             connection();
@@ -190,6 +202,10 @@ public class ClientProtocol {
         }
     }
 
+    /**
+     * 
+     * @param mystring 
+     */
     public void send(String mystring) {
         if (connect == false) {
             connection();
@@ -201,6 +217,10 @@ public class ClientProtocol {
         }
     }
 
+    /**
+     * 
+     * @param message 
+     */
     public void sendMessage(String message) {
 
         try {
@@ -359,6 +379,11 @@ public class ClientProtocol {
         return forgotpassword;
     }
 
+    /**
+     * 
+     * @param tokens
+     * @return 
+     */
     private ArrayList<String> handlerWarning(String[] tokens) {
         ArrayList<String> warning;
 
@@ -372,6 +397,11 @@ public class ClientProtocol {
         return warning;
     }
 
+    /**
+     * 
+     * @param tokens
+     * @return 
+     */
     private ArrayList<String> handlerShips(String[] tokens) {
         ArrayList<String> warning;
 
@@ -384,6 +414,11 @@ public class ClientProtocol {
         return warning;
     }
 
+    /**
+     * 
+     * @param tokens
+     * @return 
+     */
     private ArrayList<String> handlerok(String[] tokens) {
         ArrayList<String> warning;
 
@@ -396,6 +431,11 @@ public class ClientProtocol {
         return warning;
     }
 
+    /**
+     * 
+     * @param tokens
+     * @return 
+     */
     private ArrayList<String> handlerMessage(String[] tokens) {
         ArrayList<String> chat;
 
@@ -409,6 +449,11 @@ public class ClientProtocol {
         return chat;
     }
 
+    /**
+     * 
+     * @param tokens
+     * @return 
+     */
     private ArrayList<String> handlerChangeProfile(String[] tokens) {
 
         ArrayList<String> changeprofile;

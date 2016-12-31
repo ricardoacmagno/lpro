@@ -197,10 +197,18 @@ public class User {
         return resultadoLogin;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getUsername() {
         return Username;
     }
 
+    /**
+     * 
+     * @param player 
+     */
     public static void setPlayer(Player player) {
         //this.player=player;
     }
@@ -245,22 +253,43 @@ public class User {
         return game;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getGameOpponent() {
         return game.getOpponent();
     }
 
+    /**
+     * 
+     * @return 
+     */
     public boolean getOpponentBool() {
         return game.getOpponentBoolean();
     }
 
+    /**
+     * 
+     * @return 
+     */
     public ClientProtocol getClient() {
         return client;
     }
 
+    /**
+     * 
+     */
     public void cancelGame() {
         client.send("Cancel&" + game.getId() + "&" + game.getName());
     }
 
+    /**
+     * 
+     * @param dataReceived
+     * @throws IOException
+     * @throws InterruptedException 
+     */
     public void refreshData(String[] dataReceived) throws IOException, InterruptedException {
         if ("CreateGame".equals(dataReceived[0])) {
             System.out.println("I am " + dataReceived[1] + " playing in game id " + dataReceived[2]);
@@ -426,71 +455,138 @@ public class User {
 
     }
 
+    /**
+     * 
+     * @param gameui 
+     */
     public void set(GameUI gameui) {
         this.gameui = gameui;
     }
 
+    /**
+     * 
+     * @param ack 
+     */
     public void sendtoServer(String ack) {
         if (ack.equals("create")) {
             client.CreateGame(Username);
         }
     }
 
+    /**
+     * 
+     * @param user
+     * @param tosend 
+     */
     public void sendChat(String user, String tosend) {
         client.send("Chat&" + user + "&" + tosend);
     }
 
+    /**
+     * 
+     * @param user
+     * @param tosend 
+     */
     public void sendprivateChat(String user, String tosend) {
         client.send("privateChat&" + game.getId() + "&" + game.getMyName() + "&" + tosend);
     }
 
+    /**
+     * 
+     */
     public void getRanks() {
         client.send("Rankings");
     }
 
+    /**
+     * 
+     * @param string
+     * @return 
+     */
     public boolean turnAdd(String string) {
         return game.turnAdd(string);
     }
 
+    /**
+     * 
+     */
     public void getList() {
         client.send("GameList");
     }
 
+    /**
+     * 
+     */
     public void Listen() {
         client.connection();
         client.startListen(this);
         client.send("Guest");
     }
 
+    /**
+     * 
+     * @param opponent
+     * @throws IOException
+     * @throws InterruptedException 
+     */
     public void GuestJoinGame(String opponent) throws IOException, InterruptedException {
         client.JoinGame(Username, opponent);
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getName() {
         return Username;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getrealName() {
         return Name;
     }
 
+    /**
+     * 
+     * @param name 
+     */
     public void setName(String name) {
         this.Name = name;
     }
 
+    /**
+     * 
+     */
     public void sendLogout() {
         client.send("Logout");
     }
 
+    /**
+     * 
+     */
     public void getRunningGames() {
         client.send("RunningGames");
     }
 
+    /**
+     * 
+     * @param player1
+     * @param player2
+     * @param ui 
+     */
     public void SpectateGame(String player1, String player2, SpectatorUI ui) {
         this.specui = ui;
         client.send("Spectate&" + player1 + "&" + player2);
     }
 
+    /**
+     * 
+     * @param player1
+     * @param player2 
+     */
     public void exitSpec(String player1, String player2) {
         specui.dispose();
         client.send("exitSpec&" + player1 + "&" + player2);

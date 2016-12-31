@@ -26,25 +26,53 @@ public class Ranks {
         this.gamesjoined=gamesjoined;
         this.losses=losses;
     }
+    
+    /**
+     * 
+     * @return 
+     */
     public String getName(){
         return name;
     }
+    
+    /**
+     * 
+     * @return 
+     */
     public int getWins(){
         return wins;
     }
+    
+    /**
+     * 
+     * @return 
+     */
     public int getHits(){
         return hits;
     }
+    
+    /**
+     * 
+     * @return 
+     */
     public int getLosses(){
         return losses;
     }
+    
+    /**
+     * 
+     * @return 
+     */
     public int getHosted(){
         return gameshosted;
     }
+    
+    /**
+     * 
+     * @return 
+     */
     public int getJoined(){
         return gamesjoined;
     }
-    
-    
     
 }

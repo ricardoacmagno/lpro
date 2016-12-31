@@ -32,7 +32,9 @@ public class Listen extends Thread {
     }
 
     @Override
-
+/**
+ * Runnable of the thread so that the client can receive from the server
+ */
     public void run() {
         while (connected) {
             fromServer = null;

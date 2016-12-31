@@ -184,6 +184,13 @@ public class Player {
         //System.out.println("Placed " + boat.getName());
     }
 
+    /**
+     * 
+     * @param y
+     * @param x
+     * @param size
+     * @param hor 
+     */
     public void placeHitBoard(int y, int x, int size, boolean hor) {
         if (hor == true) {
             for (int c = x; c < (x + size); c++) {
@@ -212,27 +219,59 @@ public class Player {
         return winner;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public int getHitCount() {
         return hitcount;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public int getMissCount() {
         return misscount;
     }
 
+    /**
+     * 
+     * @param ship
+     * @param y
+     * @param x
+     * @param mode 
+     */
     public void setInfo(Ship ship, int y, int x, String mode) {
         ship.setInfo(y, x, mode);
     }
 
+    /**
+     * 
+     * @param ship
+     * @return 
+     */
     public static String getInfo(Ship ship) {
         String toreturn = ship.getInfo();
         return toreturn;
     }
 
+    /**
+     * 
+     * @param user
+     * @param game
+     * @param gameui
+     * @throws IOException
+     * @throws InterruptedException 
+     */
     public static void sendBoats(User user, Game game, GameUI gameui) throws IOException, InterruptedException {
         int gameid = game.getGameid();
         String infod = getInfo(destroyer);
@@ -246,12 +285,25 @@ public class Player {
         client.send(tosend);
     }
 
+    /**
+     * 
+     * @param y
+     * @param x
+     * @param result
+     * @param user
+     * @throws IOException
+     * @throws InterruptedException 
+     */
     public static void sendTurn(int y, int x, String result, User user) throws IOException, InterruptedException {
         int gameid = game.getGameid();
         String tosend = "Turn&" + gameid + "&" + y + x + "&" + result + "&" + user.getUsername();
         client.send(tosend);
     }
 
+    /**
+     * 
+     * @param user 
+     */
     public void setUser(User user) {
         this.user = user;
     }

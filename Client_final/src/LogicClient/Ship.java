@@ -67,6 +67,12 @@ public class Ship {
         return name;
     }
 
+    /**
+     * 
+     * @param y
+     * @param x
+     * @param mode 
+     */
     public void setInfo(int y, int x, String mode) {
         this.y = y;
         this.x = x;
@@ -74,6 +80,10 @@ public class Ship {
 
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getInfo() {
         String toreturn = y + "" + x + "" + size + "" + mode;
         return toreturn;
