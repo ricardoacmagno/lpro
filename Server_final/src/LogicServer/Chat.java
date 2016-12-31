@@ -21,16 +21,29 @@ public class Chat {
     ArrayList<GameServer> connections;
     ArrayList<Integer> guests;
 
+    /**
+     * 
+     */
     public Chat() {
         connections = new ArrayList<>();
         game = new ArrayList<>();
         guests = new ArrayList<>();
     }
 
+    /**
+     * 
+     * @param socket
+     * @throws IOException 
+     */
     public void newConnection(Socket socket) throws IOException {
         connections.add(new GameServer(socket));
     }
 
+    /**
+     * 
+     * @param socket
+     * @throws IOException 
+     */
     public void newGuest(Socket socket) throws IOException {
         GameServer guest = new GameServer(socket);
         connections.add(guest);
@@ -44,6 +57,11 @@ public class Chat {
         guest.sendClient("GuestLogin&guest" + id);
     }
 
+    /**
+     * 
+     * @param username
+     * @param received 
+     */
     public void newChat(String username, String received) {
         String tosend = "Chat&" + username + ": " + received;
         for (GameServer element : connections) {
@@ -51,6 +69,10 @@ public class Chat {
         }
     }
 
+    /**
+     * 
+     * @param username 
+     */
     public void newGame(String username) {
         String tosend = "GameAdd&" + username;
         for (GameServer element : connections) {
@@ -58,6 +80,10 @@ public class Chat {
         }
     }
 
+    /**
+     * 
+     * @param username 
+     */
     public void rmvGame(String username) {
         String tosend = "GameRmv&" + username;
         for (GameServer element : connections) {
@@ -65,6 +91,10 @@ public class Chat {
         }
     }
 
+    /**
+     * 
+     * @param mysocket 
+     */
     public void rmvConnection(Socket mysocket) {
         Iterator<GameServer> iter = connections.iterator();
         while (iter.hasNext()) {
@@ -78,6 +108,10 @@ public class Chat {
         }
     }
 
+    /**
+     * 
+     * @param mysocket 
+     */
     public void SendGames(Socket mysocket) {
         char Separator = ((char) 007);
         for (GameServer element : connections) {
@@ -94,6 +128,11 @@ public class Chat {
         }
     }
 
+    /**
+     * 
+     * @param player1
+     * @param player2 
+     */
     public void AddSpec(String player1, String player2) {
         for (GameServer element : connections) {
             element.sendClient("SpecAdd&" + player1 + "&" + player2);
@@ -101,6 +140,11 @@ public class Chat {
 
     }
 
+    /**
+     * 
+     * @param player1
+     * @param player2 
+     */
     public void RmvSpec(String player1, String player2) {
         for (GameServer element : connections) {
             element.sendClient("SpecRmv&" + player1 + "&" + player2);

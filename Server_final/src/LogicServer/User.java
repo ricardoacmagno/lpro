@@ -214,6 +214,12 @@ public class User {
         return userData.getEmail(received);
     }
 
+    /**
+     * 
+     * @param received
+     * @return
+     * @throws Exception 
+     */
     public static boolean confirmQuestion(String received) throws Exception {
         System.out.println("QUESTION RECEIVED: " + received);
 
@@ -223,6 +229,12 @@ public class User {
         return received.equals(userData.getQuestion());
     }
 
+    /**
+     * 
+     * @param received
+     * @return
+     * @throws Exception 
+     */
     public static boolean confirmAnswer(String received) throws Exception {
         System.out.println("ANSWER RECEIVED: " + received);
 
@@ -245,6 +257,12 @@ public class User {
         return userData.getEmail(received);                //SAME AS WHAT FOLLOWS
     }
 
+    /**
+     * 
+     * @param received
+     * @return
+     * @throws Exception 
+     */
     public static boolean confirmName(String received) throws Exception{
      
        userData = new UserDB();
@@ -278,11 +296,21 @@ public class User {
         return userData.newPass(ChangePassword[1], ChangePassword[2], ChangePassword[3], ChangePassword[4], ChangePassword[5], ChangePassword[6]);
     }
     
+    /**
+     * 
+     * @param ChangeProfile
+     * @return 
+     */
     public static int sendChangeProfile(String[] ChangeProfile){
         return userData.newProfile(ChangeProfile[1], ChangeProfile[2], ChangeProfile[3], ChangeProfile[4], ChangeProfile[5]);
     }
     
-
+    /**
+     * 
+     * @param mysocket
+     * @param id
+     * @throws IOException 
+     */
     public static void setSocketPlayer1(Socket mysocket, int id) throws IOException {
         Game mygame = null;
         for (Pair element : chat.game) {
@@ -297,6 +325,12 @@ public class User {
         }
     }
 
+    /**
+     * 
+     * @param mysocket
+     * @param id
+     * @throws IOException 
+     */
     public static void setSocketPlayer2(Socket mysocket, int id) throws IOException {
         Game mygame = null;
         for (Pair element : chat.game) {
@@ -311,6 +345,12 @@ public class User {
         }
     }
 
+    /**
+     * 
+     * @param id
+     * @throws IOException
+     * @throws InterruptedException 
+     */
     public static void sendWarning(int id) throws IOException, InterruptedException {
         Game mygame = null;
         for (Pair element : chat.game) {
@@ -323,10 +363,13 @@ public class User {
                 break;
             }
         }
-        
-
     }
 
+    /**
+     * 
+     * @param id
+     * @return 
+     */
     public static Game getGameid(int id) {
         Game mygame = null;
         for (Pair element : chat.game) {
@@ -338,6 +381,11 @@ public class User {
         return mygame;
     }
 
+    /**
+     * 
+     * @param mygame
+     * @throws SQLException 
+     */
     public static void finishGame(Game mygame) throws SQLException {
         Iterator<Pair> iter = chat.game.iterator();
         while (iter.hasNext()) {
@@ -354,6 +402,12 @@ public class User {
         userData.finishGame(mygame);
     }
 
+    /**
+     * 
+     * @param id
+     * @return
+     * @throws SQLException 
+     */
     public static String cancelGame(int id) throws SQLException {
         Iterator<Pair> iter = chat.game.iterator();
         String player1 = "Error";
@@ -372,6 +426,13 @@ public class User {
         return player1;
     }
 
+    /**
+     * 
+     * @param mysocket
+     * @param chat
+     * @throws IOException
+     * @throws InterruptedException 
+     */
     public static void sendGames(Socket mysocket, Chat chat) throws IOException, InterruptedException {
         User.chat = chat;
         GameServer myclient = new GameServer(mysocket);
@@ -385,11 +446,25 @@ public class User {
             }
     }
 
+    /**
+     * 
+     * @param mysocket
+     * @throws SQLException
+     * @throws IOException 
+     */
     public static void getRankings(Socket mysocket) throws SQLException, IOException {
         GameServer myclient = new GameServer(mysocket);
         myclient.sendClient(userData.getRanking());
     }
     
+    /**
+     * 
+     * @param player1
+     * @param player2
+     * @param mysocket
+     * @throws IOException
+     * @throws InterruptedException 
+     */
     public static void Spectate(String player1,String player2,Socket mysocket) throws IOException, InterruptedException{
         for(Pair element : chat.game){
             if(element.getValue().getPlayer1().equals(player1) && element.getValue().getPlayer2().equals(player2)){
@@ -398,6 +473,15 @@ public class User {
             }
         }
     }
+    
+    /**
+     * 
+     * @param player1
+     * @param player2
+     * @param mysocket
+     * @throws IOException
+     * @throws InterruptedException 
+     */
     public static void exitSpec(String player1,String player2,Socket mysocket) throws IOException, InterruptedException{
         for(Pair element : chat.game){
             if(element.getValue().getPlayer1().equals(player1) && element.getValue().getPlayer2().equals(player2)){

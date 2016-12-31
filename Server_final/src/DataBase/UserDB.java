@@ -51,14 +51,26 @@ public final class UserDB extends PostgreSQLink {
         this.email = email;
     }
 
+    /**
+     * 
+     * @param question 
+     */
     public void setQuestion(String question) {
         this.question = question;
     }
 
+    /**
+     * 
+     * @param answer 
+     */
     public void setAnswer(String answer) {
         this.answer = answer;
     }
 
+    /**
+     * 
+     * @param name 
+     */
     public void setName(String name) {
         this.name = name;
     }
@@ -103,14 +115,26 @@ public final class UserDB extends PostgreSQLink {
         return password;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getQuestion() {
         return question;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getAnswer() {
         return answer;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getName() {
         return name;
     }
@@ -268,6 +292,15 @@ public final class UserDB extends PostgreSQLink {
 
     }
 
+    /**
+     * 
+     * @param mail
+     * @param Name
+     * @param Username
+     * @param Password
+     * @param ConfirmPassword
+     * @return 
+     */
     public int newProfile(String mail, String Name, String Username, String Password, String ConfirmPassword) {
 
         try {
@@ -286,6 +319,11 @@ public final class UserDB extends PostgreSQLink {
         return -1;
     }
 
+    /**
+     * 
+     * @param game
+     * @throws SQLException 
+     */
     public void finishGame(Game game) throws SQLException {
         PostgreSQLink.connect();
         statement = getConnection().createStatement();
@@ -312,6 +350,12 @@ public final class UserDB extends PostgreSQLink {
         statement.close();
     }
 
+    /**
+     * 
+     * @param id
+     * @param user
+     * @throws SQLException 
+     */
     public void cancelGame(int id, String user) throws SQLException {
         PostgreSQLink.connect();
         statement = getConnection().createStatement();
@@ -329,6 +373,11 @@ public final class UserDB extends PostgreSQLink {
         statement.close();
     }
 
+    /**
+     * 
+     * @return
+     * @throws SQLException 
+     */
     public String getRanking() throws SQLException {
         char Separator = ((char) 007);
         PostgreSQLink.connect();

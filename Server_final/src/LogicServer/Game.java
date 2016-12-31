@@ -34,6 +34,11 @@ public class Game {
     ArrayList<GameServer> spectators;
     int turn;
 
+    /**
+     * 
+     * @param owner
+     * @param id 
+     */
     public Game(String owner, int id) {
         this.player1 = owner;
         this.player2 = "null";
@@ -51,49 +56,98 @@ public class Game {
         spectatorTurn = "GameTurns";
     }
 
+    /**
+     * 
+     * @param user
+     * @throws IOException 
+     */
     public void setOpponent(String user) throws IOException {
         player2 = user;
         newOpponent();
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getPlayer1() {
         return player1;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getPlayer2() {
         return player2;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public boolean getWinnerbool() {
         return winnerbool;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getPlayer1Ships() {
         return player1Ships;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getPlayer2Ships() {
         return player2Ships;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getWinner() {
         return winner;
     }
 
+    /**
+     * 
+     * @param mysocket
+     * @throws IOException 
+     */
     public void setSplayer1(Socket mysocket) throws IOException {
         splayer1 = mysocket;
         p1 = new GameServer(splayer1);
     }
 
+    /**
+     * 
+     * @param mysocket
+     * @throws IOException 
+     */
     public void setSplayer2(Socket mysocket) throws IOException {
         splayer2 = mysocket;
         p2 = new GameServer(splayer2);
     }
 
+    /**
+     * 
+     * @throws IOException 
+     */
     public void newOpponent() throws IOException {
         p1.sendClient("Warning&" + id + "&" + player2);
     }
 
+    /**
+     * 
+     * @param info
+     * @param username
+     * @return 
+     */
     public String setShipsInfo(String info, String username) {
         if (username.equals(player1)) {
             ships1 = true;
@@ -126,10 +180,22 @@ public class Game {
         return "ok";
     }
 
+    /**
+     * 
+     * @return 
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * 
+     * @param result
+     * @param position
+     * @param username
+     * @throws IOException
+     * @throws InterruptedException 
+     */
     public void setTurn(String result, String position, String username) throws IOException, InterruptedException {
         turn++;
         if (username.equals(player1)) {
@@ -181,6 +247,10 @@ public class Game {
 
     }
 
+    /**
+     * 
+     * @return 
+     */
     public int getWinnerHits() {
         if (winner.equals(player1)) {
             return player1hit;
@@ -190,6 +260,10 @@ public class Game {
         return 0;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public int getLoserHits() {
         if (winner.equals(player1)) {
             return player2hit;
@@ -199,10 +273,19 @@ public class Game {
         return 0;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getLoser() {
         return loser;
     }
 
+    /**
+     * 
+     * @param username
+     * @param received 
+     */
     public void newPrivateChat(String username, String received) {
         String tosend = "privateChat&" + username + ": " + received;
         p2.sendClient(tosend);
@@ -210,6 +293,12 @@ public class Game {
         sendSpectators("Spectator&" + tosend);
     }
 
+    /**
+     * 
+     * @param socket
+     * @throws IOException
+     * @throws InterruptedException 
+     */
     public void JoinSpec(Socket socket) throws IOException, InterruptedException {
         GameServer join = new GameServer(socket);
         spectators.add(join);
@@ -236,6 +325,10 @@ public class Game {
         }
     }
 
+    /**
+     * 
+     * @param string 
+     */
     public void sendSpectators(String string) {
         for (GameServer element : spectators) {
             System.out.println("Sent :" + string);
@@ -243,6 +336,10 @@ public class Game {
         }
     }
 
+    /**
+     * 
+     * @param rmvsocket 
+     */
     public void rmvSpec(Socket rmvsocket) {
         Iterator<GameServer> iter = spectators.iterator();
         while (iter.hasNext()) {

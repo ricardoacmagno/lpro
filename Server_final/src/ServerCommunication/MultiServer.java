@@ -11,15 +11,13 @@ import java.net.ServerSocket;
  * @author ricar
  */
 public class MultiServer {
-
+    public static Chat chat = null;
     /**
      * Method responsible for starting a new socket and calling
      * <code>MultiServerThread</code>
      *
      * @throws IOException
      */
-    public static Chat chat = null;
-
     public void openSocket() throws IOException {
         ServerSocket serverSocket = null;
         boolean listening = true;

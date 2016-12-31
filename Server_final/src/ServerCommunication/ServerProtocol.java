@@ -297,6 +297,12 @@ public class ServerProtocol extends Thread {
         return new String[]{"FailedConnection", "forgotPassword"};
     }
 
+    /**
+     * 
+     * @param receive
+     * @return
+     * @throws Exception 
+     */
     private String[] handlerChangeProfile(String[] receive) throws Exception {
 
         String[] ChangeProf = new String[7];
@@ -410,6 +416,17 @@ public class ServerProtocol extends Thread {
         return teste;
     }
 
+    /**
+     * 
+     * @param sid
+     * @param infod
+     * @param infos
+     * @param infoc
+     * @param infob
+     * @param infoca
+     * @param username
+     * @return 
+     */
     public String[] setCarrierInfo(String sid, String infod, String infos, String infoc, String infob, String infoca, String username) {
         System.out.println("Setting ships info");
         int id = Integer.parseInt(sid);
@@ -420,6 +437,16 @@ public class ServerProtocol extends Thread {
         return toreturn;
     }
 
+    /**
+     * 
+     * @param sid
+     * @param position
+     * @param result
+     * @param myname
+     * @throws IOException
+     * @throws SQLException
+     * @throws InterruptedException 
+     */
     public void handlerTurn(String sid, String position, String result, String myname) throws IOException, SQLException, InterruptedException {
         int id = Integer.parseInt(sid);
         Game game = User.getGameid(id);
@@ -429,19 +456,36 @@ public class ServerProtocol extends Thread {
         }
     }
 
+    /**
+     * 
+     * @param sid
+     * @param username
+     * @param received 
+     */
     public void newprivateChat(String sid, String username, String received) {
         int id = Integer.parseInt(sid);
         Game game = User.getGameid(id);
         game.newPrivateChat(username, received);
     }
 
+    /**
+     * 
+     * @param sid
+     * @param user
+     * @throws SQLException 
+     */
     public static void cancelGame(String sid, String user) throws SQLException {
         int id = Integer.parseInt(sid);
 
         User.cancelGame(id);
         chat.rmvGame(user);
     }
-
+    
+    /**
+     * 
+     * @param socket
+     * @throws IOException 
+     */
     public void loginGuest(Socket socket) throws IOException {
         chat.newGuest(socket);
     }
