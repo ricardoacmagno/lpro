@@ -1,5 +1,6 @@
 package ClientCommunication;
 
+import GUI.UIinicial;
 import LogicClient.User;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class ClientProtocol {
     private boolean connect = false;
     private SocketClient clientSocket;
     private final ConcurrentHashMap<Integer, Object> sleepers = new ConcurrentHashMap<>();
-
+    UIinicial ui;
     /**
      * Method responsible for calling the socket communication initialization
      * process
@@ -31,7 +32,7 @@ public class ClientProtocol {
             try {
                 System.out.println("Needed to reconnect");
                 clientSocket = new SocketClient();
-                clientSocket.openSocket();
+                clientSocket.openSocket(ui);
                 connect = true;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -69,7 +70,8 @@ public class ClientProtocol {
      * @param username user's login username
      * @param password user's login password
      */
-    public void sendLogin(String username, String password) {
+    public void sendLogin(String username, String password, UIinicial ui) {
+        this.ui=ui;
         if (connect == false) {
             connection();
         }
@@ -97,7 +99,8 @@ public class ClientProtocol {
      * @param question question choosen
      * @param answer user's answer
      */
-    public void sendSignUp(String name, String mail, String username, String password, String question, String answer) {
+    public void sendSignUp(String name, String mail, String username, String password, String question, String answer, UIinicial ui) {
+        this.ui=ui;
         if (connect == false) {
             connection();
         }
@@ -119,7 +122,8 @@ public class ClientProtocol {
      * @param Question choosen question on signup
      * @param Answer user's answer
      */
-    public void sendChangePassword(String mail, String username, String OldPassword, String NewPassword, String Question, String Answer) {
+    public void sendChangePassword(String mail, String username, String OldPassword, String NewPassword, String Question, String Answer, UIinicial ui) {
+        this.ui=ui;
         if (connect == false) {
             connection();
         }

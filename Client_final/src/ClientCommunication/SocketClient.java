@@ -1,5 +1,6 @@
 package ClientCommunication;
 
+import GUI.UIinicial;
 import java.io.BufferedReader;
 
 import java.io.IOException;
@@ -28,7 +29,7 @@ public class SocketClient extends Socket {
      *
      * @throws IOException
      */
-    public void openSocket() throws IOException {
+    public void openSocket(UIinicial ui) throws IOException {
         try {
 
             kkSocket = new Socket("localhost", 1633);
@@ -36,8 +37,10 @@ public class SocketClient extends Socket {
             System.out.println("Socket opened!");
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host: gnomo.fe.up.pt");
+            ui.get1().showMessageDialog(null, "Can't connect to server");
             System.exit(1);
         } catch (IOException e) {
+            ui.get1().showMessageDialog(null, "Can't get info from server");
             System.err.println("Couldn't get I/O for the connection to: gnomo.fe.up.pt");
             System.exit(1);
         }

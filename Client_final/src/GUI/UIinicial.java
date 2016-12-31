@@ -81,7 +81,9 @@ public class UIinicial extends javax.swing.JFrame {
         jPasswordInicial.setText("Password");
 
     }
-
+    public JOptionPane get1(){
+        return jOptionPane1;
+    }
     public static User getUser() {
         return main.user;
     }

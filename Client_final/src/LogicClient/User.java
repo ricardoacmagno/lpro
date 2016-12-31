@@ -97,9 +97,9 @@ public class User {
         System.out.println("mail:" + Mail + " Username : " + Username + " Pass: " + Password + " confirmPassword:" + ConfirmPassword + "question" + Question + "answer" + Answer);
 
         if (ack.equals("Login")) {
-            client.sendLogin(Username, Password);
+            client.sendLogin(Username, Password,ui);
         } else if (ack.equals("Signup")) {
-            client.sendSignUp(Name, Mail, Username, Password, Question, Answer);
+            client.sendSignUp(Name, Mail, Username, Password, Question, Answer,ui);
         } else if (ack.equals("ForgotPassword")) {
             //client.sendChangePassword(Mail, Username, Password, Mail, OldPassword, Question, Answer);
         } else if (ack.equals("ChangeProfile")) {
