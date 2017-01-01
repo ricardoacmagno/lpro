@@ -40,6 +40,7 @@ public class User {
     private String ConfirmPassword = null;
     private int resultadoLogin = -1;
     private int resultadoPassword = -1;
+    private int resultadoChangeProfile = -1;
     public static Game game;
     public static ClientProtocol client;
     public final Lock lock = new ReentrantLock();
@@ -171,6 +172,23 @@ public class User {
                         }
                     }
                     client.disconnect();
+                } else if ("ChangeProfile".equals(dataReceived.get(0))){
+                    if("Erro".equals(dataReceived.get(1))){
+                        if("Email".equals(dataReceived.get(2))){
+                            System.out.println("data received = " + dataReceived.get(2));
+                            resultadoChangeProfile = 1;
+                        }else if ("Name".equals(dataReceived.get(2))){
+                            resultadoChangeProfile = 2;
+                        }else if("Username".equals(dataReceived.get(2))){
+                            resultadoChangeProfile = 3;
+                        }else if("Password".equals(dataReceived.get(2))){
+                            resultadoChangeProfile = 4;
+                        }else if("ConfirmPassword".equals(dataReceived.get(2))){
+                            resultadoChangeProfile =5;
+                        } 
+                    }else if("OK".equals(dataReceived.get(1))){
+                        
+                    }
                 }
 
             }
@@ -222,6 +240,11 @@ public class User {
     public int getResultadoRecoverPassword() {
         return resultadoPassword;
     }
+    
+    public int getResultadoChangeProfile(){
+        return resultadoChangeProfile;
+    }
+    
 
     /**
      * Method that creates a game if there isn't any game or join one

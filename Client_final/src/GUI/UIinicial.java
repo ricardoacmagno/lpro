@@ -330,6 +330,14 @@ public class UIinicial extends javax.swing.JFrame {
     public String getUsername() {
         return username;
     }
+    
+    private void ChangeProfileSetDefault(){
+        nameText.setText("Enter new name");
+        usernameText.setText("Enter new username");
+        passwordText.setText("Enter your current password");
+        jPasswordField2.setText("Confirm password");
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -877,7 +885,7 @@ public class UIinicial extends javax.swing.JFrame {
                         .add(18, 18, 18)
                         .add(goback2))
                     .add(jScrollPane6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 205, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         ForgotPassword.setPreferredSize(new java.awt.Dimension(475, 415));
@@ -1235,7 +1243,7 @@ public class UIinicial extends javax.swing.JFrame {
                         .add(IntroLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jButton1))))
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         GameJoined.setPreferredSize(new java.awt.Dimension(475, 415));
@@ -1283,9 +1291,9 @@ public class UIinicial extends javax.swing.JFrame {
         GameJoinedLayout.setVerticalGroup(
             GameJoinedLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(GameJoinedLayout.createSequentialGroup()
-                .addContainerGap(54, Short.MAX_VALUE)
+                .addContainerGap(53, Short.MAX_VALUE)
                 .add(title7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 74, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 72, Short.MAX_VALUE)
                 .add(welcome2)
                 .add(43, 43, 43)
                 .add(goback4)
@@ -2307,43 +2315,12 @@ public class UIinicial extends javax.swing.JFrame {
 
     private void changeprofActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeprofActionPerformed
         // TODO add your handling code here:
-  
-         if ( emailText.getText().isEmpty()  ||nameText.getText().isEmpty() || usernameText.getText().isEmpty() || passwordText.getText().isEmpty() || jPasswordField2.getText().isEmpty()) {
-            jOptionPane1.showMessageDialog(null, "Empty parameters");
-        } else {
-             
-            mail = emailText.getText();
-            username = usernameText.getText();
-            name = nameText.getText();
-            
-            if (jPasswordInicial.getText().contains("&") || username.contains("&") || name.contains("&")) {
-                jOptionPane1.showMessageDialog(null, "Invalid caracter '&'");
-                return;
-            }
-             jOptionPane1.setVisible(false);
-             password = MD5_hash.MD5_hash(passwordText.getText());
-
-             confirmPassword = MD5_hash.MD5_hash(jPasswordField2.getText());
-             
-             user = new User(mail, name, username, password, confirmPassword, null, null , this);
-
-              System.out.println(user);
-              
-               try {
-                user.sendData("ChangeProfile");
-            } catch (IOException | InterruptedException ex) {
-                Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
-            }
-  
-            jOptionPane1.setVisible(false);
-      
-            backvalue = Inicial;
-                      
-         }          
-                
-        
+ 
+        ChangeProfileSetDefault();
+        setContentPane(ChangeProfile);
+        invalidate();
+        validate();
         backvalue = Inicial;
-
     }//GEN-LAST:event_changeprofActionPerformed
 
     private void JoinGame2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JoinGame2ActionPerformed
@@ -2404,7 +2381,44 @@ public class UIinicial extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        setContentPane(Intro);
+     
+         if ( emailText.getText().isEmpty()  ||nameText.getText().isEmpty() || usernameText.getText().isEmpty() || passwordText.getText().isEmpty() || jPasswordField2.getText().isEmpty()) {
+            jOptionPane1.showMessageDialog(null, "Empty parameters");
+        } else {
+             
+            mail = emailText.getText();
+            username = usernameText.getText();
+            name = nameText.getText();
+            
+            if (jPasswordInicial.getText().contains("&") || username.contains("&") || name.contains("&")) {
+                jOptionPane1.showMessageDialog(null, "Invalid caracter '&'");
+                return;
+            }
+             jOptionPane1.setVisible(false);
+             password = MD5_hash.MD5_hash(passwordText.getText());
+
+             confirmPassword = MD5_hash.MD5_hash(jPasswordField2.getText());
+             
+             user = new User(mail, name, username, password, confirmPassword, null, null , this);
+
+              System.out.println(user);
+              
+               try {
+                user.sendData("ChangeProfile");
+            } catch (IOException | InterruptedException ex) {
+                Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
+            }
+  
+            jOptionPane1.setVisible(false);
+      
+            backvalue = Inicial;
+                      
+         }          
+                
+        
+        backvalue = Inicial;
+        
+        
         invalidate();
         validate();
         backvalue = Intro;
