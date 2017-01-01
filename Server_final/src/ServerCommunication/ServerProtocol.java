@@ -298,9 +298,9 @@ public class ServerProtocol extends Thread {
     }
 
     /**
-     * 
+     * Method to handle the change profile
      * @param receive
-     * @return
+     * @return info with the changes 
      * @throws Exception 
      */
     private String[] handlerChangeProfile(String[] receive) throws Exception {
@@ -383,9 +383,9 @@ public class ServerProtocol extends Thread {
     }
 
     /**
-     *
+     *Method to handler a create a game
      * @param user
-     * @return
+     * @return the info with the game created
      * @throws Exception
      */
     public String[] handlerCreateGame(String user) throws Exception {
@@ -400,9 +400,9 @@ public class ServerProtocol extends Thread {
     }
 
     /**
-     *
+     *Method to handler a join game
      * @param id
-     * @return
+     * @return the info with the join game
      */
     public String[] handlerJoinGame(String user, String stringopponent) throws SQLException, IOException, InterruptedException {
         System.out.println("Sending JoinGame to logic server");
@@ -417,7 +417,7 @@ public class ServerProtocol extends Thread {
     }
 
     /**
-     * 
+     * Method to set a carrier info
      * @param sid
      * @param infod
      * @param infos
@@ -425,7 +425,7 @@ public class ServerProtocol extends Thread {
      * @param infob
      * @param infoca
      * @param username
-     * @return 
+     * @return  info with the carrier
      */
     public String[] setCarrierInfo(String sid, String infod, String infos, String infoc, String infob, String infoca, String username) {
         System.out.println("Setting ships info");
@@ -438,7 +438,7 @@ public class ServerProtocol extends Thread {
     }
 
     /**
-     * 
+     * Method to handler a turn
      * @param sid
      * @param position
      * @param result
@@ -457,7 +457,7 @@ public class ServerProtocol extends Thread {
     }
 
     /**
-     * 
+     * Method to create a new private chat 
      * @param sid
      * @param username
      * @param received 
@@ -469,7 +469,7 @@ public class ServerProtocol extends Thread {
     }
 
     /**
-     * 
+     * Method to cancel a game
      * @param sid
      * @param user
      * @throws SQLException 
@@ -482,7 +482,7 @@ public class ServerProtocol extends Thread {
     }
     
     /**
-     * 
+     * Method to login has a guest 
      * @param socket
      * @throws IOException 
      */
