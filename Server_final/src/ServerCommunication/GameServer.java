@@ -10,23 +10,27 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 /**
- *
+ * Class to comunicate with the client
  * @author Francisco
  */
 public class GameServer {
 
-    /**
-     * 
-     */
+   
     private final Socket mysocket;
     PrintWriter out;
+    
+    /**
+     * Constructor
+     * @param socket
+     * @throws IOException 
+     */
     public GameServer(Socket socket) throws IOException {
         this.mysocket = socket;
         out = new PrintWriter(mysocket.getOutputStream(), true);
     }
 
     /**
-     * 
+     * Method to send the client info
      * @param tosend 
      */
     public void sendClient(String tosend) {
@@ -34,8 +38,8 @@ public class GameServer {
     }
     
     /**
-     * 
-     * @return 
+     * Method to get a socket of a client 
+     * @return the socket 
      */
     public Socket getSocket(){
         return mysocket;

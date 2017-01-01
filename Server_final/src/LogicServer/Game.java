@@ -35,7 +35,7 @@ public class Game {
     int turn;
 
     /**
-     * 
+     *Constructor
      * @param owner
      * @param id 
      */
@@ -57,7 +57,7 @@ public class Game {
     }
 
     /**
-     * 
+     * Method do set a new opponent
      * @param user
      * @throws IOException 
      */
@@ -67,55 +67,55 @@ public class Game {
     }
 
     /**
-     * 
-     * @return 
+     * Method to get a player
+     * @return the player
      */
     public String getPlayer1() {
         return player1;
     }
 
     /**
-     * 
-     * @return 
+     * Method to get a secound player
+     * @return  the player
      */
     public String getPlayer2() {
         return player2;
     }
 
     /**
-     * 
-     * @return 
+     * Method to see if there is a winner
+     * @return true if there is a winner
      */
     public boolean getWinnerbool() {
         return winnerbool;
     }
 
     /**
-     * 
-     * @return 
+     * Method to get the info of the player 1 ships
+     * @return string with the info
      */
     public String getPlayer1Ships() {
         return player1Ships;
     }
 
     /**
-     * 
-     * @return 
+     * Method to get the info of the player 2 ships
+     * @return strinf with the info 
      */
     public String getPlayer2Ships() {
         return player2Ships;
     }
 
     /**
-     * 
-     * @return 
+     * Method to get the winner name
+     * @return the winner name 
      */
     public String getWinner() {
         return winner;
     }
 
     /**
-     * 
+     * Method to save the socket of the player 1
      * @param mysocket
      * @throws IOException 
      */
@@ -125,7 +125,7 @@ public class Game {
     }
 
     /**
-     * 
+     * Method to save the socket of the player 2
      * @param mysocket
      * @throws IOException 
      */
@@ -135,7 +135,7 @@ public class Game {
     }
 
     /**
-     * 
+     * Method to set a new opponent
      * @throws IOException 
      */
     public void newOpponent() throws IOException {
@@ -143,10 +143,10 @@ public class Game {
     }
 
     /**
-     * 
+     * Method to set ships info
      * @param info
      * @param username
-     * @return 
+     * @return the ships info
      */
     public String setShipsInfo(String info, String username) {
         if (username.equals(player1)) {
@@ -181,15 +181,15 @@ public class Game {
     }
 
     /**
-     * 
-     * @return 
+     * Method to get the id of the game
+     * @return  the id
      */
     public int getId() {
         return id;
     }
 
     /**
-     * 
+     * Method to set a new turn
      * @param result
      * @param position
      * @param username
@@ -248,8 +248,8 @@ public class Game {
     }
 
     /**
-     * 
-     * @return 
+     * Method to get the winner hits
+     * @return hits number
      */
     public int getWinnerHits() {
         if (winner.equals(player1)) {
@@ -261,8 +261,8 @@ public class Game {
     }
 
     /**
-     * 
-     * @return 
+     * Method to get the loser hits
+     * @return the hits number
      */
     public int getLoserHits() {
         if (winner.equals(player1)) {
@@ -274,15 +274,15 @@ public class Game {
     }
 
     /**
-     * 
-     * @return 
+     * Method to get loser
+     * @return the loser
      */
     public String getLoser() {
         return loser;
     }
 
     /**
-     * 
+     * Method to send a new private chat
      * @param username
      * @param received 
      */
@@ -294,7 +294,7 @@ public class Game {
     }
 
     /**
-     * 
+     * Method to join a new spectator
      * @param socket
      * @throws IOException
      * @throws InterruptedException 
@@ -326,7 +326,7 @@ public class Game {
     }
 
     /**
-     * 
+     * Method to send info to all spectators
      * @param string 
      */
     public void sendSpectators(String string) {
@@ -337,7 +337,7 @@ public class Game {
     }
 
     /**
-     * 
+     * Method to remove a spectator
      * @param rmvsocket 
      */
     public void rmvSpec(Socket rmvsocket) {

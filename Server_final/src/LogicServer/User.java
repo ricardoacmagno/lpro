@@ -145,9 +145,9 @@ public class User {
     
     
     /**
-     *
+     *Method to create a new game
      * @param user
-     * @return
+     * @return info of the new game
      */
     public static String[] UserCreateGame(String user, Socket mysocket, Chat chatreceived) throws IOException {
         System.out.println("List of games before create:");
@@ -173,7 +173,7 @@ public class User {
     }
 
     /**
-     *
+     *Method to join a game
      * @param user
      * @return
      * @throws java.sql.SQLException
@@ -215,7 +215,7 @@ public class User {
     }
 
     /**
-     * 
+     * Method to confirm a question
      * @param received
      * @return
      * @throws Exception 
@@ -230,7 +230,7 @@ public class User {
     }
 
     /**
-     * 
+     * Method to confirma an answer
      * @param received
      * @return
      * @throws Exception 
@@ -258,9 +258,9 @@ public class User {
     }
 
     /**
-     * 
+     * Method to confirm a name 
      * @param received
-     * @return
+     * @return info received
      * @throws Exception 
      */
     public static boolean confirmName(String received) throws Exception{
@@ -297,16 +297,16 @@ public class User {
     }
     
     /**
-     * 
+     * Method to send the changes profile 
      * @param ChangeProfile
-     * @return 
+     * @return  the changes of profile
      */
     public static int sendChangeProfile(String[] ChangeProfile){
         return userData.newProfile(ChangeProfile[1], ChangeProfile[2], ChangeProfile[3], ChangeProfile[4], ChangeProfile[5]);
     }
     
     /**
-     * 
+     * Method to set the socket of player 1
      * @param mysocket
      * @param id
      * @throws IOException 
@@ -326,7 +326,7 @@ public class User {
     }
 
     /**
-     * 
+     * Method to set the socket of player 2
      * @param mysocket
      * @param id
      * @throws IOException 
@@ -346,7 +346,7 @@ public class User {
     }
 
     /**
-     * 
+     * Method to send a warning
      * @param id
      * @throws IOException
      * @throws InterruptedException 
@@ -366,9 +366,9 @@ public class User {
     }
 
     /**
-     * 
+     * Method to get a game id
      * @param id
-     * @return 
+     * @return the game id
      */
     public static Game getGameid(int id) {
         Game mygame = null;
@@ -382,7 +382,7 @@ public class User {
     }
 
     /**
-     * 
+     * Method to finish a game
      * @param mygame
      * @throws SQLException 
      */
@@ -403,9 +403,9 @@ public class User {
     }
 
     /**
-     * 
+     * Method to cancel a game
      * @param id
-     * @return
+     * @return info of the canceled game
      * @throws SQLException 
      */
     public static String cancelGame(int id) throws SQLException {
@@ -427,7 +427,7 @@ public class User {
     }
 
     /**
-     * 
+     * Method to send all games
      * @param mysocket
      * @param chat
      * @throws IOException
@@ -447,7 +447,7 @@ public class User {
     }
 
     /**
-     * 
+     * Method to get all rankings
      * @param mysocket
      * @throws SQLException
      * @throws IOException 
@@ -458,7 +458,7 @@ public class User {
     }
     
     /**
-     * 
+     * Method to spectate
      * @param player1
      * @param player2
      * @param mysocket
@@ -475,7 +475,7 @@ public class User {
     }
     
     /**
-     * 
+     * Methos do exit spectating 
      * @param player1
      * @param player2
      * @param mysocket

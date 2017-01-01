@@ -52,7 +52,7 @@ public final class UserDB extends PostgreSQLink {
     }
 
     /**
-     * 
+     * Mehtod to set the question
      * @param question 
      */
     public void setQuestion(String question) {
@@ -60,7 +60,7 @@ public final class UserDB extends PostgreSQLink {
     }
 
     /**
-     * 
+     * Method to set the answer
      * @param answer 
      */
     public void setAnswer(String answer) {
@@ -68,7 +68,7 @@ public final class UserDB extends PostgreSQLink {
     }
 
     /**
-     * 
+     * Method to set the name
      * @param name 
      */
     public void setName(String name) {
@@ -116,33 +116,33 @@ public final class UserDB extends PostgreSQLink {
     }
 
     /**
-     * 
-     * @return 
+     * Method to get the question
+     * @return the question
      */
     public String getQuestion() {
         return question;
     }
 
     /**
-     * 
-     * @return 
+     * Method to get the answer
+     * @return the answer
      */
     public String getAnswer() {
         return answer;
     }
 
     /**
-     * 
-     * @return 
+     * Method to get the names
+     * @return the name
      */
     public String getName() {
         return name;
     }
 
     /**
-     *
+     * Method to get the game
      * @param user
-     * @return
+     * @return the info with the game
      */
     public String[] getGame(String user) {
         int id = 0;
@@ -206,9 +206,9 @@ public final class UserDB extends PostgreSQLink {
     }
 
     /**
-     *
+     *Method to Join the Game
      * @param id
-     * @return
+     * @return the info of the game join
      */
     public String[] JoinGame(String user, String sopponent) throws SQLException {
         System.out.println("Checking game...");
@@ -293,13 +293,13 @@ public final class UserDB extends PostgreSQLink {
     }
 
     /**
-     * 
+     * Method to create a new profile
      * @param mail
      * @param Name
      * @param Username
      * @param Password
      * @param ConfirmPassword
-     * @return 
+     * @return the new profile
      */
     public int newProfile(String mail, String Name, String Username, String Password, String ConfirmPassword) {
 
@@ -320,7 +320,7 @@ public final class UserDB extends PostgreSQLink {
     }
 
     /**
-     * 
+     * Method to finish the game
      * @param game
      * @throws SQLException 
      */
@@ -351,7 +351,7 @@ public final class UserDB extends PostgreSQLink {
     }
 
     /**
-     * 
+     * Method to cancel the game
      * @param id
      * @param user
      * @throws SQLException 
@@ -374,8 +374,8 @@ public final class UserDB extends PostgreSQLink {
     }
 
     /**
-     * 
-     * @return
+     * Method to get ranking
+     * @return the ranking info
      * @throws SQLException 
      */
     public String getRanking() throws SQLException {

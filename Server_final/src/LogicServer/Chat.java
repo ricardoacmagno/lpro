@@ -12,7 +12,7 @@ import java.util.Iterator;
  * and open the template in the editor.
  */
 /**
- *
+ *Class to set the connection between the chat and the server 
  * @author Francisco
  */
 public class Chat {
@@ -22,7 +22,7 @@ public class Chat {
     ArrayList<Integer> guests;
 
     /**
-     * 
+     *Constructor
      */
     public Chat() {
         connections = new ArrayList<>();
@@ -31,7 +31,7 @@ public class Chat {
     }
 
     /**
-     * 
+     * Method to set a new connection
      * @param socket
      * @throws IOException 
      */
@@ -40,7 +40,7 @@ public class Chat {
     }
 
     /**
-     * 
+     * Method do set a new guest player
      * @param socket
      * @throws IOException 
      */
@@ -58,7 +58,7 @@ public class Chat {
     }
 
     /**
-     * 
+     * Method to set a new chat
      * @param username
      * @param received 
      */
@@ -70,7 +70,7 @@ public class Chat {
     }
 
     /**
-     * 
+     * Method to create a new game
      * @param username 
      */
     public void newGame(String username) {
@@ -81,7 +81,7 @@ public class Chat {
     }
 
     /**
-     * 
+     *Method to remove a game 
      * @param username 
      */
     public void rmvGame(String username) {
@@ -92,7 +92,7 @@ public class Chat {
     }
 
     /**
-     * 
+     *Method to remove a connection
      * @param mysocket 
      */
     public void rmvConnection(Socket mysocket) {
@@ -109,7 +109,7 @@ public class Chat {
     }
 
     /**
-     * 
+     * Method to send all running games
      * @param mysocket 
      */
     public void SendGames(Socket mysocket) {
@@ -129,7 +129,7 @@ public class Chat {
     }
 
     /**
-     * 
+     * Method to add a spectator
      * @param player1
      * @param player2 
      */
@@ -141,7 +141,7 @@ public class Chat {
     }
 
     /**
-     * 
+     * Method to remove a spectator
      * @param player1
      * @param player2 
      */
