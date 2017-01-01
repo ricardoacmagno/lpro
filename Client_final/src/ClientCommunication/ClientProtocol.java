@@ -85,7 +85,7 @@ public class ClientProtocol {
     }
 
     /**
-     * 
+     * Metho responsible for start listen the info from the server
      * @param user 
      */
     public void startListen(User user) {
@@ -143,12 +143,12 @@ public class ClientProtocol {
     }
 
     /**
-     * 
-     * @param mail
-     * @param name
-     * @param username
-     * @param password
-     * @param confirmPassword 
+     * Method that change the profile 
+     * @param mail user's email address
+     * @param name user's name
+     * @param username user's username
+     * @param password user's password
+     * @param confirmPassword  user's password
      */
     public void sendChangeProfile(String mail, String name, String username, String password, String confirmPassword) {
         if (connect == false) {
@@ -187,7 +187,7 @@ public class ClientProtocol {
     /**
      * Method to join game
      *
-     * @param user
+     * @param user 
      * @param opponent
      */
     public void JoinGame(String user, String opponent) {
@@ -405,7 +405,7 @@ public class ClientProtocol {
      * Creates a specific <code>ArrayList</code> with the server's response
      * split
      * @param tokens
-     * @return 
+     * @return result of warning 
      */
     private ArrayList<String> handlerShips(String[] tokens) {
         ArrayList<String> warning;
@@ -423,7 +423,7 @@ public class ClientProtocol {
      * Creates a specific <code>ArrayList</code> with the server's response
      * split
      * @param tokens
-     * @return 
+     * @return result of warning
      */
     private ArrayList<String> handlerok(String[] tokens) {
         ArrayList<String> warning;
@@ -442,7 +442,7 @@ public class ClientProtocol {
      * split
      * 
      * @param tokens
-     * @return 
+     * @return result of chat 
      */
     private ArrayList<String> handlerMessage(String[] tokens) {
         ArrayList<String> chat;
@@ -462,7 +462,7 @@ public class ClientProtocol {
      * split
      * 
      * @param tokens
-     * @return 
+     * @return result of changeprofile 
      */
     private ArrayList<String> handlerChangeProfile(String[] tokens) {
 

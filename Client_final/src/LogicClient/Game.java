@@ -36,11 +36,17 @@ public class Game {
         this.GameId = id;
         turns = new ArrayList<String>();
     }
-
+/**
+ * Method to get an opponent 
+ * @return true if there is an opponent
+ */
     public Boolean getOpponentBoolean() {
         return opponentbool;
     }
-
+/**
+ * Method to get the name 
+ * @return the name
+ */
     public String getName() {
         return me;
     }
@@ -74,15 +80,15 @@ public class Game {
     }
 
     /**
-     * 
-     * @return 
+     * Method to get the game id
+     * @return  the game id
      */
     public int getGameid() {
         return GameId;
     }
 
     /**
-     * 
+     * Method do send a message on the chat
      * @param user
      * @param tosend 
      */
@@ -91,15 +97,15 @@ public class Game {
     }
 
     /**
-     * 
-     * @return 
+     * Method to get the name user
+     * @return the name user
      */
     public String getMyName() {
         return me;
     }
 
     /**
-     * 
+     * Method to add a turn
      * @param myturn
      * @return 
      */

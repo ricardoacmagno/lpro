@@ -59,7 +59,10 @@ public class Player {
         ShipBoard = new Board();
         HitBoard = new Board();
     }
-
+/**
+ * Method to get the object of the ship
+ * @return the object 
+ */
     public Ship getSubmarine() {
         return submarine;
     }
@@ -86,11 +89,16 @@ public class Player {
     public boolean checkWinner() {
         return hitcount >= 17;
     }
-
+/**
+ * Method to set the first to play
+ */
     public void setfirstplay() {
         firsttoplay = true;
     }
-
+/**
+ * Method to get the first to play
+ * @return 
+ */
     public boolean getfirstplay() {
         return firsttoplay;
     }
@@ -185,7 +193,7 @@ public class Player {
     }
 
     /**
-     * 
+     * Method to place a hit on the board
      * @param y
      * @param x
      * @param size
@@ -220,31 +228,31 @@ public class Player {
     }
 
     /**
-     * 
-     * @return 
+     * Method to get the name
+     * @return the name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * 
-     * @return 
+     * Method to get Hit Count
+     * @return  the Hit Count
      */
     public int getHitCount() {
         return hitcount;
     }
 
     /**
-     * 
-     * @return 
+     * Method to get the miss count
+     * @return the miss count
      */
     public int getMissCount() {
         return misscount;
     }
 
     /**
-     * 
+     * Method to set info of the ship
      * @param ship
      * @param y
      * @param x
@@ -255,7 +263,7 @@ public class Player {
     }
 
     /**
-     * 
+     * Method to get info of the ship
      * @param ship
      * @return 
      */
@@ -265,7 +273,7 @@ public class Player {
     }
 
     /**
-     * 
+     * Method to send the boats
      * @param user
      * @param game
      * @param gameui
@@ -286,7 +294,7 @@ public class Player {
     }
 
     /**
-     * 
+     * Method to send Turn 
      * @param y
      * @param x
      * @param result
@@ -301,7 +309,7 @@ public class Player {
     }
 
     /**
-     * 
+     * Method to set the user
      * @param user 
      */
     public void setUser(User user) {

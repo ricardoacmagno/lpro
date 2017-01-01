@@ -119,7 +119,10 @@ public class GameUI extends javax.swing.JFrame {
     public void setOption(String string) {
         jOptionPane1.showMessageDialog(null, string);
     }
-
+/**
+ * Method to get the player object
+ * @return the object of the player
+ */
     public Player getPlayer() {
         return player1;
     }
@@ -624,7 +627,10 @@ public class GameUI extends javax.swing.JFrame {
         number.setBackground(new java.awt.Color(246, 244, 242));
         panel.add(number);
     }
-
+/**
+ * Method to update the chat window
+ * @param entered is a message received 
+ */
     public void RefreshChat(String entered) {
         String ok;
         int size = entered.length();

@@ -26,6 +26,12 @@ public class Listen extends Thread {
     Socket kkSocket;
     boolean connected = true;
     User user = null;
+    
+    /**
+     * Constructor
+     * @param mysocket is a socket to exchange info
+     * @param myuser  is an object of the class user
+     */
 
     Listen(Socket mysocket, User myuser) {
         this.kkSocket = mysocket;

@@ -68,7 +68,7 @@ public class Ship {
     }
 
     /**
-     * 
+     * Method to set info
      * @param y
      * @param x
      * @param mode 
@@ -81,8 +81,8 @@ public class Ship {
     }
 
     /**
-     * 
-     * @return 
+     * Method to get info  
+     * @return the info
      */
     public String getInfo() {
         String toreturn = y + "" + x + "" + size + "" + mode;

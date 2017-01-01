@@ -377,7 +377,10 @@ public class SpectatorUI extends javax.swing.JFrame {
         number.setBackground(new java.awt.Color(246, 244, 242));
         panel.add(number);
     }
-
+/**
+ * Method to updade chat window
+ * @param entered is the message received 
+ */
     public void RefreshChat(String entered) {
         String ok;
         int size = entered.length();
@@ -394,7 +397,10 @@ public class SpectatorUI extends javax.swing.JFrame {
         vertical.setValue(vertical.getMaximum());
 
     }
-
+/**
+ * Method to declare the winner
+ * @param player is the object of the winner
+ */
     public void setWinner(String player) {
         jOptionPane1.showMessageDialog(null, "Game ended! Winner is: " + player);
     }

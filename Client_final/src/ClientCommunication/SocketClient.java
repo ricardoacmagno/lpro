@@ -32,7 +32,7 @@ public class SocketClient extends Socket {
     public void openSocket(UIinicial ui) throws IOException {
         try {
 
-            kkSocket = new Socket("gnomo.fe.up.pt", 1633);
+            kkSocket = new Socket("localhost", 1633);
 
             System.out.println("Socket opened!");
         } catch (UnknownHostException e) {
@@ -45,7 +45,10 @@ public class SocketClient extends Socket {
             System.exit(1);
         }
     }
-
+/**
+ * Method to get the used socket
+ * @return the used socket 
+ */
     public Socket getSocket() {
         return kkSocket;
     }

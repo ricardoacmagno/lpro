@@ -18,6 +18,7 @@ public class ColorChooser extends javax.swing.JFrame {
 
     /**
      * Creates new form ColorChooser
+     * @param ui is an object of the class UIinicial 
      */
     public ColorChooser(UIinicial ui) {
         this.ui = ui;

@@ -72,7 +72,17 @@ public class User {
         this.ui = ui;
         client = new ClientProtocol();
     }
-
+/**
+ * Constructor
+ * @param email
+ * @param name
+ * @param username
+ * @param password
+ * @param confirmPassword
+ * @param object
+ * @param object0
+ * @param aThis 
+ */
     public User(JLabel email, String name, String username, String password, String confirmPassword, Object object, Object object0, UIinicial aThis) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -240,7 +250,10 @@ public class User {
     public int getResultadoRecoverPassword() {
         return resultadoPassword;
     }
-    
+    /**
+     * Method to get the result of the change profile
+     * @return the result of the change profile
+     */
     public int getResultadoChangeProfile(){
         return resultadoChangeProfile;
     }
@@ -293,8 +306,8 @@ public class User {
     }
 
     /**
-     * 
-     * @return 
+     * Method to get the client object
+     * @return the client object
      */
     public ClientProtocol getClient() {
         return client;
@@ -308,7 +321,7 @@ public class User {
     }
 
     /**
-     * 
+     * Method to refresh data
      * @param dataReceived
      * @throws IOException
      * @throws InterruptedException 
@@ -538,7 +551,7 @@ public class User {
     }
 
     /**
-     * 
+     * Method to listen
      */
     public void Listen() {
         client.connection();
