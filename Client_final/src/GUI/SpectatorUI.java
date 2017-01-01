@@ -24,7 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * <code>GameUI</code> represents the UI of a game
+ * <code>SpectatorUI</code> represents the UI of a spectator
  *
  * @author francisco
  */
@@ -49,6 +49,7 @@ public class SpectatorUI extends javax.swing.JFrame {
      *
      * @param myPlayer string with the name of the player
      * @param opponent string with the name of the opponent
+     * @param user 
      */
     public SpectatorUI(String myPlayer, String opponent, User user) throws IOException, InterruptedException {
         initComponents();
@@ -86,7 +87,13 @@ public class SpectatorUI extends javax.swing.JFrame {
         pack();
 
     }
-
+    
+    
+    /**
+     * Update the chat
+     *
+     * @param entered
+     */
     public void updateChat(String entered) {
         String ok;
         int size = entered.length();
@@ -102,7 +109,14 @@ public class SpectatorUI extends javax.swing.JFrame {
         JScrollBar vertical = jScrollPane1.getVerticalScrollBar();
         vertical.setValue(vertical.getMaximum());
     }
-
+    
+    /**
+     * Update the turn of each player
+     *
+     * @param cord
+     * @param result
+     * @param player
+     */   
     public void updateTurn(String cord, String result, String player) {
         int y = cord.charAt(0) - '0';
         int x = cord.charAt(1) - '0';
@@ -121,7 +135,16 @@ public class SpectatorUI extends javax.swing.JFrame {
             }
         }
     }
-
+    /**
+     * Set all the ships position in the board
+     *
+     * @param player
+     * @param destroyer
+     * @param submarine
+     * @param carrier
+     * @param cruiser
+     * @param battleship
+     */   
     public void setShips(String player, String destroyer, String submarine, String cruiser, String battleship, String carrier) {
         System.out.println(destroyer);
         if (player.equals("player1")) {
@@ -296,12 +319,25 @@ public class SpectatorUI extends javax.swing.JFrame {
         );
         currentpanel.add(jpanel);
     }
-
+    
+    /**
+     * <code>hitPanel()</code> changes the color of the panel
+     *
+     * @param y
+     * @param x
+     */
     public void hitPanel(int y, int x) {
         JPanel current = mypanel[y][x];
         current.setBackground(Color.red);
     }
-
+    
+    
+    /**
+     * <code>missPanel()</code> changes the color of the panel
+     *
+     * @param y
+     * @param x
+     */
     public void missPanel(int y, int x) {
         JPanel current = mypanel[y][x];
         current.setBackground(water);

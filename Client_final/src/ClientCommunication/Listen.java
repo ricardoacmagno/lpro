@@ -16,8 +16,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * <code>Listen</code> is a thread that is always searching for info of the server
  *
- * @author Francisco
+ * @author ilia
  */
 public class Listen extends Thread {
 

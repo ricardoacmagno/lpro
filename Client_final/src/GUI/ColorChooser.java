@@ -8,8 +8,9 @@ package GUI;
 import java.awt.Color;
 
 /**
+ * Represents the color chooser to change background color
  *
- * @author Francisco
+ * @author ilia
  */
 public class ColorChooser extends javax.swing.JFrame {
 

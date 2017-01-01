@@ -168,7 +168,7 @@ public class ClientProtocol {
     }
 
     /**
-     * Method to create or join a game
+     * Method to create game
      *
      * @param user string with the name of the user
      */
@@ -185,10 +185,10 @@ public class ClientProtocol {
     }
 
     /**
-     * Method to check if the opponent is avaiable
+     * Method to join game
      *
      * @param user
-     * @param id
+     * @param opponent
      */
     public void JoinGame(String user, String opponent) {
         if (connect == false) {
@@ -203,6 +203,7 @@ public class ClientProtocol {
     }
 
     /**
+     * Method to send one string to server
      * 
      * @param mystring 
      */
@@ -218,6 +219,7 @@ public class ClientProtocol {
     }
 
     /**
+     * Method to send one string to server
      * 
      * @param message 
      */
@@ -380,6 +382,8 @@ public class ClientProtocol {
     }
 
     /**
+     * Creates a specific <code>ArrayList</code> with the server's response
+     * split
      * 
      * @param tokens
      * @return 
@@ -398,7 +402,8 @@ public class ClientProtocol {
     }
 
     /**
-     * 
+     * Creates a specific <code>ArrayList</code> with the server's response
+     * split
      * @param tokens
      * @return 
      */
@@ -415,7 +420,8 @@ public class ClientProtocol {
     }
 
     /**
-     * 
+     * Creates a specific <code>ArrayList</code> with the server's response
+     * split
      * @param tokens
      * @return 
      */
@@ -432,6 +438,8 @@ public class ClientProtocol {
     }
 
     /**
+     * Creates a specific <code>ArrayList</code> with the server's response
+     * split
      * 
      * @param tokens
      * @return 
@@ -450,6 +458,8 @@ public class ClientProtocol {
     }
 
     /**
+     * Creates a specific <code>ArrayList</code> with the server's response
+     * split
      * 
      * @param tokens
      * @return 

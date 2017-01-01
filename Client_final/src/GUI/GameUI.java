@@ -101,13 +101,21 @@ public class GameUI extends javax.swing.JFrame {
         pack();
 
     }
-
+    /**
+     * <code>setLabel()</code> initialize label4
+     * 
+     * @param string
+     */
     public void setLabel(String string) {
         label4.setText(string);
         label4.setVisible(true);
         label4.setForeground(Color.black);
     }
-
+    /**
+     * <code>setLabel()</code> initialize the jOptionPane1
+     * 
+     * @param string
+     */
     public void setOption(String string) {
         jOptionPane1.showMessageDialog(null, string);
     }
@@ -261,12 +269,22 @@ public class GameUI extends javax.swing.JFrame {
             }
         }
     }
-
+    /**
+     * <code>hitPanel()</code> changes the color of the panel
+     *
+     * @param y
+     * @param x
+     */
     public void hitPanel(int y, int x) {
         JPanel current = mypanel[y][x];
         current.setBackground(Color.red);
     }
-
+    /**
+     * <code>missPanel()</code> changes the color of the panel
+     *
+     * @param y
+     * @param x
+     */
     public void missPanel(int y, int x) {
         JPanel current = mypanel[y][x];
         current.setBackground(water);
