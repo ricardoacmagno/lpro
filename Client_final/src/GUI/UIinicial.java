@@ -490,7 +490,6 @@ public class UIinicial extends javax.swing.JFrame {
         title9 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
-        jLabel15 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         emailText = new javax.swing.JFormattedTextField();
         SpectatorIntro = new javax.swing.JPanel();
@@ -803,7 +802,7 @@ public class UIinicial extends javax.swing.JFrame {
                         .add(forgotPw)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, InicialLayout.createSequentialGroup()
-                        .addContainerGap(63, Short.MAX_VALUE)
+                        .addContainerGap(68, Short.MAX_VALUE)
                         .add(InicialLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                             .add(username1)
                             .add(password2))
@@ -826,7 +825,7 @@ public class UIinicial extends javax.swing.JFrame {
                 .add(InicialLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jToggleButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 86, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel3))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         InicialLayout.setVerticalGroup(
             InicialLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -1075,7 +1074,7 @@ public class UIinicial extends javax.swing.JFrame {
         ForgotPasswordLayout.setVerticalGroup(
             ForgotPasswordLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(ForgotPasswordLayout.createSequentialGroup()
-                .addContainerGap(33, Short.MAX_VALUE)
+                .addContainerGap(35, Short.MAX_VALUE)
                 .add(title5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(6, 6, 6)
                 .add(jLabel1)
@@ -1095,11 +1094,11 @@ public class UIinicial extends javax.swing.JFrame {
                 .add(ForgotPasswordLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPasswordField6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 21, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(password5))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 35, Short.MAX_VALUE)
                 .add(jComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 38, Short.MAX_VALUE)
                 .add(usernameText5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 36, Short.MAX_VALUE)
                 .add(ForgotPasswordLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(login3)
                     .add(goback1))
@@ -1238,7 +1237,7 @@ public class UIinicial extends javax.swing.JFrame {
                     .add(IntroLayout.createSequentialGroup()
                         .addContainerGap()
                         .add(jLabel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 208, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 38, Short.MAX_VALUE)
                 .add(IntroLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(IntroLayout.createSequentialGroup()
                         .add(IntroLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -1290,7 +1289,7 @@ public class UIinicial extends javax.swing.JFrame {
                         .add(IntroLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jButton1))))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         GameJoined.setPreferredSize(new java.awt.Dimension(475, 415));
@@ -1338,9 +1337,9 @@ public class UIinicial extends javax.swing.JFrame {
         GameJoinedLayout.setVerticalGroup(
             GameJoinedLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(GameJoinedLayout.createSequentialGroup()
-                .addContainerGap(51, Short.MAX_VALUE)
+                .addContainerGap(53, Short.MAX_VALUE)
                 .add(title7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 70, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 72, Short.MAX_VALUE)
                 .add(welcome2)
                 .add(43, 43, 43)
                 .add(goback4)
@@ -1438,7 +1437,7 @@ public class UIinicial extends javax.swing.JFrame {
                 .add(18, 18, 18)
                 .add(jLabel9)
                 .add(18, 18, 18)
-                .add(jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                .add(jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(goback5)
                 .add(18, 18, 18))
@@ -1446,18 +1445,12 @@ public class UIinicial extends javax.swing.JFrame {
 
         ChangeProfile.setPreferredSize(new java.awt.Dimension(475, 415));
 
-        nameText.setText("Name here...");
         nameText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nameTextActionPerformed(evt);
             }
         });
 
-        usernameText.setText("Username here...");
-
-        passwordText.setText("kjf");
-
-        jPasswordField2.setText("kdj");
         jPasswordField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordField2ActionPerformed(evt);
@@ -1488,12 +1481,13 @@ public class UIinicial extends javax.swing.JFrame {
             }
         });
 
-        jLabel15.setText("jLabel15");
-        jLabel15.setPreferredSize(new java.awt.Dimension(450, 350));
-
         jLabel17.setText("E-mail");
 
-        emailText.setText("Current Email");
+        emailText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailTextActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout ChangeProfileLayout = new org.jdesktop.layout.GroupLayout(ChangeProfile);
         ChangeProfile.setLayout(ChangeProfileLayout);
@@ -1517,52 +1511,44 @@ public class UIinicial extends javax.swing.JFrame {
                         .add(ChangeProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                             .add(usernameText)
                             .add(nameText)
-                            .add(passwordText)
+                            .add(passwordText, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
                             .add(jPasswordField2)
-                            .add(emailText))
-                        .add(18, 18, 18)
-                        .add(jLabel15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 125, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(emailText)))
                     .add(ChangeProfileLayout.createSequentialGroup()
                         .add(106, 106, 106)
                         .add(jButton5)))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(225, Short.MAX_VALUE))
         );
         ChangeProfileLayout.setVerticalGroup(
             ChangeProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(ChangeProfileLayout.createSequentialGroup()
                 .add(16, 16, 16)
                 .add(title9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(ChangeProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(ChangeProfileLayout.createSequentialGroup()
-                        .add(47, 47, 47)
-                        .add(jLabel15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 177, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(40, 40, 40))
-                    .add(ChangeProfileLayout.createSequentialGroup()
-                        .add(12, 12, 12)
-                        .add(jLabel14)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(ChangeProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel17)
-                            .add(emailText, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(ChangeProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(nameText, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel10))
-                        .add(18, 18, 18)
-                        .add(ChangeProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(usernameText, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel11))
-                        .add(18, 18, 18)
-                        .add(ChangeProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(passwordText, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel12))
-                        .add(18, 18, 18)
-                        .add(ChangeProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jPasswordField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel13))
-                        .add(32, 32, 32)))
+                .add(12, 12, 12)
+                .add(jLabel14)
+                .add(41, 41, 41)
+                .add(ChangeProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel17)
+                    .add(emailText, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(ChangeProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(nameText, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel10))
+                .add(18, 18, 18)
+                .add(ChangeProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(usernameText, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel11))
+                .add(18, 18, 18)
+                .add(ChangeProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(passwordText, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel12))
+                .add(18, 18, 18)
+                .add(ChangeProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jPasswordField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel13))
+                .add(32, 32, 32)
                 .add(jButton5)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         SpectatorIntro.setPreferredSize(new java.awt.Dimension(475, 415));
@@ -1614,7 +1600,7 @@ public class UIinicial extends javax.swing.JFrame {
             .add(org.jdesktop.layout.GroupLayout.TRAILING, SpectatorIntroLayout.createSequentialGroup()
                 .addContainerGap(58, Short.MAX_VALUE)
                 .add(SpectatorIntroLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(JoinGame2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 117, Short.MAX_VALUE)
+                    .add(JoinGame2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
                     .add(goback6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .add(40, 40, 40)
                 .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 218, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -1627,9 +1613,9 @@ public class UIinicial extends javax.swing.JFrame {
         SpectatorIntroLayout.setVerticalGroup(
             SpectatorIntroLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(SpectatorIntroLayout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
+                .addContainerGap(43, Short.MAX_VALUE)
                 .add(title10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 28, Short.MAX_VALUE)
                 .add(jLabel16)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(SpectatorIntroLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -1638,7 +1624,7 @@ public class UIinicial extends javax.swing.JFrame {
                         .add(JoinGame2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(127, 127, 127)
                         .add(goback6)))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -1793,14 +1779,7 @@ public class UIinicial extends javax.swing.JFrame {
 
             jOptionPane1.setVisible(false);
             password = MD5_hash.MD5_hash(jPasswordSignup.getText());
-
-            /*if (user!=null){
-                try {
-                    user.join();
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }*/
+            
             user = new User(username, password, mail, name, null, question, answer, this);
             System.out.println(user);
             try {
@@ -2455,7 +2434,24 @@ public class UIinicial extends javax.swing.JFrame {
             } catch (IOException | InterruptedException ex) {
                 Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
             }
-  
+              
+              try {
+                if (user.getResultadoChangeProfile() == 1) {
+                    jOptionPane1.showMessageDialog(null, "Wrong Email!");
+                } else if (user.getResultadoLogin() == 2) {
+                    jOptionPane1.showMessageDialog(null, "Wrong Password!");
+                } else if (user.getResultadoLogin() == 3) {
+                    jOptionPane1.showMessageDialog(null, "Try your passwor again!");
+                } else {
+                    setContentPane(Intro);
+                }
+            } catch (InterruptedException ex) {
+                Logger.getLogger(UIinicial.class.getName()).log(Level.SEVERE, null, ex);
+            }   
+               
+               
+               
+               
             jOptionPane1.setVisible(false);
       
             backvalue = Inicial;
@@ -2470,6 +2466,10 @@ public class UIinicial extends javax.swing.JFrame {
         validate();
         backvalue = Intro;
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void emailTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailTextActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2543,7 +2543,6 @@ public class UIinicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;

@@ -112,9 +112,9 @@ public class User {
         } else if (ack.equals("Signup")) {
             client.sendSignUp(Name, Mail, Username, Password, Question, Answer,ui);
         } else if (ack.equals("ForgotPassword")) {
-            //client.sendChangePassword(Mail, Username, Password, Mail, OldPassword, Question, Answer);
+            client.sendChangePassword(Mail, Username, Password, OldPassword, Question, Answer, ui);
         } else if (ack.equals("ChangeProfile")) {
-            //client.sendChangeProfile(Name, Username, Password, ConfirmPassword);
+            client.sendChangeProfile(Mail,Name, Username, Password, ConfirmPassword, ui);
         }
 
         try {
@@ -187,17 +187,15 @@ public class User {
                         if("Email".equals(dataReceived.get(2))){
                             System.out.println("data received = " + dataReceived.get(2));
                             resultadoChangeProfile = 1;
-                        }else if ("Name".equals(dataReceived.get(2))){
-                            resultadoChangeProfile = 2;
-                        }else if("Username".equals(dataReceived.get(2))){
-                            resultadoChangeProfile = 3;
                         }else if("Password".equals(dataReceived.get(2))){
-                            resultadoChangeProfile = 4;
+                            resultadoChangeProfile = 2;
                         }else if("ConfirmPassword".equals(dataReceived.get(2))){
-                            resultadoChangeProfile =5;
+                            resultadoChangeProfile =3;
                         } 
                     }else if("OK".equals(dataReceived.get(1))){
-                        
+                        if(Name.equals(dataReceived.get(2)) && Username.equals(dataReceived.get(2))){
+                            resultadoChangeProfile =4;
+                        }
                     }
                 }
 
@@ -224,6 +222,7 @@ public class User {
     public int getResultadoLogin() throws InterruptedException {
         return resultadoLogin;
     }
+    
 
     /**
      * Method that returns the username

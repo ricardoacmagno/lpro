@@ -314,8 +314,8 @@ public class ServerProtocol extends Thread {
                     ChangeProf[0] = Ui;
                     state = 1;
                 } else {
-                    System.out.println(" FORGOT_PASSWORD FAILED! ");
-                    return new String[]{"ForgotPassword", "FailedConnection", "FORGOTPASSWORD_FAILED"};
+                    System.out.println(" CHANGE_PROFILE FAILED! ");
+                    return new String[]{"ChangeProfile", "FailedConnection", "FORGOTPASSWORD_FAILED"};
                 }
             } else if (state == 1) {
 
@@ -373,13 +373,13 @@ public class ServerProtocol extends Thread {
                     return ChangeProf;
                 } else {
                     System.out.println("PASSWORD_FAILED");
-                    return new String[]{"ForgotPassword", "FailedConnection", "CHANGEPROFILE_FAILED"};
+                    return new String[]{"ChangeProfile", "FailedConnection", "CHANGEPROFILE_FAILED"};
                 }
             }
 
         }
 
-        return new String[]{"FailedConnection", "ChangePassword"};
+        return new String[]{"FailedConnection", "ChangeProfile"};
     }
 
     /**

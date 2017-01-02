@@ -150,10 +150,11 @@ public class ClientProtocol {
      * @param password user's password
      * @param confirmPassword  user's password
      */
-    public void sendChangeProfile(String mail, String name, String username, String password, String confirmPassword) {
+    public void sendChangeProfile(String mail, String name, String username, String password, String confirmPassword,UIinicial ui ) {
         if (connect == false) {
             connection();
         }
+        this.ui= ui;
 
         String ChangeProfile = "ChangeProfile&" + mail + "&" + name + "&" + username + "&" + password + "&" + confirmPassword;
 
@@ -466,10 +467,14 @@ public class ClientProtocol {
      */
     private ArrayList<String> handlerChangeProfile(String[] tokens) {
 
+        
+
+        System.out.println(Arrays.toString(tokens));
         ArrayList<String> changeprofile;
 
         changeprofile = new ArrayList<>();
         int j = 0;
+        changeprofile.add(tokens[j++]);
         changeprofile.add(tokens[j++]);
         changeprofile.add(tokens[j]);
 
@@ -478,4 +483,5 @@ public class ClientProtocol {
         return changeprofile;
     }
 
+   
 }

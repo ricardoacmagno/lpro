@@ -74,6 +74,8 @@ public class MultiServerThread extends Thread {
                     state = 0;
                 } else if (uno[0].equals("Logout")) {
                     state = 6;
+                }else if(uno[0].equals("ChangeProgile")){
+                    state=9;
                 } else {
                     state = 8;
                 }
@@ -129,6 +131,31 @@ public class MultiServerThread extends Thread {
                             outputLine = "ForgotPassword&OK&" + uno[1];
                             break;
                         }
+                        
+                    case 9:
+                        if(uno[1].equals("FailedConnection")){
+                            if(uno[2].equals("EMAIL_FAILED")){
+                               outputLine = "ChangeProfile&Erro&Email" ;
+                               break;
+                            }else if(uno[2].equals("NAME_FAILED")){
+                                outputLine = "ChangeProfile&Erro&Name";
+                                break;
+                            }else if(uno[2].equals("USERNAME_FALED")){
+                                outputLine = "ChangeProfile&Erro&Username";
+                                break;
+                            }else if (uno[2].equals("PASSWORD_FAILED")){
+                                 outputLine = "ChangeProfile&Erro&Password";
+                                 break;
+                            }else if(uno[2].equals("CONFIRMPASSWORD_FAILED")){
+                                outputLine = "ChangeProfile&Erro&ConfimPassword";
+                                 break;
+                            }
+                        } else {
+                            outputLine = "ChangeProfile&OK&" + uno[1];
+                            break;
+                        }
+                        
+                        
                     case 4:
                         outputLine = "CreateGame&" + uno[1] + "&" + uno[2];
                         int id = Integer.parseInt(uno[2]);
