@@ -507,7 +507,6 @@ public class UIinicial extends javax.swing.JFrame {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("mainFrame");
         setPreferredSize(new java.awt.Dimension(475, 415));
         setResizable(false);
         setSize(new java.awt.Dimension(475, 415));
@@ -920,7 +919,7 @@ public class UIinicial extends javax.swing.JFrame {
             .add(GuestIntroLayout.createSequentialGroup()
                 .addContainerGap(43, Short.MAX_VALUE)
                 .add(title4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 38, Short.MAX_VALUE)
                 .add(welcome)
                 .add(18, 18, 18)
                 .add(GuestIntroLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -1289,7 +1288,7 @@ public class UIinicial extends javax.swing.JFrame {
                         .add(IntroLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jButton1))))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         GameJoined.setPreferredSize(new java.awt.Dimension(475, 415));
@@ -1337,9 +1336,9 @@ public class UIinicial extends javax.swing.JFrame {
         GameJoinedLayout.setVerticalGroup(
             GameJoinedLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(GameJoinedLayout.createSequentialGroup()
-                .addContainerGap(53, Short.MAX_VALUE)
+                .addContainerGap(55, Short.MAX_VALUE)
                 .add(title7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 72, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 73, Short.MAX_VALUE)
                 .add(welcome2)
                 .add(43, 43, 43)
                 .add(goback4)
@@ -2296,7 +2295,9 @@ public class UIinicial extends javax.swing.JFrame {
     public JPanel getInicial() {
         return Inicial;
     }
-
+    public JPanel getSpec() {
+        return SpectatorIntro;
+    }
     public JPanel getSignup() {
         return Signup;
     }
