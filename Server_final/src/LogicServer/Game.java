@@ -209,14 +209,14 @@ public class Game {
             }
             p2.sendClient("Turn&" + position + "&" + result);
             spectatorTurn += Separator + "Spectator&Turn&" + position + "&" + result + "&player1";
-            sleep(50);
+            sleep(100);
             if (player1hit >= 17) {
                 winner = player1;
                 sendSpectators("Spectator&Finish&" + winner);
                 loser = player2;
                 winnerbool = true;
                 p2.sendClient("Turn&" + position + "&" + result);
-                sleep(50);
+                sleep(100);
                 p2.sendClient("Loser");
                 p1.sendClient("Winner");
             }
@@ -231,14 +231,14 @@ public class Game {
             }
             p1.sendClient("Turn&" + position + "&" + result);
             spectatorTurn += Separator + "Spectator&Turn&" + position + "&" + result + "&player2";
-            sleep(50);
+            sleep(100);
             if (player2hit >= 17) {
 
                 winnerbool = true;
                 winner = player1;
                 loser = player2;
                 sendSpectators("Spectator&Finish&" + winner);
-                sleep(50);
+                sleep(100);
                 p2.sendClient("Winner");
                 p1.sendClient("Loser");
             }
@@ -307,18 +307,18 @@ public class Game {
             if (ships2) {
                 join.sendClient("Spectator&Ships&" + player2Ships + "&" + "player2");
             }
-            sleep(25);
+            sleep(100);
             if (ships1) {
                 join.sendClient("Spectator&Ships&" + player1Ships + "&" + "player1");
             }
-            sleep(25);
+            sleep(100);
             if (turn > 0) {
                 String[] all = spectatorTurn.split(Separator + "");
                 int size = all.length;
                 int c = 1;
                 while (c < size) {
                     join.sendClient(all[c]);
-                    sleep(25);
+                    sleep(100);
                     c++;
                 }
             }
