@@ -60,12 +60,12 @@ public class User {
      * @param Name string with the user name
      * @param OldPassword string with the old password
      */
-    public User(String Username, String Password, String Mail, String Name, String ConfirmPassword, String Question, String Answer, UIinicial ui) {
+    public User(String Username, String Password, String Mail, String Name, String OldPassword, String Question, String Answer, UIinicial ui) {
         this.Username = Username;
         this.Password = Password;
         this.Mail = Mail;
         this.Name = Name;
-        this.ConfirmPassword = ConfirmPassword;
+        this.OldPassword = OldPassword;
         this.Question = Question;
         this.Answer = Answer;
 
@@ -83,7 +83,7 @@ public class User {
  * @param object0
  * @param aThis 
  */
-    public User(JLabel email, String name, String username, String password, String confirmPassword, Object object, Object object0, UIinicial aThis) {
+    public User(JLabel email, String name, String username, String password, String OldPassword, Object object, Object object0, UIinicial aThis) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -105,7 +105,7 @@ public class User {
         
         sleep(100);*/
         sleep(50);
-        System.out.println("mail:" + Mail + " Username : " + Username + " Pass: " + Password + " confirmPassword:" + ConfirmPassword + "question" + Question + "answer" + Answer);
+        System.out.println("mail:" + Mail + " Username : " + Username + " Pass: " + Password + " confirmPassword:" + OldPassword + " question" + Question + " answer" + Answer);
 
         if (ack.equals("Login")) {
             client.sendLogin(Username, Password,ui);

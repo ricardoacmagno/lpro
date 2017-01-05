@@ -289,7 +289,6 @@ public class ServerProtocol extends Thread {
                     System.out.println("PASSWORD_FAILED");
                     return new String[]{"ForgotPassword", "FailedConnection", "FORGOTPASSWORD_FAILED"};
                 }
-                //System.out.println("FAILED");
 
             }
 

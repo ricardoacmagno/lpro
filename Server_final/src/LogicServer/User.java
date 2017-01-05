@@ -294,6 +294,7 @@ public class User {
      */
     public static int sendForgotPassword(String[] ChangePassword) {
         return userData.newPass(ChangePassword[1], ChangePassword[2], ChangePassword[3], ChangePassword[4], ChangePassword[5], ChangePassword[6]);
+        
     }
     
     /**

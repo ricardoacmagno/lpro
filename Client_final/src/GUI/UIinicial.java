@@ -930,7 +930,7 @@ public class UIinicial extends javax.swing.JFrame {
                         .add(18, 18, 18)
                         .add(goback2))
                     .add(jScrollPane6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 205, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         ForgotPassword.setPreferredSize(new java.awt.Dimension(475, 415));
@@ -1288,7 +1288,7 @@ public class UIinicial extends javax.swing.JFrame {
                         .add(IntroLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jButton1))))
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         GameJoined.setPreferredSize(new java.awt.Dimension(475, 415));
@@ -1336,9 +1336,9 @@ public class UIinicial extends javax.swing.JFrame {
         GameJoinedLayout.setVerticalGroup(
             GameJoinedLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(GameJoinedLayout.createSequentialGroup()
-                .addContainerGap(55, Short.MAX_VALUE)
+                .addContainerGap(54, Short.MAX_VALUE)
                 .add(title7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 73, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 71, Short.MAX_VALUE)
                 .add(welcome2)
                 .add(43, 43, 43)
                 .add(goback4)
@@ -1873,7 +1873,7 @@ public class UIinicial extends javax.swing.JFrame {
             jOptionPane1.setVisible(false);
             password = MD5_hash.MD5_hash(jPasswordField6.getText());
 
-            user = new User(mail, username, oldpassword, null, password, question, answer, this);
+            user = new User(username, password, mail, null, oldpassword, question, answer, this);
 
             try {
                 user.sendData("ForgotPassword");

@@ -274,12 +274,12 @@ public final class UserDB extends PostgreSQLink {
      * @return an error flag in case of error or a positive <code>int</code> in
      * case of success
      */
-    public int newPass(String mail, String Username, String OldPassword, String Password, String Question, String Answer) {
+    public int newPass(String mail, String Username, String OldPassword, String Question, String Answer, String Password) {
         try {
             PostgreSQLink.connect();
             statement = getConnection().createStatement();
-
-            return statement.executeUpdate("UPDATE signuplpro SET password='" + Password + "' WHERE  email='" + mail + "' and username = '" + Username + "' and password='" + OldPassword + "'and question='" + Question + "' and answer='" + Answer + "';");
+            System.out.println("Mail: "+mail+" Username: "+Username+" OldPassword: "+OldPassword+" Question: "+Question+" Answer: "+Answer+" Pw: "+Password);
+            return statement.executeUpdate("UPDATE signuplpro SET password='" + Password + "' WHERE username = '" + Username + "';");
         } catch (Exception e) {
 
             System.err.println("Error!" + e.getMessage());
