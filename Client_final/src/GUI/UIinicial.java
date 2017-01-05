@@ -701,7 +701,7 @@ public class UIinicial extends javax.swing.JFrame {
         });
 
         forgotPw.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
-        forgotPw.setText("Forgot Password?");
+        forgotPw.setText("Change Password");
         forgotPw.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 forgotPwActionPerformed(evt);
